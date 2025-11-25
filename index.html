@@ -12,7 +12,7 @@
         body { 
             margin: 0; 
             padding: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
         }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
         
@@ -22,7 +22,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(135deg, #7DBBBB 0%, #7CB25C 100%);
+            background: white;
             color: black;
             padding: 20px;
             z-index: 2;
@@ -143,21 +143,6 @@
             display: block;
         }
         
-        /* Connector line from map to panel */
-        .connector-line {
-            position: absolute;
-            background: white;
-            height: 10px;
-            z-index: 0;
-            pointer-events: none;
-            display: none;
-            transform-origin: left center;
-        }
-        
-        .connector-line.active {
-            display: block;
-        }
-        
         .info-panel h2 {
             margin: 0 0 20px 0;
             font-size: 20px;
@@ -216,94 +201,88 @@
             color: #999;
             font-style: italic;
         }
-        
-        .data-note {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-top: 20px;
-        }
-        
-        .legend {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 1;
-        }
-        
-        .legend h4 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-        
-        .legend-line {
-            width: 30px;
-            height: 3px;
-            margin-right: 10px;
-        }
-        
-        /* Popup styling */
-        .mapboxgl-popup-content {
-            padding: 15px;
-            border-radius: 8px;
-            max-width: 300px;
-        }
-        
-        .mapboxgl-popup-content h3 {
-            margin: 0 0 10px 0;
-            color: black;
-            font-size: 16px;
-        }
-        
-        .popup-info {
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-        
-        .popup-info strong {
-            color: #666;
-        }
-        
-        .view-details-btn {
-            background: #7DBBBB;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .view-details-btn:hover {
-            background: #6aacac;
-        }
 
         @media (max-width: 768px) {
-            .search-box, .info-panel {
-                width: calc(100% - 40px);
-                left: 20px;
-                right: 20px;
+            .header {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .header p {
+                font-size: 12px;
+            }
+            
+            .search-box {
+                top: 90px;
+                left: 10px;
+                right: 10px;
+                width: auto;
+                padding: 12px;
+                max-height: calc(50vh - 100px);
+            }
+            
+            .search-box h3 {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+            
+            .search-input {
+                padding: 10px;
+                font-size: 16px; /* Prevents iOS zoom on focus */
+            }
+            
+            .how-it-works {
+                font-size: 11px;
+                padding: 8px;
             }
             
             .info-panel {
+                position: fixed;
                 top: auto;
-                bottom: 20px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 12px 12px 0 0;
+                max-height: 70vh;
+                padding: 20px;
+                transform: translateY(100%);
+                transition: transform 0.3s ease-out;
+            }
+            
+            .info-panel.active {
+                transform: translateY(0);
+            }
+            
+            .info-panel h2 {
+                font-size: 18px;
+            }
+            
+            .result-item {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .search-box {
+                top: 80px;
+                padding: 10px;
+            }
+            
+            .info-panel {
+                max-height: 75vh;
+                padding: 15px;
             }
         }
     </style>
@@ -318,7 +297,7 @@
 
 <!-- Search Box -->
 <div class="search-box">
-    <h3>Search Your Street</h3>
+    <h3>Click or Search Your Street</h3>
     <input 
         type="text" 
         class="search-input" 
@@ -379,7 +358,6 @@
 
 <!-- Map Container -->
 <div id="map"></div>
-<div class="connector-line" id="connector-line"></div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
@@ -396,43 +374,49 @@ const map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
 let allFeatures = [];
-let currentClickCoords = null;
+let hoveredSegmentId = null;
+let selectedSegmentId = null;
 
 map.on('load', function() {
-    // Assign each unique block a consistent color from your palette
-    const colors = ['#E5D854', '#7CB25C', '#7DBBBB', '#EC7D84'];
+    const highlightColor = '#f03800'; // Yellow for hover and selected
+    const defaultColor = '#FFFFFF'; // White for default
     
+    // Set up initial paint properties with hover/selection logic
     map.setPaintProperty('block_associations', 'line-color', [
         'case',
-        ['==', ['%', ['get', 'Event.ID'], 4], 0], colors[0],
-        ['==', ['%', ['get', 'Event.ID'], 4], 1], colors[1],
-        ['==', ['%', ['get', 'Event.ID'], 4], 2], colors[2],
-        colors[3]
+        // If this segment is selected, show yellow
+        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        highlightColor,
+        // If this segment is hovered, show yellow
+        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        highlightColor,
+        // Default: show white
+        defaultColor
     ]);
 
-    map.setPaintProperty('block_associations', 'line-width', 4);
-    
-    // Reduce offset to align better with streets
-    map.setPaintProperty('block_associations', 'line-offset', [
+    // Set up width with hover/selection logic
+    map.setPaintProperty('block_associations', 'line-width', [
         'case',
-        ['==', ['%', ['get', 'Event.ID'], 4], 0], -2,
-        ['==', ['%', ['get', 'Event.ID'], 4], 1], -0.5,
-        ['==', ['%', ['get', 'Event.ID'], 4], 2], 0.5,
-        2
+        // If this segment is selected, show thicker
+        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        8,
+        // If this segment is hovered, show thicker
+        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        8,
+        // Default width
+        4
     ]);
     
     map.setPaintProperty('block_associations', 'line-opacity', 1);
     map.setPaintProperty('block_associations', 'line-cap', 'round');
     map.setPaintProperty('block_associations', 'line-join', 'round');
     
-    // Load features after map is fully loaded and idle
     map.once('idle', function() {
         loadFeatures();
     });
 });
 
 function loadFeatures() {
-    // Query all features from the layer
     const features = map.querySourceFeatures('composite', {
         sourceLayer: 'block_associations'
     });
@@ -441,24 +425,33 @@ function loadFeatures() {
         allFeatures = features;
         console.log(`Loaded ${allFeatures.length} features for search`);
     } else {
-        // Fallback: try querying rendered features
         allFeatures = map.queryRenderedFeatures({ layers: ['block_associations'] });
         console.log(`Loaded ${allFeatures.length} rendered features for search`);
     }
 }
 
 // Hover effect
-map.on('mouseenter', 'block_associations', function() {
+map.on('mousemove', 'block_associations', function(e) {
+    if (e.features.length > 0) {
+        const newHoveredId = e.features[0].properties['Event.ID'];
+        
+        // Only update hover if we're not hovering over the selected segment
+        if (hoveredSegmentId !== newHoveredId && selectedSegmentId !== newHoveredId) {
+            hoveredSegmentId = newHoveredId;
+            updateMapColors();
+        }
+    }
     map.getCanvas().style.cursor = 'pointer';
 });
 
 map.on('mouseleave', 'block_associations', function() {
     map.getCanvas().style.cursor = '';
+    hoveredSegmentId = null;
+    updateMapColors();
 });
 
-// Click on map to show info with increased tolerance
+// Click handler
 map.on('click', function(e) {
-    // Query with a 20 pixel buffer around the click
     const bbox = [
         [e.point.x - 20, e.point.y - 20],
         [e.point.x + 20, e.point.y + 20]
@@ -469,10 +462,42 @@ map.on('click', function(e) {
     });
     
     if (features.length > 0) {
-        currentClickCoords = e.lngLat;
+        selectedSegmentId = features[0].properties['Event.ID'];
+        hoveredSegmentId = null;
+        updateMapColors();
         showAssociationInfo(features[0].properties);
     }
 });
+
+function updateMapColors() {
+    const highlightColor = '#f03800'; // Yellow for hover and selected
+    const defaultColor = '#FFFFFF'; // White for default
+    
+    map.setPaintProperty('block_associations', 'line-color', [
+        'case',
+        // If this segment is selected, show yellow
+        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        highlightColor,
+        // If this segment is hovered, show yellow
+        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        highlightColor,
+        // Default: show white
+        defaultColor
+    ]);
+    
+    // Update width too
+    map.setPaintProperty('block_associations', 'line-width', [
+        'case',
+        // If this segment is selected, show thicker
+        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        10,
+        // If this segment is hovered, show thicker
+        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        10,
+        // Default width
+        4
+    ]);
+}
 
 // Search functionality
 const searchInput = document.getElementById('street-search');
@@ -486,7 +511,6 @@ searchInput.addEventListener('input', function(e) {
         return;
     }
     
-    // If features haven't loaded yet, try loading them
     if (allFeatures.length === 0) {
         loadFeatures();
     }
@@ -497,7 +521,6 @@ searchInput.addEventListener('input', function(e) {
         return location.includes(searchTerm) || name.includes(searchTerm);
     });
     
-    // Remove duplicates based on location
     const uniqueResults = [];
     const seen = new Set();
     
@@ -528,7 +551,6 @@ function displaySearchResults(results) {
         `;
     }).join('');
     
-    // Add click handlers to result items
     document.querySelectorAll('.result-item').forEach(item => {
         item.addEventListener('click', function() {
             const props = JSON.parse(this.getAttribute('data-props'));
@@ -538,13 +560,14 @@ function displaySearchResults(results) {
 }
 
 function selectResult(props) {
+    selectedSegmentId = props['Event.ID'];
+    hoveredSegmentId = null;
+    updateMapColors();
     showAssociationInfo(props);
     searchInput.value = '';
     searchResults.innerHTML = '';
     
-    // Try to fly to the location if coordinates are available
     if (props['Event.Location']) {
-        // Center map on Bed Stuy area (you could enhance this to geocode the specific address)
         map.flyTo({
             center: [-73.9351, 40.6872],
             zoom: 15,
@@ -603,56 +626,14 @@ function showAssociationInfo(props) {
         `${locationCount} events held at this location (most recent: ${recentDate})`;
     
     panel.classList.add('active');
-    
-    // Draw connector line
-    if (currentClickCoords) {
-        drawConnectorLine();
-    }
 }
-
-function drawConnectorLine() {
-    if (!currentClickCoords) return;
-    
-    const connectorLine = document.getElementById('connector-line');
-    const panel = document.getElementById('info-panel');
-    
-    // Convert lng/lat to screen coordinates
-    const clickPoint = map.project(currentClickCoords);
-    
-    // Get panel position
-    const panelRect = panel.getBoundingClientRect();
-    const panelLeft = panelRect.left;
-    const panelTop = panelRect.top + (panelRect.height / 2);
-    
-    // Calculate line
-    const startX = clickPoint.x;
-    const startY = clickPoint.y;
-    const endX = panelLeft;
-    const endY = panelTop;
-    
-    const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-    const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
-    
-    // Position and rotate the line
-    connectorLine.style.left = startX + 'px';
-    connectorLine.style.top = startY + 'px';
-    connectorLine.style.width = length + 'px';
-    connectorLine.style.transform = `rotate(${angle}deg)`;
-    connectorLine.classList.add('active');
-}
-
-// Update connector line when map moves
-map.on('move', function() {
-    if (currentClickCoords && document.getElementById('info-panel').classList.contains('active')) {
-        drawConnectorLine();
-    }
-});
 
 // Close panel
 document.getElementById('close-panel').addEventListener('click', function() {
     document.getElementById('info-panel').classList.remove('active');
-    document.getElementById('connector-line').classList.remove('active');
-    currentClickCoords = null;
+    selectedSegmentId = null;
+    hoveredSegmentId = null;
+    updateMapColors();
 });
 
 </script>
