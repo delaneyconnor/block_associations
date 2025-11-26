@@ -528,25 +528,32 @@ function displaySearchResults(results) {
         return;
     }
     
-    searchResults.innerHTML = results.map(feature => {
-        const props = feature.properties;
-        return `
-            <div class="result-item" data-props='${JSON.stringify(props)}'>
-                <strong>${extractAssociationName(props['Event.Name'])}</strong>
-                <small>${props['Event.Location']}</small>
-            </div>
-        `;
-    }).join('');
+    searchResults.innerHTML = '';
     
-    document.querySelectorAll('.result-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const props = JSON.parse(this.getAttribute('data-props'));
-            selectResult(props);
+    results.forEach(feature => {
+        const props = feature.properties;
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+        
+        const strong = document.createElement('strong');
+        strong.textContent = extractAssociationName(props['Event.Name']);
+        
+        const small = document.createElement('small');
+        small.textContent = props['Event.Location'];
+        
+        resultItem.appendChild(strong);
+        resultItem.appendChild(small);
+        
+        // Store the actual feature object, not JSON
+        resultItem.addEventListener('click', function() {
+            selectResult(props, feature);
         });
+        
+        searchResults.appendChild(resultItem);
     });
 }
 
-function selectResult(props) {
+function selectResult(props, feature) {
     selectedSegmentId = props['Event.ID'];
     hoveredSegmentId = null;
     updateMapColors();
@@ -554,11 +561,29 @@ function selectResult(props) {
     searchInput.value = '';
     searchResults.innerHTML = '';
     
-    if (props['Event.Location']) {
-        map.flyTo({
-            center: [-73.9351, 40.6872],
-            zoom: 15,
-            duration: 1000
+    // Use the passed feature, or find it if not provided
+    if (!feature) {
+        feature = allFeatures.find(f => f.properties['Event.ID'] === props['Event.ID']);
+    }
+    
+    if (feature && feature.geometry) {
+        // Calculate bounds of the feature
+        const coordinates = feature.geometry.coordinates;
+        const bounds = new mapboxgl.LngLatBounds();
+        
+        if (feature.geometry.type === 'LineString') {
+            coordinates.forEach(coord => bounds.extend(coord));
+        } else if (feature.geometry.type === 'MultiLineString') {
+            coordinates.forEach(line => {
+                line.forEach(coord => bounds.extend(coord));
+            });
+        }
+        
+        // Fly to the bounds with padding
+        map.fitBounds(bounds, {
+            padding: { top: 100, bottom: 100, left: 400, right: 400 },
+            duration: 1000,
+            maxZoom: 16
         });
     }
 }
