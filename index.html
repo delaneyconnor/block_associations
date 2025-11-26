@@ -77,21 +77,6 @@
             border-color: #7DBBBB;
         }
         
-        .how-it-works {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-        
-        .how-it-works strong {
-            color: black;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
         .search-results {
             max-height: 300px;
             overflow-y: auto;
@@ -174,7 +159,7 @@
         }
         
         .info-label {
-            font-size: 11px;
+            font-size: 14px;
             text-transform: uppercase;
             color: #999;
             font-weight: 600;
@@ -183,13 +168,13 @@
         }
         
         .info-value {
-            font-size: 15px;
+            font-size: 12px;
             color: black;
             line-height: 1.5;
         }
         
         .info-value a {
-            color: #7CB25C;
+            color: black;
             text-decoration: none;
         }
         
@@ -205,52 +190,65 @@
         @media (max-width: 768px) {
             .header {
                 padding: 15px;
+                padding-bottom: 12px;
             }
             
             .header h1 {
-                font-size: 22px;
+                font-size: 25px;
+                margin-bottom: 8px;
             }
             
             .header p {
-                font-size: 12px;
+                font-size: 14px;
+                margin-bottom: 12px;
             }
             
             .search-box {
-                top: 90px;
-                left: 10px;
-                right: 10px;
-                width: auto;
-                padding: 12px;
-                max-height: calc(50vh - 100px);
+                position: static;
+                background: transparent;
+                padding: 0;
+                box-shadow: none;
+                width: 100%;
+                max-height: none;
+                margin-top: 0;
             }
             
             .search-box h3 {
-                font-size: 16px;
-                margin-bottom: 8px;
+                display: none;
             }
             
             .search-input {
                 padding: 10px;
-                font-size: 16px; /* Prevents iOS zoom on focus */
+                font-size: 14px;
+                margin-bottom: 0;
             }
             
-            .how-it-works {
-                font-size: 11px;
-                padding: 8px;
+            .search-results {
+                position: absolute;
+                left: 15px;
+                right: 15px;
+                top: 100%;
+                margin-top: 5px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                max-height: 40vh;
+                z-index: 10;
             }
             
             .info-panel {
                 position: fixed;
                 top: auto;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                border-radius: 12px 12px 0 0;
-                max-height: 70vh;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+                border-radius: 12px;
+                max-height: 30vh;
                 padding: 20px;
-                transform: translateY(100%);
+                transform: translateY(calc(100% + 10px));
                 transition: transform 0.3s ease-out;
+                overflow-y: auto;
             }
             
             .info-panel.active {
@@ -258,30 +256,42 @@
             }
             
             .info-panel h2 {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .result-item {
-                padding: 10px;
+                padding: 12px;
             }
         }
         
         @media (max-width: 480px) {
             .header {
                 padding: 12px;
+                padding-bottom: 10px;
             }
             
             .header h1 {
-                font-size: 18px;
+                font-size: 25px;
+                margin-bottom: 6px;
             }
             
-            .search-box {
-                top: 80px;
-                padding: 10px;
+            .header p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .search-input {
+                padding: 8px;
+                font-size: 12px;
+            }
+            
+            .search-results {
+                left: 12px;
+                right: 12px;
             }
             
             .info-panel {
-                max-height: 75vh;
+                max-height: 30vh;
                 padding: 15px;
             }
         }
@@ -293,19 +303,19 @@
 <div class="header">
     <h1>Bed Stuy Block Associations</h1>
     <p>Find the community organization representing your block in Bedford-Stuyvesant</p>
-</div>
-
-<!-- Search Box -->
-<div class="search-box">
-    <h3>Click or Search Your Street</h3>
-    <input 
-        type="text" 
-        class="search-input" 
-        id="street-search" 
-        placeholder="Type your street name (e.g., Decatur)..."
-    >
     
-    <div class="search-results" id="search-results"></div>
+    <!-- Search Box -->
+    <div class="search-box">
+        <h3>Click or Search Your Street</h3>
+        <input 
+            type="text" 
+            class="search-input" 
+            id="street-search" 
+            placeholder="Type your street name (e.g., Decatur)..."
+        >
+        
+        <div class="search-results" id="search-results"></div>
+    </div>
 </div>
 
 <!-- Info Panel -->
@@ -342,6 +352,11 @@
         <div class="info-label">Meeting Schedule</div>
         <div class="info-value placeholder-text" id="meetings">Data needed</div>
     </div>
+    
+    <div class="info-section">
+        <div class="info-label">Year Founded</div>
+        <div class="info-value placeholder-text" id="year-founded">Data Unavailable</div>
+    </div>
 </div>
 
 <!-- Map Container -->
@@ -366,35 +381,9 @@ let hoveredSegmentId = null;
 let selectedSegmentId = null;
 
 map.on('load', function() {
-    const highlightColor = '#f03800'; // Yellow for hover and selected
-    const defaultColor = '#FFFFFF'; // White for default
-    
-    // Set up initial paint properties with hover/selection logic
-    map.setPaintProperty('block_associations', 'line-color', [
-        'case',
-        // If this segment is selected, show yellow
-        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
-        highlightColor,
-        // If this segment is hovered, show yellow
-        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
-        highlightColor,
-        // Default: show white
-        defaultColor
-    ]);
-
-    // Set up width with hover/selection logic
-    map.setPaintProperty('block_associations', 'line-width', [
-        'case',
-        // If this segment is selected, show thicker
-        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
-        8,
-        // If this segment is hovered, show thicker
-        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
-        8,
-        // Default width
-        4
-    ]);
-    
+    // Set up initial paint properties with default values
+    map.setPaintProperty('block_associations', 'line-color', '#FFFFFF');
+    map.setPaintProperty('block_associations', 'line-width', 4);
     map.setPaintProperty('block_associations', 'line-opacity', 1);
     map.setPaintProperty('block_associations', 'line-cap', 'round');
     map.setPaintProperty('block_associations', 'line-join', 'round');
@@ -438,11 +427,12 @@ map.on('mouseleave', 'block_associations', function() {
     updateMapColors();
 });
 
-// Click handler
+// Click handler - improved to be more precise
 map.on('click', function(e) {
+    // Use a smaller bounding box for more precise clicks
     const bbox = [
-        [e.point.x - 20, e.point.y - 20],
-        [e.point.x + 20, e.point.y + 20]
+        [e.point.x - 5, e.point.y - 5],
+        [e.point.x + 5, e.point.y + 5]
     ];
     
     const features = map.queryRenderedFeatures(bbox, {
@@ -450,39 +440,48 @@ map.on('click', function(e) {
     });
     
     if (features.length > 0) {
-        selectedSegmentId = features[0].properties['Event.ID'];
-        hoveredSegmentId = null;
-        updateMapColors();
-        showAssociationInfo(features[0].properties);
+        // Take only the first (topmost) feature
+        const clickedFeature = features[0];
+        const newSelectedId = clickedFeature.properties['Event.ID'];
+        
+        // Only update if it's a different segment
+        if (selectedSegmentId !== newSelectedId) {
+            selectedSegmentId = newSelectedId;
+            hoveredSegmentId = null;
+            updateMapColors();
+            showAssociationInfo(clickedFeature.properties);
+        }
+    } else {
+        // Clicked outside - deselect
+        if (selectedSegmentId !== null) {
+            selectedSegmentId = null;
+            hoveredSegmentId = null;
+            updateMapColors();
+            document.getElementById('info-panel').classList.remove('active');
+        }
     }
 });
 
 function updateMapColors() {
-    const highlightColor = '#f03800'; // Yellow for hover and selected
-    const defaultColor = '#FFFFFF'; // White for default
+    const highlightColor = '#f03800';
+    const defaultColor = '#FFFFFF';
     
+    // Pass the actual values directly into the expression
     map.setPaintProperty('block_associations', 'line-color', [
         'case',
-        // If this segment is selected, show yellow
-        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
         highlightColor,
-        // If this segment is hovered, show yellow
-        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
         highlightColor,
-        // Default: show white
         defaultColor
     ]);
     
-    // Update width too
     map.setPaintProperty('block_associations', 'line-width', [
         'case',
-        // If this segment is selected, show thicker
-        ['==', ['get', 'Event.ID'], ['literal', selectedSegmentId || -1]], 
+        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
         10,
-        // If this segment is hovered, show thicker
-        ['==', ['get', 'Event.ID'], ['literal', hoveredSegmentId || -1]], 
+        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
         10,
-        // Default width
         4
     ]);
 }
@@ -568,10 +567,7 @@ function extractAssociationName(eventName) {
     if (!eventName) return 'Block Association';
     
     let name = eventName
-        .replace(/block party/gi, '')
-        .replace(/annual/gi, '')
         .replace(/\d{4}/g, '')
-        .replace(/celebration/gi, '')
         .trim();
     
     const assocIndex = name.toLowerCase().indexOf('association');
@@ -607,11 +603,7 @@ function showAssociationInfo(props) {
     document.getElementById('phone').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
     document.getElementById('website').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
     document.getElementById('meetings').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    
-    const locationCount = props['Location_Count'] || '0';
-    const recentDate = props['Start.Date.Time2'] || 'date unavailable';
-    document.getElementById('block-parties').textContent = 
-        `${locationCount} events held at this location (most recent: ${recentDate})`;
+    document.getElementById('year-founded').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
     
     panel.classList.add('active');
 }
