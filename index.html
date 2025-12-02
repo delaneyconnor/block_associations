@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bed Stuy Community Maps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cccccc;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .maps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .map-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .map-card:not(.disabled):hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.1);
+        }
+
+        .map-card-icon {
+            display: none;
+        }
+
+        .map-card h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .map-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .map-card .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status.live {
+            display: none;
+        }
+
+        .status.coming-soon {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            color: #cccccc;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            border-bottom: 1px solid #ffffff;
+            transition: opacity 0.2s;
+        }
+
+        .footer a:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .maps-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .map-card {
+                padding: 30px;
+            }
+
+            .map-card h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Bed Stuy Community Maps</h1>
+        </div>
+
+        <div class="maps-grid">
+            <!-- Block Associations Map -->
+            <a href="blockassociations.html" class="map-card">
+                <div class="map-card-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h2>Block Associations</h2>
+                <p>Find and connect with your local block association. Discover contact information, meeting schedules, and get involved in your neighborhood.</p>
+                <span class="status live">Live Now</span>
+            </a>
+
+            <!-- Block Party Map -->
+            <div class="map-card disabled">
+                <div class="map-card-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h2>Block Parties</h2>
+                <p>Discover upcoming block parties and community celebrations in Bedford-Stuyvesant. Join your neighbors for food, music, and fun.</p>
+                <span class="status coming-soon">Coming Soon</span>
+            </div>
+
+            <!-- Community Resources Map -->
+            <div class="map-card disabled">
+                <div class="map-card-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h2>Community Resources</h2>
+                <p>Locate essential services, community centers, food pantries, healthcare facilities, and other vital resources in Bed Stuy.</p>
+                <span class="status coming-soon">Coming Soon</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><a href="mailto:your-email@example.com">Contact Us</a> to submit data or report issues</p>
+        </div>
+    </div>
+
+    <script>
+        // Prevent clicking on disabled cards
+        document.querySelectorAll('.map-card.disabled').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
