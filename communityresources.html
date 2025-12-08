@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bed-Stuy Community Resources</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            color: black;
+            padding: 20px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hide header and filter panel when embedded */
+        body.embedded .header,
+        body.embedded .filter-panel {
+            display: none;
+        }
+
+        /* Hide map controls when embedded */
+        body.embedded .mapboxgl-control-container {
+            display: none;
+        }
+
+        .header h1 {
+            margin: 0 0 5px 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Filter Panel */
+        .filter-panel {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 330px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .filter-panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: black;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #7DBBBB;
+        }
+
+        .category-filters {
+            margin-bottom: 15px;
+        }
+
+        .category-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .filter-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 4px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            color: black;
+        }
+
+        .filter-btn:hover {
+            opacity: 0.8;
+        }
+
+        .filter-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Category-specific colors when active */
+        .filter-btn[data-category="all"].active {
+            background: black;
+            border-color: black;
+        }
+        .filter-btn[data-category="Gardens"].active {
+            background: #4CAF50;
+        }
+        .filter-btn[data-category="Credit Unions"].active {
+            background: #2196F3;
+        }
+        .filter-btn[data-category="CLTs"].active {
+            background: #9C27B0;
+        }
+        .filter-btn[data-category="Food"].active {
+            background: #FF9800;
+        }
+        .filter-btn[data-category="Housing"].active {
+            background: #F44336;
+        }
+        .filter-btn[data-category="Worker"].active {
+            background: #00BCD4;
+        }
+        .filter-btn[data-category="CSAs"].active {
+            background: #8BC34A;
+        }
+        .filter-btn[data-category="Energy"].active {
+            background: #FFC107;
+        }
+        .filter-btn[data-category="Community Fridges"].active {
+            background: #E91E63;
+        }
+        .filter-btn[data-category="Mesh NYC Nodes"].active {
+            background: #808080;
+        }
+
+        .search-results {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .result-item:hover {
+            border-color: #7DBBBB;
+            background: #f0f7f7;
+        }
+
+        .result-item strong {
+            display: block;
+            color: black;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .result-item small {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .result-category {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f0f7f7;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Info Panel */
+        .info-panel {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 350px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            display: none;
+        }
+
+        .info-panel.active {
+            display: block;
+        }
+
+        .info-panel h2 {
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            color: black;
+            padding-right: 30px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: black;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #999;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        .info-value a {
+            color: #7DBBBB;
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Button */
+        .about-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        .about-btn:hover {
+            background: #f0f7f7;
+            border-color: #7DBBBB;
+            transform: scale(1.05);
+        }
+
+        /* Back to Home Button */
+        .home-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .home-btn:hover {
+            background: #f0f7f7;
+            border-color: #7DBBBB;
+            transform: scale(1.05);
+        }
+
+        /* About Modal */
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .about-modal.active {
+            display: flex;
+        }
+
+        .about-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .about-content h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: black;
+            padding-right: 30px;
+        }
+
+        .about-content p {
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Hide Mapbox logo */
+        .mapboxgl-ctrl-logo {
+            display: none !important;
+        }
+
+        /* Mapbox Navigation Controls */
+        .mapboxgl-ctrl-bottom-left {
+            bottom: 90px !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .filter-panel {
+                position: static;
+                width: 100%;
+                max-height: none;
+                border-radius: 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            .info-panel {
+                position: fixed;
+                top: auto;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+                max-height: 40vh;
+            }
+
+            .about-btn, .home-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <h1>Community Resources</h1>
+    <p>Discover cooperatives, gardens, and solidarity economy organizations in your neighborhood</p>
+</div>
+
+<!-- Filter Panel -->
+<div class="filter-panel">
+    <h3>Filter by Category</h3>
+
+    <div class="category-filters">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="Gardens">Gardens</button>
+        <button class="filter-btn" data-category="Credit Unions">Credit Unions</button>
+        <button class="filter-btn" data-category="CLTs">CLTs</button>
+        <button class="filter-btn" data-category="Food">Food</button>
+        <button class="filter-btn" data-category="Housing">Housing</button>
+        <button class="filter-btn" data-category="Worker">Worker Co-ops</button>
+        <button class="filter-btn" data-category="CSAs">CSAs</button>
+        <button class="filter-btn" data-category="Energy">Energy</button>
+        <button class="filter-btn" data-category="Community Fridges">Community Fridges</button>
+        <button class="filter-btn" data-category="Mesh NYC Nodes">Mesh NYC Nodes</button>
+    </div>
+</div>
+
+<!-- Info Panel -->
+<div class="info-panel" id="info-panel">
+    <button class="close-btn" id="close-panel">×</button>
+    <h2 id="resource-name">Resource Name</h2>
+
+    <div class="info-section">
+        <div class="info-label">Category</div>
+        <div class="info-value" id="resource-category"></div>
+    </div>
+
+    <div class="info-section">
+        <div class="info-label">Description</div>
+        <div class="info-value" id="resource-description"></div>
+    </div>
+
+    <div class="info-section">
+        <div class="info-label">Address</div>
+        <div class="info-value" id="resource-address"></div>
+    </div>
+
+    <div class="info-section">
+        <div class="info-label">Website</div>
+        <div class="info-value" id="resource-website"></div>
+    </div>
+</div>
+
+<!-- Map Container -->
+<div id="map"></div>
+
+<!-- Back to Home Button -->
+<a href="index.html" class="home-btn" title="Back to Home">
+    <i class="fas fa-arrow-left"></i>
+</a>
+
+<!-- About Button -->
+<button class="about-btn" id="about-btn">?</button>
+
+<!-- About Modal -->
+<div class="about-modal" id="about-modal">
+    <div class="about-content">
+        <button class="close-btn" id="close-about">×</button>
+        <h2>About This Map</h2>
+        <p>This map showcases cooperatives and solidarity economy organizations across New York City, with a focus on Bedford-Stuyvesant and surrounding neighborhoods.</p>
+        <p><strong>Categories include:</strong></p>
+        <p>• Community Gardens - Green spaces managed by local residents<br>
+        • Credit Unions - Community-owned financial institutions<br>
+        • Community Land Trusts (CLTs) - Democratic land ownership models<br>
+        • Food Co-ops - Member-owned grocery stores<br>
+        • Housing Co-ops - Resident-owned housing<br>
+        • Worker Co-ops - Employee-owned businesses<br>
+        • CSAs - Community Supported Agriculture programs<br>
+        • Energy Co-ops - Community-owned renewable energy<br>
+        • Community Fridges - Free food distribution points</p>
+        <p><strong>Data Source:</strong> This data comes from CEANYC's Seeding Solidarity map. For more information, visit <a href="https://gocoopnyc.org/" target="_blank">gocoopnyc.org</a></p>
+        <p style="margin-top: 20px;">This map is a work in progress. If you'd like to provide feedback or ideas, contact <a href="mailto:delaneyconnor1@gmail.com">delaneyconnor1@gmail.com</a></p>
+    </div>
+</div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+
+<script>
+// Detect if page is loaded in an iframe and add embedded class
+if (window.self !== window.top) {
+    document.body.classList.add('embedded');
+}
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuMmpvbXByY2wwaDgwIn0.HSEo0pqv9ZN6DorMNmTB8A';
+
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/delaneyconnor/cmiuzxumn006c01qn5xjk2trz',
+    center: [-73.9351, 40.6872],
+    zoom: 12
+});
+
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+
+let allFeatures = [];
+let selectedCategories = []; // Store multiple selected categories
+let selectedPointId = null;
+let communityResourcesLayer = null; // Store the layer name globally
+let communityResourcesSourceLayer = null; // Store the source layer name
+
+// Category colors
+const categoryColors = {
+    'Gardens': '#4CAF50',
+    'Credit Unions': '#2196F3',
+    'CLTs': '#9C27B0',
+    'Food': '#FF9800',
+    'Housing': '#F44336',
+    'Worker': '#00BCD4',
+    'CSAs': '#8BC34A',
+    'Energy': '#FFC107',
+    'Community Fridges': '#E91E63',
+    'Mesh NYC Nodes': '#808080'
+};
+
+map.on('load', function() {
+    // First, log all available layers to find the correct one
+    const layers = map.getStyle().layers;
+    console.log('Map loaded. Available layers:', layers.map(l => l.id));
+
+    // Try to find the community resources layer
+    const foundLayer = layers.find(l =>
+        l.id.includes('seeding') ||
+        l.id.includes('solidarity') ||
+        l.id.includes('Community_Resources') ||
+        l.id.includes('community')
+    );
+
+    if (!foundLayer) {
+        console.error('Could not find community resources layer. Available layers:', layers.map(l => l.id));
+        return;
+    }
+
+    communityResourcesLayer = foundLayer.id;
+    communityResourcesSourceLayer = foundLayer['source-layer'];
+
+    console.log('Using existing layer:', communityResourcesLayer);
+    console.log('Source layer:', communityResourcesSourceLayer);
+
+    // Update the layer's paint properties to match our color scheme
+    map.setPaintProperty(communityResourcesLayer, 'circle-radius', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        14, // Size when selected
+        ['boolean', ['feature-state', 'hover'], false],
+        14, // Size when hovering
+        8   // Default size
+    ]);
+
+    map.setPaintProperty(communityResourcesLayer, 'circle-color', [
+        'match',
+        ['get', 'Sector'],
+        'Gardens', categoryColors['Gardens'],
+        'Credit Unions', categoryColors['Credit Unions'],
+        'CLTs', categoryColors['CLTs'],
+        'Food', categoryColors['Food'],
+        'Housing', categoryColors['Housing'],
+        'Worker', categoryColors['Worker'],
+        'CSAs', categoryColors['CSAs'],
+        'Energy', categoryColors['Energy'],
+        'Community Fridges', categoryColors['Community Fridges'],
+        'Mesh NYC Nodes', categoryColors['Mesh NYC Nodes'],
+        '#666666'
+    ]);
+
+    map.setPaintProperty(communityResourcesLayer, 'circle-opacity', 0.8);
+
+    // Add stroke for selected and hovered points
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-width', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        3,  // Thick stroke for selected
+        ['boolean', ['feature-state', 'hover'], false],
+        3,  // Thick stroke for hovered
+        0   // No stroke for others
+    ]);
+
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        '#FFFFFF',  // White outline for selected
+        ['boolean', ['feature-state', 'hover'], false],
+        '#FFFFFF',  // White outline for hovered
+        'transparent'
+    ]);
+
+    // Set layer order - Mesh NYC Nodes on bottom (lower number = bottom layer)
+    map.setLayoutProperty(communityResourcesLayer, 'circle-sort-key', [
+        'match',
+        ['get', 'Sector'],
+        'Mesh NYC Nodes', 0,  // Bottom layer
+        'Gardens', 1,
+        'Credit Unions', 2,
+        'CLTs', 3,
+        'Food', 4,
+        'Housing', 5,
+        'Worker', 6,
+        'CSAs', 7,
+        'Energy', 8,
+        'Community Fridges', 9,  // Top layer
+        5  // Default middle layer
+    ]);
+
+    map.once('idle', function() {
+        loadFeatures();
+    });
+});
+
+function loadFeatures() {
+    if (!communityResourcesLayer) return;
+
+    // Query rendered features from the layer
+    const features = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
+
+    if (features && features.length > 0) {
+        allFeatures = features;
+        console.log(`Loaded ${allFeatures.length} community resources`);
+        // Debug: log first feature's properties to see what's available
+        if (features[0]) {
+            console.log('Sample feature properties:', features[0].properties);
+            console.log('Sector values found:', [...new Set(features.map(f => f.properties.Sector))]);
+        }
+    } else {
+        // Fallback: try querying source features
+        const layer = map.getLayer(communityResourcesLayer);
+        if (layer) {
+            const source = layer.source;
+            const sourceLayer = layer['source-layer'];
+            const sourceFeatures = map.querySourceFeatures(source, {
+                sourceLayer: sourceLayer
+            });
+            if (sourceFeatures && sourceFeatures.length > 0) {
+                allFeatures = sourceFeatures;
+                console.log(`Loaded ${allFeatures.length} community resources from source`);
+                // Debug: log first feature's properties
+                if (sourceFeatures[0]) {
+                    console.log('Sample feature properties:', sourceFeatures[0].properties);
+                    console.log('Sector values found:', [...new Set(sourceFeatures.map(f => f.properties.Sector))]);
+                }
+            }
+        }
+    }
+}
+
+// Create a popup for hover
+const hoverPopup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+    offset: 15
+});
+
+// Track the currently hovered feature for feature-state
+let hoveredFeatureId = null;
+
+// Hover effect with popup - set up after layer is identified
+map.on('load', function() {
+    map.once('idle', function setupHoverHandlers() {
+        if (!communityResourcesLayer) return;
+
+        map.on('mousemove', communityResourcesLayer, function(e) {
+    map.getCanvas().style.cursor = 'pointer';
+
+    if (e.features.length > 0) {
+        const feature = e.features[0];
+        const props = feature.properties;
+
+        // Update hover state for size increase
+        if (hoveredFeatureId !== null && hoveredFeatureId !== feature.id) {
+            map.setFeatureState(
+                { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: hoveredFeatureId },
+                { hover: false }
+            );
+        }
+        hoveredFeatureId = feature.id;
+        map.setFeatureState(
+            { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: hoveredFeatureId },
+            { hover: true }
+        );
+
+        // Show hover popup with only Display Name
+        const popupContent = `
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
+                <h3 style="margin: 0; font-size: 14px; font-weight: 600; color: #1a1a1a;">${props['Display Name'] || 'Unknown'}</h3>
+            </div>
+        `;
+
+        hoverPopup.setLngLat([props.lon, props.lat])
+            .setHTML(popupContent)
+            .addTo(map);
+    }
+});
+
+        map.on('mouseleave', communityResourcesLayer, function() {
+            map.getCanvas().style.cursor = '';
+            hoverPopup.remove();
+
+            // Remove hover state when mouse leaves
+            if (hoveredFeatureId !== null) {
+                map.setFeatureState(
+                    { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: hoveredFeatureId },
+                    { hover: false }
+                );
+            }
+            hoveredFeatureId = null;
+        });
+
+        // Click handler
+        map.on('click', communityResourcesLayer, function(e) {
+    if (e.features.length > 0) {
+        const feature = e.features[0];
+        const props = feature.properties;
+
+        // Clear previous selection
+        if (selectedPointId !== null) {
+            map.setFeatureState(
+                { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: selectedPointId },
+                { selected: false }
+            );
+        }
+
+        // Set new selection
+        selectedPointId = feature.id;
+        map.setFeatureState(
+            { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: selectedPointId },
+            { selected: true }
+        );
+
+        showResourceInfo(props);
+
+        // Remove hover popup when clicking
+        hoverPopup.remove();
+
+        // Fly to the point
+        map.flyTo({
+            center: [props.lon, props.lat],
+            zoom: 15,
+            duration: 1000
+        });
+    }
+});
+    });
+});
+
+function showResourceInfo(props) {
+    const panel = document.getElementById('info-panel');
+
+    document.getElementById('resource-name').textContent = props['Display Name'] || 'Unknown';
+    document.getElementById('resource-category').textContent = props.Sector || 'N/A';
+    document.getElementById('resource-description').textContent = props['Brief Description'] || 'No description available';
+    document.getElementById('resource-address').textContent = props.Address || 'Address not available';
+
+    const websiteEl = document.getElementById('resource-website');
+    if (props.Website) {
+        websiteEl.innerHTML = `<a href="${props.Website}" target="_blank">${props.Website}</a>`;
+    } else {
+        websiteEl.textContent = 'Not available';
+    }
+
+    panel.classList.add('active');
+}
+
+// Close panel
+document.getElementById('close-panel').addEventListener('click', function() {
+    document.getElementById('info-panel').classList.remove('active');
+
+    // Clear selection state
+    if (selectedPointId !== null && communityResourcesSourceLayer) {
+        map.setFeatureState(
+            { source: 'composite', sourceLayer: communityResourcesSourceLayer, id: selectedPointId },
+            { selected: false }
+        );
+    }
+    selectedPointId = null;
+});
+
+// Category filter - wait for map to be ready
+map.on('idle', function setupFilters() {
+    if (!communityResourcesLayer) return;
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const category = this.dataset.category;
+
+            // Handle "All" button
+            if (category === 'all') {
+                selectedCategories = [];
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                map.setFilter(communityResourcesLayer, null);
+                console.log('Filter removed - showing all');
+                return;
+            }
+
+            // Toggle category selection
+            const index = selectedCategories.indexOf(category);
+            if (index > -1) {
+                // Category is already selected, remove it
+                selectedCategories.splice(index, 1);
+                this.classList.remove('active');
+            } else {
+                // Add category to selection
+                selectedCategories.push(category);
+                this.classList.add('active');
+                // Remove "All" active state when selecting specific categories
+                document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
+            }
+
+            console.log('Selected categories:', selectedCategories);
+
+            // Apply filter
+            if (selectedCategories.length === 0) {
+                // If no categories selected, show all
+                map.setFilter(communityResourcesLayer, null);
+                document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+                console.log('No categories selected - showing all');
+            } else if (selectedCategories.length === 1) {
+                // Single category filter
+                const filter = ['==', ['get', 'Sector'], selectedCategories[0]];
+                map.setFilter(communityResourcesLayer, filter);
+                console.log('Filter applied:', filter);
+            } else {
+                // Multiple categories filter using 'in' expression
+                const filter = ['in', ['get', 'Sector'], ['literal', selectedCategories]];
+                map.setFilter(communityResourcesLayer, filter);
+                console.log('Filter applied for multiple categories:', filter);
+            }
+
+            // Debug: check how many features are visible after filter
+            setTimeout(() => {
+                const visibleFeatures = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
+                console.log(`Visible features after filter: ${visibleFeatures.length}`);
+            }, 100);
+        });
+    });
+
+    // Remove this listener after setup
+    map.off('idle', setupFilters);
+});
+
+// About modal handlers
+document.getElementById('about-btn').addEventListener('click', function() {
+    document.getElementById('about-modal').classList.add('active');
+});
+
+document.getElementById('close-about').addEventListener('click', function() {
+    document.getElementById('about-modal').classList.remove('active');
+});
+
+document.getElementById('about-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('active');
+    }
+});
+
+</script>
+
+</body>
+</html>

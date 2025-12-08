@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bed Stuy Community Maps</title>
+    <title>Bed-Stuy Community Maps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome for icons -->
@@ -36,7 +36,7 @@
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 64px;
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 20px;
@@ -51,6 +51,23 @@
             line-height: 1.6;
         }
 
+        .about-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .about-link:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
         .maps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -61,14 +78,16 @@
         .map-card {
             background: white;
             border-radius: 16px;
-            padding: 40px;
+            padding: 0;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow: hidden;
+            border: 4px solid #ffffff;
         }
 
         .map-card.disabled {
@@ -83,6 +102,51 @@
 
         .map-card-icon {
             display: none;
+        }
+
+        .map-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-preview.block-associations {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .map-preview.block-parties {
+            background: #2a2a2a;
+        }
+
+        .map-preview.community-resources {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .map-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .map-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+            transform: scale(1);
+        }
+
+        .map-preview-placeholder {
+            display: none;
+        }
+
+        .map-card-content {
+            padding: 30px;
         }
 
         .map-card h2 {
@@ -115,6 +179,68 @@
 
         .status.coming-soon {
             display: none;
+        }
+
+        .about-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .about-modal.active {
+            display: flex;
+        }
+
+        .about-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .about-modal-content h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #1a1a1a;
+        }
+
+        .about-modal-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .close-about-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: #666;
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-about-btn:hover {
+            color: #000;
         }
 
         .footer {
@@ -184,43 +310,61 @@
 <body>
     <div class="container">
         <div class="hero">
-            <h1>Bed Stuy Community Maps</h1>
+            <h1>Bed-Stuy Community Maps</h1>
         </div>
 
         <div class="maps-grid">
             <!-- Block Associations Map -->
             <a href="blockassociations.html" class="map-card">
-                <div class="map-card-icon">
-                    <i class="fas fa-home"></i>
+                <div class="map-preview block-associations">
+                    <iframe src="blockassociations.html" title="Block Associations Map Preview"></iframe>
                 </div>
-                <h2>Block Associations</h2>
-                <p>Find and connect with your local block association. Discover contact information, meeting schedules, and get involved in your neighborhood.</p>
-                <span class="status live">Live Now</span>
+                <div class="map-card-content">
+                    <h2>Block Associations</h2>
+                    <p>Connect with your local block association.</p>
+                    <span class="status live">Live Now</span>
+                </div>
             </a>
 
             <!-- Block Party Map -->
             <div class="map-card disabled">
-                <div class="map-card-icon">
-                    <i class="fas fa-calendar-day"></i>
+                <div class="map-preview block-parties">
+                    <i class="fas fa-calendar-alt map-preview-placeholder"></i>
                 </div>
-                <h2>Block Parties</h2>
-                <p>Discover upcoming block parties and community celebrations in Bedford-Stuyvesant. Join your neighbors for food, music, and fun.</p>
-                <span class="status coming-soon">Coming Soon</span>
+                <div class="map-card-content">
+                    <h2>Block Parties</h2>
+                    <p>Discover upcoming block parties!</p>
+                    <span class="status coming-soon">Coming Soon</span>
+                </div>
             </div>
 
             <!-- Community Resources Map -->
-            <div class="map-card disabled">
-                <div class="map-card-icon">
-                    <i class="fas fa-map-marked-alt"></i>
+            <a href="communityresources.html" class="map-card">
+                <div class="map-preview community-resources">
+                    <iframe src="communityresources.html" title="Community Resources Map Preview"></iframe>
                 </div>
-                <h2>Community Resources</h2>
-                <p>Locate essential services, community centers, food pantries, healthcare facilities, and other vital resources in Bed Stuy.</p>
-                <span class="status coming-soon">Coming Soon</span>
-            </div>
+                <div class="map-card-content">
+                    <h2>Community Resources</h2>
+                    <p>Locate solidarity economy resources.</p>
+                    <span class="status live">Live Now</span>
+                </div>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="#" class="about-link" id="about-link">About This Project</a>
         </div>
 
         <div class="footer">
-            <p><a href="mailto:your-email@example.com">Contact Us</a> to submit data or report issues</p>
+            <p><a href="mailto:delaneyconnor1@gmail.com">Contact Us</a> to submit data or report issues</p>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="about-modal" id="about-modal">
+        <div class="about-modal-content">
+            <button class="close-about-btn" id="close-about">×</button>
+            <h2>About This Project</h2>
         </div>
     </div>
 
@@ -230,6 +374,23 @@
             card.addEventListener('click', function(e) {
                 e.preventDefault();
             });
+        });
+
+        // About modal handlers
+        document.getElementById('about-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('about-modal').classList.add('active');
+        });
+
+        document.getElementById('close-about').addEventListener('click', function() {
+            document.getElementById('about-modal').classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('about-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
         });
     </script>
 </body>

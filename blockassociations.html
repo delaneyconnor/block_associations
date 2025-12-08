@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bed Stuy Block Associations</title>
+    <title>Bed-Stuy Block Associations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
@@ -28,6 +28,17 @@
             padding: 20px;
             z-index: 2;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hide header and search when embedded */
+        body.embedded .header,
+        body.embedded .search-box {
+            display: none;
+        }
+
+        /* Hide map controls when embedded */
+        body.embedded .mapboxgl-control-container {
+            display: none;
         }
         
         .header h1 {
@@ -476,12 +487,11 @@
 
 <!-- Header -->
 <div class="header">
-    <h1>Bed Stuy Block Associations</h1>
-    <p>Find the community organization representing your block in Bedford-Stuyvesant</p>
+    <h1>Bed-Stuy Block Associations</h1>
     
     <!-- Search Box -->
     <div class="search-box">
-        <h3>Click or Search Your Street</h3>
+        <h3>Click On or Search Your Street</h3>
         <input
             type="text"
             class="search-input"
@@ -492,7 +502,7 @@
         <div class="search-results" id="search-results"></div>
 
         <button class="add-association-btn" id="add-association-btn">
-            + Add Your Association
+            Add Your Association
         </button>
     </div>
 </div>
@@ -563,12 +573,21 @@
         <p>• Use the search box to find your street by name</p>
         <p>• Contact information and meeting schedules are displayed when available</p>
         <p>If you notice any missing or incorrect information, please use the "Add Your Association" button to help us improve this resource.</p>
+        <button class="add-association-btn" id="add-association-btn-modal">
+            Add Your Association
+        </button>
+        <p style="margin-top: 20px;">This map is a work in progress. If you'd like to contribute to provide feedback or ideas, contact <a href="mailto:delaneyconnor1@gmail.com">delaneyconnor1@gmail.com</a></p>
     </div>
 </div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
 <script>
+// Detect if page is loaded in an iframe and add embedded class
+if (window.self !== window.top) {
+    document.body.classList.add('embedded');
+}
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuMmpvbXByY2wwaDgwIn0.HSEo0pqv9ZN6DorMNmTB8A';
 
 const map = new mapboxgl.Map({
@@ -585,13 +604,25 @@ let hoveredSegmentId = null;
 let selectedSegmentId = null;
 
 map.on('load', function() {
-    // Set up initial paint properties with default values
-    map.setPaintProperty('block_associations', 'line-color', '#FFFFFF');
-    map.setPaintProperty('block_associations', 'line-width', 4);
-    map.setPaintProperty('block_associations', 'line-opacity', 1);
+    // Set up initial paint properties with varying shades based on ID
+    // Using step expression to create different shades for different ID ranges
+    map.setPaintProperty('block_associations', 'line-color', [
+        'step',
+        ['%', ['to-number', ['get', 'Event.ID']], 4],
+        '#FFFFFF',  // White (ID % 4 = 0)
+        1, '#E8E8E8',  // Light gray (ID % 4 = 1)
+        2, '#D0D0D0',  // Medium-light gray (ID % 4 = 2)
+        3, '#C0C0C0'   // Medium gray (ID % 4 = 3)
+    ]);
+    map.setPaintProperty('block_associations', 'line-width', 8);
+    map.setPaintProperty('block_associations', 'line-opacity', 0.85);
     map.setPaintProperty('block_associations', 'line-cap', 'round');
     map.setPaintProperty('block_associations', 'line-join', 'round');
-    
+
+    // Add semi-transparent white border
+    map.setPaintProperty('block_associations', 'line-gap-width', 2);  // Creates gap for border effect
+    map.setPaintProperty('block_associations', 'line-blur', 0.5);  // Slight blur for softer edge
+
     map.once('idle', function() {
         loadFeatures();
     });
@@ -681,25 +712,39 @@ map.on('click', function(e) {
 
 function updateMapColors() {
     const highlightColor = '#f03800';
-    const defaultColor = '#FFFFFF';
-    
-    // Pass the actual values directly into the expression
+
     map.setPaintProperty('block_associations', 'line-color', [
         'case',
         ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
         highlightColor,
         ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
         highlightColor,
-        defaultColor
+        // Varying shades for non-highlighted blocks
+        ['step',
+            ['%', ['to-number', ['get', 'Event.ID']], 4],
+            '#FFFFFF',  // White (ID % 4 = 0)
+            1, '#E8E8E8',  // Light gray (ID % 4 = 1)
+            2, '#D0D0D0',  // Medium-light gray (ID % 4 = 2)
+            3, '#C0C0C0'   // Medium gray (ID % 4 = 3)
+        ]
     ]);
-    
+
     map.setPaintProperty('block_associations', 'line-width', [
         'case',
         ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        10,
+        16,
         ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        10,
-        4
+        16,
+        8
+    ]);
+
+    map.setPaintProperty('block_associations', 'line-opacity', [
+        'case',
+        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
+        1,
+        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
+        1,
+        0.85
     ]);
 }
 
@@ -707,8 +752,9 @@ function updateMapColors() {
 const searchInput = document.getElementById('street-search');
 const searchResults = document.getElementById('search-results');
 
-searchInput.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase().trim();
+if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
     
     if (searchTerm.length < 2) {
         searchResults.innerHTML = '';
@@ -737,7 +783,8 @@ searchInput.addEventListener('input', function(e) {
     });
     
     displaySearchResults(uniqueResults.slice(0, 8));
-});
+    });
+}
 
 function displaySearchResults(results) {
     if (results.length === 0) {
@@ -775,8 +822,8 @@ function selectResult(props, feature) {
     hoveredSegmentId = null;
     updateMapColors();
     showAssociationInfo(props);
-    searchInput.value = '';
-    searchResults.innerHTML = '';
+    if (searchInput) searchInput.value = '';
+    if (searchResults) searchResults.innerHTML = '';
     
     // Use the passed feature, or find it if not provided
     if (!feature) {
@@ -873,8 +920,12 @@ document.getElementById('about-modal').addEventListener('click', function(e) {
     }
 });
 
-// Add association button handler
+// Add association button handlers
 document.getElementById('add-association-btn').addEventListener('click', function() {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog', '_blank');
+});
+
+document.getElementById('add-association-btn-modal').addEventListener('click', function() {
     window.open('https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog', '_blank');
 });
 
