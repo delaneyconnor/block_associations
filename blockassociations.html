@@ -328,8 +328,8 @@
         /* Hover Tooltip */
         .hover-tooltip {
             position: absolute;
-            background: #f03800;
-            color: white;
+            background: #ffffff;
+            color: #000000;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 13px;
@@ -340,6 +340,7 @@
             opacity: 0;
             transition: opacity 0.2s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
         }
 
         .hover-tooltip.visible {
@@ -604,24 +605,50 @@ let hoveredSegmentId = null;
 let selectedSegmentId = null;
 
 map.on('load', function() {
-    // Set up initial paint properties with varying shades based on ID
-    // Using step expression to create different shades for different ID ranges
+    // Clone the block_associations layer for the white outline
+    const layers = map.getStyle().layers;
+    const blockAssocLayer = layers.find(l => l.id === 'block_associations');
+
+    if (blockAssocLayer) {
+        // Add white outline layer (drawn first, so it appears behind)
+        map.addLayer({
+            id: 'block_associations_outline',
+            type: 'line',
+            source: blockAssocLayer.source,
+            'source-layer': blockAssocLayer['source-layer'],
+            layout: {
+                'line-cap': 'butt',
+                'line-join': 'miter'
+            },
+            paint: {
+                'line-color': '#FFFFFF',
+                'line-width': 0,
+                'line-opacity': 0
+            }
+        }, 'block_associations'); // Insert before the main layer
+    }
+
+    // Set up initial paint properties with varying colors based on ID
     map.setPaintProperty('block_associations', 'line-color', [
         'step',
-        ['%', ['to-number', ['get', 'Event.ID']], 4],
-        '#FFFFFF',  // White (ID % 4 = 0)
-        1, '#E8E8E8',  // Light gray (ID % 4 = 1)
-        2, '#D0D0D0',  // Medium-light gray (ID % 4 = 2)
-        3, '#C0C0C0'   // Medium gray (ID % 4 = 3)
+        ['%', ['to-number', ['get', 'Event.ID']], 10],
+        '#4CAF50',  // Green (ID % 10 = 0)
+        1, '#2196F3',  // Blue (ID % 10 = 1)
+        2, '#9C27B0',  // Purple (ID % 10 = 2)
+        3, '#FF9800',  // Orange (ID % 10 = 3)
+        4, '#F44336',  // Red (ID % 10 = 4)
+        5, '#00BCD4',  // Cyan (ID % 10 = 5)
+        6, '#8BC34A',  // Light Green (ID % 10 = 6)
+        7, '#FFC107',  // Yellow (ID % 10 = 7)
+        8, '#E91E63',  // Pink (ID % 10 = 8)
+        9, '#673AB7'   // Deep Purple (ID % 10 = 9)
     ]);
-    map.setPaintProperty('block_associations', 'line-width', 8);
-    map.setPaintProperty('block_associations', 'line-opacity', 0.85);
-    map.setPaintProperty('block_associations', 'line-cap', 'round');
-    map.setPaintProperty('block_associations', 'line-join', 'round');
+    map.setPaintProperty('block_associations', 'line-width', 16);
+    map.setPaintProperty('block_associations', 'line-opacity', 0.8);
 
-    // Add semi-transparent white border
-    map.setPaintProperty('block_associations', 'line-gap-width', 2);  // Creates gap for border effect
-    map.setPaintProperty('block_associations', 'line-blur', 0.5);  // Slight blur for softer edge
+    // Set layout properties for cleaner rectangular edges
+    map.setLayoutProperty('block_associations', 'line-cap', 'butt');
+    map.setLayoutProperty('block_associations', 'line-join', 'miter');
 
     map.once('idle', function() {
         loadFeatures();
@@ -711,40 +738,52 @@ map.on('click', function(e) {
 });
 
 function updateMapColors() {
-    const highlightColor = '#f03800';
-
+    // Always use varying colors based on ID
     map.setPaintProperty('block_associations', 'line-color', [
-        'case',
-        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        highlightColor,
-        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        highlightColor,
-        // Varying shades for non-highlighted blocks
-        ['step',
-            ['%', ['to-number', ['get', 'Event.ID']], 4],
-            '#FFFFFF',  // White (ID % 4 = 0)
-            1, '#E8E8E8',  // Light gray (ID % 4 = 1)
-            2, '#D0D0D0',  // Medium-light gray (ID % 4 = 2)
-            3, '#C0C0C0'   // Medium gray (ID % 4 = 3)
-        ]
+        'step',
+        ['%', ['to-number', ['get', 'Event.ID']], 10],
+        '#4CAF50',  // Green (ID % 10 = 0)
+        1, '#2196F3',  // Blue (ID % 10 = 1)
+        2, '#9C27B0',  // Purple (ID % 10 = 2)
+        3, '#FF9800',  // Orange (ID % 10 = 3)
+        4, '#F44336',  // Red (ID % 10 = 4)
+        5, '#00BCD4',  // Cyan (ID % 10 = 5)
+        6, '#8BC34A',  // Light Green (ID % 10 = 6)
+        7, '#FFC107',  // Yellow (ID % 10 = 7)
+        8, '#E91E63',  // Pink (ID % 10 = 8)
+        9, '#673AB7'   // Deep Purple (ID % 10 = 9)
     ]);
 
+    // Update main layer width - increases on hover/select
     map.setPaintProperty('block_associations', 'line-width', [
         'case',
         ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        16,
+        24,  // Thicker when selected
         ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        16,
-        8
+        24,  // Thicker when hovered
+        16   // Default width
     ]);
 
-    map.setPaintProperty('block_associations', 'line-opacity', [
+    map.setPaintProperty('block_associations', 'line-opacity', 0.8);
+
+    // Update white outline layer - only visible for selected/hovered
+    // Outline needs to be just slightly wider to create a clean stroke effect
+    map.setPaintProperty('block_associations_outline', 'line-width', [
+        'case',
+        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
+        30,  // 6px wider (3px stroke on each side)
+        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
+        30,  // 6px wider (3px stroke on each side)
+        0    // Hidden for non-selected/hovered
+    ]);
+
+    map.setPaintProperty('block_associations_outline', 'line-opacity', [
         'case',
         ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
         1,
         ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
         1,
-        0.85
+        0
     ]);
 }
 

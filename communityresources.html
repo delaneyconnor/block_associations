@@ -201,6 +201,28 @@
             margin-top: 4px;
         }
 
+        /* Hover Tooltip */
+        .hover-tooltip {
+            position: absolute;
+            background: #ffffff;
+            color: #000000;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 1000;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
+        }
+
+        .hover-tooltip.visible {
+            opacity: 1;
+        }
+
         /* Info Panel */
         .info-panel {
             position: absolute;
@@ -450,6 +472,9 @@
     </div>
 </div>
 
+<!-- Hover Tooltip -->
+<div class="hover-tooltip" id="hover-tooltip"></div>
+
 <!-- Info Panel -->
 <div class="info-panel" id="info-panel">
     <button class="close-btn" id="close-panel">×</button>
@@ -676,17 +701,13 @@ function loadFeatures() {
     }
 }
 
-// Create a popup for hover
-const hoverPopup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    offset: 15
-});
+// Get tooltip element
+const tooltip = document.getElementById('hover-tooltip');
 
 // Track the currently hovered feature for feature-state
 let hoveredFeatureId = null;
 
-// Hover effect with popup - set up after layer is identified
+// Hover effect with tooltip - set up after layer is identified
 map.on('load', function() {
     map.once('idle', function setupHoverHandlers() {
         if (!communityResourcesLayer) return;
@@ -711,22 +732,17 @@ map.on('load', function() {
             { hover: true }
         );
 
-        // Show hover popup with only Display Name
-        const popupContent = `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
-                <h3 style="margin: 0; font-size: 14px; font-weight: 600; color: #1a1a1a;">${props['Display Name'] || 'Unknown'}</h3>
-            </div>
-        `;
-
-        hoverPopup.setLngLat([props.lon, props.lat])
-            .setHTML(popupContent)
-            .addTo(map);
+        // Show hover tooltip with Display Name
+        tooltip.textContent = props['Display Name'] || 'Unknown';
+        tooltip.style.left = e.point.x + 15 + 'px';
+        tooltip.style.top = e.point.y + 15 + 'px';
+        tooltip.classList.add('visible');
     }
 });
 
         map.on('mouseleave', communityResourcesLayer, function() {
             map.getCanvas().style.cursor = '';
-            hoverPopup.remove();
+            tooltip.classList.remove('visible');
 
             // Remove hover state when mouse leaves
             if (hoveredFeatureId !== null) {
@@ -761,8 +777,8 @@ map.on('load', function() {
 
         showResourceInfo(props);
 
-        // Remove hover popup when clicking
-        hoverPopup.remove();
+        // Remove hover tooltip when clicking
+        tooltip.classList.remove('visible');
 
         // Fly to the point
         map.flyTo({
