@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NYC Block Parties</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            color: black;
+            padding: 20px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Hide header and controls when embedded */
+        body.embedded .header,
+        body.embedded .filter-panel {
+            display: none;
+        }
+
+        body.embedded .mapboxgl-control-container {
+            display: none;
+        }
+
+        .header h1 {
+            margin: 0 0 5px 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Filter Panel */
+        .filter-panel {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 280px;
+        }
+
+        .filter-panel h3 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            color: black;
+        }
+
+        .filter-group {
+            margin-bottom: 12px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #e53935;
+        }
+
+        .stats-box {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e53935;
+        }
+
+        /* Popup styling */
+        .mapboxgl-popup {
+            max-width: 320px !important;
+        }
+
+        .mapboxgl-popup-content {
+            padding: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .popup-header {
+            background: #e53935;
+            color: white;
+            padding: 12px 15px;
+        }
+
+        .popup-header h3 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .popup-body {
+            padding: 15px;
+        }
+
+        .popup-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .popup-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .popup-detail i {
+            width: 20px;
+            color: #e53935;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .popup-detail span {
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .popup-badge {
+            display: inline-block;
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Back button */
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            z-index: 3;
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #333;
+        }
+
+        body.embedded .back-btn {
+            display: none;
+        }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 10px;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1;
+            font-size: 12px;
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        body.embedded .legend {
+            display: none;
+        }
+
+        /* Hover tooltip */
+        .hover-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 10;
+            white-space: nowrap;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transform: translate(-50%, -100%);
+            margin-top: -10px;
+        }
+
+        @media (max-width: 768px) {
+            .filter-panel {
+                width: calc(100% - 40px);
+                top: 110px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .legend {
+                bottom: 20px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>NYC Block Parties</h1>
+        <p>2025 Block Party Season - Permitted events across New York City</p>
+    </div>
+
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Filter Panel -->
+    <div class="filter-panel">
+        <h3>Filter Block Parties</h3>
+
+        <div class="filter-group">
+            <label for="season-filter">Year</label>
+            <select id="season-filter" class="filter-select">
+                <option value="upcoming">Upcoming Events</option>
+                <option value="2025" selected>2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="borough-filter">Borough</label>
+            <select id="borough-filter" class="filter-select">
+                <option value="all">All Boroughs</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Queens">Queens</option>
+                <option value="Bronx">Bronx</option>
+                <option value="Staten Island">Staten Island</option>
+            </select>
+        </div>
+
+        <div class="stats-box">
+            <div class="stat-item">
+                <span class="stat-label">Block Parties Shown</span>
+                <span class="stat-value" id="event-count">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+        <div class="legend-title">Legend</div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: #e53935;"></div>
+            <span>Block Party Location</span>
+        </div>
+    </div>
+
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+
+    <script>
+        // Check if embedded in iframe
+        if (window.self !== window.top) {
+            document.body.classList.add('embedded');
+        }
+
+        // Initialize Mapbox
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuMmpvbXByY2wwaDgwIn0.HSEo0pqv9ZN6DorMNmTB8A';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: [-73.9442, 40.6782], // Centered on Brooklyn
+            zoom: 11
+        });
+
+        // Add navigation controls
+        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+        // Store all features for filtering
+        let allFeatures = [];
+        let markers = [];
+        let currentSeason = '2025';
+
+        // NYC Open Data API for upcoming events
+        const NYC_UPCOMING_URL = 'https://data.cityofnewyork.us/resource/tvpp-9vvx.json';
+
+        // Create popup
+        const popup = new mapboxgl.Popup({
+            closeButton: true,
+            closeOnClick: true,
+            maxWidth: '320px'
+        });
+
+        // Format popup content (click - full details)
+        function createPopupHTML(properties) {
+            return `
+                <div class="popup-header">
+                    <h3>${properties.event_name || 'Block Party'}</h3>
+                </div>
+                <div class="popup-body">
+                    <div class="popup-detail">
+                        <i class="fas fa-play-circle"></i>
+                        <span><strong>Start:</strong> ${properties.start_formatted || 'Date TBD'}</span>
+                    </div>
+                    <div class="popup-detail">
+                        <i class="fas fa-stop-circle"></i>
+                        <span><strong>End:</strong> ${properties.end_formatted || 'Date TBD'}</span>
+                    </div>
+                    <div class="popup-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${properties.event_location || 'Location TBD'}</span>
+                    </div>
+                    <div class="popup-detail">
+                        <i class="fas fa-building"></i>
+                        <span>${properties.event_borough || 'NYC'}</span>
+                    </div>
+                    ${properties.street_closure_type && properties.street_closure_type !== 'N/A' ? `
+                    <div class="popup-detail">
+                        <i class="fas fa-road"></i>
+                        <span>${properties.street_closure_type}</span>
+                    </div>
+                    ` : ''}
+                    <span class="popup-badge">${properties.event_type || 'Block Party'}</span>
+                </div>
+            `;
+        }
+
+        // Create hover tooltip element
+        const hoverTooltip = document.createElement('div');
+        hoverTooltip.className = 'hover-tooltip';
+        hoverTooltip.style.display = 'none';
+        document.body.appendChild(hoverTooltip);
+
+        // Create marker element
+        function createMarkerElement() {
+            const el = document.createElement('div');
+            el.style.width = '24px';
+            el.style.height = '24px';
+            el.style.borderRadius = '50%';
+            el.style.backgroundColor = '#e53935';
+            el.style.border = '3px solid white';
+            el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+            el.style.cursor = 'pointer';
+            return el;
+        }
+
+        // Clear all markers
+        function clearMarkers() {
+            markers.forEach(m => m.remove());
+            markers = [];
+        }
+
+        // Add markers for features
+        function addMarkers(features) {
+            clearMarkers();
+
+            features.forEach(feature => {
+                const coords = feature.geometry.coordinates;
+                const props = feature.properties;
+
+                const el = createMarkerElement();
+
+                const marker = new mapboxgl.Marker(el)
+                    .setLngLat(coords)
+                    .addTo(map);
+
+                // Hover - show event name tooltip
+                el.addEventListener('mouseenter', (e) => {
+                    hoverTooltip.textContent = props.event_name || 'Block Party';
+                    hoverTooltip.style.display = 'block';
+                    hoverTooltip.style.left = e.pageX + 'px';
+                    hoverTooltip.style.top = e.pageY + 'px';
+                });
+
+                el.addEventListener('mousemove', (e) => {
+                    hoverTooltip.style.left = e.pageX + 'px';
+                    hoverTooltip.style.top = e.pageY + 'px';
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    hoverTooltip.style.display = 'none';
+                });
+
+                // Click - show full details popup
+                el.addEventListener('click', () => {
+                    hoverTooltip.style.display = 'none';
+                    popup
+                        .setLngLat(coords)
+                        .setHTML(createPopupHTML(props))
+                        .addTo(map);
+                });
+
+                markers.push(marker);
+            });
+
+            document.getElementById('event-count').textContent = features.length;
+        }
+
+        // Filter features by borough
+        function filterByBorough(borough) {
+            if (borough === 'all') {
+                addMarkers(allFeatures);
+            } else {
+                const filtered = allFeatures.filter(f =>
+                    f.properties.event_borough === borough
+                );
+                addMarkers(filtered);
+            }
+        }
+
+        // Convert NYC Open Data record to GeoJSON feature
+        function convertToFeature(event) {
+            // Parse dates for display
+            const startDate = event.start_date_time || '';
+            const endDate = event.end_date_time || '';
+
+            let startFormatted = 'Unknown';
+            let endFormatted = 'Unknown';
+
+            try {
+                if (startDate) {
+                    const startDt = new Date(startDate);
+                    startFormatted = startDt.toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric',
+                        hour: 'numeric', minute: '2-digit'
+                    });
+                }
+            } catch (e) {
+                startFormatted = startDate;
+            }
+
+            try {
+                if (endDate) {
+                    const endDt = new Date(endDate);
+                    endFormatted = endDt.toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric',
+                        hour: 'numeric', minute: '2-digit'
+                    });
+                }
+            } catch (e) {
+                endFormatted = endDate;
+            }
+
+            // Get coordinates from event_point if available
+            let coords = null;
+            if (event.event_point) {
+                coords = [
+                    parseFloat(event.event_point.longitude),
+                    parseFloat(event.event_point.latitude)
+                ];
+            }
+
+            return {
+                type: 'Feature',
+                geometry: coords ? {
+                    type: 'Point',
+                    coordinates: coords
+                } : null,
+                properties: {
+                    event_id: event.event_id || '',
+                    event_name: event.event_name || 'Unnamed Event',
+                    event_type: event.event_type || '',
+                    event_agency: event.event_agency || '',
+                    event_location: event.event_location || '',
+                    event_borough: event.event_borough || '',
+                    start_date: startDate,
+                    end_date: endDate,
+                    start_formatted: startFormatted,
+                    end_formatted: endFormatted,
+                    street_closure_type: event.street_closure_type || '',
+                    community_board: event.community_board || '',
+                    police_precinct: event.police_precinct || ''
+                }
+            };
+        }
+
+        // Load data from pre-geocoded GeoJSON file for a specific year
+        async function loadYearData(year) {
+            try {
+                // Try year-specific file first, fall back to default
+                const filename = year === '2025' ? 'block_parties.geojson' : `block_parties_${year}.geojson`;
+                const response = await fetch(filename);
+                if (!response.ok) {
+                    console.log(`No data file found for ${year}, trying default...`);
+                    // Fall back to default file for 2025
+                    if (year !== '2025') {
+                        const fallback = await fetch('block_parties.geojson');
+                        if (fallback.ok) {
+                            const geojson = await fallback.json();
+                            return geojson.features || [];
+                        }
+                    }
+                    return [];
+                }
+                const geojson = await response.json();
+                return geojson.features || [];
+            } catch (error) {
+                console.error(`Error loading ${year} data:`, error);
+                return [];
+            }
+        }
+
+        // Load upcoming events from NYC Open Data API
+        async function loadUpcomingData() {
+            try {
+                const params = new URLSearchParams({
+                    '$limit': '1000',
+                    '$order': 'start_date_time ASC',
+                    '$where': "event_location like '%between%'"
+                });
+
+                const response = await fetch(`${NYC_UPCOMING_URL}?${params}`);
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const events = await response.json();
+
+                // Convert to GeoJSON features, filter out those without coordinates
+                const features = events
+                    .map(convertToFeature)
+                    .filter(f => f.geometry !== null);
+
+                return features;
+            } catch (error) {
+                console.error('Error loading upcoming data:', error);
+                return [];
+            }
+        }
+
+        // Load data based on selected year/season
+        async function loadData(season) {
+            currentSeason = season || '2025';
+
+            // Show loading state
+            document.getElementById('event-count').textContent = '...';
+
+            if (currentSeason === 'upcoming') {
+                allFeatures = await loadUpcomingData();
+            } else {
+                // Load from pre-geocoded GeoJSON file for the selected year
+                allFeatures = await loadYearData(currentSeason);
+            }
+
+            // Apply current borough filter
+            const boroughFilter = document.getElementById('borough-filter').value;
+            filterByBorough(boroughFilter);
+
+            // Fit map to show all points
+            if (allFeatures.length > 0) {
+                const bounds = new mapboxgl.LngLatBounds();
+                allFeatures.forEach(f => {
+                    bounds.extend(f.geometry.coordinates);
+                });
+                map.fitBounds(bounds, { padding: 50 });
+            }
+        }
+
+        // Season filter handler
+        document.getElementById('season-filter').addEventListener('change', function(e) {
+            const season = e.target.value;
+            loadData(season);
+
+            // Update header subtitle
+            const subtitle = document.querySelector('.header p');
+            if (season === 'upcoming') {
+                subtitle.textContent = 'Upcoming Events - Permitted street closures across New York City';
+            } else {
+                subtitle.textContent = `${season} Block Party Season - Permitted events across New York City`;
+            }
+        });
+
+        // Borough filter handler
+        document.getElementById('borough-filter').addEventListener('change', function(e) {
+            filterByBorough(e.target.value);
+        });
+
+        // Load data when map is ready
+        map.on('load', function() {
+            loadData('2025');
+        });
+    </script>
+</body>
+</html>

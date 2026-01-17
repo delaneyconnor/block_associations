@@ -7,6 +7,7 @@
     
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js'></script>
 
     <style>
         * { box-sizing: border-box; }
@@ -357,6 +358,53 @@
             display: none !important;
         }
 
+        /* Geolocation Notification */
+        .geolocation-notification {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Geolocation Control Styling - Greyscale/White */
+        .mapboxgl-user-location-dot {
+            background-color: white !important;
+            border: 2px solid #666 !important;
+            width: 15px !important;
+            height: 15px !important;
+        }
+
+        .mapboxgl-user-location-dot::before {
+            background-color: white !important;
+        }
+
+        .mapboxgl-user-location-dot::after {
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            width: 100% !important;
+            height: 100% !important;
+            margin: -50% !important;
+        }
+
+        /* Hide the heading indicator (triangle) */
+        .mapboxgl-user-location-heading {
+            display: none !important;
+        }
+
+        /* Style the accuracy circle to be greyscale */
+        .mapboxgl-user-location-accuracy-circle {
+            background-color: rgba(200, 200, 200, 0.2) !important;
+            border: 1px solid rgba(150, 150, 150, 0.3) !important;
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 15px;
@@ -512,45 +560,33 @@
 <div class="info-panel" id="info-panel">
     <button class="close-btn" id="close-panel">×</button>
     <h2 id="association-name">Block Association Name</h2>
-    
+
     <div class="info-section">
         <div class="info-label">Street Location</div>
         <div class="info-value" id="street-location"></div>
     </div>
-    
-    <div class="info-section">
-        <div class="info-label">President</div>
-        <div class="info-value placeholder-text" id="president">Data needed</div>
-    </div>
-    
+
     <div class="info-section">
         <div class="info-label">Contact Email</div>
-        <div class="info-value placeholder-text" id="email">Data needed</div>
+        <div class="info-value placeholder-text" id="email">Data Unavailable</div>
     </div>
-    
+
     <div class="info-section">
         <div class="info-label">Phone</div>
-        <div class="info-value placeholder-text" id="phone">Data needed</div>
+        <div class="info-value placeholder-text" id="phone">Data Unavailable</div>
     </div>
-    
+
     <div class="info-section">
         <div class="info-label">Website</div>
-        <div class="info-value placeholder-text" id="website">Data needed</div>
-    </div>
-    
-    <div class="info-section">
-        <div class="info-label">Meeting Schedule</div>
-        <div class="info-value placeholder-text" id="meetings">Data needed</div>
-    </div>
-    
-    <div class="info-section">
-        <div class="info-label">Year Founded</div>
-        <div class="info-value placeholder-text" id="year-founded">Data Unavailable</div>
+        <div class="info-value placeholder-text" id="website">Data Unavailable</div>
     </div>
 </div>
 
 <!-- Map Container -->
 <div id="map"></div>
+
+<!-- Geolocation Notification -->
+<div id="geoNotification" class="geolocation-notification"></div>
 
 <!-- Hover Tooltip -->
 <div class="hover-tooltip" id="hover-tooltip"></div>
@@ -600,17 +636,43 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
+// Add Geolocation Control
+const geolocateControl = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true,
+    showUserHeading: false
+});
+map.addControl(geolocateControl, 'bottom-left');
+
 let allFeatures = [];
 let hoveredSegmentId = null;
 let selectedSegmentId = null;
+
+// Helper function to find the first label layer
+function getFirstLabelLayerId(map) {
+    const layers = map.getStyle().layers;
+    for (let i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol') {
+            return layers[i].id;
+        }
+    }
+    return undefined; // Fallback
+}
 
 map.on('load', function() {
     // Clone the block_associations layer for the white outline
     const layers = map.getStyle().layers;
     const blockAssocLayer = layers.find(l => l.id === 'block_associations');
+    const firstLabelLayerId = getFirstLabelLayerId(map);
 
-    if (blockAssocLayer) {
+    if (blockAssocLayer && firstLabelLayerId) {
+        // Move the main block_associations layer before label layers
+        map.moveLayer('block_associations', firstLabelLayerId);
+
         // Add white outline layer (drawn first, so it appears behind)
+        // Insert before the main block_associations layer
         map.addLayer({
             id: 'block_associations_outline',
             type: 'line',
@@ -626,6 +688,23 @@ map.on('load', function() {
                 'line-opacity': 0
             }
         }, 'block_associations'); // Insert before the main layer
+    } else if (blockAssocLayer) {
+        // Fallback if no label layer found
+        map.addLayer({
+            id: 'block_associations_outline',
+            type: 'line',
+            source: blockAssocLayer.source,
+            'source-layer': blockAssocLayer['source-layer'],
+            layout: {
+                'line-cap': 'butt',
+                'line-join': 'miter'
+            },
+            paint: {
+                'line-color': '#FFFFFF',
+                'line-width': 0,
+                'line-opacity': 0
+            }
+        }, 'block_associations');
     }
 
     // Set up initial paint properties with varying colors based on ID
@@ -659,7 +738,7 @@ function loadFeatures() {
     const features = map.querySourceFeatures('composite', {
         sourceLayer: 'block_associations'
     });
-    
+
     if (features && features.length > 0) {
         allFeatures = features;
         console.log(`Loaded ${allFeatures.length} features for search`);
@@ -668,6 +747,53 @@ function loadFeatures() {
         console.log(`Loaded ${allFeatures.length} rendered features for search`);
     }
 }
+
+// Notification function
+function showNotification(message) {
+    const notif = document.getElementById('geoNotification');
+    notif.textContent = message;
+    notif.style.display = 'block';
+    setTimeout(() => {
+        notif.style.display = 'none';
+    }, 3000);
+}
+
+// Find block association at user's location
+function findBlockAssociation(coords) {
+    const point = turf.point(coords);
+
+    // Make sure features are loaded
+    if (allFeatures.length === 0) {
+        loadFeatures();
+    }
+
+    // Check if point is within any block association line buffer (0.01 miles ≈ 50 feet)
+    for (const feature of allFeatures) {
+        if (feature.geometry && feature.geometry.coordinates) {
+            try {
+                const buffered = turf.buffer(feature, 0.01, { units: 'miles' });
+                if (turf.booleanPointInPolygon(point, buffered)) {
+                    // Found it! Show info and zoom to it
+                    showNotification('Found your block association!');
+                    selectResult(feature.properties, feature);
+                    return;
+                }
+            } catch (e) {
+                // Skip features that can't be buffered
+                continue;
+            }
+        }
+    }
+
+    // Not found - show message
+    showNotification('No block association found at your location');
+}
+
+// Geolocation event listener
+geolocateControl.on('geolocate', (e) => {
+    const userCoords = [e.coords.longitude, e.coords.latitude];
+    findBlockAssociation(userCoords);
+});
 
 // Hover effect with tooltip
 const tooltip = document.getElementById('hover-tooltip');
@@ -922,17 +1048,14 @@ function extractAssociationName(eventName) {
 function showAssociationInfo(props) {
     const panel = document.getElementById('info-panel');
     const associationName = extractAssociationName(props['Event.Name']);
-    
+
     document.getElementById('association-name').textContent = associationName;
     document.getElementById('street-location').textContent = props['Event.Location'] || 'Location not available';
-    
-    document.getElementById('president').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
+
     document.getElementById('email').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
     document.getElementById('phone').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
     document.getElementById('website').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    document.getElementById('meetings').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    document.getElementById('year-founded').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    
+
     panel.classList.add('active');
 }
 
