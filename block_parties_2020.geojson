@@ -1,0 +1,2813 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.995218,
+          40.668429
+        ]
+      },
+      "properties": {
+        "event_id": "547664",
+        "event_name": "15th Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 15 STREET between 2 AVENUE and 3 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-11-29T10:00:00.000",
+        "end_date": "2020-11-29T18:00:00.000",
+        "start_formatted": "November 29, 2020 10:00 AM",
+        "end_formatted": "November 29, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, 7, ",
+        "police_precinct": "72, 78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.13341750000001,
+          40.615542000000005
+        ]
+      },
+      "properties": {
+        "event_id": "544412",
+        "event_name": "Neighborhood Gathering on Halloween ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " WARDWELL AVENUE between MARKHAM PLACE and DEAD END",
+        "event_borough": "Staten Island",
+        "start_date": "2020-10-31T14:00:00.000",
+        "end_date": "2020-10-31T21:00:00.000",
+        "start_formatted": "October 31, 2020 02:00 PM",
+        "end_formatted": "October 31, 2020 09:00 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1040155,
+          40.574085
+        ]
+      },
+      "properties": {
+        "event_id": "546583",
+        "event_name": "Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " BOUNDARY AVENUE between MAPLEWOOD PLACE and DEAD END",
+        "event_borough": "Staten Island",
+        "start_date": "2020-10-31T13:00:00.000",
+        "end_date": "2020-10-31T21:00:00.000",
+        "start_formatted": "October 31, 2020 01:00 PM",
+        "end_formatted": "October 31, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "122, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.975849,
+          40.6762205
+        ]
+      },
+      "properties": {
+        "event_id": "545064",
+        "event_name": "Lincoln Place Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LINCOLN PLACE between 7 AVENUE and 6 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-31T12:00:00.000",
+        "end_date": "2020-10-31T20:00:00.000",
+        "start_formatted": "October 31, 2020 12:00 PM",
+        "end_formatted": "October 31, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98460549999999,
+          40.6852385
+        ]
+      },
+      "properties": {
+        "event_id": "536587",
+        "event_name": "Dean Street  Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " DEAN STREET between BOND STREET and NEVINS STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-31T12:00:00.000",
+        "end_date": "2020-10-31T17:00:00.000",
+        "start_formatted": "October 31, 2020 12:00 PM",
+        "end_formatted": "October 31, 2020 05:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "84, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97752349999999,
+          40.6657875
+        ]
+      },
+      "properties": {
+        "event_id": "540489",
+        "event_name": "8th Street Block Party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 8 STREET between PROSPECT PARK WEST and 8 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-31T11:00:00.000",
+        "end_date": "2020-10-31T19:00:00.000",
+        "start_formatted": "October 31, 2020 11:00 AM",
+        "end_formatted": "October 31, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0383745,
+          40.62839
+        ]
+      },
+      "properties": {
+        "event_id": "544600",
+        "event_name": "BLOCK PARTY",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 82 STREET between NARROWS AVENUE and HARBOR VIEW TERRACE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-24T12:00:00.000",
+        "end_date": "2020-10-24T16:00:00.000",
+        "start_formatted": "October 24, 2020 12:00 PM",
+        "end_formatted": "October 24, 2020 04:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "10, ",
+        "police_precinct": "68, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9304345,
+          40.608932499999995
+        ]
+      },
+      "properties": {
+        "event_id": "544926",
+        "event_name": "East 36 Street block party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   36 STREET between AVENUE S and AVENUE T",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-24T11:00:00.000",
+        "end_date": "2020-10-24T19:00:00.000",
+        "start_formatted": "October 24, 2020 11:00 AM",
+        "end_formatted": "October 24, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.932066,
+          40.612089999999995
+        ]
+      },
+      "properties": {
+        "event_id": "542910",
+        "event_name": "Block closing",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " FILLMORE AVENUE between EAST   37 STREET and EAST   38 STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-24T09:00:00.000",
+        "end_date": "2020-10-24T18:00:00.000",
+        "start_formatted": "October 24, 2020 09:00 AM",
+        "end_formatted": "October 24, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98998499999999,
+          40.6629185
+        ]
+      },
+      "properties": {
+        "event_id": "543571",
+        "event_name": "block party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 17 STREET between 5 AVENUE and 6 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-17T13:00:00.000",
+        "end_date": "2020-10-17T21:00:00.000",
+        "start_formatted": "October 17, 2020 01:00 PM",
+        "end_formatted": "October 17, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9656205,
+          40.642513
+        ]
+      },
+      "properties": {
+        "event_id": "545858",
+        "event_name": "Beverley Square West Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " RUGBY ROAD between BEVERLEY ROAD and CORTELYOU ROAD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-17T12:00:00.000",
+        "end_date": "2020-10-17T19:00:00.000",
+        "start_formatted": "October 17, 2020 12:00 PM",
+        "end_formatted": "October 17, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "14, ",
+        "police_precinct": "70, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9729095,
+          40.644454499999995
+        ]
+      },
+      "properties": {
+        "event_id": "543467",
+        "event_name": "Annual East 7th Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST    7 STREET between CHURCH AVENUE and BEVERLY ROAD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-17T12:00:00.000",
+        "end_date": "2020-10-17T19:00:00.000",
+        "start_formatted": "October 17, 2020 12:00 PM",
+        "end_formatted": "October 17, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "12, ",
+        "police_precinct": "66, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93844200000001,
+          40.6093725
+        ]
+      },
+      "properties": {
+        "event_id": "544338",
+        "event_name": "Marine Parkway Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MARINE PARKWAY between AVENUE R and FILLMORE AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-17T11:00:00.000",
+        "end_date": "2020-10-17T20:00:00.000",
+        "start_formatted": "October 17, 2020 11:00 AM",
+        "end_formatted": "October 17, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.832299,
+          40.688168000000005
+        ]
+      },
+      "properties": {
+        "event_id": "544240",
+        "event_name": "krishna balarama ratha yatra",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 101 AVENUE between 111 STREET and 112 STREET",
+        "event_borough": "Queens",
+        "start_date": "2020-10-17T10:00:00.000",
+        "end_date": "2020-10-17T17:30:00.000",
+        "start_formatted": "October 17, 2020 10:00 AM",
+        "end_formatted": "October 17, 2020 05:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "102, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.982163,
+          40.643715
+        ]
+      },
+      "properties": {
+        "event_id": "544279",
+        "event_name": "Clara Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CLARA STREET between DAHILL ROAD and CHESTER AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-17T10:00:00.000",
+        "end_date": "2020-10-17T18:00:00.000",
+        "start_formatted": "October 17, 2020 10:00 AM",
+        "end_formatted": "October 17, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "12, ",
+        "police_precinct": "66, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.135602,
+          40.62065
+        ]
+      },
+      "properties": {
+        "event_id": "543998",
+        "event_name": "Maine ave 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MAINE AVENUE between BIDWELL AVENUE and NEAL DOW AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-10-10T12:00:00.000",
+        "end_date": "2020-10-10T21:00:00.000",
+        "start_formatted": "October 10, 2020 12:00 PM",
+        "end_formatted": "October 10, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.92518100000001,
+          40.686888999999994
+        ]
+      },
+      "properties": {
+        "event_id": "543809",
+        "event_name": "Putnam Ave Between Ralph and Patchen Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " PUTNAM AVENUE between RALPH AVENUE and PATCHEN AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-10T10:00:00.000",
+        "end_date": "2020-10-10T19:00:00.000",
+        "start_formatted": "October 10, 2020 10:00 AM",
+        "end_formatted": "October 10, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "81, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9810975,
+          40.6734285
+        ]
+      },
+      "properties": {
+        "event_id": "536730",
+        "event_name": "Summer Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 1 STREET between 5 AVENUE and 6 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-04T11:00:00.000",
+        "end_date": "2020-10-04T19:00:00.000",
+        "start_formatted": "October 04, 2020 11:00 AM",
+        "end_formatted": "October 04, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.982989,
+          40.675186499999995
+        ]
+      },
+      "properties": {
+        "event_id": "528570",
+        "event_name": "Garfield Gardens Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " GARFIELD PLACE between 5 AVENUE and 4 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-04T09:00:00.000",
+        "end_date": "2020-10-04T18:00:00.000",
+        "start_formatted": "October 04, 2020 09:00 AM",
+        "end_formatted": "October 04, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0020065,
+          40.684872999999996
+        ]
+      },
+      "properties": {
+        "event_id": "540731",
+        "event_name": "Sackett Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " SACKETT STREET between HICKS STREET and COLUMBIA STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T12:00:00.000",
+        "end_date": "2020-10-03T20:00:00.000",
+        "start_formatted": "October 03, 2020 12:00 PM",
+        "end_formatted": "October 03, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "76, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9768785,
+          40.670544500000005
+        ]
+      },
+      "properties": {
+        "event_id": "541223",
+        "event_name": "2nd street 5th annual block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 2 STREET between 7 AVENUE and 8 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T12:00:00.000",
+        "end_date": "2020-10-03T20:00:00.000",
+        "start_formatted": "October 03, 2020 12:00 PM",
+        "end_formatted": "October 03, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.967419,
+          40.64202
+        ]
+      },
+      "properties": {
+        "event_id": "538494",
+        "event_name": "annual Westminster rd Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " WESTMINSTER ROAD between BEVERLEY ROAD and CORTELYOU ROAD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T11:00:00.000",
+        "end_date": "2020-10-03T19:00:00.000",
+        "start_formatted": "October 03, 2020 11:00 AM",
+        "end_formatted": "October 03, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "14, ",
+        "police_precinct": "70, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9785315,
+          40.664584
+        ]
+      },
+      "properties": {
+        "event_id": "540417",
+        "event_name": "10th Street Block Association",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 10 STREET between 8 AVENUE and PROSPECT PARK WEST",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T11:00:00.000",
+        "end_date": "2020-10-03T18:00:00.000",
+        "start_formatted": "October 03, 2020 11:00 AM",
+        "end_formatted": "October 03, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97964,
+          40.675292
+        ]
+      },
+      "properties": {
+        "event_id": "538691",
+        "event_name": "Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " PRESIDENT STREET between 5 AVENUE and 6 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T10:30:00.000",
+        "end_date": "2020-10-03T18:00:00.000",
+        "start_formatted": "October 03, 2020 10:30 AM",
+        "end_formatted": "October 03, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98417649999999,
+          40.6858725
+        ]
+      },
+      "properties": {
+        "event_id": "538778",
+        "event_name": "Annual Pacific Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " PACIFIC STREET between NEVINS STREET and BOND STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-10-03T10:30:00.000",
+        "end_date": "2020-10-03T17:30:00.000",
+        "start_formatted": "October 03, 2020 10:30 AM",
+        "end_formatted": "October 03, 2020 05:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "84, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9034225,
+          40.848301
+        ]
+      },
+      "properties": {
+        "event_id": "542856",
+        "event_name": "Rescatando Almas para Cristo",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " ANTHONY AVENUE between MOUNT HOPE PLACE and EAST TREMONT AVENUE",
+        "event_borough": "Bronx",
+        "start_date": "2020-10-03T10:00:00.000",
+        "end_date": "2020-10-03T17:00:00.000",
+        "start_formatted": "October 03, 2020 10:00 AM",
+        "end_formatted": "October 03, 2020 05:00 PM",
+        "street_closure_type": "Full Sidewalk Closure ",
+        "community_board": "5, ",
+        "police_precinct": "46, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.915066,
+          40.6790585
+        ]
+      },
+      "properties": {
+        "event_id": "526499",
+        "event_name": "Childrens Harvest Festival - Saratoga",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " HULL STREET between SARATOGA AVENUE and THOMAS BOYLAND STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T13:00:00.000",
+        "end_date": "2020-09-26T16:00:00.000",
+        "start_formatted": "September 26, 2020 01:00 PM",
+        "end_formatted": "September 26, 2020 04:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "16, ",
+        "police_precinct": "73, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0131025,
+          40.6200195
+        ]
+      },
+      "properties": {
+        "event_id": "542262",
+        "event_name": "79th St block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 79 STREET between 11 AVENUE and 12 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T12:00:00.000",
+        "end_date": "2020-09-26T21:00:00.000",
+        "start_formatted": "September 26, 2020 12:00 PM",
+        "end_formatted": "September 26, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "10, ",
+        "police_precinct": "68, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9589065,
+          40.661849000000004
+        ]
+      },
+      "properties": {
+        "event_id": "546732",
+        "event_name": "Youth and  Adult Social Distancing Block Event.",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LEFFERTS AVENUE between BEDFORD AVENUE and WASHINGTON AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T12:00:00.000",
+        "end_date": "2020-09-26T17:00:00.000",
+        "start_formatted": "September 26, 2020 12:00 PM",
+        "end_formatted": "September 26, 2020 05:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "71, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97257400000001,
+          40.671735999999996
+        ]
+      },
+      "properties": {
+        "event_id": "542502",
+        "event_name": "Carroll PPW Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CARROLL STREET between 8 AVENUE and PROSPECT PARK WEST",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T12:00:00.000",
+        "end_date": "2020-09-26T21:00:00.000",
+        "start_formatted": "September 26, 2020 12:00 PM",
+        "end_formatted": "September 26, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.955207,
+          40.6605455
+        ]
+      },
+      "properties": {
+        "event_id": "541130",
+        "event_name": "Maple St Block Association Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MAPLE STREET between BEDFORD AVENUE and ROGERS AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T12:00:00.000",
+        "end_date": "2020-09-26T20:00:00.000",
+        "start_formatted": "September 26, 2020 12:00 PM",
+        "end_formatted": "September 26, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "71, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9967925,
+          40.685198
+        ]
+      },
+      "properties": {
+        "event_id": "540161",
+        "event_name": "Clinton Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CLINTON STREET between KANE STREET and DEGRAW STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T11:00:00.000",
+        "end_date": "2020-09-26T20:00:00.000",
+        "start_formatted": "September 26, 2020 11:00 AM",
+        "end_formatted": "September 26, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "76, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.930086,
+          40.611968000000005
+        ]
+      },
+      "properties": {
+        "event_id": "542227",
+        "event_name": "Ryder Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " RYDER STREET between FILLMORE AVENUE and AVENUE S",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-26T10:00:00.000",
+        "end_date": "2020-09-26T19:00:00.000",
+        "start_formatted": "September 26, 2020 10:00 AM",
+        "end_formatted": "September 26, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98053999999999,
+          40.662169
+        ]
+      },
+      "properties": {
+        "event_id": "540045",
+        "event_name": "14th Street Annual Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 14 STREET between 8 AVENUE and PROSPECT PARK WEST",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-20T11:00:00.000",
+        "end_date": "2020-09-20T20:00:00.000",
+        "start_formatted": "September 20, 2020 11:00 AM",
+        "end_formatted": "September 20, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.11265800000001,
+          40.623981
+        ]
+      },
+      "properties": {
+        "event_id": "541176",
+        "event_name": "Douglas Ave Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " DOUGLAS AVENUE between BROADWAY and DEAD END",
+        "event_borough": "Staten Island",
+        "start_date": "2020-09-19T13:00:00.000",
+        "end_date": "2020-09-19T21:00:00.000",
+        "start_formatted": "September 19, 2020 01:00 PM",
+        "end_formatted": "September 19, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "120, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97835850000001,
+          40.6532275
+        ]
+      },
+      "properties": {
+        "event_id": "538692",
+        "event_name": "19th Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 19 STREET between SEELEY STREET and VANDERBILT STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-19T13:00:00.000",
+        "end_date": "2020-09-19T20:00:00.000",
+        "start_formatted": "September 19, 2020 01:00 PM",
+        "end_formatted": "September 19, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.19175849999999,
+          40.537534
+        ]
+      },
+      "properties": {
+        "event_id": "542015",
+        "event_name": "Nippon Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " NIPPON AVENUE between DARLINGTON AVENUE and EDGEGROVE AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-09-19T12:00:00.000",
+        "end_date": "2020-09-19T20:00:00.000",
+        "start_formatted": "September 19, 2020 12:00 PM",
+        "end_formatted": "September 19, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "123, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9261245,
+          40.611718499999995
+        ]
+      },
+      "properties": {
+        "event_id": "538572",
+        "event_name": "Hendrickson Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " HENDRICKSON STREET between AVENUE S and AVENUE T",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-19T10:00:00.000",
+        "end_date": "2020-09-19T18:00:00.000",
+        "start_formatted": "September 19, 2020 10:00 AM",
+        "end_formatted": "September 19, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.980075,
+          40.674659500000004
+        ]
+      },
+      "properties": {
+        "event_id": "538461",
+        "event_name": "Carroll Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CARROLL STREET between 5 AVENUE and 6 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-13T11:00:00.000",
+        "end_date": "2020-09-13T18:00:00.000",
+        "start_formatted": "September 13, 2020 11:00 AM",
+        "end_formatted": "September 13, 2020 06:00 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.898915,
+          40.822476
+        ]
+      },
+      "properties": {
+        "event_id": "541632",
+        "event_name": "Annual Dressdown Sunday",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " REV JAMES A POLITE AVENUE between EAST 163 STREET and EAST 164TH STREET",
+        "event_borough": "Bronx",
+        "start_date": "2020-09-13T10:00:00.000",
+        "end_date": "2020-09-13T17:00:00.000",
+        "start_formatted": "September 13, 2020 10:00 AM",
+        "end_formatted": "September 13, 2020 05:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "41, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.971552,
+          40.6796435
+        ]
+      },
+      "properties": {
+        "event_id": "545751",
+        "event_name": "Carlton Ave 2020 Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CARLTON AVENUE between ST MARKS AVENUE and BERGEN STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T15:00:00.000",
+        "end_date": "2020-09-12T20:00:00.000",
+        "start_formatted": "September 12, 2020 03:00 PM",
+        "end_formatted": "September 12, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "8, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1774465,
+          40.556385500000005
+        ]
+      },
+      "properties": {
+        "event_id": "540452",
+        "event_name": "MCarthur block part",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MCARTHUR AVENUE between FORRESTAL AVENUE and VAN ALLEN AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-09-12T13:00:00.000",
+        "end_date": "2020-09-12T21:00:00.000",
+        "start_formatted": "September 12, 2020 01:00 PM",
+        "end_formatted": "September 12, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "123, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7934305,
+          40.751944
+        ]
+      },
+      "properties": {
+        "event_id": "538574",
+        "event_name": "Bagley Avenue Block Party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " BAGLEY AVENUE between UTOPIA PARKWAY and AUBURNDALE LANE",
+        "event_borough": "Queens",
+        "start_date": "2020-09-12T12:30:00.000",
+        "end_date": "2020-09-12T21:00:00.000",
+        "start_formatted": "September 12, 2020 12:30 PM",
+        "end_formatted": "September 12, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "111, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.00533250000001,
+          40.617148
+        ]
+      },
+      "properties": {
+        "event_id": "489150",
+        "event_name": "Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 77 STREET between 14 AVENUE and 15 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T21:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "62, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.97771750000001,
+          40.688671
+        ]
+      },
+      "properties": {
+        "event_id": "538793",
+        "event_name": "St. Felix Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " SAINT FELIX STREET between DEKALB AVENUE and FULTON STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T20:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "88, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.978972,
+          40.656273
+        ]
+      },
+      "properties": {
+        "event_id": "539876",
+        "event_name": "2020 17th St. Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 17 STREET between 10 AVENUE and 11 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9839135,
+          40.662110999999996
+        ]
+      },
+      "properties": {
+        "event_id": "540845",
+        "event_name": "Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 16 STREET between 7 AVENUE and 8 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.978916,
+          40.651335
+        ]
+      },
+      "properties": {
+        "event_id": "533117",
+        "event_name": "E. 3rd St. block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST    3 STREET between GREENWOOD AVENUE and VANDERBILT STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.014157,
+          40.604659999999996
+        ]
+      },
+      "properties": {
+        "event_id": "535833",
+        "event_name": "Bay 11th Street",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " BAY   11 STREET between CROPSEY AVENUE and INDEPENDENCE AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T20:30:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 08:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "62, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.946095,
+          40.672304499999996
+        ]
+      },
+      "properties": {
+        "event_id": "538507",
+        "event_name": "sterling summer bounce fest",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " STERLING PLACE between NEW YORK AVENUE and BROOKLYN AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T12:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 12:00 PM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "8, ",
+        "police_precinct": "77, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.985897,
+          40.6833375
+        ]
+      },
+      "properties": {
+        "event_id": "538782",
+        "event_name": "Warren Street Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " WARREN STREET between BOND STREET and NEVINS STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:30:00.000",
+        "end_date": "2020-09-12T19:30:00.000",
+        "start_formatted": "September 12, 2020 11:30 AM",
+        "end_formatted": "September 12, 2020 07:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, 6, ",
+        "police_precinct": "76, 84, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9414295,
+          40.662934
+        ]
+      },
+      "properties": {
+        "event_id": "537317",
+        "event_name": "Barbara Simmons Way Day",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LEFFERTS AVENUE between KINGSTON AVENUE and ALBANY AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:00:00.000",
+        "end_date": "2020-09-12T20:00:00.000",
+        "start_formatted": "September 12, 2020 11:00 AM",
+        "end_formatted": "September 12, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "71, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9807445,
+          40.669881000000004
+        ]
+      },
+      "properties": {
+        "event_id": "538835",
+        "event_name": "Fifth Street Fall Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " FIFTH STREET between SIXTH AVENUE and SEVENTH AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:00:00.000",
+        "end_date": "2020-09-12T18:00:00.000",
+        "start_formatted": "September 12, 2020 11:00 AM",
+        "end_formatted": "September 12, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.95505499999999,
+          40.659121999999996
+        ]
+      },
+      "properties": {
+        "event_id": "538617",
+        "event_name": "Rutland 2 Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " RUTLAND ROAD between BEDFORD AVENUE and ROGERS AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 11:00 AM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "71, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93189050000001,
+          40.6079905
+        ]
+      },
+      "properties": {
+        "event_id": "538578",
+        "event_name": "E. 34 Street Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   34 STREET between AVENUE S and AVENUE T",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:00:00.000",
+        "end_date": "2020-09-12T18:00:00.000",
+        "start_formatted": "September 12, 2020 11:00 AM",
+        "end_formatted": "September 12, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93442300000001,
+          40.6091585
+        ]
+      },
+      "properties": {
+        "event_id": "530940",
+        "event_name": "east 33rd street block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   33 STREET between FILLMORE AVENUE and AVENUE S",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T11:00:00.000",
+        "end_date": "2020-09-12T18:30:00.000",
+        "start_formatted": "September 12, 2020 11:00 AM",
+        "end_formatted": "September 12, 2020 06:30 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9445145,
+          40.6936605
+        ]
+      },
+      "properties": {
+        "event_id": "529679",
+        "event_name": "HART STREET FAMILY FUN DAY",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " HART STREET between TOMPKINS AVENUE and THROOP AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T10:00:00.000",
+        "end_date": "2020-09-12T19:00:00.000",
+        "start_formatted": "September 12, 2020 10:00 AM",
+        "end_formatted": "September 12, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.95513,
+          40.659833
+        ]
+      },
+      "properties": {
+        "event_id": "538622",
+        "event_name": "Midwood II Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MIDWOOD STREET between BEDFORD AVENUE and ROGERS AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T09:30:00.000",
+        "end_date": "2020-09-12T18:30:00.000",
+        "start_formatted": "September 12, 2020 09:30 AM",
+        "end_formatted": "September 12, 2020 06:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "9, ",
+        "police_precinct": "71, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.977022,
+          40.66639
+        ]
+      },
+      "properties": {
+        "event_id": "534528",
+        "event_name": "7th Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 7 STREET between 8 AVENUE and PROSPECT PARK WEST",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-12T09:00:00.000",
+        "end_date": "2020-09-12T18:00:00.000",
+        "start_formatted": "September 12, 2020 09:00 AM",
+        "end_formatted": "September 12, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1678455,
+          40.614404
+        ]
+      },
+      "properties": {
+        "event_id": "538750",
+        "event_name": "Lander Ave Block Party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LANDER AVENUE between ELSON STREET and GRAHAM AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-09-05T13:00:00.000",
+        "end_date": "2020-09-05T21:00:00.000",
+        "start_formatted": "September 05, 2020 01:00 PM",
+        "end_formatted": "September 05, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.13650799999999,
+          40.627793999999994
+        ]
+      },
+      "properties": {
+        "event_id": "540587",
+        "event_name": "Lexington Avenue Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LEXINGTON AVENUE between CATHERINE STREET and DEAD END",
+        "event_borough": "Staten Island",
+        "start_date": "2020-09-05T13:00:00.000",
+        "end_date": "2020-09-05T20:00:00.000",
+        "start_formatted": "September 05, 2020 01:00 PM",
+        "end_formatted": "September 05, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.913973,
+          40.606935500000006
+        ]
+      },
+      "properties": {
+        "event_id": "541022",
+        "event_name": "East 63rd street 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   63 STREET between 56 DRIVE and NATIONAL DRIVE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-09-05T12:00:00.000",
+        "end_date": "2020-09-05T19:00:00.000",
+        "start_formatted": "September 05, 2020 12:00 PM",
+        "end_formatted": "September 05, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9508005,
+          40.793269
+        ]
+      },
+      "properties": {
+        "event_id": "530623",
+        "event_name": "El Barrio Old Timers",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST  105 STREET between MADISON AVENUE and FIFTH AVENUE",
+        "event_borough": "Manhattan",
+        "start_date": "2020-09-05T12:00:00.000",
+        "end_date": "2020-09-05T18:00:00.000",
+        "start_formatted": "September 05, 2020 12:00 PM",
+        "end_formatted": "September 05, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "23, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9073985,
+          40.752185
+        ]
+      },
+      "properties": {
+        "event_id": "539849",
+        "event_name": "Block Gathering",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 54 STREET between NORTHERN BOULEVARD and 37TH AVENUE",
+        "event_borough": "Queens",
+        "start_date": "2020-08-30T13:00:00.000",
+        "end_date": "2020-08-30T19:00:00.000",
+        "start_formatted": "August 30, 2020 01:00 PM",
+        "end_formatted": "August 30, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, 2, ",
+        "police_precinct": "108, 114, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.19239200000001,
+          40.538869000000005
+        ]
+      },
+      "properties": {
+        "event_id": "542208",
+        "event_name": "Avas 4th birthday Block party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " NIPPON AVENUE between IONIA AVENUE and LAMONT AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-29T14:00:00.000",
+        "end_date": "2020-08-29T18:00:00.000",
+        "start_formatted": "August 29, 2020 02:00 PM",
+        "end_formatted": "August 29, 2020 06:00 PM",
+        "street_closure_type": "Sidewalk and Curb Lane Closure ",
+        "community_board": "3, ",
+        "police_precinct": "123, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.932886,
+          40.687130499999995
+        ]
+      },
+      "properties": {
+        "event_id": "538579",
+        "event_name": "Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " STUYVESANT AVENUE between MADISON STREET and MONROE STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-29T13:00:00.000",
+        "end_date": "2020-08-29T19:00:00.000",
+        "start_formatted": "August 29, 2020 01:00 PM",
+        "end_formatted": "August 29, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "81, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93121049999999,
+          40.6862005
+        ]
+      },
+      "properties": {
+        "event_id": "518485",
+        "event_name": "700 Putnam Avenue Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " PUTNAM AVENUE between STUYVESANT AVENUE and MALCOLM X BOULEVARD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-29T12:00:00.000",
+        "end_date": "2020-08-29T18:00:00.000",
+        "start_formatted": "August 29, 2020 12:00 PM",
+        "end_formatted": "August 29, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "81, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.01056449999999,
+          40.6259075
+        ]
+      },
+      "properties": {
+        "event_id": "538814",
+        "event_name": "71st Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 71 STREET between 10 AVENUE and 11 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-29T11:00:00.000",
+        "end_date": "2020-08-29T19:00:00.000",
+        "start_formatted": "August 29, 2020 11:00 AM",
+        "end_formatted": "August 29, 2020 07:00 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "10, ",
+        "police_precinct": "68, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9133055,
+          40.617206
+        ]
+      },
+      "properties": {
+        "event_id": "540490",
+        "event_name": "Block Party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   64 STREET between AVENUE T and AVENUE U",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-29T10:00:00.000",
+        "end_date": "2020-08-29T19:00:00.000",
+        "start_formatted": "August 29, 2020 10:00 AM",
+        "end_formatted": "August 29, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9019965,
+          40.6583495
+        ]
+      },
+      "properties": {
+        "event_id": "538740",
+        "event_name": "Sackman Community Outreach",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " SACKMAN STREET between NEW LOTS AVENUE and LOTT AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-23T09:00:00.000",
+        "end_date": "2020-08-23T14:00:00.000",
+        "start_formatted": "August 23, 2020 09:00 AM",
+        "end_formatted": "August 23, 2020 02:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "16, ",
+        "police_precinct": "73, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.08879,
+          40.606132
+        ]
+      },
+      "properties": {
+        "event_id": "538662",
+        "event_name": "Social Distance Block Party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " BRITTON AVENUE between CLOVE ROAD and BALTIC AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-22T17:00:00.000",
+        "end_date": "2020-08-22T21:00:00.000",
+        "start_formatted": "August 22, 2020 05:00 PM",
+        "end_formatted": "August 22, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "122, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1192975,
+          40.6333765
+        ]
+      },
+      "properties": {
+        "event_id": "539800",
+        "event_name": "Caroline Street Family block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CAROLINE STREET between CASTLETON AVENUE and CARY AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-22T13:00:00.000",
+        "end_date": "2020-08-22T20:30:00.000",
+        "start_formatted": "August 22, 2020 01:00 PM",
+        "end_formatted": "August 22, 2020 08:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "120, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.925036,
+          40.686159
+        ]
+      },
+      "properties": {
+        "event_id": "537026",
+        "event_name": "Jefferson Avenue Annual Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " JEFFERSON AVENUE between RALPH AVENUE and PATCHEN AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-22T12:00:00.000",
+        "end_date": "2020-08-22T20:00:00.000",
+        "start_formatted": "August 22, 2020 12:00 PM",
+        "end_formatted": "August 22, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "81, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0158945,
+          40.6448285
+        ]
+      },
+      "properties": {
+        "event_id": "533748",
+        "event_name": "54 st block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 54 STREET between 4 AVENUE and 3 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-22T11:30:00.000",
+        "end_date": "2020-08-22T19:00:00.000",
+        "start_formatted": "August 22, 2020 11:30 AM",
+        "end_formatted": "August 22, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.92826500000001,
+          40.610335
+        ]
+      },
+      "properties": {
+        "event_id": "531855",
+        "event_name": "Ryder Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " RYDER STREET between AVENUE S and AVENUE T",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-22T11:00:00.000",
+        "end_date": "2020-08-22T18:00:00.000",
+        "start_formatted": "August 22, 2020 11:00 AM",
+        "end_formatted": "August 22, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.95546949999999,
+          40.588922999999994
+        ]
+      },
+      "properties": {
+        "event_id": "538618",
+        "event_name": "East 14 street block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   14 STREET between AVENUE Y and AVENUE Z",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-22T11:00:00.000",
+        "end_date": "2020-08-22T18:00:00.000",
+        "start_formatted": "August 22, 2020 11:00 AM",
+        "end_formatted": "August 22, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "15, ",
+        "police_precinct": "61, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9437835,
+          40.69
+        ]
+      },
+      "properties": {
+        "event_id": "515820",
+        "event_name": "Van Buren Annual Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " VAN BUREN STREET between THROOP AVENUE and TOMPKINS AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-22T11:00:00.000",
+        "end_date": "2020-08-22T20:00:00.000",
+        "start_formatted": "August 22, 2020 11:00 AM",
+        "end_formatted": "August 22, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93567100000001,
+          40.805333
+        ]
+      },
+      "properties": {
+        "event_id": "538696",
+        "event_name": "Closing Exercise",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST  127 STREET between THIRD AVENUE and LEXINGTON AVENUE",
+        "event_borough": "Manhattan",
+        "start_date": "2020-08-21T10:00:00.000",
+        "end_date": "2020-08-21T12:30:00.000",
+        "start_formatted": "August 21, 2020 10:00 AM",
+        "end_formatted": "August 21, 2020 12:30 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "25, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93844949999999,
+          40.61498
+        ]
+      },
+      "properties": {
+        "event_id": "538729",
+        "event_name": "block closing",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   35 STREET between AVENUE P and QUENTIN ROAD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-16T10:00:00.000",
+        "end_date": "2020-08-16T19:00:00.000",
+        "start_formatted": "August 16, 2020 10:00 AM",
+        "end_formatted": "August 16, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9543955,
+          40.690653
+        ]
+      },
+      "properties": {
+        "event_id": "534306",
+        "event_name": "Spencer Ct Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " SPENCER COURT between DEKALB AVENUE and KOSCIUSKO STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T12:00:00.000",
+        "end_date": "2020-08-15T19:00:00.000",
+        "start_formatted": "August 15, 2020 12:00 PM",
+        "end_formatted": "August 15, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.955619,
+          40.686388
+        ]
+      },
+      "properties": {
+        "event_id": "498240",
+        "event_name": "Crown of Light Block Association ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " QUINCY STREET between BEDFORD AVENUE and FRANKLIN AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T11:00:00.000",
+        "end_date": "2020-08-15T20:00:00.000",
+        "start_formatted": "August 15, 2020 11:00 AM",
+        "end_formatted": "August 15, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.91259,
+          40.617667999999995
+        ]
+      },
+      "properties": {
+        "event_id": "534111",
+        "event_name": "65th Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   65 STREET between AVENUE T and AVENUE U",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T10:00:00.000",
+        "end_date": "2020-08-15T19:00:00.000",
+        "start_formatted": "August 15, 2020 10:00 AM",
+        "end_formatted": "August 15, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.957767,
+          40.6846415
+        ]
+      },
+      "properties": {
+        "event_id": "538824",
+        "event_name": "Monroe Street Block One ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MONROE STREET between FRANKLIN AVENUE and CLASSON AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T10:00:00.000",
+        "end_date": "2020-08-15T19:00:00.000",
+        "start_formatted": "August 15, 2020 10:00 AM",
+        "end_formatted": "August 15, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.92147750000001,
+          40.6228195
+        ]
+      },
+      "properties": {
+        "event_id": "538425",
+        "event_name": "East 56th Streets Annual block party 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   56 STREET between AVENUE L and AVENUE M",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T10:00:00.000",
+        "end_date": "2020-08-15T19:00:00.000",
+        "start_formatted": "August 15, 2020 10:00 AM",
+        "end_formatted": "August 15, 2020 07:00 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.907561,
+          40.6210375
+        ]
+      },
+      "properties": {
+        "event_id": "538096",
+        "event_name": "E 72nd Street Annual Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   72 STREET between AVENUE U and AVENUE T",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-15T10:00:00.000",
+        "end_date": "2020-08-15T19:00:00.000",
+        "start_formatted": "August 15, 2020 10:00 AM",
+        "end_formatted": "August 15, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.898915,
+          40.822476
+        ]
+      },
+      "properties": {
+        "event_id": "538391",
+        "event_name": "Annual Childrens Day",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " REV JAMES A POLITE AVENUE between EAST  163 STREET and EAST  164 STREET",
+        "event_borough": "Bronx",
+        "start_date": "2020-08-09T12:00:00.000",
+        "end_date": "2020-08-09T18:00:00.000",
+        "start_formatted": "August 09, 2020 12:00 PM",
+        "end_formatted": "August 09, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "41, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.003876,
+          40.653072
+        ]
+      },
+      "properties": {
+        "event_id": "538152",
+        "event_name": "37th Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " 37 STREET between 4 AVENUE and 5 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-09T10:00:00.000",
+        "end_date": "2020-08-09T18:00:00.000",
+        "start_formatted": "August 09, 2020 10:00 AM",
+        "end_formatted": "August 09, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1333495,
+          40.620306
+        ]
+      },
+      "properties": {
+        "event_id": "542042",
+        "event_name": "Block Party Luau",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MAINE AVENUE between CLINTON B FISKE AVENUE and WILLARD AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-08T18:00:00.000",
+        "end_date": "2020-08-08T21:00:00.000",
+        "start_formatted": "August 08, 2020 06:00 PM",
+        "end_formatted": "August 08, 2020 09:00 PM",
+        "street_closure_type": "Sidewalk and Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.16045650000001,
+          40.6049895
+        ]
+      },
+      "properties": {
+        "event_id": "538771",
+        "event_name": "2nd annual Croft block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " CROFT PLACE between GOLLER PLACE and SAYBROOK STREET",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-08T13:00:00.000",
+        "end_date": "2020-08-08T20:00:00.000",
+        "start_formatted": "August 08, 2020 01:00 PM",
+        "end_formatted": "August 08, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "121, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.2091805,
+          40.5474605
+        ]
+      },
+      "properties": {
+        "event_id": "538786",
+        "event_name": "Mallow St block party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MALLOW STREET between BARROW PLACE and CORRELL AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-08T12:30:00.000",
+        "end_date": "2020-08-08T20:30:00.000",
+        "start_formatted": "August 08, 2020 12:30 PM",
+        "end_formatted": "August 08, 2020 08:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "123, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.935611,
+          40.8019075
+        ]
+      },
+      "properties": {
+        "event_id": "538495",
+        "event_name": "A Healty You",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST  123 STREET between SECOND AVENUE and THIRD AVENUE",
+        "event_borough": "Manhattan",
+        "start_date": "2020-08-08T12:00:00.000",
+        "end_date": "2020-08-08T18:00:00.000",
+        "start_formatted": "August 08, 2020 12:00 PM",
+        "end_formatted": "August 08, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "11, ",
+        "police_precinct": "25, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.940515,
+          40.688127
+        ]
+      },
+      "properties": {
+        "event_id": "502218",
+        "event_name": "The 500 Quincy Street Block Assoc. Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " QUINCY STREET between THROOP AVENUE and MARCUS GARVEY BOULEVARD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-08T12:00:00.000",
+        "end_date": "2020-08-08T20:00:00.000",
+        "start_formatted": "August 08, 2020 12:00 PM",
+        "end_formatted": "August 08, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1658955,
+          40.6124245
+        ]
+      },
+      "properties": {
+        "event_id": "528568",
+        "event_name": "Fieldstone road block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " FIELDSTONE ROAD between COMMERCE STREET and OLIVER PLACE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-08T12:00:00.000",
+        "end_date": "2020-08-08T21:00:00.000",
+        "start_formatted": "August 08, 2020 12:00 PM",
+        "end_formatted": "August 08, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "122, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.924814,
+          40.626998
+        ]
+      },
+      "properties": {
+        "event_id": "534934",
+        "event_name": "East 53rd st Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   53 STREET between AVENUE K and FLATLANDS AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-08T10:00:00.000",
+        "end_date": "2020-08-08T19:00:00.000",
+        "start_formatted": "August 08, 2020 10:00 AM",
+        "end_formatted": "August 08, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98069000000001,
+          40.653709500000005
+        ]
+      },
+      "properties": {
+        "event_id": "538570",
+        "event_name": "Terrace place Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " TERRACE PLACE between MCDONALD AVENUE and 20 STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-08T10:00:00.000",
+        "end_date": "2020-08-08T18:00:00.000",
+        "start_formatted": "August 08, 2020 10:00 AM",
+        "end_formatted": "August 08, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "7, ",
+        "police_precinct": "72, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.932066,
+          40.612089999999995
+        ]
+      },
+      "properties": {
+        "event_id": "528689",
+        "event_name": "Block Party ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " FILLMORE AVENUE between EAST   37 STREET and EAST   38 STREET",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-08T09:00:00.000",
+        "end_date": "2020-08-08T18:00:00.000",
+        "start_formatted": "August 08, 2020 09:00 AM",
+        "end_formatted": "August 08, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9323705,
+          40.6920605
+        ]
+      },
+      "properties": {
+        "event_id": "528653",
+        "event_name": "Family Day at Lafayette Ave8",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LAFAYETTE AVENUE between MALCOLM X BOULEVARD and STUYVESANT AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T13:30:00.000",
+        "end_date": "2020-08-01T19:30:00.000",
+        "start_formatted": "August 01, 2020 01:30 PM",
+        "end_formatted": "August 01, 2020 07:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "81, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.09739400000001,
+          40.5790625
+        ]
+      },
+      "properties": {
+        "event_id": "538727",
+        "event_name": "Adams Avenue Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " ADAMS AVENUE between HAVEN AVENUE and LACONIA AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-01T13:00:00.000",
+        "end_date": "2020-08-01T21:00:00.000",
+        "start_formatted": "August 01, 2020 01:00 PM",
+        "end_formatted": "August 01, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "2, ",
+        "police_precinct": "122, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.93935,
+          40.6822645
+        ]
+      },
+      "properties": {
+        "event_id": "500499",
+        "event_name": "Macon, Marcus Garvey and Throop block party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MACON STREET between THROOP AVENUE and MARCUS GARVEY BOULEVARD",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T12:30:00.000",
+        "end_date": "2020-08-01T19:00:00.000",
+        "start_formatted": "August 01, 2020 12:30 PM",
+        "end_formatted": "August 01, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.931389,
+          40.596475999999996
+        ]
+      },
+      "properties": {
+        "event_id": "538635",
+        "event_name": "14th Annual Plumb 2nd Street Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " PLUMB    2 STREET between ALLEN AVENUE and AVENUE W",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T12:00:00.000",
+        "end_date": "2020-08-01T21:00:00.000",
+        "start_formatted": "August 01, 2020 12:00 PM",
+        "end_formatted": "August 01, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "15, ",
+        "police_precinct": "61, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9147215,
+          40.6624895
+        ]
+      },
+      "properties": {
+        "event_id": "535832",
+        "event_name": "Family  Friends Day",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " STRAUSS STREET between DUMONT AVENUE and LIVONIA AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T12:00:00.000",
+        "end_date": "2020-08-01T19:00:00.000",
+        "start_formatted": "August 01, 2020 12:00 PM",
+        "end_formatted": "August 01, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "16, ",
+        "police_precinct": "73, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.94393249999999,
+          40.690729
+        ]
+      },
+      "properties": {
+        "event_id": "530018",
+        "event_name": "LAFA Block Party  ",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LAFAYETTE AVENUE between TOMPKINS AVENUE and THROOP AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T12:00:00.000",
+        "end_date": "2020-08-01T20:00:00.000",
+        "start_formatted": "August 01, 2020 12:00 PM",
+        "end_formatted": "August 01, 2020 08:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "79, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.10986199999999,
+          40.6247605
+        ]
+      },
+      "properties": {
+        "event_id": "528567",
+        "event_name": "4th Annual Hartford Avenue Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " HARTFORD AVENUE between WHITEWOOD AVENUE and MATHEWS AVENUE",
+        "event_borough": "Staten Island",
+        "start_date": "2020-08-01T12:00:00.000",
+        "end_date": "2020-08-01T21:00:00.000",
+        "start_formatted": "August 01, 2020 12:00 PM",
+        "end_formatted": "August 01, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "120, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.934019,
+          40.6313215
+        ]
+      },
+      "properties": {
+        "event_id": "525589",
+        "event_name": "Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " TROY AVENUE between AVENUE H and AVENUE I",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T11:00:00.000",
+        "end_date": "2020-08-01T18:30:00.000",
+        "start_formatted": "August 01, 2020 11:00 AM",
+        "end_formatted": "August 01, 2020 06:30 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9274045,
+          40.6513035
+        ]
+      },
+      "properties": {
+        "event_id": "515201",
+        "event_name": "Unity Walk 2020",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   53 STREET between SNYDER AVENUE and CHURCH AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-08-01T10:00:00.000",
+        "end_date": "2020-08-01T18:00:00.000",
+        "start_formatted": "August 01, 2020 10:00 AM",
+        "end_formatted": "August 01, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "17, ",
+        "police_precinct": "67, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.975849,
+          40.6762205
+        ]
+      },
+      "properties": {
+        "event_id": "538690",
+        "event_name": "Lincoln Place Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " LINCOLN PLACE between 6 AVENUE and 7 AVENUE",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-07-25T12:00:00.000",
+        "end_date": "2020-07-25T19:00:00.000",
+        "start_formatted": "July 25, 2020 12:00 PM",
+        "end_formatted": "July 25, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "6, ",
+        "police_precinct": "78, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.937614,
+          40.628743
+        ]
+      },
+      "properties": {
+        "event_id": "534165",
+        "event_name": "40th block party episode 6",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST   40 STREET between AVENUE I and AVENUE J",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-07-25T10:00:00.000",
+        "end_date": "2020-07-25T19:00:00.000",
+        "start_formatted": "July 25, 2020 10:00 AM",
+        "end_formatted": "July 25, 2020 07:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "18, ",
+        "police_precinct": "63, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.916474,
+          40.8054975
+        ]
+      },
+      "properties": {
+        "event_id": "524829",
+        "event_name": "Gospel United in Praise festival",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " EAST  137 STREET between CYPRESS AVENUE and ST ANNS AVENUE",
+        "event_borough": "Bronx",
+        "start_date": "2020-07-18T11:00:00.000",
+        "end_date": "2020-07-18T15:00:00.000",
+        "start_formatted": "July 18, 2020 11:00 AM",
+        "end_formatted": "July 18, 2020 03:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "1, ",
+        "police_precinct": "40, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1544175,
+          40.5449385
+        ]
+      },
+      "properties": {
+        "event_id": "534998",
+        "event_name": "Ramblewood Avenue Block Party",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " RAMBLEWOOD AVENUE between OAKDALE STREET and SYCAMORE STREET",
+        "event_borough": "Staten Island",
+        "start_date": "2020-07-11T12:00:00.000",
+        "end_date": "2020-07-11T21:00:00.000",
+        "start_formatted": "July 11, 2020 12:00 PM",
+        "end_formatted": "July 11, 2020 09:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "122, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9704265,
+          40.591603
+        ]
+      },
+      "properties": {
+        "event_id": "525147",
+        "event_name": "jewish  holiday block  party purim",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " WEST STREET between AVENUE W and AVENUE X",
+        "event_borough": "Brooklyn",
+        "start_date": "2020-03-10T11:30:00.000",
+        "end_date": "2020-03-10T18:00:00.000",
+        "start_formatted": "March 10, 2020 11:30 AM",
+        "end_formatted": "March 10, 2020 06:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "15, ",
+        "police_precinct": "61, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99450250000001,
+          40.713351
+        ]
+      },
+      "properties": {
+        "event_id": "522044",
+        "event_name": "17th Annual Chinese Lunar Festival",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " MARKET STREET between EAST BROADWAY and HENRY STREET",
+        "event_borough": "Manhattan",
+        "start_date": "2020-02-08T13:00:00.000",
+        "end_date": "2020-02-08T15:00:00.000",
+        "start_formatted": "February 08, 2020 01:00 PM",
+        "end_formatted": "February 08, 2020 03:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "5, "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98624849999999,
+          40.718671
+        ]
+      },
+      "properties": {
+        "event_id": "508184",
+        "event_name": "Three Kings Day",
+        "event_type": "Block Party",
+        "event_agency": "Street Activity Permit Office",
+        "event_location": " SUFFOLK STREET between RIVINGTON STREET and DELANCEY STREET",
+        "event_borough": "Manhattan",
+        "start_date": "2020-01-06T14:00:00.000",
+        "end_date": "2020-01-06T17:00:00.000",
+        "start_formatted": "January 06, 2020 02:00 PM",
+        "end_formatted": "January 06, 2020 05:00 PM",
+        "street_closure_type": "Full Street Closure ",
+        "community_board": "3, ",
+        "police_precinct": "7, "
+      }
+    }
+  ],
+  "metadata": {
+    "generated": "2026-01-16T17:41:34.354088",
+    "year": 2020,
+    "total_events": 121,
+    "geocoded_successfully": 112,
+    "failed": 9,
+    "source": "NYC Open Data - Permitted Event Information"
+  }
+}
