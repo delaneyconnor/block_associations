@@ -48,7 +48,7 @@ Community members can contribute by:
 
 ## Contact
 
-For questions or to report issues, please contact: [your-email@example.com](mailto:your-email@example.com)
+For questions or to report issues, please contact: [delaneyconnor1@gmail.com](delaneyconnor1@gmail.com)
 
 ## License
 
