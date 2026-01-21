@@ -584,13 +584,13 @@
         async function loadYearData(year) {
             try {
                 // Try year-specific file first, fall back to default
-                const filename = year === '2025' ? 'block_parties.geojson' : `block_parties_${year}.geojson`;
+                const filename = year === '2025' ? 'data/block_parties.geojson' : `data/block_parties_${year}.geojson`;
                 const response = await fetch(filename);
                 if (!response.ok) {
                     console.log(`No data file found for ${year}, trying default...`);
                     // Fall back to default file for 2025
                     if (year !== '2025') {
-                        const fallback = await fetch('block_parties.geojson');
+                        const fallback = await fetch('data/block_parties.geojson');
                         if (fallback.ok) {
                             const geojson = await fallback.json();
                             return geojson.features || [];

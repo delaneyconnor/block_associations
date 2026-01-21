@@ -588,7 +588,7 @@
         // Load data from GeoJSON file
         async function loadData() {
             try {
-                const response = await fetch('active_block_associations.geojson');
+                const response = await fetch('data/active_block_associations.geojson');
                 if (!response.ok) {
                     console.error('Failed to load data');
                     return;
