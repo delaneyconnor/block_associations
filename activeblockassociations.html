@@ -240,40 +240,139 @@
             color: #bbb;
         }
 
-        /* Back button */
-        .back-btn {
+        /* Home button */
+        .home-btn {
             position: absolute;
-            top: 25px;
-            right: 20px;
-            z-index: 3;
-            background: black;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
             cursor: pointer;
-            text-decoration: none;
+            z-index: 3;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background 0.2s;
+            justify-content: center;
+            text-decoration: none;
+            color: black;
         }
 
-        .back-btn:hover {
-            background: #333;
+        .home-btn:hover {
+            background: #f0f7f7;
+            border-color: #4CAF50;
+            transform: scale(1.05);
         }
 
-        body.embedded .back-btn {
+        body.embedded .home-btn {
             display: none;
+        }
+
+        /* About button */
+        .about-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 3;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        .about-btn:hover {
+            background: #f0f7f7;
+            border-color: #4CAF50;
+            transform: scale(1.05);
+        }
+
+        body.embedded .about-btn {
+            display: none;
+        }
+
+        /* About Modal */
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .about-modal.active {
+            display: flex;
+        }
+
+        .about-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .about-content h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: black;
+            padding-right: 30px;
+        }
+
+        .about-content p {
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .about-content .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+        }
+
+        .about-content .close-btn:hover {
+            color: black;
         }
 
         /* Legend */
         .legend {
             position: absolute;
-            bottom: 30px;
-            right: 10px;
+            bottom: 80px;
+            right: 20px;
             background: white;
             padding: 12px 15px;
             border-radius: 8px;
@@ -307,6 +406,11 @@
 
         body.embedded .legend {
             display: none;
+        }
+
+        /* Mapbox Navigation Controls */
+        .mapboxgl-ctrl-bottom-left {
+            bottom: 90px !important;
         }
 
         /* Hover tooltip */
@@ -353,9 +457,13 @@
         <p>Block associations that have hosted block parties across NYC</p>
     </div>
 
-    <a href="index.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Back
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
     </a>
+
+    <!-- About Button -->
+    <button class="about-btn" id="about-btn">?</button>
 
     <!-- Map Container -->
     <div id="map"></div>
@@ -391,10 +499,34 @@
 
     <!-- Legend -->
     <div class="legend">
-        <div class="legend-title">Legend</div>
+        <div class="legend-title">Years Active</div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #4CAF50;"></div>
-            <span>Active Block Association</span>
+            <div class="legend-dot" style="background: #1B5E20;"></div>
+            <span>10+ years</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: #388E3C;"></div>
+            <span>5-9 years</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: #66BB6A;"></div>
+            <span>2-4 years</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: #A5D6A7;"></div>
+            <span>1 year</span>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="about-modal" id="about-modal">
+        <div class="about-content">
+            <button class="close-btn" id="close-about">×</button>
+            <h2>About This Map</h2>
+            <p>This map shows block associations across NYC that have hosted block parties, based on NYC Open Data from 2008-2025.</p>
+            <p>The color of each marker indicates how many years the block association has been active hosting block parties.</p>
+            <p><strong>Data Source:</strong> NYC Open Data - Street Activity Permit Applications</p>
+            <p style="margin-top: 20px;">This map is a work in progress. If you'd like to provide feedback or ideas, contact <a href="mailto:delaneyconnor1@gmail.com">delaneyconnor1@gmail.com</a></p>
         </div>
     </div>
 
@@ -412,19 +544,19 @@
 
         const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/light-v11',
+            style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
             center: [-73.9442, 40.6782], // Centered on Brooklyn
             zoom: 11
         });
 
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
         // Add geolocation control
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: { enableHighAccuracy: true },
             trackUserLocation: true
-        }), 'top-right');
+        }), 'bottom-left');
 
         // Store all features for filtering
         let allFeatures = [];
@@ -497,16 +629,49 @@
         hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
-        // Create marker element
-        function createMarkerElement() {
+        // Get color based on years active
+        function getColorForYearsActive(yearsActive) {
+            const count = Array.isArray(yearsActive) ? yearsActive.length : 0;
+            if (count >= 10) return '#1B5E20'; // Dark green - 10+ years
+            if (count >= 5) return '#388E3C';  // Medium green - 5-9 years
+            if (count >= 2) return '#66BB6A';  // Light green - 2-4 years
+            return '#A5D6A7';                   // Pale green - 1 year
+        }
+
+        // Create marker element with hover effects
+        function createMarkerElement(yearsActive) {
             const el = document.createElement('div');
-            el.style.width = '24px';
-            el.style.height = '24px';
+            const color = getColorForYearsActive(yearsActive);
+
+            el.style.width = '16px';
+            el.style.height = '16px';
             el.style.borderRadius = '50%';
-            el.style.backgroundColor = '#4CAF50';
-            el.style.border = '3px solid white';
+            el.style.backgroundColor = color;
+            el.style.opacity = '0.8';
+            el.style.border = 'none';
             el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
             el.style.cursor = 'pointer';
+            el.style.transition = 'all 0.2s ease';
+
+            // Hover effects
+            el.addEventListener('mouseenter', () => {
+                el.style.width = '28px';
+                el.style.height = '28px';
+                el.style.border = '3px solid white';
+                el.style.opacity = '1';
+                el.style.marginLeft = '-6px';
+                el.style.marginTop = '-6px';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.width = '16px';
+                el.style.height = '16px';
+                el.style.border = 'none';
+                el.style.opacity = '0.8';
+                el.style.marginLeft = '0';
+                el.style.marginTop = '0';
+            });
+
             return el;
         }
 
@@ -524,7 +689,7 @@
                 const coords = feature.geometry.coordinates;
                 const props = feature.properties;
 
-                const el = createMarkerElement();
+                const el = createMarkerElement(props.years_active);
 
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(coords)
@@ -619,6 +784,21 @@
         // Load data when map is ready
         map.on('load', function() {
             loadData();
+        });
+
+        // About modal handlers
+        document.getElementById('about-btn').addEventListener('click', function() {
+            document.getElementById('about-modal').classList.add('active');
+        });
+
+        document.getElementById('close-about').addEventListener('click', function() {
+            document.getElementById('about-modal').classList.remove('active');
+        });
+
+        document.getElementById('about-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
         });
     </script>
 </body>
