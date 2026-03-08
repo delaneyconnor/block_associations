@@ -368,9 +368,24 @@
             font-weight: 500;
         }
 
-        /* Mapbox popup */
-        .mapboxgl-popup-content { padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
-        .mapboxgl-popup-tip { display: none; }
+        /* Hover Tooltip */
+        .hover-tooltip {
+            position: absolute;
+            background: #ffffff;
+            color: #000000;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 1000;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
+        }
+        .hover-tooltip.visible { opacity: 1; }
 
         /* Hide Mapbox logo */
         .mapboxgl-ctrl-logo { display: none !important; }
@@ -514,6 +529,9 @@
     <div class="legend-item"><div class="legend-dot" style="background:#aaa;"></div>Dormant</div>
 </div>
 
+<!-- Hover Tooltip -->
+<div class="hover-tooltip" id="hover-tooltip"></div>
+
 <!-- Geolocation Notification -->
 <div id="geoNotification" class="geolocation-notification"></div>
 
@@ -573,7 +591,8 @@ const geolocateControl = new mapboxgl.GeolocateControl({
 map.addControl(geolocateControl, 'bottom-left');
 
 let allFeatures = [];
-let hoverPopup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false, offset: 12 });
+let hoveredFeatureId = null;
+const tooltip = document.getElementById('hover-tooltip');
 
 map.on('load', () => {
     fetch(DATA_URL)
@@ -581,7 +600,7 @@ map.on('load', () => {
         .then(geojson => {
             allFeatures = geojson.features;
 
-            map.addSource('associations', { type: 'geojson', data: geojson });
+            map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
             // Dormant layer (drawn first, underneath)
             map.addLayer({
@@ -590,11 +609,11 @@ map.on('load', () => {
                 source: 'associations',
                 filter: ['<', ['coalesce', ['get', 'last_year'], 0], ACTIVE_YEAR],
                 paint: {
-                    'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 4, 16, 7],
+                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
                     'circle-color': '#aaaaaa',
-                    'circle-opacity': 0.7,
-                    'circle-stroke-width': 1,
-                    'circle-stroke-color': '#888'
+                    'circle-opacity': 0.8,
+                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 0],
+                    'circle-stroke-color': '#ffffff'
                 }
             });
 
@@ -605,11 +624,11 @@ map.on('load', () => {
                 source: 'associations',
                 filter: ['>=', ['coalesce', ['get', 'last_year'], 0], ACTIVE_YEAR],
                 paint: {
-                    'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 5, 16, 9],
+                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
                     'circle-color': '#F44336',
                     'circle-opacity': 0.9,
-                    'circle-stroke-width': 1.5,
-                    'circle-stroke-color': '#c62828'
+                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 0],
+                    'circle-stroke-color': '#ffffff'
                 }
             });
 
@@ -618,25 +637,37 @@ map.on('load', () => {
         .catch(err => console.error('Failed to load GeoJSON:', err));
 });
 
+function setHover(id, state) {
+    map.setFeatureState({ source: 'associations', id }, { hover: state });
+}
+
 function setupInteractions() {
     const layers = ['assoc-active', 'assoc-dormant'];
 
     layers.forEach(layer => {
-        map.on('mouseenter', layer, e => {
-            map.getCanvas().style.cursor = 'pointer';
-            const name = e.features[0].properties.association_name || 'Block Association';
-            hoverPopup.setLngLat(e.features[0].geometry.coordinates).setHTML(`<span>${name}</span>`).addTo(map);
-        });
-
         map.on('mousemove', layer, e => {
-            hoverPopup.setLngLat(e.features[0].geometry.coordinates);
-            const name = e.features[0].properties.association_name || 'Block Association';
-            hoverPopup.setHTML(`<span>${name}</span>`);
+            map.getCanvas().style.cursor = 'pointer';
+            const feature = e.features[0];
+
+            if (hoveredFeatureId !== null && hoveredFeatureId !== feature.id) {
+                setHover(hoveredFeatureId, false);
+            }
+            hoveredFeatureId = feature.id;
+            setHover(hoveredFeatureId, true);
+
+            tooltip.textContent = feature.properties.association_name || 'Block Association';
+            tooltip.style.left = e.point.x + 15 + 'px';
+            tooltip.style.top = e.point.y + 15 + 'px';
+            tooltip.classList.add('visible');
         });
 
         map.on('mouseleave', layer, () => {
             map.getCanvas().style.cursor = '';
-            hoverPopup.remove();
+            tooltip.classList.remove('visible');
+            if (hoveredFeatureId !== null) {
+                setHover(hoveredFeatureId, false);
+                hoveredFeatureId = null;
+            }
         });
 
         map.on('click', layer, e => {
