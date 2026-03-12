@@ -1111,22 +1111,6 @@ map.on('click', 'cb3-points', function(e) {
     map.flyTo({ center: e.lngLat, zoom: Math.max(map.getZoom(), 14), duration: 800 });
 });
 
-// Handle CB3 filter buttons
-document.querySelectorAll('.filter-btn[data-category="Health Care"], .filter-btn[data-category="Police"], .filter-btn[data-category="Fire Department"], .filter-btn[data-category="Library"], .filter-btn[data-category="Emergency Food"], .filter-btn[data-category="cb3-Community"], .filter-btn[data-category="Single Stop"], .filter-btn[data-category="Senior Center"], .filter-btn[data-category="Park"], .filter-btn[data-category="Greenmarket"], .filter-btn[data-category="Employment"], .filter-btn[data-category="Child Care"], .filter-btn[data-category="Homeless Prevention"], .filter-btn[data-category="School"], .filter-btn[data-category="Places of Worship"]').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const cat = this.dataset.category;
-        this.classList.toggle('active');
-        document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
-
-        const activeCB3 = Array.from(document.querySelectorAll('[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active')).map(b => {
-            const c = b.dataset.category;
-            return c === 'cb3-Community' ? 'Community' : c;
-        });
-
-        syncCB3Gardens();
-    });
-});
-
 // ── End CB3 ──────────────────────────────────────────────────────────
 
 // About modal handlers
