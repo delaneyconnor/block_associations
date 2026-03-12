@@ -30,10 +30,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide header and filter panel when embedded */
-        body.embedded .header,
-        body.embedded .filter-panel {
+        /* Hide header when embedded */
+        body.embedded .header {
             display: none;
+        }
+
+        /* Adjust panel positions when header is hidden */
+        body.embedded .filter-panel,
+        body.embedded .info-panel {
+            top: 20px;
+            max-height: calc(100vh - 40px);
         }
 
         /* Hide map controls when embedded */
