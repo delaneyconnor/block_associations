@@ -688,17 +688,11 @@ map.on('load', function() {
         3,  // Thick stroke for selected
         ['boolean', ['feature-state', 'hover'], false],
         3,  // Thick stroke for hovered
-        0   // No stroke for others
+        1.5   // Consistent stroke for all
     ]);
 
-    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        '#FFFFFF',  // White outline for selected
-        ['boolean', ['feature-state', 'hover'], false],
-        '#FFFFFF',  // White outline for hovered
-        'transparent'
-    ]);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', '#FFFFFF');
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', 0.6);
 
     // Set layer order - Mesh NYC Nodes on bottom (lower number = bottom layer)
     map.setLayoutProperty(communityResourcesLayer, 'circle-sort-key', [
@@ -1028,12 +1022,6 @@ function initCB3Layer() {
     const geojson = buildCB3GeoJSON(cb3Resources);
     map.addSource('cb3', { type: 'geojson', data: geojson });
     map.addLayer({
-        id: 'cb3-halo',
-        type: 'circle',
-        source: 'cb3',
-        paint: { 'circle-radius': 14, 'circle-color': ['get', 'color'], 'circle-opacity': 0.15, 'circle-stroke-width': 0 }
-    });
-    map.addLayer({
         id: 'cb3-points',
         type: 'circle',
         source: 'cb3',
@@ -1041,7 +1029,7 @@ function initCB3Layer() {
             'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 14, ['boolean', ['feature-state', 'hover'], false], 14, 8],
             'circle-color': ['get', 'color'],
             'circle-opacity': 0.8,
-            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 3, 0],
+            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
             'circle-stroke-color': '#FFFFFF'
         }
     });
