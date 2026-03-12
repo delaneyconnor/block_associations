@@ -897,7 +897,7 @@ function syncCB3Gardens() {
 map.on('idle', function setupFilters() {
     if (!communityResourcesLayer) return;
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
+    document.querySelectorAll('.filter-panel .category-filters .filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const category = this.dataset.category;
 
@@ -907,7 +907,7 @@ map.on('idle', function setupFilters() {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 map.setFilter(communityResourcesLayer, null);
-                console.log('Filter removed - showing all');
+                syncCB3Gardens();
                 return;
             }
 
