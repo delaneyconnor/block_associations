@@ -199,7 +199,7 @@
             text-transform: uppercase;
             margin-bottom: 14px;
         }
-        .status-active { background: #fdecea; color: #c62828; }
+        .status-active { background: rgba(255,59,48,0.12); color: #FF3B30; }
         .status-dormant { background: #f0f0f0; color: #888; }
 
         .year-grid {
@@ -213,7 +213,7 @@
             font-size: 11px;
             font-weight: 600;
         }
-        .year-chip.active { background: #fdecea; color: #c62828; }
+        .year-chip.active { background: rgba(255,59,48,0.12); color: #FF3B30; }
         .year-chip.inactive { background: #f0f0f0; color: #bbb; }
 
         /* Legend */
@@ -529,7 +529,7 @@
 <!-- Legend -->
 <div class="map-legend">
     <h4>Status</h4>
-    <div class="legend-item"><div class="legend-dot" style="background:#F44336;"></div>Active (party since 2023)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FF3B30;"></div>Active (party since 2023)</div>
     <div class="legend-item"><div class="legend-dot" style="background:#aaa;"></div>Dormant</div>
 </div>
 
@@ -629,7 +629,7 @@ map.on('load', () => {
                 filter: ['>=', ['coalesce', ['get', 'last_year'], 0], ACTIVE_YEAR],
                 paint: {
                     'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
-                    'circle-color': '#F44336',
+                    'circle-color': '#FF3B30',
                     'circle-opacity': 0.9,
                     'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 0],
                     'circle-stroke-color': '#ffffff'
