@@ -852,7 +852,14 @@ document.getElementById('close-panel').addEventListener('click', function() {
     selectedPointId = null;
 });
 
-// Sync CB3 "Gardens" with the tileset Gardens button
+// CB3 category set for filter isolation
+const CB3_CATEGORIES = new Set([
+    'Health Care','Police','Fire Department','Library','Emergency Food',
+    'cb3-Community','Single Stop','Senior Center','Park','Greenmarket',
+    'Employment','Child Care','Homeless Prevention','School','Places of Worship'
+]);
+
+// Sync CB3 layer visibility with active filter state
 function syncCB3Gardens() {
     if (!map.getLayer('cb3-points')) return;
     const activeCB3 = Array.from(document.querySelectorAll(
@@ -863,15 +870,11 @@ function syncCB3Gardens() {
         if (selectedCategories.length > 0) {
             // Tileset-only filter active — hide all CB3 points
             map.setFilter('cb3-points', ['==', ['get', 'category'], '']);
-            map.setFilter('cb3-halo', ['==', ['get', 'category'], '']);
         } else {
             map.setFilter('cb3-points', null);
-            map.setFilter('cb3-halo', null);
         }
     } else {
-        const f = ['in', ['get', 'category'], ['literal', activeCB3]];
-        map.setFilter('cb3-points', f);
-        map.setFilter('cb3-halo', f);
+        map.setFilter('cb3-points', ['in', ['get', 'category'], ['literal', activeCB3]]);
     }
 }
 
@@ -879,9 +882,10 @@ function syncCB3Gardens() {
 map.on('idle', function setupFilters() {
     if (!communityResourcesLayer) return;
 
-    document.querySelectorAll('.filter-panel .category-filters .filter-btn').forEach(btn => {
+    document.querySelectorAll('.filter-panel .filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const category = this.dataset.category;
+            const isCB3 = CB3_CATEGORIES.has(category);
 
             // Handle "All" button
             if (category === 'all') {
@@ -893,44 +897,54 @@ map.on('idle', function setupFilters() {
                 return;
             }
 
-            // Toggle category selection
-            const index = selectedCategories.indexOf(category);
-            if (index > -1) {
-                // Category is already selected, remove it
-                selectedCategories.splice(index, 1);
-                this.classList.remove('active');
-            } else {
-                // Add category to selection
-                selectedCategories.push(category);
-                this.classList.add('active');
-                // Remove "All" active state when selecting specific categories
+            if (isCB3) {
+                // CB3 click: clear tileset selections, toggle this CB3 button
+                selectedCategories = [];
+                document.querySelectorAll('.category-filters .filter-btn').forEach(b => b.classList.remove('active'));
                 document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
-            }
+                this.classList.toggle('active');
 
-            console.log('Selected categories:', selectedCategories);
+                // Check if any CB3 button is still active after toggle
+                const anyCB3Active = Array.from(document.querySelectorAll('.filter-panel .filter-btn.active'))
+                    .some(b => CB3_CATEGORIES.has(b.dataset.category));
 
-            // Apply filter
-            if (selectedCategories.length === 0) {
-                // If no categories selected, show all
-                map.setFilter(communityResourcesLayer, null);
-                document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
-                console.log('No categories selected - showing all');
-            } else if (selectedCategories.length === 1) {
-                // Single category filter
-                const filter = ['==', ['get', 'Sector'], selectedCategories[0]];
-                map.setFilter(communityResourcesLayer, filter);
-                console.log('Filter applied:', filter);
+                if (anyCB3Active) {
+                    // Hide tileset layer entirely when CB3 filter is active
+                    map.setFilter(communityResourcesLayer, ['==', ['get', 'Sector'], '']);
+                } else {
+                    // No CB3 active, show all
+                    map.setFilter(communityResourcesLayer, null);
+                    document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+                }
             } else {
-                // Multiple categories filter using 'in' expression
-                const filter = ['in', ['get', 'Sector'], ['literal', selectedCategories]];
-                map.setFilter(communityResourcesLayer, filter);
-                console.log('Filter applied for multiple categories:', filter);
+                // Tileset click: clear CB3 button active states
+                document.querySelectorAll('.filter-panel .filter-btn').forEach(b => {
+                    if (CB3_CATEGORIES.has(b.dataset.category)) b.classList.remove('active');
+                });
+
+                // Toggle this tileset category
+                const index = selectedCategories.indexOf(category);
+                if (index > -1) {
+                    selectedCategories.splice(index, 1);
+                    this.classList.remove('active');
+                } else {
+                    selectedCategories.push(category);
+                    this.classList.add('active');
+                    document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
+                }
+
+                if (selectedCategories.length === 0) {
+                    map.setFilter(communityResourcesLayer, null);
+                    document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+                } else if (selectedCategories.length === 1) {
+                    map.setFilter(communityResourcesLayer, ['==', ['get', 'Sector'], selectedCategories[0]]);
+                } else {
+                    map.setFilter(communityResourcesLayer, ['in', ['get', 'Sector'], ['literal', selectedCategories]]);
+                }
             }
 
-            // Sync CB3 Gardens with tileset Gardens button
             syncCB3Gardens();
 
-            // Debug: check how many features are visible after filter
             setTimeout(() => {
                 const visibleFeatures = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
                 console.log(`Visible features after filter: ${visibleFeatures.length}`);
