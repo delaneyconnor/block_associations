@@ -878,61 +878,59 @@ function syncCB3Gardens() {
     }
 }
 
-// Category filter - wait for map to be ready
-map.on('idle', function setupFilters() {
-    if (!communityResourcesLayer) return;
+// Category filter - attach handlers directly (DOM is ready when inline script runs)
+document.querySelectorAll('.filter-panel .filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const category = this.dataset.category;
+        const isCB3 = CB3_CATEGORIES.has(category);
 
-    document.querySelectorAll('.filter-panel .filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const category = this.dataset.category;
-            const isCB3 = CB3_CATEGORIES.has(category);
+        // Handle "All" button
+        if (category === 'all') {
+            selectedCategories = [];
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            if (communityResourcesLayer) map.setFilter(communityResourcesLayer, null);
+            syncCB3Gardens();
+            return;
+        }
 
-            // Handle "All" button
-            if (category === 'all') {
-                selectedCategories = [];
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                map.setFilter(communityResourcesLayer, null);
-                syncCB3Gardens();
-                return;
-            }
+        if (isCB3) {
+            // CB3 click: clear tileset selections, toggle this CB3 button
+            selectedCategories = [];
+            document.querySelectorAll('.category-filters .filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
+            this.classList.toggle('active');
 
-            if (isCB3) {
-                // CB3 click: clear tileset selections, toggle this CB3 button
-                selectedCategories = [];
-                document.querySelectorAll('.category-filters .filter-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
-                this.classList.toggle('active');
+            // Check if any CB3 button is still active after toggle
+            const anyCB3Active = Array.from(document.querySelectorAll('.filter-panel .filter-btn.active'))
+                .some(b => CB3_CATEGORIES.has(b.dataset.category));
 
-                // Check if any CB3 button is still active after toggle
-                const anyCB3Active = Array.from(document.querySelectorAll('.filter-panel .filter-btn.active'))
-                    .some(b => CB3_CATEGORIES.has(b.dataset.category));
-
+            if (communityResourcesLayer) {
                 if (anyCB3Active) {
-                    // Hide tileset layer entirely when CB3 filter is active
                     map.setFilter(communityResourcesLayer, ['==', ['get', 'Sector'], '']);
                 } else {
-                    // No CB3 active, show all
                     map.setFilter(communityResourcesLayer, null);
                     document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
                 }
+            }
+        } else {
+            // Tileset click: clear CB3 button active states
+            document.querySelectorAll('.filter-panel .filter-btn').forEach(b => {
+                if (CB3_CATEGORIES.has(b.dataset.category)) b.classList.remove('active');
+            });
+
+            // Toggle this tileset category
+            const index = selectedCategories.indexOf(category);
+            if (index > -1) {
+                selectedCategories.splice(index, 1);
+                this.classList.remove('active');
             } else {
-                // Tileset click: clear CB3 button active states
-                document.querySelectorAll('.filter-panel .filter-btn').forEach(b => {
-                    if (CB3_CATEGORIES.has(b.dataset.category)) b.classList.remove('active');
-                });
+                selectedCategories.push(category);
+                this.classList.add('active');
+                document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
+            }
 
-                // Toggle this tileset category
-                const index = selectedCategories.indexOf(category);
-                if (index > -1) {
-                    selectedCategories.splice(index, 1);
-                    this.classList.remove('active');
-                } else {
-                    selectedCategories.push(category);
-                    this.classList.add('active');
-                    document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
-                }
-
+            if (communityResourcesLayer) {
                 if (selectedCategories.length === 0) {
                     map.setFilter(communityResourcesLayer, null);
                     document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
@@ -942,18 +940,10 @@ map.on('idle', function setupFilters() {
                     map.setFilter(communityResourcesLayer, ['in', ['get', 'Sector'], ['literal', selectedCategories]]);
                 }
             }
+        }
 
-            syncCB3Gardens();
-
-            setTimeout(() => {
-                const visibleFeatures = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
-                console.log(`Visible features after filter: ${visibleFeatures.length}`);
-            }, 100);
-        });
+        syncCB3Gardens();
     });
-
-    // Remove this listener after setup
-    map.off('idle', setupFilters);
 });
 
 // ── CB3 Resources Layer ──────────────────────────────────────────────
