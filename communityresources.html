@@ -174,6 +174,7 @@
         .filter-btn[data-category="Park"].active              { background: #17A589; }
         .filter-btn[data-category="Greenmarket"].active       { background: #D4AC0D; }
         .filter-btn[data-category="School"].active             { background: #1A5276; }
+        .filter-btn[data-category="Places of Worship"].active { background: #6E2594; }
 
         .search-results {
             max-height: 300px;
@@ -502,6 +503,7 @@
         <button class="filter-btn" data-category="Child Care">Child Care</button>
         <button class="filter-btn" data-category="Homeless Prevention">Homeless Prevention</button>
         <button class="filter-btn" data-category="School">Schools</button>
+        <button class="filter-btn" data-category="Places of Worship">Places of Worship</button>
     </div>
 </div>
 
@@ -868,7 +870,7 @@ document.getElementById('close-panel').addEventListener('click', function() {
 function syncCB3Gardens() {
     if (!map.getLayer('cb3-points')) return;
     const activeCB3 = Array.from(document.querySelectorAll(
-        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active'
+        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active, [data-category="Places of Worship"].active'
     )).map(b => b.dataset.category === 'cb3-Community' ? 'Community' : b.dataset.category);
     if (selectedCategories.includes('Gardens')) activeCB3.push('Gardens');
     if (activeCB3.length === 0) {
@@ -954,7 +956,7 @@ const CB3_COLORS = {
     'Library': '#8E44AD', 'Emergency Food': '#27AE60', 'Community': '#7F8C8D',
     'Single Stop': '#0E6655', 'Senior Center': '#B7950B', 'Gardens': '#229954',
     'Employment': '#D35400', 'Child Care': '#76448A', 'Homeless Prevention': '#2E4057',
-    'Park': '#17A589', 'Greenmarket': '#D4AC0D', 'School': '#1A5276'
+    'Park': '#17A589', 'Greenmarket': '#D4AC0D', 'School': '#1A5276', 'Places of Worship': '#6E2594'
 };
 
 const cb3Resources = [
@@ -1402,7 +1404,186 @@ const cb3Resources = [
     { name: "Southern Brooklyn Community Organization", category: "Community", address: "4006 18th Ave., Brooklyn, NY, 11218", phone: "718-435-1300", hours: "", website: "http://www.sbcony.org/", lat: 40.632601, lng: -73.973443 },
     { name: "St. Nicholas Neighborhood Preservation Corporation", category: "Community", address: "850 Grand Street, Brooklyn, NY, 11211", phone: "718-302-6827", hours: "", website: "http://www.stnicksnpc.org/", lat: 40.710745, lng: -73.938911 },
     { name: "Turning Point/Discipleship Outreach Ministries Inc.", category: "Community", address: "5220 4th Avenue, Brooklyn, NY, 11220", phone: "718-360-8100", hours: "", website: "http://www.tpdomi.org/", lat: 40.645137, lng: -74.014558 },
-    { name: "UPROSE", category: "Community", address: "166A 22nd Street, Brooklyn, NY, 11232", phone: "718-492-9307", hours: "", website: "http://uprose.org/", lat: 40.662243, lng: -73.996863 }
+    { name: "UPROSE", category: "Community", address: "166A 22nd Street, Brooklyn, NY, 11232", phone: "718-492-9307", hours: "", website: "http://uprose.org/", lat: 40.662243, lng: -73.996863 },
+    { name: "All Peoples Church of The Apostolic Faith", category: "Places of Worship", address: "422 Gates Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Bishop Italy Cokely", lat: 40.686195, lng: -73.949315 },
+    { name: "All Peoples Church of Apostolic Faith", category: "Places of Worship", address: "182 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Bishop Willine N. Steward", lat: 40.692891, lng: -73.946125 },
+    { name: "Apostolic Faith Church of Brooklyn Inc.", category: "Places of Worship", address: "533 DeKalb Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Pastor Peter Pasde", lat: 40.690996, lng: -73.955599 },
+    { name: "Bedford Stuyvesant Assembly of God Church", category: "Places of Worship", address: "299 Throop Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "Attn: Reverend Jimmy Ramons", lat: 40.693385, lng: -73.942733 },
+    { name: "BAHA'I Faith", category: "Places of Worship", address: "541 Lafayette Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Attn: Tania Palmer", lat: 40.689862, lng: -73.953014 },
+    { name: "Bedford Temple of the Salvation Army", category: "Places of Worship", address: "601 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Pastor Major Wilfred Samuel", lat: 40.690094, lng: -73.950435 },
+    { name: "Believer Tabernacle of Faith Church", category: "Places of Worship", address: "820 DeKalb Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Valerie Wilson", lat: 40.692114, lng: -73.943403 },
+    { name: "Bethany Baptist Church", category: "Places of Worship", address: "460 Marcus Garvey Boulevard, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Dr. Jasper Payton", lat: 40.681297, lng: -73.937915 },
+    { name: "Bethany Baptist Church", category: "Places of Worship", address: "1173 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Cecil Durrant", lat: 40.683322, lng: -73.953658 },
+    { name: "Bethel Church of Nazarene", category: "Places of Worship", address: "594 Classon Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Cecil Durrant", lat: 40.681899, lng: -73.958726 },
+    { name: "Beulah Church of God in Christ Jesus", category: "Places of Worship", address: "956 Marcy Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Kima Singh", lat: 40.68062, lng: -73.946632 },
+    { name: "Bright Light Baptist Church", category: "Places of Worship", address: "488 Marcus Garvey Boulevard, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. George Bryant", lat: 40.680182, lng: -73.937627 },
+    { name: "Brighter Way Baptist Church", category: "Places of Worship", address: "417 Throop Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Robert Grimes", lat: 40.688558, lng: -73.941912 },
+    { name: "Brooklyn Tabernacle of Deliverance", category: "Places of Worship", address: "600 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Pastor William Denson", lat: 40.689822, lng: -73.950781 },
+    { name: "Central Baptist Church", category: "Places of Worship", address: "1236 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Robert L. Owens", lat: 40.68163, lng: -73.953872 },
+    { name: "Church of Nazarene", category: "Places of Worship", address: "117 Madison Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Attn: Rev. Elmer Gillert", lat: 40.684486, lng: -73.954503 },
+    { name: "Community Baptist Church", category: "Places of Worship", address: "50 Vernon Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Attn: Rev. J. McCollough", lat: 40.694327, lng: -73.950089 },
+    { name: "All Peoples Church of Apostolic Faith", category: "Places of Worship", address: "180 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Bishop Willine N. Steward", lat: 40.692929, lng: -73.945929 },
+    { name: "All Peoples Church of The Apostolic Faith", category: "Places of Worship", address: "422 Gates Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Bishop Italy Cokely", lat: 40.686195, lng: -73.949315 },
+    { name: "Antioch Baptist Church", category: "Places of Worship", address: "828 Greene Avenue, Brooklyn, NY 11221", phone: "718-455-7778", hours: "", notes: "Rev. Dr. Robert M. Waterman", lat: 40.69001, lng: -73.934954 },
+    { name: "Antioch Church of Christ", category: "Places of Worship", address: "979 Herkimer Street, Brooklyn, NY 11233", phone: "718-467-1811", hours: "", notes: "Minister Brown", lat: 40.678367, lng: -73.920849 },
+    { name: "BAHA'I Faith", category: "Places of Worship", address: "541 Lafayette Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Tania Palmer", lat: 40.689862, lng: -73.953014 },
+    { name: "Bedford Temple of the Salvation Army", category: "Places of Worship", address: "601 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Pastor Major Wilfred Samuel", lat: 40.690094, lng: -73.950435 },
+    { name: "Believers Gateway to Freedom Church Inc.", category: "Places of Worship", address: "325 Lewis Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "", lat: 40.68459, lng: -73.935168 },
+    { name: "Believer's Mennonite", category: "Places of Worship", address: "36 Malcolm X Boulevard, Brooklyn, NY 11233", phone: "917-801-9011", hours: "", notes: "Rev. Nunez", lat: 40.693072, lng: -73.931214 },
+    { name: "Belmont Baptist Church", category: "Places of Worship", address: "485 Marcus Garvey Boulevard, Brooklyn, NY 11216", phone: "718-453-1127", hours: "", notes: "Minister Brown", lat: 40.680805, lng: -73.937501 },
+    { name: "Beth Shalom Congregation", category: "Places of Worship", address: "730 Willoughby Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "", lat: 40.694727, lng: -73.939796 },
+    { name: "Bethany Baptist Church", category: "Places of Worship", address: "460 Marcus Garvey Boulevard, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Dr. David A. Hampton", lat: 40.681297, lng: -73.937915 },
+    { name: "Beulah Church of God in Christ Jesus", category: "Places of Worship", address: "956 Marcy Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Wilbur Jones", lat: 40.68062, lng: -73.946632 },
+    { name: "Beulah Gospel Tabernacle Church", category: "Places of Worship", address: "181 Patchen Avenue, Brooklyn, NY 11233", phone: "718-452-3023", hours: "", notes: "Rev. Simpson", lat: 40.685134, lng: -73.926242 },
+    { name: "Beth Jacob Kollel Yusnor", category: "Places of Worship", address: "1006 Greene Avenue, Brooklyn, NY 11216", phone: "718-453-9134", hours: "", notes: "Rabbi Yuadda", lat: 40.690933, lng: -73.927385 },
+    { name: "Bridge Street AME Church", category: "Places of Worship", address: "277 Stuyvesant Avenue, Brooklyn, NY 11221", phone: "718-452-3936", hours: "", notes: "Rev. David B. Cousin Sr.", lat: 40.685136, lng: -73.932187 },
+    { name: "Bright Light Baptist Church", category: "Places of Worship", address: "388 Marcus Garvey Boulevard, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. George Bryant", lat: 40.684148, lng: -73.938383 },
+    { name: "Brooklyn ETC Tabernacle Church", category: "Places of Worship", address: "762 Quincy Street, Brooklyn, NY 11221", phone: "718-449-3341", hours: "", notes: "Pastor Randolph", lat: 40.689211, lng: -73.929407 },
+    { name: "Brooklyn Tabernacle of Deliverance", category: "Places of Worship", address: "600 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Pastor William Denson", lat: 40.689822, lng: -73.950781 },
+    { name: "Brooklyn Temple 7th Day Adventist Church", category: "Places of Worship", address: "3 Lewis Avenue, Brooklyn, NY 11206", phone: "718-452-4171", hours: "", notes: "Pastor Carter", lat: 40.697853, lng: -73.937776 },
+    { name: "Calvary 7th Day Adventist Church", category: "Places of Worship", address: "178 Lexington Avenue, Brooklyn, NY 11216", phone: "718-452-0063", hours: "", notes: "Pastor Callum", lat: 40.687175, lng: -73.954392 },
+    { name: "Calvary Fellowship AME Church", category: "Places of Worship", address: "790 Herkimer Street, Brooklyn, NY 11233", phone: "718-467-0987", hours: "", notes: "Rev. Joseph Walston | thewaltons@verizon.net", lat: 40.678089, lng: -73.927203 },
+    { name: "Canaan Missionary Baptist Church", category: "Places of Worship", address: "915 Gates Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Jasan", lat: 40.68889, lng: -73.929188 },
+    { name: "Central Baptist Church", category: "Places of Worship", address: "1236 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Robert L. Owens", lat: 40.68163, lng: -73.953872 },
+    { name: "Christ Fellowship Baptist Church", category: "Places of Worship", address: "7 Sumpter Street, Brooklyn, NY 11233", phone: "718-779-9631", hours: "", notes: "Rev. David Kelly", lat: 40.679267, lng: -73.926379 },
+    { name: "Christian Center", category: "Places of Worship", address: "1052 Greene Avenue, Brooklyn, NY 11216", phone: "917-497-4100", hours: "", notes: "Rev. Hunt", lat: 40.691125, lng: -73.92564 },
+    { name: "Christian Community Baptist Church", category: "Places of Worship", address: "80 Van Buren Street, Brooklyn, NY 11221", phone: "718-789-3779", hours: "", notes: "Rev. Robert Butler", lat: 40.690037, lng: -73.942506 },
+    { name: "Church of Christ Holy One of God Church", category: "Places of Worship", address: "1088 Fulton Street, Brooklyn, NY 11233", phone: "718-778-4984", hours: "", notes: "Pastor Patterson", lat: 40.681303, lng: -73.957375 },
+    { name: "Church of Epiphany", category: "Places of Worship", address: "836 Quincy Street, Brooklyn, NY 11221", phone: "718-574-4937", hours: "", notes: "Rev. Riddick", lat: 40.689533, lng: -73.926027 },
+    { name: "Church of God in Christ", category: "Places of Worship", address: "352 Greene Avenue, Brooklyn, NY 11216", phone: "646-321-7761", hours: "", notes: "Pastor Patterson", lat: 40.687699, lng: -73.956524 },
+    { name: "Church of God in Christ Jesus", category: "Places of Worship", address: "476 Kosciuszko Street, Brooklyn, NY 11221", phone: "718-443-0074", hours: "", notes: "Rev. Williams", lat: 40.692236, lng: -73.935058 },
+    { name: "Church of High Hill of Zion", category: "Places of Worship", address: "554 Kosciuszko Street, Brooklyn, NY 11221", phone: "718-452-9008", hours: "", notes: "Rev. Sayles", lat: 40.692699, lng: -73.931731 },
+    { name: "Church of Nazarene", category: "Places of Worship", address: "117 Madison Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Elmer Gillert", lat: 40.684486, lng: -73.954503 },
+    { name: "Church of the Pilgrim Holiness Inc.", category: "Places of Worship", address: "24 Arlington Place, Brooklyn, NY 11216", phone: "718-622-6494", hours: "", notes: "Rev. Dr. Keith Burnett", lat: 40.680975, lng: -73.951435 },
+    { name: "Community Baptist Church", category: "Places of Worship", address: "50 Vernon Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Rev. J. McCollough", lat: 40.694327, lng: -73.950089 },
+    { name: "Concord Baptist Church", category: "Places of Worship", address: "833 Marcy Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Gary V. Simpson", lat: 40.684881, lng: -73.946806 },
+    { name: "Cornerstone Baptist Church", category: "Places of Worship", address: "562 Madison Street, Brooklyn, NY 11221", phone: "718-574-5900", hours: "", notes: "Rev. Alec III", lat: 40.686365, lng: -73.935559 },
+    { name: "Crossover Baptist Church", category: "Places of Worship", address: "269 Kosciuszko Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Garland Harriason", lat: 40.69167, lng: -73.944234 },
+    { name: "Deeper Life Bible Church", category: "Places of Worship", address: "140 Saratoga Avenue, Brooklyn, NY 11233", phone: "718-919-1166", hours: "", notes: "Rev. Omotoiso", lat: 40.681927, lng: -73.917303 },
+    { name: "Deeper Life Deliverance Church", category: "Places of Worship", address: "1499 Fulton Street, Brooklyn, NY 11233", phone: "718-778-3655", hours: "", notes: "Rev. Smith", lat: 40.680121, lng: -73.941329 },
+    { name: "Divine Destiny Christian Center", category: "Places of Worship", address: "84 Ralph Avenue, Brooklyn, NY 11221", phone: "718-574-1955", hours: "", notes: "Rev. Jones", lat: 40.687223, lng: -73.923833 },
+    { name: "Elim International Fellowship", category: "Places of Worship", address: "474 Kosciuszko Street, Brooklyn, NY 11221", phone: "", hours: "", notes: "Bishop W. McAnely", lat: 40.692236, lng: -73.935161 },
+    { name: "Emmanuel Pentecostal Faith Church of God", category: "Places of Worship", address: "1286 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. P. Braithwaite", lat: 40.679771, lng: -73.953602 },
+    { name: "Everlasting Pentecostal Holiness", category: "Places of Worship", address: "1085 DeKalb Avenue, Brooklyn, NY 11221", phone: "718-452-6239", hours: "", notes: "Bishop Young", lat: 40.693775, lng: -73.932142 },
+    { name: "Faith Assemblies Church of God", category: "Places of Worship", address: "1014 Gates Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Pastor Haynes", lat: 40.689178, lng: -73.92281 },
+    { name: "Faith Deliverance Pentecostal Church of God", category: "Places of Worship", address: "1191 Bedford Avenue, Brooklyn, NY 11216", phone: "718-978-7052", hours: "", notes: "Rev. Nesthe Soleyn | nsf978@aol.com", lat: 40.682584, lng: -73.953458 },
+    { name: "Family Worship Center", category: "Places of Worship", address: "897 Gates Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Morrison", lat: 40.688751, lng: -73.929967 },
+    { name: "First A.M.E. Zion Baptist Church", category: "Places of Worship", address: "54 MacDonough Street, Brooklyn, NY 11216", phone: "718-638-3143", hours: "", notes: "Dr. Marvin D. Hooks", lat: 40.680661, lng: -73.943679 },
+    { name: "First Calvary Baptist Church", category: "Places of Worship", address: "953 Putnam Avenue, Brooklyn, NY 11221", phone: "718-453-1278", hours: "", notes: "Rev. Jones", lat: 40.687364, lng: -73.922971 },
+    { name: "First Corinthian Baptist Church", category: "Places of Worship", address: "671 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Anthony Nilverton", lat: 40.690536, lng: -73.947268 },
+    { name: "First Mennonite Church of Brooklyn", category: "Places of Worship", address: "23 Marcus Garvey Boulevard, Brooklyn, NY 11206", phone: "718-782-4444", hours: "", notes: "", lat: 40.698994, lng: -73.940919 },
+    { name: "First Step Ministry Church of Christ", category: "Places of Worship", address: "298 Marcus Garvey Boulevard, Brooklyn, NY 11221", phone: "", hours: "", notes: "Pastor D. Lewis", lat: 40.68713, lng: -73.939138 },
+    { name: "Fountain Church of Christ", category: "Places of Worship", address: "11 Marcus Garvey Boulevard, Brooklyn, NY 11206", phone: "718-384-9582", hours: "", notes: "Pastor Watts", lat: 40.699584, lng: -73.941087 },
+    { name: "Freedom Gate Church", category: "Places of Worship", address: "858 Ralph Avenue, Brooklyn, NY 11208", phone: "718-342-6008", hours: "", notes: "Pastor Jack", lat: 40.652834, lng: -73.920909 },
+    { name: "Friendly Missionary Baptist", category: "Places of Worship", address: "775 Lexington Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Webb", lat: 40.690335, lng: -73.929863 },
+    { name: "Full Gospel Tabernacle of Faith", category: "Places of Worship", address: "154 Hull Street, Brooklyn, NY 11233", phone: "718-773-7646", hours: "", notes: "Rev. Simmons", lat: 40.679482, lng: -73.909664 },
+    { name: "Glorious Church of God in Christ", category: "Places of Worship", address: "345 Halsey Street, Brooklyn, NY 11233", phone: "718-919-8143", hours: "", notes: "Bishop Lindsay", lat: 40.683232, lng: -73.939005 },
+    { name: "Glorious Pentecostal Church", category: "Places of Worship", address: "1820 Fulton Street, Brooklyn, NY 11233", phone: "718-773-7646", hours: "", notes: "Bishop Nowell", lat: 40.678997, lng: -73.92703 },
+    { name: "God Revival Tabernacle", category: "Places of Worship", address: "125 Lewis Avenue, Brooklyn, NY 11216", phone: "718-452-2398", hours: "", notes: "Elder Evans", lat: 40.692569, lng: -73.936712 },
+    { name: "Good Tidings Gospel Hall", category: "Places of Worship", address: "345 Malcolm X Boulevard, Brooklyn, NY 11233", phone: "718-773-8576", hours: "", notes: "Elder Allwood", lat: 40.67952, lng: -73.928114 },
+    { name: "Gospel Hall", category: "Places of Worship", address: "515 Classon Avenue, Brooklyn, NY 11238", phone: "", hours: "", notes: "Rev. Tate", lat: 40.682805, lng: -73.958485 },
+    { name: "Grace Baptist Church", category: "Places of Worship", address: "1200 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Melvin L. Rankin", lat: 40.683042, lng: -73.954155 },
+    { name: "Greater Cross Roads Baptist Church", category: "Places of Worship", address: "116 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Leonard Randolph", lat: 40.695263, lng: -73.946588 },
+    { name: "Greater Mt. Zion Pentecostal Church", category: "Places of Worship", address: "590 Willoughby Avenue, Brooklyn, NY 11206", phone: "718-221-0694", hours: "", notes: "Bishop Phipps", lat: 40.694151, lng: -73.945616 },
+    { name: "Greater St. Paul United Church", category: "Places of Worship", address: "1052 Greene Avenue, Brooklyn, NY 11221", phone: "917-497-0673", hours: "", notes: "Pastor Hodges", lat: 40.691125, lng: -73.92564 },
+    { name: "Greater Zion Baptist Church", category: "Places of Worship", address: "1333 Fulton Street, Brooklyn, NY 11238", phone: "", hours: "", notes: "Rev. GTM Jones", lat: 40.680506, lng: -73.948053 },
+    { name: "High Times Fellowship", category: "Places of Worship", address: "1102 Broadway, Brooklyn, NY 11221", phone: "718-574-6127", hours: "", notes: "Dr. Udell", lat: 40.694069, lng: -73.93035 },
+    { name: "Holy Rosary Church", category: "Places of Worship", address: "141 Chauncey Street, Brooklyn, NY 11233", phone: "718-459-8001", hours: "", notes: "Father Smith", lat: 40.680565, lng: -73.929675 },
+    { name: "Holy Dove Church", category: "Places of Worship", address: "864 Madison Street, Brooklyn, NY 11221", phone: "718-443-0974", hours: "", notes: "Rev. Gerald", lat: 40.687614, lng: -73.923113 },
+    { name: "Holy Nazarene Church", category: "Places of Worship", address: "237 Ralph Avenue, Brooklyn, NY 11233", phone: "718-574-5925", hours: "", notes: "Rev. Kelly", lat: 40.681489, lng: -73.92212 },
+    { name: "Holy Trinity Baptist Church", category: "Places of Worship", address: "80 Ralph Avenue, Brooklyn, NY 11233", phone: "718-443-6053", hours: "", notes: "Rev. Joubert Jr.", lat: 40.687275, lng: -73.923856 },
+    { name: "Holy Trinity Universal Church", category: "Places of Worship", address: "754 Quincy Street, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Dorsey", lat: 40.689117, lng: -73.929671 },
+    { name: "House of Good Faith Holy Church", category: "Places of Worship", address: "193 Putnam Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. R.C. Wood", lat: 40.683815, lng: -73.954476 },
+    { name: "House of Prayer", category: "Places of Worship", address: "721 Madison Street, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Dorsey", lat: 40.687489, lng: -73.927899 },
+    { name: "House of Prayer Church of God in Christ", category: "Places of Worship", address: "46 Madison Street, Brooklyn, NY 11238", phone: "", hours: "", notes: "Pastor Roarlid Wade", lat: 40.683752, lng: -73.95728 },
+    { name: "House of Prayer - An Institute New Beginnings", category: "Places of Worship", address: "86 Ralph Avenue, Brooklyn, NY 11233", phone: "718-455-1037", hours: "", notes: "Pastor Oscar McFarlane", lat: 40.687179, lng: -73.923708 },
+    { name: "Iglesia Amor de Dios", category: "Places of Worship", address: "695 DeKalb Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Pastor Abraham Clemente", lat: 40.691925, lng: -73.948139 },
+    { name: "Iglesia Pentecostal Linda Higoon", category: "Places of Worship", address: "618 Myrtle Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Rev. Luis", lat: 40.694115, lng: -73.959455 },
+    { name: "Iglesia Frente Fuente de Oracion", category: "Places of Worship", address: "1035 DeKalb Avenue, Brooklyn, NY 11221", phone: "718-452-1372", hours: "", notes: "Rev. Cordero", lat: 40.693531, lng: -73.933561 },
+    { name: "Iglesia Pentecostal El Real", category: "Places of Worship", address: "162 Tompkins Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "Rev. N. Lopez", lat: 40.693638, lng: -73.946172 },
+    { name: "Iglesia Pentecostal de Cristo", category: "Places of Worship", address: "13 Marcus Garvey Boulevard, Brooklyn, NY 11206", phone: "718-387-3514", hours: "", notes: "Rev. Claudio", lat: 40.699517, lng: -73.94107 },
+    { name: "Iglesia Pentecostal Llama Del Ministerio", category: "Places of Worship", address: "647 Marcy Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Pastor Roberto Rodriguez", lat: 40.692286, lng: -73.948325 },
+    { name: "Jame Masjid Islamic Center", category: "Places of Worship", address: "295 Gates Avenue, Brooklyn, NY 11238", phone: "718-443-2133", hours: "", notes: "Imam Ulas", lat: 40.685851, lng: -73.95581 },
+    { name: "James United Methodist Church", category: "Places of Worship", address: "660 Monroe Street, Brooklyn, NY 11221", phone: "718-456-6527", hours: "", notes: "Rev. Simpson", lat: 40.687455, lng: -73.930317 },
+    { name: "John Wesley United Methodist Church", category: "Places of Worship", address: "260 Quincy Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Pauline Wardell-Sankoh", lat: 40.686658, lng: -73.951221 },
+    { name: "Jubilant Pentecostal Holy Church", category: "Places of Worship", address: "295 Gates Avenue, Brooklyn, NY 11233", phone: "", hours: "", notes: "Rev. Willa Gaddy", lat: 40.685851, lng: -73.95581 },
+    { name: "Kelly's Temple of Church of Christ", category: "Places of Worship", address: "716 Saratoga Avenue, Brooklyn, NY 11233", phone: "718-771-7792", hours: "", notes: "Rev. Thomas", lat: 40.663307, lng: -73.916215 },
+    { name: "King Emmanuel Baptist", category: "Places of Worship", address: "342 Malcolm X Boulevard, Brooklyn, NY 11233", phone: "718-773-1650", hours: "", notes: "Rev. Jesse Sumbry", lat: 40.681085, lng: -73.928803 },
+    { name: "Kingdom Hall", category: "Places of Worship", address: "474 Kosciuszko Street, Brooklyn, NY 11221", phone: "", hours: "", notes: "", lat: 40.692236, lng: -73.935161 },
+    { name: "Kingdom Hall", category: "Places of Worship", address: "343 Madison Street, Brooklyn, NY 11221", phone: "718-452-0808", hours: "", notes: "Elder Barber", lat: 40.685466, lng: -73.944819 },
+    { name: "Kingdom Hall of Jehovah's Witnesses", category: "Places of Worship", address: "137 Halsey Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Alex Reimmueller", lat: 40.6822, lng: -73.948148 },
+    { name: "Lafayette Avenue Church of God", category: "Places of Worship", address: "404 Lafayette Avenue, Brooklyn, NY 11238", phone: "", hours: "", notes: "Rev. Charles Danian", lat: 40.688746, lng: -73.959042 },
+    { name: "Lafayette Avenue COGIC", category: "Places of Worship", address: "100 Lexington Avenue, Brooklyn, NY 11216", phone: "718-453-0139", hours: "", notes: "Rev. Andrews", lat: 40.686652, lng: -73.957893 },
+    { name: "Lily of the Valley Revival Church", category: "Places of Worship", address: "876 Hancock Street, Brooklyn, NY 11233", phone: "", hours: "", notes: "Rev. Griteris", lat: 40.685796, lng: -73.920337 },
+    { name: "Little Mt Pleasant Pentecostal Church", category: "Places of Worship", address: "344 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Elder G. Monostrine", lat: 40.685858, lng: -73.944641 },
+    { name: "Little Mt. Zion Baptist Church", category: "Places of Worship", address: "324 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. L. Belle", lat: 40.686581, lng: -73.944794 },
+    { name: "Livingstone Baptist Church", category: "Places of Worship", address: "83 Pulaski Street, Brooklyn, NY 11206", phone: "", hours: "", notes: "Rev. Lemuel Mobley", lat: 40.692739, lng: -73.948148 },
+    { name: "Mary's Trial of Tears", category: "Places of Worship", address: "178 Ralph Avenue, Brooklyn, NY 11233", phone: "", hours: "", notes: "Rev. Atkins", lat: 40.683767, lng: -73.923158 },
+    { name: "Masjid Abdullah Muchi Khalifah", category: "Places of Worship", address: "120 Madison Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Imam Adib Rashed", lat: 40.684167, lng: -73.95442 },
+    { name: "Masjid At Taqwa Mosque", category: "Places of Worship", address: "1266 Bedford Avenue, Brooklyn, NY 11216", phone: "718-574-9048", hours: "", notes: "Imam Siraj Wahhaj", lat: 40.680534, lng: -73.953543 },
+    { name: "Metropolitan Baptist", category: "Places of Worship", address: "869 Halsey Street, Brooklyn, NY 11233", phone: "718-453-9200", hours: "", notes: "Rev. Austin", lat: 40.685787, lng: -73.917964 },
+    { name: "Morning Star Church", category: "Places of Worship", address: "1066 Bedford Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "", lat: 40.688313, lng: -73.955214 },
+    { name: "Miracle Temple", category: "Places of Worship", address: "387 Stuyvesant Avenue, Brooklyn, NY 11233", phone: "718-953-1618", hours: "", notes: "Rev. Andrews", lat: 40.6811, lng: -73.931438 },
+    { name: "Mission in Christ", category: "Places of Worship", address: "797 Hancock Street, Brooklyn, NY 11233", phone: "718-453-1386", hours: "", notes: "Elder Singleton", lat: 40.685789, lng: -73.923719 },
+    { name: "Monk's Memorial", category: "Places of Worship", address: "1080 Fulton Street, Brooklyn, NY 11238", phone: "718-383-1633", hours: "", notes: "Rev. Edmund Williams", lat: 40.68141, lng: -73.957693 },
+    { name: "Morning Star Highway Church", category: "Places of Worship", address: "1110 DeKalb Avenue, Brooklyn, NY 11221", phone: "718-453-9385", hours: "", notes: "Rev. Dove", lat: 40.693663, lng: -73.929976 },
+    { name: "Mt. Calvary Baptist Church", category: "Places of Worship", address: "92 Quincy Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Kerns", lat: 40.685985, lng: -73.95754 },
+    { name: "Mt. Calvary UFW Baptist Church", category: "Places of Worship", address: "298 Howard Avenue, Brooklyn, NY 11233", phone: "", hours: "", notes: "Mins. Bernard Findley | mtcalvaryfwbb@gmail.com", lat: 40.677496, lng: -73.919424 },
+    { name: "Mt. Carmel A.M.E. Church", category: "Places of Worship", address: "121 Chauncey Street, Brooklyn, NY 11233", phone: "718-774-6077", hours: "", notes: "Rev. Kenneth John", lat: 40.680451, lng: -73.930596 },
+    { name: "Mt. Carmel Baptist Church", category: "Places of Worship", address: "212 Quincy Street, Brooklyn, NY 11216", phone: "718-783-5763", hours: "", notes: "Rev. Turner Jr.", lat: 40.68654, lng: -73.95281 },
+    { name: "Mt. Holiness Church", category: "Places of Worship", address: "182 Van Buren Street, Brooklyn, NY 11221", phone: "718-574-3620", hours: "", notes: "Rev. Bland", lat: 40.690341, lng: -73.938922 },
+    { name: "Mt. Hope Pilgrim Spiritual Baptist Church", category: "Places of Worship", address: "86 Nostrand Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Rev. Cecil M. Douglas", lat: 40.697558, lng: -73.953106 },
+    { name: "Mt. Lebanon Church", category: "Places of Worship", address: "230 Decatur Street, Brooklyn, NY 11233", phone: "718-459-8770", hours: "", notes: "", lat: 40.681184, lng: -73.934033 },
+    { name: "Mt. Sinai Baptist Church", category: "Places of Worship", address: "241 Gates Avenue, Brooklyn, NY 11238", phone: "", hours: "", notes: "Rev. Dr. G.L. Whitney", lat: 40.685464, lng: -73.957854 },
+    { name: "Muhammad's Mosque of Islam", category: "Places of Worship", address: "980 Marcus Garvey Boulevard, Brooklyn, NY 11206", phone: "", hours: "", notes: "Bishop Mujahid Hadj", lat: 40.700135, lng: -73.941282 },
+    { name: "Mystery Soul Saving Church", category: "Places of Worship", address: "922 DeKalb Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Minister Kelly", lat: 40.692636, lng: -73.938788 },
+    { name: "Nazarene Temple Church", category: "Places of Worship", address: "1055 DeKalb Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Trice", lat: 40.693611, lng: -73.933289 },
+    { name: "New Birth Deliverance Christian Center", category: "Places of Worship", address: "2006 Fulton Street, Brooklyn, NY 11233", phone: "718-778-0019", hours: "", notes: "Apostle Dolores Copeland | apostlebrunson@yahoo.com", lat: 40.678356, lng: -73.918024 },
+    { name: "New Brooklyn Reform", category: "Places of Worship", address: "1064 Herkimer Street, Brooklyn, NY 11233", phone: "718-774-5630", hours: "", notes: "Rev. Alexander", lat: 40.677726, lng: -73.917912 },
+    { name: "New Canaan Baptist Church", category: "Places of Worship", address: "228 Putnam Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Richard J. Lawson", lat: 40.683533, lng: -73.952065 },
+    { name: "New Covenant Church of God in Christ", category: "Places of Worship", address: "742 Marcus Garvey Boulevard, Brooklyn, NY 11221", phone: "", hours: "", notes: "Pastor LeRoy Bracker", lat: 40.689752, lng: -73.93939 },
+    { name: "New Hope Church", category: "Places of Worship", address: "1026 DeKalb Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. McQueen", lat: 40.693387, lng: -73.93313 },
+    { name: "New Hope Deliverance", category: "Places of Worship", address: "1899 Fulton Street, Brooklyn, NY 11233", phone: "718-778-3657", hours: "", notes: "Rev. Smith", lat: 40.678939, lng: -73.920628 },
+    { name: "New Life Missionary", category: "Places of Worship", address: "2012 Fulton Street, Brooklyn, NY 11233", phone: "718-756-5823", hours: "", notes: "Pastor Valentine", lat: 40.67848, lng: -73.91776 },
+    { name: "New Testament Church of God", category: "Places of Worship", address: "904 Myrtle Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "Rev. Don Bethany", lat: 40.695557, lng: -73.945707 },
+    { name: "Newman Memorial United Methodist Church", category: "Places of Worship", address: "257 Macon Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Dr. William G. Smart", lat: 40.682289, lng: -73.941105 },
+    { name: "Old Mt. Zion Baptist Church", category: "Places of Worship", address: "891 Fulton Street, Brooklyn, NY 11238", phone: "718-774-4331", hours: "", notes: "Reverend Evans", lat: 40.683623, lng: -73.96713 },
+    { name: "Old Mt. Zion Baptist Church", category: "Places of Worship", address: "894 Putnam Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Adams", lat: 40.686588, lng: -73.925951 },
+    { name: "One Accord Church", category: "Places of Worship", address: "309 Hart Street, Brooklyn, NY 11206", phone: "718-449-3251", hours: "", notes: "Rev. Barber", lat: 40.694614, lng: -73.938517 },
+    { name: "Open Door COGIC", category: "Places of Worship", address: "999 Greene Avenue, Brooklyn, NY 11221", phone: "718-453-9545", hours: "", notes: "Rev. Bernard Taylor", lat: 40.6914, lng: -73.927116 },
+    { name: "Our Lady of Good Counsel", category: "Places of Worship", address: "115 Putnam Avenue, Brooklyn, NY 11238", phone: "718-443-7211", hours: "", notes: "Elder Smith", lat: 40.683291, lng: -73.957197 },
+    { name: "Our Lady of Montserrat R.C. Church", category: "Places of Worship", address: "134 Vernon Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "Rev. Francis Shannon", lat: 40.694736, lng: -73.946494 },
+    { name: "Our Lady of Victory R.C. Church", category: "Places of Worship", address: "583 Throop Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Elder Martin Carter", lat: 40.68195, lng: -73.940529 },
+    { name: "Pentecostal Church of God", category: "Places of Worship", address: "444 Ralph Avenue, Brooklyn, NY 11221", phone: "718-452-8292", hours: "", notes: "Elder Peterson", lat: 40.673882, lng: -73.922254 },
+    { name: "Pentecostal Uproar M.M.C.", category: "Places of Worship", address: "178 Ralph Avenue, Brooklyn, NY 11233", phone: "", hours: "", notes: "Pastor Moses", lat: 40.683767, lng: -73.923158 },
+    { name: "People's Institutional A.M.E. Church", category: "Places of Worship", address: "628 Madison Street, Brooklyn, NY 11233", phone: "", hours: "", notes: "Pastor Carrie Nobles", lat: 40.686548, lng: -73.93308 },
+    { name: "Pilgrim Church", category: "Places of Worship", address: "1338 Broadway, Brooklyn, NY 11221", phone: "718-452-9611", hours: "", notes: "Bishop Roy E. Brown", lat: 40.689946, lng: -73.923031 },
+    { name: "Pleasant Grove Baptist Church", category: "Places of Worship", address: "1827 Fulton Street, Brooklyn, NY 11233", phone: "718-774-7777", hours: "", notes: "Rev. Jamison", lat: 40.679128, lng: -73.92481 },
+    { name: "Refuge Church of God", category: "Places of Worship", address: "595 Quincy Street, Brooklyn, NY 11221", phone: "718-574-0040", hours: "", notes: "Rev. Lane", lat: 40.688977, lng: -73.935299 },
+    { name: "Rugged Cross Baptist Church", category: "Places of Worship", address: "1084 Lafayette Avenue, Brooklyn, NY 11221", phone: "718-453-1888", hours: "", notes: "Rev. Morton", lat: 40.692269, lng: -73.928665 },
+    { name: "Sacred Heart of Jesus", category: "Places of Worship", address: "903 Herkimer Street, Brooklyn, NY 11233", phone: "718-953-2021", hours: "", notes: "Rev. Newell", lat: 40.678397, lng: -73.923486 },
+    { name: "Shiloh Baptist Church", category: "Places of Worship", address: "489 Tompkins Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Thomas Moore", lat: 40.680568, lng: -73.943136 },
+    { name: "Siloam Presbyterian Church", category: "Places of Worship", address: "260 Jefferson Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Dr. Darryl Young", lat: 40.683387, lng: -73.947221 },
+    { name: "Sinai Spiritual Church", category: "Places of Worship", address: "1070 Putnam Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Bishop Ford", lat: 40.687407, lng: -73.919264 },
+    { name: "St. Anna's/St. Catherines", category: "Places of Worship", address: "877 Putnam Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "", lat: 40.686968, lng: -73.926007 },
+    { name: "St. George's Episcopal Church", category: "Places of Worship", address: "800 Marcy Avenue, Brooklyn, NY 11216", phone: "718-604-8680", hours: "", notes: "Rev. Dr. Gensworth Miles", lat: 40.686264, lng: -73.947807 },
+    { name: "St. John the Baptist Roman Catholic Church", category: "Places of Worship", address: "333 Hart Street, Brooklyn, NY 11206", phone: "718-455-6884", hours: "", notes: "Rev. Plock", lat: 40.695029, lng: -73.936183 },
+    { name: "St. John's AME Church", category: "Places of Worship", address: "666 Quincy Street, Brooklyn, NY 11221", phone: "718-452-6820", hours: "", notes: "Rev. Owings", lat: 40.688693, lng: -73.933925 },
+    { name: "St. Leonard", category: "Places of Worship", address: "705 Putnam Avenue, Brooklyn, NY 11221", phone: "718-452-0580", hours: "", notes: "Rev. Bentley", lat: 40.686124, lng: -73.933436 },
+    { name: "St. Lucy St. Patrick R.C. Church", category: "Places of Worship", address: "295 Willoughby Avenue, Brooklyn, NY 11205", phone: "", hours: "", notes: "Father Louis Millazzo", lat: 40.692686, lng: -73.959212 },
+    { name: "St. Lucy's Old R.C. Church", category: "Places of Worship", address: "802 Kent Avenue, Brooklyn, NY 11206", phone: "718-812-3440", hours: "", notes: "Father Louis Millazzo", lat: 40.69701, lng: -73.960188 },
+    { name: "St. Mary Church of Christ", category: "Places of Worship", address: "493 Monroe Street, Brooklyn, NY 11221", phone: "718-574-4100", hours: "", notes: "Bishop Chambers", lat: 40.687078, lng: -73.937319 },
+    { name: "St. Paul's Church of Christ Disciples of Christ Inc.", category: "Places of Worship", address: "154 Gates Avenue, Brooklyn, NY 11238", phone: "718-574-8244", hours: "", notes: "Rev. Charles D. Owens Sr.", lat: 40.684809, lng: -73.961342 },
+    { name: "St. Peter Claver R.C. Church", category: "Places of Worship", address: "29 Claver Place, Brooklyn, NY 11238", phone: "", hours: "", notes: "Father Jarvis", lat: 40.68213, lng: -73.957212 },
+    { name: "St. Stephen United Church of God", category: "Places of Worship", address: "874 Myrtle Avenue, Brooklyn, NY 11206", phone: "", hours: "", notes: "Rev. Clarence O. Williams", lat: 40.695318, lng: -73.947118 },
+    { name: "St. Stephens/St. Martins", category: "Places of Worship", address: "809 Jefferson Avenue, Brooklyn, NY 11221", phone: "", hours: "", notes: "Rev. Stout", lat: 40.686153, lng: -73.92581 },
+    { name: "Stuyvesant Heights Christian Church", category: "Places of Worship", address: "65 MacDonough Street, Brooklyn, NY 11216", phone: "", hours: "", notes: "Pastor Cornelius Brown", lat: 40.681078, lng: -73.943904 },
+    { name: "Tabernacle of Prayer", category: "Places of Worship", address: "27 Marcus Garvey Boulevard, Brooklyn, NY 11206", phone: "", hours: "", notes: "Pastor Rodriguez", lat: 40.698821, lng: -73.9411 },
+    { name: "The Pentecostal House of Prayer Inc.", category: "Places of Worship", address: "203 Nostrand Avenue, Brooklyn, NY 11205", phone: "718-782-6492", hours: "", notes: "Pastor Gwendolyn Dingle", lat: 40.692212, lng: -73.951662 },
+    { name: "Throne Apostolic Church Inc.", category: "Places of Worship", address: "1027 Fulton Street, Brooklyn, NY 11238", phone: "", hours: "", notes: "Bishop Stephen Lynch", lat: 40.682372, lng: -73.961008 },
+    { name: "United Deliverance Temple", category: "Places of Worship", address: "675 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", notes: "Rev. Stella Brown", lat: 40.690558, lng: -73.947006 },
+    { name: "United Pentecostal Faith", category: "Places of Worship", address: "39 Chauncey Street, Brooklyn, NY 11233", phone: "", hours: "", notes: "Rev. Joanna Evans", lat: 40.679935, lng: -73.934251 },
+    { name: "World Restoration Center Inc.", category: "Places of Worship", address: "1217 Bedford Avenue, Brooklyn, NY 11216", phone: "516-385-5936", hours: "", notes: "Bishop Jonathan E. Owhe Sr. | ctripublicrelations@gmail.com", lat: 40.6817, lng: -73.95347 }
 ];
 
 const cb3GeoJSON = {
@@ -1512,7 +1693,7 @@ map.on('click', 'cb3-points', function(e) {
 });
 
 // Handle CB3 filter buttons
-document.querySelectorAll('.filter-btn[data-category="Health Care"], .filter-btn[data-category="Police"], .filter-btn[data-category="Fire Department"], .filter-btn[data-category="Library"], .filter-btn[data-category="Emergency Food"], .filter-btn[data-category="cb3-Community"], .filter-btn[data-category="Single Stop"], .filter-btn[data-category="Senior Center"], .filter-btn[data-category="Park"], .filter-btn[data-category="Greenmarket"], .filter-btn[data-category="Employment"], .filter-btn[data-category="Child Care"], .filter-btn[data-category="Homeless Prevention"], .filter-btn[data-category="School"]').forEach(btn => {
+document.querySelectorAll('.filter-btn[data-category="Health Care"], .filter-btn[data-category="Police"], .filter-btn[data-category="Fire Department"], .filter-btn[data-category="Library"], .filter-btn[data-category="Emergency Food"], .filter-btn[data-category="cb3-Community"], .filter-btn[data-category="Single Stop"], .filter-btn[data-category="Senior Center"], .filter-btn[data-category="Park"], .filter-btn[data-category="Greenmarket"], .filter-btn[data-category="Employment"], .filter-btn[data-category="Child Care"], .filter-btn[data-category="Homeless Prevention"], .filter-btn[data-category="School"], .filter-btn[data-category="Places of Worship"]').forEach(btn => {
     btn.addEventListener('click', function() {
         const cat = this.dataset.category;
         this.classList.toggle('active');
