@@ -135,56 +135,34 @@
         }
 
         /* Category-specific colors when active */
-        .filter-btn[data-category="all"].active {
-            background: black;
-            border-color: black;
-        }
-        .filter-btn[data-category="Gardens"].active {
-            background: #4CAF50;
-        }
-        .filter-btn[data-category="Credit Unions"].active {
-            background: #2196F3;
-        }
-        .filter-btn[data-category="CLTs"].active {
-            background: #9C27B0;
-        }
-        .filter-btn[data-category="Food"].active {
-            background: #FF9800;
-        }
-        .filter-btn[data-category="Housing"].active {
-            background: #F44336;
-        }
-        .filter-btn[data-category="Worker"].active {
-            background: #00BCD4;
-        }
-        .filter-btn[data-category="CSAs"].active {
-            background: #8BC34A;
-        }
-        .filter-btn[data-category="Energy"].active {
-            background: #FFC107;
-        }
-        .filter-btn[data-category="Community Fridges"].active {
-            background: #E91E63;
-        }
-        .filter-btn[data-category="Mesh NYC Nodes"].active {
-            background: #808080;
-        }
+        .filter-btn[data-category="all"].active          { background: #212121; border-color: #212121; }
+        /* Community Resources */
+        .filter-btn[data-category="Gardens"].active       { background: #2E7D32; }
+        .filter-btn[data-category="Credit Unions"].active { background: #039BE5; }
+        .filter-btn[data-category="CLTs"].active          { background: #5E35B1; }
+        .filter-btn[data-category="Food"].active          { background: #FF9800; }
+        .filter-btn[data-category="Housing"].active       { background: #E53935; }
+        .filter-btn[data-category="Worker"].active        { background: #00897B; }
+        .filter-btn[data-category="CSAs"].active          { background: #C0CA33; color: #222; }
+        .filter-btn[data-category="Energy"].active        { background: #FDD835; color: #222; }
+        .filter-btn[data-category="Community Fridges"].active { background: #D81B60; }
+        .filter-btn[data-category="Mesh NYC Nodes"].active { background: #607D8B; }
         /* CB3 Services */
-        .filter-btn[data-category="Health Care"].active       { background: #C0392B; }
-        .filter-btn[data-category="Police"].active            { background: #2980B9; }
-        .filter-btn[data-category="Fire Department"].active   { background: #E67E22; }
-        .filter-btn[data-category="Library"].active           { background: #8E44AD; }
-        .filter-btn[data-category="Emergency Food"].active    { background: #27AE60; }
-        .filter-btn[data-category="cb3-Community"].active     { background: #7F8C8D; }
-        .filter-btn[data-category="Single Stop"].active       { background: #0E6655; }
-        .filter-btn[data-category="Senior Center"].active     { background: #B7950B; }
-        .filter-btn[data-category="Employment"].active        { background: #D35400; }
-        .filter-btn[data-category="Child Care"].active        { background: #76448A; }
-        .filter-btn[data-category="Homeless Prevention"].active { background: #2E4057; }
-        .filter-btn[data-category="Park"].active              { background: #17A589; }
-        .filter-btn[data-category="Greenmarket"].active       { background: #D4AC0D; }
-        .filter-btn[data-category="School"].active             { background: #1A5276; }
-        .filter-btn[data-category="Places of Worship"].active { background: #6E2594; }
+        .filter-btn[data-category="Health Care"].active       { background: #FF7043; }
+        .filter-btn[data-category="Police"].active            { background: #0D47A1; }
+        .filter-btn[data-category="Fire Department"].active   { background: #FF6D00; }
+        .filter-btn[data-category="Library"].active           { background: #8E24AA; }
+        .filter-btn[data-category="Emergency Food"].active    { background: #26C6DA; color: #222; }
+        .filter-btn[data-category="cb3-Community"].active     { background: #9E9E9E; color: #222; }
+        .filter-btn[data-category="Single Stop"].active       { background: #1B5E20; }
+        .filter-btn[data-category="Senior Center"].active     { background: #F9A825; color: #222; }
+        .filter-btn[data-category="Employment"].active        { background: #6D4C41; }
+        .filter-btn[data-category="Child Care"].active        { background: #FF8A65; color: #222; }
+        .filter-btn[data-category="Homeless Prevention"].active { background: #37474F; }
+        .filter-btn[data-category="Park"].active              { background: #33691E; }
+        .filter-btn[data-category="Greenmarket"].active       { background: #8BC34A; color: #222; }
+        .filter-btn[data-category="School"].active            { background: #311B92; }
+        .filter-btn[data-category="Places of Worship"].active { background: #AD1457; }
 
         .search-results {
             max-height: 300px;
@@ -617,16 +595,16 @@ let communityResourcesSourceLayer = null; // Store the source layer name
 
 // Category colors
 const categoryColors = {
-    'Gardens': '#4CAF50',
-    'Credit Unions': '#2196F3',
-    'CLTs': '#9C27B0',
-    'Food': '#FF9800',
-    'Housing': '#F44336',
-    'Worker': '#00BCD4',
-    'CSAs': '#8BC34A',
-    'Energy': '#FFC107',
-    'Community Fridges': '#E91E63',
-    'Mesh NYC Nodes': '#808080'
+    'Gardens':          '#2E7D32',
+    'Credit Unions':    '#039BE5',
+    'CLTs':             '#5E35B1',
+    'Food':             '#FF9800',
+    'Housing':          '#E53935',
+    'Worker':           '#00897B',
+    'CSAs':             '#C0CA33',
+    'Energy':           '#FDD835',
+    'Community Fridges':'#D81B60',
+    'Mesh NYC Nodes':   '#607D8B'
 };
 
 map.on('load', function() {
@@ -966,11 +944,22 @@ map.on('idle', function setupFilters() {
 
 // ── CB3 Resources Layer ──────────────────────────────────────────────
 const CB3_COLORS = {
-    'Health Care': '#C0392B', 'Police': '#2980B9', 'Fire Department': '#E67E22',
-    'Library': '#8E44AD', 'Emergency Food': '#27AE60', 'Community': '#7F8C8D',
-    'Single Stop': '#0E6655', 'Senior Center': '#B7950B', 'Gardens': '#229954',
-    'Employment': '#D35400', 'Child Care': '#76448A', 'Homeless Prevention': '#2E4057',
-    'Park': '#17A589', 'Greenmarket': '#D4AC0D', 'School': '#1A5276', 'Places of Worship': '#6E2594'
+    'Health Care':        '#FF7043',
+    'Police':             '#0D47A1',
+    'Fire Department':    '#FF6D00',
+    'Library':            '#8E24AA',
+    'Emergency Food':     '#26C6DA',
+    'Community':          '#9E9E9E',
+    'Single Stop':        '#1B5E20',
+    'Senior Center':      '#F9A825',
+    'Gardens':            '#2E7D32',
+    'Employment':         '#6D4C41',
+    'Child Care':         '#FF8A65',
+    'Homeless Prevention':'#37474F',
+    'Park':               '#33691E',
+    'Greenmarket':        '#8BC34A',
+    'School':             '#311B92',
+    'Places of Worship':  '#AD1457'
 };
 
 const CB3_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HoUy145l0nZn_o6c-n34S7G83D0IzBDYBpnq8zzVgFtrfA8M0-Ys26uTDYCCgW_7eZFZh0CuuEZQ/pub?gid=953239753&single=true&output=csv';
