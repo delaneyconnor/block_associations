@@ -164,13 +164,10 @@
         .filter-btn[data-category="Police"].active            { background: #2980B9; }
         .filter-btn[data-category="Fire Department"].active   { background: #E67E22; }
         .filter-btn[data-category="Library"].active           { background: #8E44AD; }
-        .filter-btn[data-category="Food Pantry"].active       { background: #27AE60; }
-        .filter-btn[data-category="Soup Kitchen"].active      { background: #16A085; }
-        .filter-btn[data-category="Food Pantry & Soup Kitchen"].active { background: #1E8449; }
+        .filter-btn[data-category="Emergency Food"].active    { background: #27AE60; }
         .filter-btn[data-category="cb3-Community"].active     { background: #7F8C8D; }
         .filter-btn[data-category="Single Stop"].active       { background: #0E6655; }
         .filter-btn[data-category="Senior Center"].active     { background: #B7950B; }
-        .filter-btn[data-category="Community Garden"].active  { background: #229954; }
         .filter-btn[data-category="Employment"].active        { background: #D35400; }
         .filter-btn[data-category="Child Care"].active        { background: #76448A; }
         .filter-btn[data-category="Homeless Prevention"].active { background: #2E4057; }
@@ -495,13 +492,10 @@
         <button class="filter-btn" data-category="Police">Police</button>
         <button class="filter-btn" data-category="Fire Department">Fire Dept</button>
         <button class="filter-btn" data-category="Library">Library</button>
-        <button class="filter-btn" data-category="Food Pantry">Food Pantry</button>
-        <button class="filter-btn" data-category="Soup Kitchen">Soup Kitchen</button>
-        <button class="filter-btn" data-category="Food Pantry & Soup Kitchen">Pantry+Kitchen</button>
+        <button class="filter-btn" data-category="Emergency Food">Emergency Food</button>
         <button class="filter-btn" data-category="cb3-Community">Community</button>
         <button class="filter-btn" data-category="Single Stop">Single Stop</button>
         <button class="filter-btn" data-category="Senior Center">Senior Center</button>
-        <button class="filter-btn" data-category="Community Garden">Gardens</button>
         <button class="filter-btn" data-category="Park">Parks</button>
         <button class="filter-btn" data-category="Greenmarket">Greenmarkets</button>
         <button class="filter-btn" data-category="Employment">Employment</button>
@@ -870,6 +864,23 @@ document.getElementById('close-panel').addEventListener('click', function() {
     selectedPointId = null;
 });
 
+// Sync CB3 "Gardens" with the tileset Gardens button
+function syncCB3Gardens() {
+    if (!map.getLayer('cb3-points')) return;
+    const activeCB3 = Array.from(document.querySelectorAll(
+        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active'
+    )).map(b => b.dataset.category === 'cb3-Community' ? 'Community' : b.dataset.category);
+    if (selectedCategories.includes('Gardens')) activeCB3.push('Gardens');
+    if (activeCB3.length === 0) {
+        map.setFilter('cb3-points', null);
+        map.setFilter('cb3-halo', null);
+    } else {
+        const f = ['in', ['get', 'category'], ['literal', activeCB3]];
+        map.setFilter('cb3-points', f);
+        map.setFilter('cb3-halo', f);
+    }
+}
+
 // Category filter - wait for map to be ready
 map.on('idle', function setupFilters() {
     if (!communityResourcesLayer) return;
@@ -922,6 +933,9 @@ map.on('idle', function setupFilters() {
                 console.log('Filter applied for multiple categories:', filter);
             }
 
+            // Sync CB3 Gardens with tileset Gardens button
+            syncCB3Gardens();
+
             // Debug: check how many features are visible after filter
             setTimeout(() => {
                 const visibleFeatures = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
@@ -937,9 +951,8 @@ map.on('idle', function setupFilters() {
 // ── CB3 Resources Layer ──────────────────────────────────────────────
 const CB3_COLORS = {
     'Health Care': '#C0392B', 'Police': '#2980B9', 'Fire Department': '#E67E22',
-    'Library': '#8E44AD', 'Food Pantry': '#27AE60', 'Soup Kitchen': '#16A085',
-    'Food Pantry & Soup Kitchen': '#1E8449', 'Community': '#7F8C8D',
-    'Single Stop': '#0E6655', 'Senior Center': '#B7950B', 'Community Garden': '#229954',
+    'Library': '#8E44AD', 'Emergency Food': '#27AE60', 'Community': '#7F8C8D',
+    'Single Stop': '#0E6655', 'Senior Center': '#B7950B', 'Gardens': '#229954',
     'Employment': '#D35400', 'Child Care': '#76448A', 'Homeless Prevention': '#2E4057',
     'Park': '#17A589', 'Greenmarket': '#D4AC0D', 'School': '#1A5276'
 };
@@ -985,84 +998,83 @@ const cb3Resources = [
     { name: "Brooklyn Public Library - Saratoga", category: "Library", address: "8 Hopkinson Avenue, Brooklyn, NY 11233", phone: "718-573-5224", hours: "", lat: 40.684815, lng: -73.915153 },
     { name: "Washington Irving Library", category: "Library", address: "360 Irving Avenue, Brooklyn, NY 11237", phone: "718-628-8378", hours: "", lat: 40.697477, lng: -73.912214 },
     { name: "DeKalb Library", category: "Library", address: "790 Bushwick Avenue, Brooklyn, NY 11221", phone: "718-455-3898", hours: "", lat: 40.694818, lng: -73.928399 },
-    { name: "Apostolic Assembly of Jesus Christ", category: "Food Pantry", address: "3808 Church Avenue, Brooklyn, NY 11203", phone: "347-358-4564", hours: "Sat 1-3pm", lat: 40.650989, lng: -73.941567 },
-    { name: "Brooklyn Faith SDA Church", category: "Food Pantry & Soup Kitchen", address: "5518 Church Avenue, Brooklyn, NY 11203", phone: "718-257-1469", hours: "Pantry: Thu 2-4pm; Kitchen: Fri 1-4pm", lat: 40.652295, lng: -73.92491 },
-    { name: "Caribbean American Steel Pan Education Center", category: "Food Pantry", address: "899 Winthrop Street, Brooklyn, NY 11203", phone: "718-753-9888", hours: "Sun 6-8pm", lat: 40.658574, lng: -73.929455 },
-    { name: "Christian Fellowship SDA Community Services", category: "Food Pantry & Soup Kitchen", address: "777 Schenectady Avenue, Brooklyn, NY 11203", phone: "718-776-6143", hours: "Kitchen: Mon & Wed 5-6:30pm; Pantry: Wed 11am-12:30pm", lat: 40.654381, lng: -73.933284 },
-    { name: "Church of God of Prophecy Crown Heights", category: "Food Pantry & Soup Kitchen", address: "467 Rutland Road, Brooklyn, NY 11203", phone: "917-287-2262", hours: "Sat 8-10am", lat: 40.659963, lng: -73.945021 },
-    { name: "God's Battalion Prayer Church", category: "Food Pantry", address: "661 Linden Blvd, Brooklyn, NY 11203", phone: "718-774-5447", hours: "Tue & Thu 10am-12pm", lat: 40.653751, lng: -73.933974 },
-    { name: "Shalom Senior Center Food Pantry", category: "Food Pantry", address: "483 Albany Avenue, Brooklyn, NY 11203", phone: "718-774-9213", hours: "Mon-Thu 1-2pm", lat: 40.663405, lng: -73.939668 },
-    { name: "Society of St. Vincent de Paul", category: "Food Pantry", address: "520 Linden Boulevard, Brooklyn, NY 11203", phone: "718-282-7162", hours: "Thu 10:30am-1:30pm", lat: 40.652982, lng: -73.939739 },
-    { name: "St. Therese of Lisieux RC Church", category: "Food Pantry", address: "4410 Avenue D, Brooklyn, NY 11203", phone: "718-451-0683", hours: "", lat: 40.641716, lng: -73.934904 },
-    { name: "Triumphant Full Gospel Assembly", category: "Food Pantry", address: "889 Rutland Road, Brooklyn, NY 11203", phone: "718-774-4696", hours: "Thu 4-6pm", lat: 40.660813, lng: -73.929907 },
-    { name: "Christian Fellowship Life Center", category: "Food Pantry", address: "132 Carlton Avenue, Brooklyn, NY 11205", phone: "718-858-7351", hours: "Thu 2-6pm", lat: 40.693802, lng: -73.973264 },
-    { name: "Iglesia Pentecostal Arca De Salvacion", category: "Food Pantry", address: "72 Vanderbilt Avenue, Brooklyn, NY 11205", phone: "347-423-6810", hours: "Sat 7:30-9:30am", lat: 40.695498, lng: -73.970536 },
-    { name: "United Jewish Organization of Williamsburg", category: "Food Pantry", address: "455 Park Avenue, Brooklyn, NY 11205", phone: "718-643-9700", hours: "Wed 12-2pm", lat: 40.696623, lng: -73.958946 },
-    { name: "Act of Faith Ministries", category: "Food Pantry", address: "141 Manhattan Avenue, Brooklyn, NY 11206", phone: "718-596-8950", hours: "1st & 3rd Thu 12-2pm", lat: 40.707623, lng: -73.94525 },
-    { name: "All People's Church Apostolic Faith", category: "Food Pantry", address: "182 Tompkins Avenue, Brooklyn, NY 11206", phone: "718-782-3703", hours: "Sat 10-11am", lat: 40.692891, lng: -73.946125 },
-    { name: "Cathedral of Joy CDC", category: "Food Pantry & Soup Kitchen", address: "43 George Street, Brooklyn, NY 11206", phone: "718-213-6957", hours: "Kitchen: Sat 9-10:30am; Pantry: Tue & Thu 9-11:30am", lat: 40.701465, lng: -73.931662 },
-    { name: "CCNS-St John's Food Pantry", category: "Food Pantry", address: "75 Lewis Avenue, Brooklyn, NY 11206", phone: "718-722-6001", hours: "Tue 8:30am-12pm", lat: 40.694798, lng: -73.937161 },
-    { name: "Mission Assembly Pentecostal", category: "Food Pantry", address: "118 Bushwick Avenue, Brooklyn, NY 11206", phone: "718-649-2432", hours: "Wed 11am-1pm", lat: 40.711319, lng: -73.940604 },
-    { name: "Solid Rock Baptist Church", category: "Food Pantry", address: "120 Tompkins Avenue, Brooklyn, NY 11206", phone: "718-384-8764", hours: "Mon & Thu 9am-12pm", lat: 40.695141, lng: -73.946406 },
-    { name: "St. Stephen Outreach Inc.", category: "Food Pantry & Soup Kitchen", address: "874 Myrtle Avenue, Brooklyn, NY 11206", phone: "718-938-4532", hours: "Pantry: Mon/Wed/Fri 9-10:30am; Kitchen: Mon-Fri 11am-1pm", lat: 40.695318, lng: -73.947118 },
-    { name: "Trinity Human Service Corp.", category: "Food Pantry", address: "153 Johnson Avenue, Brooklyn, NY 11206", phone: "718-388-3176", hours: "Tue-Fri 9am-4:30pm", lat: 40.706918, lng: -73.944189 },
-    { name: "United Grand Chapter of Eastern Star", category: "Food Pantry", address: "441 Willoughby Avenue, Brooklyn, NY 11206", phone: "718-451-0217", hours: "Fri 10-11am", lat: 40.69375, lng: -73.950973 },
-    { name: "Agape Social Services Beulah Church", category: "Food Pantry & Soup Kitchen", address: "929 Marcy Avenue, Brooklyn, NY 11216", phone: "718-484-3823", hours: "Pantry: Tue/Thu/Fri 10:30am-2pm; Kitchen: Wed 12:30-2pm", lat: 40.680952, lng: -73.946192 },
-    { name: "All Peoples Church of Apostolic Faith", category: "Food Pantry", address: "422 Gates Avenue, Brooklyn, NY 11216", phone: "718-783-6902", hours: "Wed 11am-2pm", lat: 40.686195, lng: -73.949315 },
-    { name: "Bedford Central Presbyterian Church", category: "Food Pantry", address: "1200 Dean Street, Brooklyn, NY 11216", phone: "718-467-0740", hours: "", lat: 40.676591, lng: -73.949562 },
-    { name: "Bethel Sunshine Camp", category: "Food Pantry", address: "344 Tompkins Avenue, Brooklyn, NY 11216", phone: "718-789-0034", hours: "Tue & Fri 7-8:30pm", lat: 40.685858, lng: -73.944641 },
-    { name: "Ebenezer Wesley Methodist Church", category: "Food Pantry", address: "47 Rogers Avenue, Brooklyn, NY 11216", phone: "718-604-7252", hours: "", lat: 40.675956, lng: -73.952491 },
-    { name: "Family Life Development Center", category: "Food Pantry", address: "1476 Bedford Avenue, Brooklyn, NY 11216", phone: "347-436-7134", hours: "Mon 4-6pm", lat: 40.672945, lng: -73.954582 },
-    { name: "Greater Unified Free Will Baptist Church", category: "Food Pantry", address: "66 Rogers Avenue, Brooklyn, NY 11216", phone: "718-781-2698", hours: "Wed 12-1pm", lat: 40.674598, lng: -73.952981 },
-    { name: "Hebron SDA Church", category: "Food Pantry", address: "1256 Dean Street, Brooklyn, NY 11216", phone: "718-778-6454", hours: "1st & 3rd Wed 9-10:30am", lat: 40.676639, lng: -73.947686 },
-    { name: "John Wesley United Methodist Church", category: "Food Pantry & Soup Kitchen", address: "260 Quincy Street, Brooklyn, NY 11216", phone: "718-783-5761", hours: "Kitchen: Thu 12:30-2pm; Pantry: Tue 2-6pm", lat: 40.686658, lng: -73.951221 },
-    { name: "Macedonia Church of Christ", category: "Food Pantry", address: "289 Quincy Street, Brooklyn, NY 11216", phone: "718-638-4620", hours: "2nd & 4th Tue 12-2pm", lat: 40.687386, lng: -73.949099 },
-    { name: "New Haven SDA Church", category: "Food Pantry & Soup Kitchen", address: "634 Prospect Place, Brooklyn, NY 11216", phone: "347-589-1815", hours: "Pantry: 1st & 3rd Thu 11am-1:30pm; Kitchen: Sun 11am-2pm", lat: 40.674578, lng: -73.955894 },
-    { name: "Newman Memorial United Methodist Church", category: "Food Pantry & Soup Kitchen", address: "257 Macon Street, Brooklyn, NY 11216", phone: "718-622-7955", hours: "Pantry: Tue 10am-2pm; Kitchen: Tue 9-10:30am", lat: 40.682289, lng: -73.941105 },
-    { name: "Siloam Presbyterian Church", category: "Food Pantry", address: "260 Jefferson Avenue, Brooklyn, NY 11216", phone: "718-789-7050", hours: "Wed & Fri 10am-1pm", lat: 40.683471, lng: -73.947305 },
-    { name: "St. George's Episcopal Church", category: "Food Pantry", address: "800 Marcy Avenue, Brooklyn, NY 11216", phone: "718-789-6036", hours: "Tue 10:30am-12pm", lat: 40.686264, lng: -73.947807 },
-    { name: "Stuyvesant Heights Christian Church", category: "Food Pantry", address: "69 MacDonough Street, Brooklyn, NY 11216", phone: "347-200-5029", hours: "Thu 5-6pm", lat: 40.681094, lng: -73.943764 },
-    { name: "The Salvation Army Bedford", category: "Food Pantry", address: "601 Lafayette Avenue, Brooklyn, NY 11216", phone: "718-622-0614", hours: "Mon-Thu 1-2:30pm", lat: 40.690094, lng: -73.950435 },
-    { name: "NEBHDCo Golden Harvest Food Pantry", category: "Food Pantry", address: "745 Lafayette Avenue, Brooklyn, NY 11221", phone: "718-453-9490", hours: "Tue & Thu 10am-12pm", lat: 40.691007, lng: -73.943324 },
-    { name: "Bethany House/St. Christopher", category: "Food Pantry", address: "164 Suydam Street, Brooklyn, NY 11221", phone: "718-574-6300", hours: "Thu 11am-1pm", lat: 40.699241, lng: -73.926284 },
-    { name: "Bethesda Memorial Baptist Church", category: "Soup Kitchen", address: "49 Cornelia Street, Brooklyn, NY 11221", phone: "718-455-2678", hours: "Thu 12-2pm", lat: 40.688691, lng: -73.91713 },
-    { name: "Black Veterans for Social Justice", category: "Food Pantry", address: "357 Marcus Garvey Blvd, Brooklyn, NY 11221", phone: "718-852-6004", hours: "Every other Fri 2-3:30pm", lat: 40.685114, lng: -73.937268 },
-    { name: "Bridge Street AME Church Soup Kitchen", category: "Soup Kitchen", address: "277 Stuyvesant Avenue, Brooklyn, NY 11221", phone: "718-452-3936", hours: "Wed 11am-1pm", lat: 40.685136, lng: -73.932187 },
-    { name: "Cornerstone Baptist Food Pantry", category: "Food Pantry", address: "562 Madison Street, Brooklyn, NY 11221", phone: "718-789-0946", hours: "Tue 11am-1pm", lat: 40.686365, lng: -73.935559 },
-    { name: "Crossover Baptist Church", category: "Food Pantry & Soup Kitchen", address: "358 Kosciusko Street, Brooklyn, NY 11221", phone: "718-452-4653", hours: "Pantry: 2nd & 4th Fri 9-11am; Kitchen: Wed 12-2pm", lat: 40.691808, lng: -73.940203 },
-    { name: "Faith Assemblies", category: "Food Pantry & Soup Kitchen", address: "1014 Gates Avenue, Brooklyn, NY 11221", phone: "347-853-4966", hours: "Sat 9-11:30am", lat: 40.689178, lng: -73.92281 },
-    { name: "Friendly Christian Church", category: "Food Pantry & Soup Kitchen", address: "569 Hart Street, Brooklyn, NY 11221", phone: "718-642-0221", hours: "Kitchen: Wed/Thu/Fri 12:30-1:30pm; Pantry: 2nd & 4th Sat 10-11am", lat: 40.697214, lng: -73.929303 },
-    { name: "New Creation Outreach Center", category: "Food Pantry", address: "1534 Broadway, Brooklyn, NY 11221", phone: "718-573-9980", hours: "Sat 12-2pm", lat: 40.686245, lng: -73.91663 },
-    { name: "St. John's Bread and Life", category: "Food Pantry & Soup Kitchen", address: "795 Lexington Avenue, Brooklyn, NY 11221", phone: "718-574-0058", hours: "Mon-Fri 8-9:30am & 10:30am-12:30pm", lat: 40.690392, lng: -73.928899 },
-    { name: "St. Philip's Christian Church", category: "Food Pantry", address: "765 Lafayette Avenue, Brooklyn, NY 11221", phone: "718-453-0691", hours: "Thu 12:30-2:30pm", lat: 40.691174, lng: -73.942201 },
-    { name: "The Salvation Army Bushwick", category: "Food Pantry & Soup Kitchen", address: "1151 Bushwick Avenue, Brooklyn, NY 11221", phone: "718-455-4102", hours: "Pantry: Mon/Tue/Thu/Fri 10am-1pm; Kitchen: Sun/Mon/Fri 2-3:30pm", lat: 40.689255, lng: -73.917314 },
-    { name: "Thurston Memorial Outreach Ministries", category: "Food Pantry & Soup Kitchen", address: "1243 Bushwick Avenue, Brooklyn, NY 11221", phone: "718-452-3646", hours: "Fri 7-9pm", lat: 40.687866, lng: -73.914597 },
-    { name: "Trinity United Presbyterian Church", category: "Food Pantry", address: "243 Weirfield Street, Brooklyn, NY 11221", phone: "718-574-6010", hours: "Thu 9-11am", lat: 40.69219, lng: -73.910312 },
-    { name: "Upper Room Full Gospel Baptist Church", category: "Food Pantry & Soup Kitchen", address: "180 Van Buren Street, Brooklyn, NY 11221", phone: "347-680-6781", hours: "Mon-Fri 10am-3pm (Pantry) / 12-2pm (Kitchen)", lat: 40.690404, lng: -73.939262 },
-    { name: "Bed-Stuy Campaign Against Hunger", category: "Food Pantry", address: "2004 Fulton Street, Brooklyn, NY 11233", phone: "718-773-3551", hours: "Mon-Fri 10am-3pm", lat: 40.678363, lng: -73.918133 },
-    { name: "Brooklyn Rescue Mission", category: "Food Pantry", address: "255 Bainbridge Street, Brooklyn, NY 11233", phone: "718-363-3085", hours: "Tue & Thu 7am-12pm", lat: 40.681631, lng: -73.926801 },
-    { name: "Calvary AME Church", category: "Soup Kitchen", address: "790 Herkimer Street, Brooklyn, NY 11233", phone: "718-467-0987", hours: "Tue 12:30-2pm", lat: 40.678089, lng: -73.927203 },
-    { name: "Chance for Children", category: "Food Pantry", address: "2097 Fulton Street, Brooklyn, NY 11233", phone: "718-566-2823", hours: "Fri 10am-12pm", lat: 40.678355, lng: -73.909147 },
-    { name: "Community Services Housing Development Corp.", category: "Food Pantry", address: "547 Howard Avenue, Brooklyn, NY 11233", phone: "718-498-2700", hours: "Every other Thu 10am-12pm", lat: 40.66901, lng: -73.919821 },
-    { name: "Faith Based Food Distribution Dev. Corp.", category: "Food Pantry", address: "121 Chauncey Street, Brooklyn, NY 11233", phone: "718-771-8061", hours: "Sat 9am-12pm", lat: 40.680451, lng: -73.930596 },
-    { name: "Glover Memorial", category: "Food Pantry & Soup Kitchen", address: "2134 Dean Street, Brooklyn, NY 11233", phone: "732-968-1216", hours: "Pantry: Thu 10am-12pm; Kitchen: Wed 1-3pm", lat: 40.674909, lng: -73.91703 },
-    { name: "God's Deliverance Temple", category: "Food Pantry", address: "438 Ralph Avenue, Brooklyn, NY 11233", phone: "347-234-3828", hours: "Tue 11am-12pm", lat: 40.674179, lng: -73.92235 },
-    { name: "King Emmanuel Community Services", category: "Food Pantry", address: "340 Malcolm X Blvd, Brooklyn, NY 11233", phone: "718-773-1650", hours: "Fri & Sat 9-10:30am", lat: 40.681102, lng: -73.928807 },
-    { name: "Liberty Baptist Church", category: "Food Pantry", address: "19 Gunther Place, Brooklyn, NY 11233", phone: "718-342-9578", hours: "Every other Wed 11am-1pm", lat: 40.677271, lng: -73.91167 },
-    { name: "Neighbors Together", category: "Soup Kitchen", address: "2094 Fulton Street, Brooklyn, NY 11233", phone: "718-498-7256", hours: "Mon-Fri 12-2pm & 4-6pm", lat: 40.678327, lng: -73.913991 },
-    { name: "New Hope Pentecostal Church", category: "Food Pantry", address: "1838 Park Place, Brooklyn, NY 11233", phone: "646-626-1827", hours: "Sat 10am-12pm", lat: 40.671427, lng: -73.916433 },
-    { name: "OPIN (Other People In Need)", category: "Soup Kitchen", address: "1768 St Johns Place, Brooklyn, NY 11233", phone: "718-421-0148", hours: "Wed 7-9pm", lat: 40.669603, lng: -73.918499 },
-    { name: "St. Benedict's Pantry", category: "Food Pantry", address: "265 Decatur Street, Brooklyn, NY 11233", phone: "718-778-0962", hours: "Wed 11am-1pm", lat: 40.68168, lng: -73.933245 },
-    { name: "St. Mark's Church of Christ", category: "Soup Kitchen", address: "439 Ralph Avenue, Brooklyn, NY 11233", phone: "917-974-9560", hours: "Mon/Wed/Fri 12-1pm", lat: 40.674135, lng: -73.921816 },
-    { name: "True Holy Church of God", category: "Food Pantry", address: "2340 Atlantic Avenue, Brooklyn, NY 11233", phone: "718-385-0248", hours: "Sat 9-11am", lat: 40.676009, lng: -73.907562 },
-    { name: "Union Baptist Church", category: "Food Pantry & Soup Kitchen", address: "461 Decatur Street, Brooklyn, NY 11233", phone: "718-452-7248", hours: "Kitchen: Fri & Wed 12-2pm; Pantry: Wed 12-2pm", lat: 40.682716, lng: -73.924727 },
-    { name: "Unity Faith Outreach", category: "Food Pantry", address: "207 Ralph Avenue, Brooklyn, NY 11233", phone: "718-443-4194", hours: "Fri 12-2pm", lat: 40.682519, lng: -73.922392 },
-    { name: "Bethel Seventh Day Adventist Church", category: "Food Pantry & Soup Kitchen", address: "457 Grand Avenue, Brooklyn, NY 11238", phone: "718-783-3630", hours: "Kitchen: Sun 1-2pm", lat: 40.681699, lng: -73.961154 },
-    { name: "Child Development Support Corp. Food Pantry", category: "Food Pantry", address: "352 Classon Avenue, Brooklyn, NY 11238", phone: "718-398-2050", hours: "Thu 10am-1pm", lat: 40.688333, lng: -73.96005 },
-    { name: "Church of God Feeding Hungry", category: "Food Pantry", address: "836 Classon Avenue, Brooklyn, NY 11238", phone: "718-783-6024", hours: "Tue/Thu/Fri 10am-12pm", lat: 40.672437, lng: -73.961275 },
-    { name: "Hope City Empowerment Center", category: "Food Pantry & Soup Kitchen", address: "650 Washington Avenue, Brooklyn, NY 11238", phone: "718-857-9869", hours: "Kitchen: Tue/Thu/Fri 12:30-2pm; Pantry: every other Fri 9-11am", lat: 40.678873, lng: -73.964243 },
-    { name: "Quincy Community Service Inc.", category: "Food Pantry & Soup Kitchen", address: "84 Quincy Street, Brooklyn, NY 11238", phone: "718-740-1680", hours: "Kitchen: Wed 1-3pm; Pantry: 2nd & 4th Wed & 1st & 3rd Sat", lat: 40.686078, lng: -73.957589 },
-    { name: "St. Teresa of Avila", category: "Food Pantry", address: "560 Sterling Place, Brooklyn, NY 11238", phone: "718-622-3652", hours: "", lat: 40.673725, lng: -73.960219 },
+    { name: "Apostolic Assembly of Jesus Christ", category: "Emergency Food", address: "3808 Church Avenue, Brooklyn, NY 11203", phone: "347-358-4564", hours: "Sat 1-3pm", lat: 40.650989, lng: -73.941567 },
+    { name: "Brooklyn Faith SDA Church", category: "Emergency Food", address: "5518 Church Avenue, Brooklyn, NY 11203", phone: "718-257-1469", hours: "Pantry: Thu 2-4pm; Kitchen: Fri 1-4pm", lat: 40.652295, lng: -73.92491 },
+    { name: "Caribbean American Steel Pan Education Center", category: "Emergency Food", address: "899 Winthrop Street, Brooklyn, NY 11203", phone: "718-753-9888", hours: "Sun 6-8pm", lat: 40.658574, lng: -73.929455 },
+    { name: "Christian Fellowship SDA Community Services", category: "Emergency Food", address: "777 Schenectady Avenue, Brooklyn, NY 11203", phone: "718-776-6143", hours: "Kitchen: Mon & Wed 5-6:30pm; Pantry: Wed 11am-12:30pm", lat: 40.654381, lng: -73.933284 },
+    { name: "Church of God of Prophecy Crown Heights", category: "Emergency Food", address: "467 Rutland Road, Brooklyn, NY 11203", phone: "917-287-2262", hours: "Sat 8-10am", lat: 40.659963, lng: -73.945021 },
+    { name: "God's Battalion Prayer Church", category: "Emergency Food", address: "661 Linden Blvd, Brooklyn, NY 11203", phone: "718-774-5447", hours: "Tue & Thu 10am-12pm", lat: 40.653751, lng: -73.933974 },
+    { name: "Society of St. Vincent de Paul", category: "Emergency Food", address: "520 Linden Boulevard, Brooklyn, NY 11203", phone: "718-282-7162", hours: "Thu 10:30am-1:30pm", lat: 40.652982, lng: -73.939739 },
+    { name: "St. Therese of Lisieux RC Church", category: "Emergency Food", address: "4410 Avenue D, Brooklyn, NY 11203", phone: "718-451-0683", hours: "", lat: 40.641716, lng: -73.934904 },
+    { name: "Triumphant Full Gospel Assembly", category: "Emergency Food", address: "889 Rutland Road, Brooklyn, NY 11203", phone: "718-774-4696", hours: "Thu 4-6pm", lat: 40.660813, lng: -73.929907 },
+    { name: "Christian Fellowship Life Center", category: "Emergency Food", address: "132 Carlton Avenue, Brooklyn, NY 11205", phone: "718-858-7351", hours: "Thu 2-6pm", lat: 40.693802, lng: -73.973264 },
+    { name: "Iglesia Pentecostal Arca De Salvacion", category: "Emergency Food", address: "72 Vanderbilt Avenue, Brooklyn, NY 11205", phone: "347-423-6810", hours: "Sat 7:30-9:30am", lat: 40.695498, lng: -73.970536 },
+    { name: "United Jewish Organization of Williamsburg", category: "Emergency Food", address: "455 Park Avenue, Brooklyn, NY 11205", phone: "718-643-9700", hours: "Wed 12-2pm", lat: 40.696623, lng: -73.958946 },
+    { name: "Act of Faith Ministries", category: "Emergency Food", address: "141 Manhattan Avenue, Brooklyn, NY 11206", phone: "718-596-8950", hours: "1st & 3rd Thu 12-2pm", lat: 40.707623, lng: -73.94525 },
+    { name: "All People's Church Apostolic Faith", category: "Emergency Food", address: "182 Tompkins Avenue, Brooklyn, NY 11206", phone: "718-782-3703", hours: "Sat 10-11am", lat: 40.692891, lng: -73.946125 },
+    { name: "Cathedral of Joy CDC", category: "Emergency Food", address: "43 George Street, Brooklyn, NY 11206", phone: "718-213-6957", hours: "Kitchen: Sat 9-10:30am; Pantry: Tue & Thu 9-11:30am", lat: 40.701465, lng: -73.931662 },
+    { name: "CCNS-St John's Food Pantry", category: "Emergency Food", address: "75 Lewis Avenue, Brooklyn, NY 11206", phone: "718-722-6001", hours: "Tue 8:30am-12pm", lat: 40.694798, lng: -73.937161 },
+    { name: "Mission Assembly Pentecostal", category: "Emergency Food", address: "118 Bushwick Avenue, Brooklyn, NY 11206", phone: "718-649-2432", hours: "Wed 11am-1pm", lat: 40.711319, lng: -73.940604 },
+    { name: "Solid Rock Baptist Church", category: "Emergency Food", address: "120 Tompkins Avenue, Brooklyn, NY 11206", phone: "718-384-8764", hours: "Mon & Thu 9am-12pm", lat: 40.695141, lng: -73.946406 },
+    { name: "St. Stephen Outreach Inc.", category: "Emergency Food", address: "874 Myrtle Avenue, Brooklyn, NY 11206", phone: "718-938-4532", hours: "Pantry: Mon/Wed/Fri 9-10:30am; Kitchen: Mon-Fri 11am-1pm", lat: 40.695318, lng: -73.947118 },
+    { name: "Trinity Human Service Corp.", category: "Emergency Food", address: "153 Johnson Avenue, Brooklyn, NY 11206", phone: "718-388-3176", hours: "Tue-Fri 9am-4:30pm", lat: 40.706918, lng: -73.944189 },
+    { name: "United Grand Chapter of Eastern Star", category: "Emergency Food", address: "441 Willoughby Avenue, Brooklyn, NY 11206", phone: "718-451-0217", hours: "Fri 10-11am", lat: 40.69375, lng: -73.950973 },
+    { name: "Agape Social Services Beulah Church", category: "Emergency Food", address: "929 Marcy Avenue, Brooklyn, NY 11216", phone: "718-484-3823", hours: "Pantry: Tue/Thu/Fri 10:30am-2pm; Kitchen: Wed 12:30-2pm", lat: 40.680952, lng: -73.946192 },
+    { name: "All Peoples Church of Apostolic Faith", category: "Emergency Food", address: "422 Gates Avenue, Brooklyn, NY 11216", phone: "718-783-6902", hours: "Wed 11am-2pm", lat: 40.686195, lng: -73.949315 },
+    { name: "Bedford Central Presbyterian Church", category: "Emergency Food", address: "1200 Dean Street, Brooklyn, NY 11216", phone: "718-467-0740", hours: "", lat: 40.676591, lng: -73.949562 },
+    { name: "Bethel Sunshine Camp", category: "Emergency Food", address: "344 Tompkins Avenue, Brooklyn, NY 11216", phone: "718-789-0034", hours: "Tue & Fri 7-8:30pm", lat: 40.685858, lng: -73.944641 },
+    { name: "Ebenezer Wesley Methodist Church", category: "Emergency Food", address: "47 Rogers Avenue, Brooklyn, NY 11216", phone: "718-604-7252", hours: "", lat: 40.675956, lng: -73.952491 },
+    { name: "Family Life Development Center", category: "Emergency Food", address: "1476 Bedford Avenue, Brooklyn, NY 11216", phone: "347-436-7134", hours: "Mon 4-6pm", lat: 40.672945, lng: -73.954582 },
+    { name: "Greater Unified Free Will Baptist Church", category: "Emergency Food", address: "66 Rogers Avenue, Brooklyn, NY 11216", phone: "718-781-2698", hours: "Wed 12-1pm", lat: 40.674598, lng: -73.952981 },
+    { name: "Hebron SDA Church", category: "Emergency Food", address: "1256 Dean Street, Brooklyn, NY 11216", phone: "718-778-6454", hours: "1st & 3rd Wed 9-10:30am", lat: 40.676639, lng: -73.947686 },
+    { name: "John Wesley United Methodist Church", category: "Emergency Food", address: "260 Quincy Street, Brooklyn, NY 11216", phone: "718-783-5761", hours: "Kitchen: Thu 12:30-2pm; Pantry: Tue 2-6pm", lat: 40.686658, lng: -73.951221 },
+    { name: "Macedonia Church of Christ", category: "Emergency Food", address: "289 Quincy Street, Brooklyn, NY 11216", phone: "718-638-4620", hours: "2nd & 4th Tue 12-2pm", lat: 40.687386, lng: -73.949099 },
+    { name: "New Haven SDA Church", category: "Emergency Food", address: "634 Prospect Place, Brooklyn, NY 11216", phone: "347-589-1815", hours: "Pantry: 1st & 3rd Thu 11am-1:30pm; Kitchen: Sun 11am-2pm", lat: 40.674578, lng: -73.955894 },
+    { name: "Newman Memorial United Methodist Church", category: "Emergency Food", address: "257 Macon Street, Brooklyn, NY 11216", phone: "718-622-7955", hours: "Pantry: Tue 10am-2pm; Kitchen: Tue 9-10:30am", lat: 40.682289, lng: -73.941105 },
+    { name: "Siloam Presbyterian Church", category: "Emergency Food", address: "260 Jefferson Avenue, Brooklyn, NY 11216", phone: "718-789-7050", hours: "Wed & Fri 10am-1pm", lat: 40.683471, lng: -73.947305 },
+    { name: "St. George's Episcopal Church", category: "Emergency Food", address: "800 Marcy Avenue, Brooklyn, NY 11216", phone: "718-789-6036", hours: "Tue 10:30am-12pm", lat: 40.686264, lng: -73.947807 },
+    { name: "Stuyvesant Heights Christian Church", category: "Emergency Food", address: "69 MacDonough Street, Brooklyn, NY 11216", phone: "347-200-5029", hours: "Thu 5-6pm", lat: 40.681094, lng: -73.943764 },
+    { name: "The Salvation Army Bedford", category: "Emergency Food", address: "601 Lafayette Avenue, Brooklyn, NY 11216", phone: "718-622-0614", hours: "Mon-Thu 1-2:30pm", lat: 40.690094, lng: -73.950435 },
+    { name: "NEBHDCo Golden Harvest Food Pantry", category: "Emergency Food", address: "745 Lafayette Avenue, Brooklyn, NY 11221", phone: "718-453-9490", hours: "Tue & Thu 10am-12pm", lat: 40.691007, lng: -73.943324 },
+    { name: "Bethany House/St. Christopher", category: "Emergency Food", address: "164 Suydam Street, Brooklyn, NY 11221", phone: "718-574-6300", hours: "Thu 11am-1pm", lat: 40.699241, lng: -73.926284 },
+    { name: "Bethesda Memorial Baptist Church", category: "Emergency Food", address: "49 Cornelia Street, Brooklyn, NY 11221", phone: "718-455-2678", hours: "Thu 12-2pm", lat: 40.688691, lng: -73.91713 },
+    { name: "Black Veterans for Social Justice", category: "Emergency Food", address: "357 Marcus Garvey Blvd, Brooklyn, NY 11221", phone: "718-852-6004", hours: "Every other Fri 2-3:30pm", lat: 40.685114, lng: -73.937268 },
+    { name: "Bridge Street AME Church Soup Kitchen", category: "Emergency Food", address: "277 Stuyvesant Avenue, Brooklyn, NY 11221", phone: "718-452-3936", hours: "Wed 11am-1pm", lat: 40.685136, lng: -73.932187 },
+    { name: "Cornerstone Baptist Food Pantry", category: "Emergency Food", address: "562 Madison Street, Brooklyn, NY 11221", phone: "718-789-0946", hours: "Tue 11am-1pm", lat: 40.686365, lng: -73.935559 },
+    { name: "Crossover Baptist Church", category: "Emergency Food", address: "358 Kosciusko Street, Brooklyn, NY 11221", phone: "718-452-4653", hours: "Pantry: 2nd & 4th Fri 9-11am; Kitchen: Wed 12-2pm", lat: 40.691808, lng: -73.940203 },
+    { name: "Faith Assemblies", category: "Emergency Food", address: "1014 Gates Avenue, Brooklyn, NY 11221", phone: "347-853-4966", hours: "Sat 9-11:30am", lat: 40.689178, lng: -73.92281 },
+    { name: "Friendly Christian Church", category: "Emergency Food", address: "569 Hart Street, Brooklyn, NY 11221", phone: "718-642-0221", hours: "Kitchen: Wed/Thu/Fri 12:30-1:30pm; Pantry: 2nd & 4th Sat 10-11am", lat: 40.697214, lng: -73.929303 },
+    { name: "New Creation Outreach Center", category: "Emergency Food", address: "1534 Broadway, Brooklyn, NY 11221", phone: "718-573-9980", hours: "Sat 12-2pm", lat: 40.686245, lng: -73.91663 },
+    { name: "St. John's Bread and Life", category: "Emergency Food", address: "795 Lexington Avenue, Brooklyn, NY 11221", phone: "718-574-0058", hours: "Mon-Fri 8-9:30am & 10:30am-12:30pm", lat: 40.690392, lng: -73.928899 },
+    { name: "St. Philip's Christian Church", category: "Emergency Food", address: "765 Lafayette Avenue, Brooklyn, NY 11221", phone: "718-453-0691", hours: "Thu 12:30-2:30pm", lat: 40.691174, lng: -73.942201 },
+    { name: "The Salvation Army Bushwick", category: "Emergency Food", address: "1151 Bushwick Avenue, Brooklyn, NY 11221", phone: "718-455-4102", hours: "Pantry: Mon/Tue/Thu/Fri 10am-1pm; Kitchen: Sun/Mon/Fri 2-3:30pm", lat: 40.689255, lng: -73.917314 },
+    { name: "Thurston Memorial Outreach Ministries", category: "Emergency Food", address: "1243 Bushwick Avenue, Brooklyn, NY 11221", phone: "718-452-3646", hours: "Fri 7-9pm", lat: 40.687866, lng: -73.914597 },
+    { name: "Trinity United Presbyterian Church", category: "Emergency Food", address: "243 Weirfield Street, Brooklyn, NY 11221", phone: "718-574-6010", hours: "Thu 9-11am", lat: 40.69219, lng: -73.910312 },
+    { name: "Upper Room Full Gospel Baptist Church", category: "Emergency Food", address: "180 Van Buren Street, Brooklyn, NY 11221", phone: "347-680-6781", hours: "Mon-Fri 10am-3pm (Pantry) / 12-2pm (Kitchen)", lat: 40.690404, lng: -73.939262 },
+    { name: "Bed-Stuy Campaign Against Hunger", category: "Emergency Food", address: "2004 Fulton Street, Brooklyn, NY 11233", phone: "718-773-3551", hours: "Mon-Fri 10am-3pm", lat: 40.678363, lng: -73.918133 },
+    { name: "Brooklyn Rescue Mission", category: "Emergency Food", address: "255 Bainbridge Street, Brooklyn, NY 11233", phone: "718-363-3085", hours: "Tue & Thu 7am-12pm", lat: 40.681631, lng: -73.926801 },
+    { name: "Calvary AME Church", category: "Emergency Food", address: "790 Herkimer Street, Brooklyn, NY 11233", phone: "718-467-0987", hours: "Tue 12:30-2pm", lat: 40.678089, lng: -73.927203 },
+    { name: "Chance for Children", category: "Emergency Food", address: "2097 Fulton Street, Brooklyn, NY 11233", phone: "718-566-2823", hours: "Fri 10am-12pm", lat: 40.678355, lng: -73.909147 },
+    { name: "Community Services Housing Development Corp.", category: "Emergency Food", address: "547 Howard Avenue, Brooklyn, NY 11233", phone: "718-498-2700", hours: "Every other Thu 10am-12pm", lat: 40.66901, lng: -73.919821 },
+    { name: "Faith Based Food Distribution Dev. Corp.", category: "Emergency Food", address: "121 Chauncey Street, Brooklyn, NY 11233", phone: "718-771-8061", hours: "Sat 9am-12pm", lat: 40.680451, lng: -73.930596 },
+    { name: "Glover Memorial", category: "Emergency Food", address: "2134 Dean Street, Brooklyn, NY 11233", phone: "732-968-1216", hours: "Pantry: Thu 10am-12pm; Kitchen: Wed 1-3pm", lat: 40.674909, lng: -73.91703 },
+    { name: "God's Deliverance Temple", category: "Emergency Food", address: "438 Ralph Avenue, Brooklyn, NY 11233", phone: "347-234-3828", hours: "Tue 11am-12pm", lat: 40.674179, lng: -73.92235 },
+    { name: "King Emmanuel Community Services", category: "Emergency Food", address: "340 Malcolm X Blvd, Brooklyn, NY 11233", phone: "718-773-1650", hours: "Fri & Sat 9-10:30am", lat: 40.681102, lng: -73.928807 },
+    { name: "Liberty Baptist Church", category: "Emergency Food", address: "19 Gunther Place, Brooklyn, NY 11233", phone: "718-342-9578", hours: "Every other Wed 11am-1pm", lat: 40.677271, lng: -73.91167 },
+    { name: "Neighbors Together", category: "Emergency Food", address: "2094 Fulton Street, Brooklyn, NY 11233", phone: "718-498-7256", hours: "Mon-Fri 12-2pm & 4-6pm", lat: 40.678327, lng: -73.913991 },
+    { name: "New Hope Pentecostal Church", category: "Emergency Food", address: "1838 Park Place, Brooklyn, NY 11233", phone: "646-626-1827", hours: "Sat 10am-12pm", lat: 40.671427, lng: -73.916433 },
+    { name: "OPIN (Other People In Need)", category: "Emergency Food", address: "1768 St Johns Place, Brooklyn, NY 11233", phone: "718-421-0148", hours: "Wed 7-9pm", lat: 40.669603, lng: -73.918499 },
+    { name: "St. Benedict's Pantry", category: "Emergency Food", address: "265 Decatur Street, Brooklyn, NY 11233", phone: "718-778-0962", hours: "Wed 11am-1pm", lat: 40.68168, lng: -73.933245 },
+    { name: "St. Mark's Church of Christ", category: "Emergency Food", address: "439 Ralph Avenue, Brooklyn, NY 11233", phone: "917-974-9560", hours: "Mon/Wed/Fri 12-1pm", lat: 40.674135, lng: -73.921816 },
+    { name: "True Holy Church of God", category: "Emergency Food", address: "2340 Atlantic Avenue, Brooklyn, NY 11233", phone: "718-385-0248", hours: "Sat 9-11am", lat: 40.676009, lng: -73.907562 },
+    { name: "Union Baptist Church", category: "Emergency Food", address: "461 Decatur Street, Brooklyn, NY 11233", phone: "718-452-7248", hours: "Kitchen: Fri & Wed 12-2pm; Pantry: Wed 12-2pm", lat: 40.682716, lng: -73.924727 },
+    { name: "Unity Faith Outreach", category: "Emergency Food", address: "207 Ralph Avenue, Brooklyn, NY 11233", phone: "718-443-4194", hours: "Fri 12-2pm", lat: 40.682519, lng: -73.922392 },
+    { name: "Bethel Seventh Day Adventist Church", category: "Emergency Food", address: "457 Grand Avenue, Brooklyn, NY 11238", phone: "718-783-3630", hours: "Kitchen: Sun 1-2pm", lat: 40.681699, lng: -73.961154 },
+    { name: "Child Development Support Corp. Food Pantry", category: "Emergency Food", address: "352 Classon Avenue, Brooklyn, NY 11238", phone: "718-398-2050", hours: "Thu 10am-1pm", lat: 40.688333, lng: -73.96005 },
+    { name: "Church of God Feeding Hungry", category: "Emergency Food", address: "836 Classon Avenue, Brooklyn, NY 11238", phone: "718-783-6024", hours: "Tue/Thu/Fri 10am-12pm", lat: 40.672437, lng: -73.961275 },
+    { name: "Hope City Empowerment Center", category: "Emergency Food", address: "650 Washington Avenue, Brooklyn, NY 11238", phone: "718-857-9869", hours: "Kitchen: Tue/Thu/Fri 12:30-2pm; Pantry: every other Fri 9-11am", lat: 40.678873, lng: -73.964243 },
+    { name: "Quincy Community Service Inc.", category: "Emergency Food", address: "84 Quincy Street, Brooklyn, NY 11238", phone: "718-740-1680", hours: "Kitchen: Wed 1-3pm; Pantry: 2nd & 4th Wed & 1st & 3rd Sat", lat: 40.686078, lng: -73.957589 },
+    { name: "St. Teresa of Avila", category: "Emergency Food", address: "560 Sterling Place, Brooklyn, NY 11238", phone: "718-622-3652", hours: "", lat: 40.673725, lng: -73.960219 },
     { name: "Single Stop - Bedford Stuyvesant Restoration Corp.", category: "Single Stop", address: "1368 Fulton Street, Brooklyn, NY 11216", phone: "718-636-6942", hours: "Mon-Fri 10am-6pm", lat: 40.679964, lng: -73.945609 },
     { name: "Single Stop - St. John's Bread and Life", category: "Single Stop", address: "795 Lexington Avenue, Brooklyn, NY 11221", phone: "718-574-0058", hours: "Mon-Fri 8am-5pm", lat: 40.690392, lng: -73.928899 },
     { name: "Single Stop - S.C.O. at M.S. 35", category: "Single Stop", address: "272 MacDonough Street, Brooklyn, NY 11233", phone: "718-453-7004", hours: "2nd & 4th Mon 4-7pm", lat: 40.681819, lng: -73.935531 },
@@ -1105,19 +1117,19 @@ const cb3Resources = [
     { name: "Malcolm X Blvd Park", category: "Park", address: "341 Malcolm X Boulevard, Brooklyn, NY 11233", phone: "", hours: "", lat: 40.680675, lng: -73.928495 },
     { name: "Fulton Park", category: "Park", address: "883 Fulton Street, Brooklyn, NY 11238", phone: "", hours: "", lat: 40.683636, lng: -73.967187 },
     { name: "Herbert Von King Park", category: "Park", address: "670 Lafayette Avenue, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.689829, lng: -73.946405 },
-    { name: "Hollenback Community Garden", category: "Community Garden", address: "460 Washington Avenue, Brooklyn, NY 11238", phone: "", hours: "", lat: 40.68527, lng: -73.965338 },
-    { name: "Halsey Street Community Gardens", category: "Community Garden", address: "462 Halsey Street, Brooklyn, NY 11233", phone: "", hours: "", lat: 40.683319, lng: -73.935602 },
-    { name: "Phoenix Community Gardens", category: "Community Garden", address: "2037 Fulton Street, Brooklyn, NY 11233", phone: "212-594-2155", hours: "", lat: 40.678431, lng: -73.912099 },
-    { name: "Bed-Stuy Community Garden", category: "Community Garden", address: "95 Malcolm X Boulevard, Brooklyn, NY 11221", phone: "", hours: "", lat: 40.690444, lng: -73.930447 },
-    { name: "Madison Street Community Gardens", category: "Community Garden", address: "974 Madison Street, Brooklyn, NY 11221", phone: "", hours: "", lat: 40.688968, lng: -73.918931 },
-    { name: "Garden of Hope", category: "Community Garden", address: "392 Hancock Street, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.683596, lng: -73.94008 },
-    { name: "NEBHDCo Community Gardens", category: "Community Garden", address: "385 Kosciusko Street, Brooklyn, NY 11221", phone: "718-453-9490", hours: "", lat: 40.692099, lng: -73.939263 },
-    { name: "Hattie Carthan Community Garden", category: "Community Garden", address: "677 Lafayette Avenue, Brooklyn, NY 11216", phone: "718-638-3566", hours: "", lat: 40.69057, lng: -73.946938 },
-    { name: "BKCB3 NYCHA Garden", category: "Community Garden", address: "492 Greene Avenue, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.688337, lng: -73.950998 },
-    { name: "New Harvest Garden", category: "Community Garden", address: "121 Vernon Avenue, Brooklyn, NY 11206", phone: "", hours: "", lat: 40.694941, lng: -73.947131 },
-    { name: "P.S. 3 Community Garden", category: "Community Garden", address: "50 Jefferson Avenue, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.682303, lng: -73.955543 },
-    { name: "P.S. 35 Clearpool Beacon Garden", category: "Community Garden", address: "272 McDonough Street, Brooklyn, NY 11233", phone: "", hours: "", lat: 40.680562, lng: -73.921785 },
-    { name: "Shiloh Garden Inc.", category: "Community Garden", address: "323 Monroe Street, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.686165, lng: -73.945259 },
+    { name: "Hollenback Community Garden", category: "Gardens", address: "460 Washington Avenue, Brooklyn, NY 11238", phone: "", hours: "", lat: 40.68527, lng: -73.965338 },
+    { name: "Halsey Street Community Gardens", category: "Gardens", address: "462 Halsey Street, Brooklyn, NY 11233", phone: "", hours: "", lat: 40.683319, lng: -73.935602 },
+    { name: "Phoenix Community Gardens", category: "Gardens", address: "2037 Fulton Street, Brooklyn, NY 11233", phone: "212-594-2155", hours: "", lat: 40.678431, lng: -73.912099 },
+    { name: "Bed-Stuy Community Garden", category: "Gardens", address: "95 Malcolm X Boulevard, Brooklyn, NY 11221", phone: "", hours: "", lat: 40.690444, lng: -73.930447 },
+    { name: "Madison Street Community Gardens", category: "Gardens", address: "974 Madison Street, Brooklyn, NY 11221", phone: "", hours: "", lat: 40.688968, lng: -73.918931 },
+    { name: "Garden of Hope", category: "Gardens", address: "392 Hancock Street, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.683596, lng: -73.94008 },
+    { name: "NEBHDCo Community Gardens", category: "Gardens", address: "385 Kosciusko Street, Brooklyn, NY 11221", phone: "718-453-9490", hours: "", lat: 40.692099, lng: -73.939263 },
+    { name: "Hattie Carthan Community Garden", category: "Gardens", address: "677 Lafayette Avenue, Brooklyn, NY 11216", phone: "718-638-3566", hours: "", lat: 40.69057, lng: -73.946938 },
+    { name: "BKCB3 NYCHA Garden", category: "Gardens", address: "492 Greene Avenue, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.688337, lng: -73.950998 },
+    { name: "New Harvest Garden", category: "Gardens", address: "121 Vernon Avenue, Brooklyn, NY 11206", phone: "", hours: "", lat: 40.694941, lng: -73.947131 },
+    { name: "P.S. 3 Community Garden", category: "Gardens", address: "50 Jefferson Avenue, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.682303, lng: -73.955543 },
+    { name: "P.S. 35 Clearpool Beacon Garden", category: "Gardens", address: "272 McDonough Street, Brooklyn, NY 11233", phone: "", hours: "", lat: 40.680562, lng: -73.921785 },
+    { name: "Shiloh Garden Inc.", category: "Gardens", address: "323 Monroe Street, Brooklyn, NY 11216", phone: "", hours: "", lat: 40.686165, lng: -73.945259 },
     { name: "BFM II at Irving Square Park", category: "Greenmarket", address: "1 Wilson Avenue, Brooklyn, NY 11237", phone: "", hours: "Sat 11am-4pm", lat: 40.703544, lng: -73.930002 },
     { name: "Fort Greene Park Greenmarket", category: "Greenmarket", address: "Washington Park DeKalb Avenue, Brooklyn, NY 11238", phone: "", hours: "Sat 8am-3pm", lat: 40.690584, lng: -73.974194 },
     { name: "Shalom Senior Center", category: "Senior Center", address: "483 Albany Avenue, Brooklyn, NY 11203", phone: "718-774-9213", hours: "", lat: 40.663405, lng: -73.939668 },
@@ -1307,8 +1319,8 @@ const cb3Resources = [
     { name: "P.S. 274 Kosciusko", category: "School", address: "800 Bushwick Avenue, Brooklyn, NY, 11221", phone: "718-574-0273", hours: "", lat: 40.694621, lng: -73.927763 },
     { name: "P.S. 299 Thomas Warren Field", category: "School", address: "88 Woodbine Street, Brooklyn, NY, 11221", phone: "718-574-0301", hours: "", lat: 40.691037, lng: -73.918053 },
     { name: "P.S. 377 Alejandrina B. De Gautier", category: "School", address: "200 Woodbine Street, Brooklyn, NY, 11221", phone: "718-574-0325", hours: "", lat: 40.693756, lng: -73.91494 },
-    { name: "Christian Fellowship SDA Community Svcs", category: "Food Pantry", address: "777-779 Schenectady Avenue, Brooklyn, NY, 11203", phone: "718-776-6143", hours: "Soup Kitchen: Mon & Wed 5-6:30pm; Pantry: Wed 11am-12:30pm", lat: 40.653035, lng: -73.933448 },
-    { name: "Child Development Support Corp. (Pantry)", category: "Food Pantry", address: "352-358 Classon Avenue, Brooklyn, NY, 11238", phone: "718-398-2050", hours: "Weekly Thu 10:00am-1:00pm", lat: 40.676716, lng: -73.959402 },
+    { name: "Christian Fellowship SDA Community Svcs", category: "Emergency Food", address: "777-779 Schenectady Avenue, Brooklyn, NY, 11203", phone: "718-776-6143", hours: "Soup Kitchen: Mon & Wed 5-6:30pm; Pantry: Wed 11am-12:30pm", lat: 40.653035, lng: -73.933448 },
+    { name: "Child Development Support Corp. (Pantry)", category: "Emergency Food", address: "352-358 Classon Avenue, Brooklyn, NY, 11238", phone: "718-398-2050", hours: "Weekly Thu 10:00am-1:00pm", lat: 40.676716, lng: -73.959402 },
     { name: "Bedford Stuyvesant Restoration Corp. (Single Stop)", category: "Single Stop", address: "1368 Fulton Street 4th Floor, Brooklyn, NY, 11216", phone: "718-636-6942", hours: "Office: Mon-Fri 10am-6pm; Financial Svcs: Tue 3-6pm; Legal: Tue 2-5pm; Tax: Mon-Thu 11am-7pm & Sat 9am-5pm", website: "www.singlestopusa.org", lat: 40.679971, lng: -73.945442 },
     { name: "S.C.O. at M.S. 35 Family Dynamics Beacon Center", category: "Single Stop", address: "272 MacDonough Street Room 101, Brooklyn, NY, 11233", phone: "718-453-7004", hours: "Financial Svcs: 2nd & 4th Mon 4-7pm; Legal: Mon 4-7pm", website: "www.singlestopusa.org", lat: 40.681819, lng: -73.935531 },
     { name: "Make the Road NY (Single Stop)", category: "Single Stop", address: "301 Grove St., Brooklyn, NY, 11237", phone: "718-418-7690", hours: "Mon-Fri 9:30am-7:30pm; Financial Svcs: Thu 9:30-11:30am; Legal: by appt", website: "www.singlestopusa.org", lat: 40.698467, lng: -73.915894 },
@@ -1346,24 +1358,23 @@ const cb3Resources = [
     { name: "Callahan-Kelly Playground", category: "Park", address: "Sackman Street, Brooklyn, NY, 11233", phone: "", hours: "", website: "www.nycgovparks.org", lat: 40.67489, lng: -73.906235 },
     { name: "JHS 57/HS 26 Outdoor Mini Pool", category: "Park", address: "Lafayette Avenue, Brooklyn, NY, 11221", phone: "", hours: "", website: "www.nycgovparks.org", lat: 40.686307, lng: -73.97443 },
     { name: "Bushwick Outdoor Intermediate Pool", category: "Park", address: "Humboldt Street, Brooklyn, NY, 11221", phone: "", hours: "", website: "www.nycgovparks.org", lat: 40.702498, lng: -73.940645 },
-    { name: "Hull Street Playground Garden", category: "Community Garden", address: "145 Hull Street, Brooklyn, NY, 11233", phone: "", hours: "", website: "www.greenthumbnyc.org", lat: 40.6796, lng: -73.911339 },
-    { name: "LDC Of Broadway Garden", category: "Community Garden", address: "900 Broadway, Brooklyn, NY, 11233", phone: "", hours: "", website: "www.greenthumbnyc.org", lat: 40.697918, lng: -73.937097 },
-    { name: "Clifton Place Memorial Garden and Park", category: "Community Garden", address: "Bedford Avenue and Clifton Place, Brooklyn, NY, 11205", phone: "", hours: "", lat: 40.6979, lng: -73.9584 },
-    { name: "Bedford Avenue Block Association Community Garden", category: "Community Garden", address: "Bedford Avenue south of Willoughby Avenue, Brooklyn, NY, 11205", phone: "212-333-2552", hours: "", lat: 40.699, lng: -73.9572 },
-    { name: "T&T Vernon Block Association Community Garden", category: "Community Garden", address: "Vernon Avenue between Tompkins and Throop Avenues, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.7017, lng: -73.9418 },
-    { name: "Vernon/Throop Avenue Block Association Community Garden", category: "Community Garden", address: "Vernon and Throop Avenues, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.7019, lng: -73.942 },
-    { name: "Citizens for a Better Community Garden", category: "Community Garden", address: "Patchen Avenue between Monroe and Madison, Brooklyn, NY, 11221", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6897, lng: -73.9278 },
-    { name: "Red Gate Garden", category: "Community Garden", address: "Marcy Avenue at Willoughby Avenue, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6971, lng: -73.9483 },
-    { name: "Greene Acres Community Garden", category: "Community Garden", address: "Greene and Franklin Avenues, Brooklyn, NY, 11238", phone: "212-333-2552", hours: "", website: "http://greeneacres.interactivist.net", lat: 40.6905, lng: -73.959 },
-    { name: "Hart to Hart Community Garden", category: "Community Garden", address: "Hart Street between Marcy and Tompkins, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6974, lng: -73.943 },
-    { name: "American Heart Community Garden", category: "Community Garden", address: "Hart Street between Marcy and Tompkins, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6974, lng: -73.9432 },
-    { name: "Spencer Street Block Association Community Garden", category: "Community Garden", address: "Spencer Street between Willoughby and DeKalb, Brooklyn, NY, 11205", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6985, lng: -73.9576 },
-    { name: "978 Greene Avenue Garden", category: "Community Garden", address: "978 Greene Avenue, Brooklyn, NY, 11221", phone: "212-788-7900", hours: "", website: "www.greenthumbnyc.org", lat: 40.690905, lng: -73.928651 },
-    { name: "Halsey/Lewis/Stuyvesant Civic Association Community Garden", category: "Community Garden", address: "Halsey Street and Marcus Garvey Boulevard, Brooklyn, NY, 11216", phone: "", hours: "", website: "http://www.neighborhoodlink.com/Halsey-Lewis-Stuyvesant/topics/184100", lat: 40.6885, lng: -73.9358 },
-    { name: "Madison Street Block Association Community Garden", category: "Community Garden", address: "Madison Street between Franklin and Bedford, Brooklyn, NY, 11205", phone: "", hours: "", website: "http://madisonstreetblock2.blogspot.com", lat: 40.6985, lng: -73.958 },
-    { name: "P.S. 35 Decatur Clearpool Beacon Garden", category: "Community Garden", address: "272 McDonough St, Brooklyn, NY, 11233", phone: "", hours: "", lat: 40.6808, lng: -73.9217 },
-    { name: "Progressive Adventure Playland Garden", category: "Community Garden", address: "Marcus Garvey Blvd and Lexington Avenue, Brooklyn, NY, 11221", phone: "", hours: "", website: "http://www.grownyc.org/openspace/gardens/bk/progressive", lat: 40.6897, lng: -73.9365 },
-    { name: "Spencer's Garden", category: "Community Garden", address: "Hancock Street between Franklin Avenue and Spencer Place, Brooklyn, NY, 11216", phone: "", hours: "", website: "http://www.grownyc.org/openspace/gardens/bk/spencers", lat: 40.692, lng: -73.957 },
+    { name: "Hull Street Playground Garden", category: "Gardens", address: "145 Hull Street, Brooklyn, NY, 11233", phone: "", hours: "", website: "www.greenthumbnyc.org", lat: 40.6796, lng: -73.911339 },
+    { name: "LDC Of Broadway Garden", category: "Gardens", address: "900 Broadway, Brooklyn, NY, 11233", phone: "", hours: "", website: "www.greenthumbnyc.org", lat: 40.697918, lng: -73.937097 },
+    { name: "Clifton Place Memorial Garden and Park", category: "Gardens", address: "Bedford Avenue and Clifton Place, Brooklyn, NY, 11205", phone: "", hours: "", lat: 40.6979, lng: -73.9584 },
+    { name: "Bedford Avenue Block Association Community Garden", category: "Gardens", address: "Bedford Avenue south of Willoughby Avenue, Brooklyn, NY, 11205", phone: "212-333-2552", hours: "", lat: 40.699, lng: -73.9572 },
+    { name: "T&T Vernon Block Association Community Garden", category: "Gardens", address: "Vernon Avenue between Tompkins and Throop Avenues, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.7017, lng: -73.9418 },
+    { name: "Vernon/Throop Avenue Block Association Community Garden", category: "Gardens", address: "Vernon and Throop Avenues, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.7019, lng: -73.942 },
+    { name: "Citizens for a Better Community Garden", category: "Gardens", address: "Patchen Avenue between Monroe and Madison, Brooklyn, NY, 11221", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6897, lng: -73.9278 },
+    { name: "Red Gate Garden", category: "Gardens", address: "Marcy Avenue at Willoughby Avenue, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6971, lng: -73.9483 },
+    { name: "Greene Acres Community Garden", category: "Gardens", address: "Greene and Franklin Avenues, Brooklyn, NY, 11238", phone: "212-333-2552", hours: "", website: "http://greeneacres.interactivist.net", lat: 40.6905, lng: -73.959 },
+    { name: "American Heart Community Garden", category: "Gardens", address: "Hart Street between Marcy and Tompkins, Brooklyn, NY, 11206", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6974, lng: -73.9432 },
+    { name: "Spencer Street Block Association Community Garden", category: "Gardens", address: "Spencer Street between Willoughby and DeKalb, Brooklyn, NY, 11205", phone: "212-788-8070", hours: "", website: "www.greenthumbnyc.org", lat: 40.6985, lng: -73.9576 },
+    { name: "978 Greene Avenue Garden", category: "Gardens", address: "978 Greene Avenue, Brooklyn, NY, 11221", phone: "212-788-7900", hours: "", website: "www.greenthumbnyc.org", lat: 40.690905, lng: -73.928651 },
+    { name: "Halsey/Lewis/Stuyvesant Civic Association Community Garden", category: "Gardens", address: "Halsey Street and Marcus Garvey Boulevard, Brooklyn, NY, 11216", phone: "", hours: "", website: "http://www.neighborhoodlink.com/Halsey-Lewis-Stuyvesant/topics/184100", lat: 40.6885, lng: -73.9358 },
+    { name: "Madison Street Block Association Community Garden", category: "Gardens", address: "Madison Street between Franklin and Bedford, Brooklyn, NY, 11205", phone: "", hours: "", website: "http://madisonstreetblock2.blogspot.com", lat: 40.6985, lng: -73.958 },
+    { name: "P.S. 35 Decatur Clearpool Beacon Garden", category: "Gardens", address: "272 McDonough St, Brooklyn, NY, 11233", phone: "", hours: "", lat: 40.6808, lng: -73.9217 },
+    { name: "Progressive Adventure Playland Garden", category: "Gardens", address: "Marcus Garvey Blvd and Lexington Avenue, Brooklyn, NY, 11221", phone: "", hours: "", website: "http://www.grownyc.org/openspace/gardens/bk/progressive", lat: 40.6897, lng: -73.9365 },
+    { name: "Spencer's Garden", category: "Gardens", address: "Hancock Street between Franklin Avenue and Spencer Place, Brooklyn, NY, 11216", phone: "", hours: "", website: "http://www.grownyc.org/openspace/gardens/bk/spencers", lat: 40.692, lng: -73.957 },
     { name: "Bartel-Pritchard Square Greenmarket", category: "Greenmarket", address: "Prospect Park W at 15th Street, Brooklyn, NY, 11215", phone: "", hours: "Wed 8am-3pm", website: "www.grownyc.org", lat: 40.6637, lng: -73.9767 },
     { name: "BFM II Satellite at Irving Square Park", category: "Greenmarket", address: "Wilson Avenue and Halsey Street, Brooklyn, NY, 11237", phone: "", hours: "Sat 11am-4pm", website: "www.grownyc.org", lat: 40.6919, lng: -73.9148 },
     { name: "Bushwick's Market I", category: "Greenmarket", address: "Linden Street and Broadway, Brooklyn, NY, 11221", phone: "", hours: "Wed 10am-6pm", website: "www.grownyc.org", lat: 40.6997, lng: -73.9291 },
@@ -1501,26 +1512,18 @@ map.on('click', 'cb3-points', function(e) {
 });
 
 // Handle CB3 filter buttons
-document.querySelectorAll('.filter-btn[data-category="Health Care"], .filter-btn[data-category="Police"], .filter-btn[data-category="Fire Department"], .filter-btn[data-category="Library"], .filter-btn[data-category="Food Pantry"], .filter-btn[data-category="Soup Kitchen"], .filter-btn[data-category="Food Pantry & Soup Kitchen"], .filter-btn[data-category="cb3-Community"], .filter-btn[data-category="Single Stop"], .filter-btn[data-category="Senior Center"], .filter-btn[data-category="Community Garden"], .filter-btn[data-category="Park"], .filter-btn[data-category="Greenmarket"], .filter-btn[data-category="Employment"], .filter-btn[data-category="Child Care"], .filter-btn[data-category="Homeless Prevention"], .filter-btn[data-category="School"]').forEach(btn => {
+document.querySelectorAll('.filter-btn[data-category="Health Care"], .filter-btn[data-category="Police"], .filter-btn[data-category="Fire Department"], .filter-btn[data-category="Library"], .filter-btn[data-category="Emergency Food"], .filter-btn[data-category="cb3-Community"], .filter-btn[data-category="Single Stop"], .filter-btn[data-category="Senior Center"], .filter-btn[data-category="Park"], .filter-btn[data-category="Greenmarket"], .filter-btn[data-category="Employment"], .filter-btn[data-category="Child Care"], .filter-btn[data-category="Homeless Prevention"], .filter-btn[data-category="School"]').forEach(btn => {
     btn.addEventListener('click', function() {
         const cat = this.dataset.category;
         this.classList.toggle('active');
         document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
 
-        const activeCB3 = Array.from(document.querySelectorAll('[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Food Pantry"].active, [data-category="Soup Kitchen"].active, [data-category="Food Pantry & Soup Kitchen"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Community Garden"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active')).map(b => {
+        const activeCB3 = Array.from(document.querySelectorAll('[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active')).map(b => {
             const c = b.dataset.category;
             return c === 'cb3-Community' ? 'Community' : c;
         });
 
-        if (!map.getLayer('cb3-points')) return;
-        if (activeCB3.length === 0) {
-            map.setFilter('cb3-points', null);
-            map.setFilter('cb3-halo', null);
-        } else {
-            const f = ['in', ['get', 'category'], ['literal', activeCB3]];
-            map.setFilter('cb3-points', f);
-            map.setFilter('cb3-halo', f);
-        }
+        syncCB3Gardens();
     });
 });
 
