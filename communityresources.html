@@ -542,6 +542,10 @@
         <div class="info-label">Hours</div>
         <div class="info-value" id="resource-hours" style="color:#1a7a5e;font-weight:600;"></div>
     </div>
+    <div class="info-section" id="info-notes-section" style="display:none">
+        <div class="info-label">Contact</div>
+        <div class="info-value" id="resource-notes"></div>
+    </div>
 </div>
 
 <!-- Map Container -->
@@ -874,8 +878,14 @@ function syncCB3Gardens() {
     )).map(b => b.dataset.category === 'cb3-Community' ? 'Community' : b.dataset.category);
     if (selectedCategories.includes('Gardens')) activeCB3.push('Gardens');
     if (activeCB3.length === 0) {
-        map.setFilter('cb3-points', null);
-        map.setFilter('cb3-halo', null);
+        if (selectedCategories.length > 0) {
+            // Tileset-only filter active — hide all CB3 points
+            map.setFilter('cb3-points', ['==', ['get', 'category'], '']);
+            map.setFilter('cb3-halo', ['==', ['get', 'category'], '']);
+        } else {
+            map.setFilter('cb3-points', null);
+            map.setFilter('cb3-halo', null);
+        }
     } else {
         const f = ['in', ['get', 'category'], ['literal', activeCB3]];
         map.setFilter('cb3-points', f);
@@ -1099,6 +1109,9 @@ map.on('click', 'cb3-points', function(e) {
     else { phoneSection.style.display = 'none'; }
     if (p.hours) { document.getElementById('resource-hours').textContent = p.hours; hoursSection.style.display = 'block'; }
     else { hoursSection.style.display = 'none'; }
+    const notesSection = document.getElementById('info-notes-section');
+    if (p.notes) { document.getElementById('resource-notes').textContent = p.notes; notesSection.style.display = 'block'; }
+    else { notesSection.style.display = 'none'; }
 
     document.getElementById('resource-address').textContent = p.address;
     tooltip.classList.remove('visible');
