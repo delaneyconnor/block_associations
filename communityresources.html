@@ -162,7 +162,7 @@
         .filter-btn[data-category="Park"].active              { background: #33691E; }
         .filter-btn[data-category="Greenmarket"].active       { background: #8BC34A; color: #222; }
         .filter-btn[data-category="School"].active            { background: #311B92; }
-        .filter-btn[data-category="Places of Worship"].active { background: #AD1457; }
+        .filter-btn[data-category="Religious Institution"].active { background: #AD1457; }
 
         .search-results {
             max-height: 300px;
@@ -491,7 +491,7 @@
         <button class="filter-btn" data-category="Child Care">Child Care</button>
         <button class="filter-btn" data-category="Homeless Prevention">Homeless Prevention</button>
         <button class="filter-btn" data-category="School">Schools</button>
-        <button class="filter-btn" data-category="Places of Worship">Places of Worship</button>
+        <button class="filter-btn" data-category="Religious Institution">Religious Institution</button>
     </div>
 </div>
 
@@ -856,14 +856,14 @@ document.getElementById('close-panel').addEventListener('click', function() {
 const CB3_CATEGORIES = new Set([
     'Health Care','Police','Fire Department','Library','Emergency Food',
     'cb3-Community','Single Stop','Senior Center','Park','Greenmarket',
-    'Employment','Child Care','Homeless Prevention','School','Places of Worship'
+    'Employment','Child Care','Homeless Prevention','School','Religious Institution'
 ]);
 
 // Sync CB3 layer visibility with active filter state
 function syncCB3Gardens() {
     if (!map.getLayer('cb3-points')) return;
     const activeCB3 = Array.from(document.querySelectorAll(
-        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active, [data-category="Places of Worship"].active'
+        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active, [data-category="Religious Institution"].active'
     )).map(b => b.dataset.category === 'cb3-Community' ? 'Community' : b.dataset.category);
     if (selectedCategories.includes('Gardens')) activeCB3.push('Gardens');
     if (activeCB3.length === 0) {
@@ -963,7 +963,7 @@ const CB3_COLORS = {
     'Park':               '#33691E',
     'Greenmarket':        '#8BC34A',
     'School':             '#311B92',
-    'Places of Worship':  '#AD1457'
+    'Religious Institution':  '#AD1457'
 };
 
 const CB3_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HoUy145l0nZn_o6c-n34S7G83D0IzBDYBpnq8zzVgFtrfA8M0-Ys26uTDYCCgW_7eZFZh0CuuEZQ/pub?gid=953239753&single=true&output=csv';
