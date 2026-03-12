@@ -35,57 +35,15 @@
             display: none;
         }
 
-        /* Embedded mode: filter panel becomes horizontal scrollable bar at top */
+        /* Embedded mode: left-side panel, full height */
         body.embedded .filter-panel {
-            position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            border-radius: 0;
-            padding: 8px 12px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 6px;
-            max-height: 52px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        body.embedded .filter-panel h3 {
-            display: none;
-        }
-
-        body.embedded .filter-panel > div {
-            display: contents;
-        }
-
-        body.embedded .filter-panel .category-filters {
-            display: contents;
-        }
-
-        body.embedded .category-label {
-            display: none;
-        }
-
-        body.embedded .filter-btn {
-            flex-shrink: 0;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin: 0 2px 0 0;
-        }
-
-        /* Adjust map and info panel positions in embedded mode */
-        body.embedded #map {
-            top: 52px;
+            max-height: 100vh;
         }
 
         body.embedded .info-panel {
-            top: 72px;
-            max-height: calc(100vh - 92px);
+            top: 20px;
+            max-height: calc(100vh - 40px);
         }
 
         /* Hide map controls when embedded */
