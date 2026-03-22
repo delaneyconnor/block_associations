@@ -612,7 +612,8 @@
         // Format popup content with year history
         function createPopupHTML(properties) {
             const totalParties = properties.total_block_parties || 0;
-            const yearsActive = properties.years_active || [];
+            let yearsActive = properties.years_active || [];
+            if (typeof yearsActive === 'string') { try { yearsActive = JSON.parse(yearsActive); } catch(e) { yearsActive = []; } }
             const yearsActiveSet = new Set(yearsActive);
             const uniqueNames = properties.unique_association_names_count || 1;
 
