@@ -679,8 +679,13 @@
             return `
                 <div class="popup-detail">
                     <i class="fas fa-building"></i>
-                    <span>${properties.event_borough || 'NYC'}${properties.community_board && properties.community_board !== 'N/A' ? ` · Community Board ${properties.community_board}` : ''}</span>
+                    <span>${properties.event_borough || 'NYC'}</span>
                 </div>
+                ${properties.community_board && properties.community_board !== 'N/A' && properties.community_board !== '' ? `
+                <div class="popup-detail">
+                    <i class="fas fa-map"></i>
+                    <span>Community Board ${properties.community_board}</span>
+                </div>` : ''}
 
                 ${website ? `
                 <div class="popup-detail">
