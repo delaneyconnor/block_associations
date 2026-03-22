@@ -200,6 +200,7 @@
             margin-bottom: 14px;
         }
         .status-active { background: rgba(255,59,48,0.12); color: #FF3B30; }
+        .status-recent { background: rgba(255,149,0,0.12); color: #FF9500; }
         .status-dormant { background: #f0f0f0; color: #888; }
 
         .year-grid {
@@ -529,8 +530,9 @@
 <!-- Legend -->
 <div class="map-legend">
     <h4>Status</h4>
-    <div class="legend-item"><div class="legend-dot" style="background:#FF3B30;"></div>Active (party since 2023)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#aaa;"></div>Dormant</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FF3B30;"></div>Active (2022 or later)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FF9500;"></div>Recent (2018–2021)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#aaa;"></div>Dormant (before 2018)</div>
 </div>
 
 <!-- Hover Tooltip -->
@@ -555,8 +557,9 @@
         <p>This is an interactive map designed to help residents of Bedford-Stuyvesant locate and connect with block associations.</p>
         <p><strong>How to use this map:</strong></p>
         <p>• Click on any dot to view block association information</p>
-        <p>• Teal dots are active associations (hosted a block party since 2023)</p>
-        <p>• Grey dots are dormant associations</p>
+        <p>• Red dots are active associations (hosted a block party in 2022 or later)</p>
+        <p>• Orange dots are recent associations (last active 2018–2021)</p>
+        <p>• Grey dots are dormant associations (last active before 2018)</p>
         <p>• Use the search box to find an association by street or name</p>
         <button class="add-association-btn" id="add-association-btn-modal">
             Add Your Association
@@ -606,28 +609,44 @@ map.on('load', () => {
 
             map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
-            // Dormant layer (drawn first, underneath)
+            // Dormant layer (drawn first, underneath) — last event before 2018
             map.addLayer({
                 id: 'assoc-dormant',
                 type: 'circle',
                 source: 'associations',
-                filter: ['<', ['coalesce', ['get', 'last_year'], 0], ACTIVE_YEAR],
+                filter: ['==', ['get', 'status'], 'dormant'],
                 paint: {
                     'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
                     'circle-color': '#aaaaaa',
-                    'circle-opacity': 0.8,
+                    'circle-opacity': 0.7,
                     'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
                     'circle-stroke-color': '#ffffff',
                     'circle-stroke-opacity': 0.6
                 }
             });
 
-            // Active layer (on top)
+            // Recent layer — last event 2018–2021
+            map.addLayer({
+                id: 'assoc-recent',
+                type: 'circle',
+                source: 'associations',
+                filter: ['==', ['get', 'status'], 'recent'],
+                paint: {
+                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
+                    'circle-color': '#FF9500',
+                    'circle-opacity': 0.85,
+                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
+                    'circle-stroke-color': '#ffffff',
+                    'circle-stroke-opacity': 0.6
+                }
+            });
+
+            // Active layer (on top) — last event 2022+
             map.addLayer({
                 id: 'assoc-active',
                 type: 'circle',
                 source: 'associations',
-                filter: ['>=', ['coalesce', ['get', 'last_year'], 0], ACTIVE_YEAR],
+                filter: ['==', ['get', 'status'], 'active'],
                 paint: {
                     'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
                     'circle-color': '#FF3B30',
@@ -648,7 +667,7 @@ function setHover(id, state) {
 }
 
 function setupInteractions() {
-    const layers = ['assoc-active', 'assoc-dormant'];
+    const layers = ['assoc-active', 'assoc-recent', 'assoc-dormant'];
 
     layers.forEach(layer => {
         map.on('mousemove', layer, e => {
@@ -693,10 +712,13 @@ function setupInteractions() {
 function showInfo(props) {
     document.getElementById('assoc-name').textContent = props.association_name || 'Block Association';
 
-    const isActive = (props.last_year || 0) >= ACTIVE_YEAR;
-    document.getElementById('assoc-status').innerHTML = isActive
-        ? '<span class="status-badge status-active">Active</span>'
-        : '<span class="status-badge status-dormant">Dormant</span>';
+    const status = props.status || (((props.last_year || 0) >= ACTIVE_YEAR) ? 'active' : 'dormant');
+    const statusHTML = {
+        active:  '<span class="status-badge status-active">Active</span>',
+        recent:  '<span class="status-badge status-recent">Recent</span>',
+        dormant: '<span class="status-badge status-dormant">Dormant</span>',
+    };
+    document.getElementById('assoc-status').innerHTML = statusHTML[status] || statusHTML.dormant;
 
     document.getElementById('assoc-location').textContent = props.event_location || '—';
     document.getElementById('assoc-total').textContent = props.total_block_parties
