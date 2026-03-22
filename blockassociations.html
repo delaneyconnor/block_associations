@@ -518,6 +518,11 @@
         <div class="info-value" id="assoc-total"></div>
     </div>
 
+    <div class="info-section" id="assoc-names-section">
+        <div class="info-label">Also known as</div>
+        <div class="info-value" id="assoc-other-names"></div>
+    </div>
+
     <div class="info-section">
         <div class="info-label">Active Years</div>
         <div id="assoc-years" class="year-grid"></div>
@@ -721,6 +726,18 @@ function showInfo(props) {
     document.getElementById('assoc-status').innerHTML = statusHTML[status] || statusHTML.dormant;
 
     document.getElementById('assoc-location').textContent = props.event_location || '—';
+
+    let allNames = [];
+    try { allNames = JSON.parse(props.all_event_names || '[]'); } catch(e) {}
+    if (typeof allNames === 'string') { try { allNames = JSON.parse(allNames); } catch(e) { allNames = []; } }
+    const otherNames = allNames.filter(n => n !== props.association_name);
+    const nameSection = document.getElementById('assoc-names-section');
+    if (otherNames.length > 0) {
+        document.getElementById('assoc-other-names').textContent = otherNames.join(', ');
+        nameSection.style.display = '';
+    } else {
+        nameSection.style.display = 'none';
+    }
     document.getElementById('assoc-total').textContent = props.total_block_parties
         ? `${props.total_block_parties} block parties (${props.first_year}–${props.last_year})`
         : '—';
