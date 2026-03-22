@@ -498,7 +498,6 @@
         <div class="popup-header">
             <button class="close-panel-btn" id="close-panel">×</button>
             <h3 id="panel-name"></h3>
-            <div class="party-count" id="panel-location"></div>
         </div>
         <div class="popup-body" id="panel-body"></div>
     </div>
@@ -793,7 +792,6 @@
 
         function showPanel(props) {
             document.getElementById('panel-name').textContent = bestDisplayName(props);
-            document.getElementById('panel-location').textContent = props.event_location || '';
             document.getElementById('panel-body').innerHTML = createPopupHTML(props);
             document.getElementById('info-panel').classList.add('active');
         }
