@@ -672,7 +672,10 @@
                     </div>`}
 
                     <div class="year-history">
-                        <div class="year-history-title">Block Party History (${yearsActive.length} years active)</div>
+                        ${properties.last_year
+                            ? `<div class="year-history-title">Last active in ${properties.last_year} · ${new Date().getFullYear() - properties.last_year === 0 ? 'this year' : `${new Date().getFullYear() - properties.last_year} year${new Date().getFullYear() - properties.last_year === 1 ? '' : 's'} ago`} · ${yearsActive.length} year${yearsActive.length === 1 ? '' : 's'} total</div>`
+                            : `<div class="year-history-title">${yearsActive.length} year${yearsActive.length === 1 ? '' : 's'} active</div>`
+                        }
                         <div class="year-grid">
                             ${yearGridHTML}
                         </div>
