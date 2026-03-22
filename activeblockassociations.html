@@ -510,22 +510,22 @@
 
     <!-- Legend -->
     <div class="legend">
-        <div class="legend-title">Years Active</div>
+        <div class="legend-title">Last Active</div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #1B5E20;"></div>
-            <span>10+ years</span>
+            <span>0–2 years ago</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #388E3C;"></div>
-            <span>5-9 years</span>
+            <span>3–5 years ago</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #66BB6A;"></div>
-            <span>2-4 years</span>
+            <span>6–10 years ago</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #A5D6A7;"></div>
-            <span>1 year</span>
+            <span>11+ years ago</span>
         </div>
     </div>
 
@@ -690,13 +690,15 @@
         hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
-        // Color by years active — matches communityresources.html circle style
+        // Color by years since last active — darker = more recent
+        const CURRENT_YEAR = new Date().getFullYear();
         const YEARS_COLOR = [
-            'step', ['length', ['get', 'years_active']],
-            '#A5D6A7',   // 1 year
-            2, '#66BB6A', // 2-4 years
-            5, '#388E3C', // 5-9 years
-            10, '#1B5E20' // 10+ years
+            'step',
+            ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
+            '#1B5E20',   // 0-2 years ago
+            3, '#388E3C', // 3-5 years ago
+            6, '#66BB6A', // 6-10 years ago
+            11, '#A5D6A7' // 11+ years ago
         ];
 
         let hoveredId = null;
