@@ -135,27 +135,36 @@
             color: #4CAF50;
         }
 
-        /* Popup styling */
-        .mapboxgl-popup {
-            max-width: 360px !important;
+        /* Info panel */
+        .info-panel {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 350px;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            display: none;
         }
 
-        .mapboxgl-popup-content {
-            padding: 0;
-            border-radius: 12px;
-            overflow: hidden;
-        }
+        .info-panel.active { display: block; }
 
         .popup-header {
             background: #4CAF50;
             color: white;
             padding: 12px 15px;
+            border-radius: 12px 12px 0 0;
+            position: relative;
         }
 
         .popup-header h3 {
             margin: 0;
             font-size: 15px;
             font-weight: 600;
+            padding-right: 24px;
         }
 
         .popup-header .party-count {
@@ -163,6 +172,20 @@
             opacity: 0.9;
             margin-top: 4px;
         }
+
+        .close-panel-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+        }
+        .close-panel-btn:hover { opacity: 1; }
 
         .popup-body {
             padding: 15px;
@@ -469,6 +492,16 @@
     <!-- About Button -->
     <button class="about-btn" id="about-btn">?</button>
 
+    <!-- Info Panel -->
+    <div class="info-panel" id="info-panel">
+        <div class="popup-header">
+            <button class="close-panel-btn" id="close-panel">×</button>
+            <h3 id="panel-name"></h3>
+            <div class="party-count" id="panel-location"></div>
+        </div>
+        <div class="popup-body" id="panel-body"></div>
+    </div>
+
     <!-- Map Container -->
     <div id="map"></div>
 
@@ -573,13 +606,6 @@
         let allFeatures = [];
         let markers = [];
 
-        // Create popup
-        const popup = new mapboxgl.Popup({
-            closeButton: true,
-            closeOnClick: true,
-            maxWidth: '360px'
-        });
-
         // All years from 2008-2025
         const ALL_YEARS = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
@@ -651,54 +677,45 @@
             const phone = properties.phone || '';
 
             return `
-                <div class="popup-header">
-                    <h3>${bestDisplayName(properties)}</h3>
+                <div class="popup-detail">
+                    <i class="fas fa-building"></i>
+                    <span>${properties.event_borough || 'NYC'}${properties.community_board && properties.community_board !== 'N/A' ? ` · Community Board ${properties.community_board}` : ''}</span>
                 </div>
-                <div class="popup-body">
-                    <div class="popup-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${properties.event_location || ''}</span>
-                    </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-building"></i>
-                        <span>${properties.event_borough || 'NYC'}${properties.community_board && properties.community_board !== 'N/A' ? ` · Community Board ${properties.community_board}` : ''}</span>
-                    </div>
 
-                    ${website ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-globe"></i>
-                        <span><a href="${website}" target="_blank" rel="noopener">${website}</a></span>
-                    </div>` : `
-                    <div class="popup-detail popup-detail-empty">
-                        <i class="fas fa-globe"></i>
-                        <span>Website not listed</span>
-                    </div>`}
+                ${website ? `
+                <div class="popup-detail">
+                    <i class="fas fa-globe"></i>
+                    <span><a href="${website}" target="_blank" rel="noopener">${website}</a></span>
+                </div>` : `
+                <div class="popup-detail popup-detail-empty">
+                    <i class="fas fa-globe"></i>
+                    <span>Website not listed</span>
+                </div>`}
 
-                    ${email ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-envelope"></i>
-                        <span><a href="mailto:${email}">${email}</a></span>
-                    </div>` : `
-                    <div class="popup-detail popup-detail-empty">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email not listed</span>
-                    </div>`}
+                ${email ? `
+                <div class="popup-detail">
+                    <i class="fas fa-envelope"></i>
+                    <span><a href="mailto:${email}">${email}</a></span>
+                </div>` : `
+                <div class="popup-detail popup-detail-empty">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email not listed</span>
+                </div>`}
 
-                    ${phone ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-phone"></i>
-                        <span>${phone}</span>
-                    </div>` : `
-                    <div class="popup-detail popup-detail-empty">
-                        <i class="fas fa-phone"></i>
-                        <span>Phone not listed</span>
-                    </div>`}
+                ${phone ? `
+                <div class="popup-detail">
+                    <i class="fas fa-phone"></i>
+                    <span>${phone}</span>
+                </div>` : `
+                <div class="popup-detail popup-detail-empty">
+                    <i class="fas fa-phone"></i>
+                    <span>Phone not listed</span>
+                </div>`}
 
-                    <div class="year-history">
-                        <div class="year-history-title">Block Party History</div>
-                        <div class="year-grid">
-                            ${yearGridHTML}
-                        </div>
+                <div class="year-history">
+                    <div class="year-history-title">Block Party History</div>
+                    <div class="year-grid">
+                        ${yearGridHTML}
                     </div>
                 </div>
             `;
@@ -722,6 +739,26 @@
         ];
 
         let hoveredId = null;
+        let selectedId = null;
+
+        function showPanel(props) {
+            document.getElementById('panel-name').textContent = bestDisplayName(props);
+            document.getElementById('panel-location').textContent = props.event_location || '';
+            document.getElementById('panel-body').innerHTML = createPopupHTML(props);
+            document.getElementById('info-panel').classList.add('active');
+        }
+
+        function closePanel() {
+            document.getElementById('info-panel').classList.remove('active');
+            if (selectedId !== null) {
+                map.setFeatureState({ source: 'associations', id: selectedId }, { selected: false });
+                selectedId = null;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('close-panel').addEventListener('click', closePanel);
+        });
 
         function setupLayers(geojson) {
             if (map.getSource('associations')) {
@@ -733,12 +770,26 @@
                     type: 'circle',
                     source: 'associations',
                     paint: {
-                        'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
+                        'circle-radius': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], 16,
+                            ['boolean', ['feature-state', 'hover'], false], 12,
+                            8
+                        ],
                         'circle-color': YEARS_COLOR,
-                        'circle-opacity': 0.8,
-                        'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
-                        'circle-stroke-color': '#FFFFFF',
-                        'circle-stroke-opacity': 0.6,
+                        'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0.8],
+                        'circle-stroke-width': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], 3,
+                            ['boolean', ['feature-state', 'hover'], false], 2,
+                            1.5
+                        ],
+                        'circle-stroke-color': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], '#000000',
+                            '#FFFFFF'
+                        ],
+                        'circle-stroke-opacity': 1,
                     }
                 });
 
@@ -750,7 +801,6 @@
                     }
                     hoveredId = feat.id;
                     map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: true });
-
                     hoverTooltip.textContent = bestDisplayName(feat.properties);
                     hoverTooltip.style.display = 'block';
                     hoverTooltip.style.left = e.originalEvent.pageX + 15 + 'px';
@@ -767,9 +817,18 @@
                 });
 
                 map.on('click', 'assoc-points', (e) => {
-                    const props = e.features[0].properties;
-                    const coords = e.features[0].geometry.coordinates.slice();
-                    popup.setLngLat(coords).setHTML(createPopupHTML(props)).addTo(map);
+                    const feat = e.features[0];
+                    if (selectedId !== null) {
+                        map.setFeatureState({ source: 'associations', id: selectedId }, { selected: false });
+                    }
+                    selectedId = feat.id;
+                    map.setFeatureState({ source: 'associations', id: selectedId }, { selected: true });
+                    showPanel(feat.properties);
+                });
+
+                map.on('click', (e) => {
+                    const features = map.queryRenderedFeatures(e.point, { layers: ['assoc-points'] });
+                    if (features.length === 0) closePanel();
                 });
             }
         }

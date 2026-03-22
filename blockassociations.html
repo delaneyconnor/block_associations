@@ -604,6 +604,7 @@ map.addControl(geolocateControl, 'bottom-left');
 
 let allFeatures = [];
 let hoveredFeatureId = null;
+let selectedFeatureId = null;
 const tooltip = document.getElementById('hover-tooltip');
 
 map.on('load', () => {
@@ -614,20 +615,36 @@ map.on('load', () => {
 
             map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
+            const circlePaint = (color, baseOpacity) => ({
+                'circle-radius': [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], false], 16,
+                    ['boolean', ['feature-state', 'hover'], false], 12,
+                    8
+                ],
+                'circle-color': color,
+                'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, baseOpacity],
+                'circle-stroke-width': [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], false], 3,
+                    ['boolean', ['feature-state', 'hover'], false], 2,
+                    1.5
+                ],
+                'circle-stroke-color': [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], false], '#000000',
+                    '#ffffff'
+                ],
+                'circle-stroke-opacity': 1
+            });
+
             // Dormant layer (drawn first, underneath) — last event before 2018
             map.addLayer({
                 id: 'assoc-dormant',
                 type: 'circle',
                 source: 'associations',
                 filter: ['==', ['get', 'status'], 'dormant'],
-                paint: {
-                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
-                    'circle-color': '#aaaaaa',
-                    'circle-opacity': 0.7,
-                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
-                    'circle-stroke-color': '#ffffff',
-                    'circle-stroke-opacity': 0.6
-                }
+                paint: circlePaint('#aaaaaa', 0.7)
             });
 
             // Recent layer — last event 2018–2021
@@ -636,14 +653,7 @@ map.on('load', () => {
                 type: 'circle',
                 source: 'associations',
                 filter: ['==', ['get', 'status'], 'recent'],
-                paint: {
-                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
-                    'circle-color': '#FF9500',
-                    'circle-opacity': 0.85,
-                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
-                    'circle-stroke-color': '#ffffff',
-                    'circle-stroke-opacity': 0.6
-                }
+                paint: circlePaint('#FF9500', 0.85)
             });
 
             // Active layer (on top) — last event 2022+
@@ -652,14 +662,7 @@ map.on('load', () => {
                 type: 'circle',
                 source: 'associations',
                 filter: ['==', ['get', 'status'], 'active'],
-                paint: {
-                    'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
-                    'circle-color': '#FF3B30',
-                    'circle-opacity': 0.9,
-                    'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
-                    'circle-stroke-color': '#ffffff',
-                    'circle-stroke-opacity': 0.6
-                }
+                paint: circlePaint('#FF3B30', 0.9)
             });
 
             setupInteractions();
@@ -701,7 +704,13 @@ function setupInteractions() {
         });
 
         map.on('click', layer, e => {
-            showInfo(e.features[0].properties);
+            const feat = e.features[0];
+            if (selectedFeatureId !== null) {
+                map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
+            }
+            selectedFeatureId = feat.id;
+            map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: true });
+            showInfo(feat.properties);
         });
     });
 
@@ -709,6 +718,10 @@ function setupInteractions() {
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers });
         if (features.length === 0) {
+            if (selectedFeatureId !== null) {
+                map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
+                selectedFeatureId = null;
+            }
             document.getElementById('info-panel').classList.remove('active');
         }
     });
@@ -764,17 +777,27 @@ function showInfo(props) {
 const searchInput = document.getElementById('street-search');
 const searchResults = document.getElementById('search-results');
 
+function updateMapDots(features) {
+    const src = map.getSource('associations');
+    if (src) src.setData({ type: 'FeatureCollection', features });
+}
+
 searchInput.addEventListener('input', function() {
     const term = this.value.toLowerCase().trim();
-    if (term.length < 2) { searchResults.innerHTML = ''; return; }
+    if (term.length < 2) {
+        searchResults.innerHTML = '';
+        updateMapDots(allFeatures);
+        return;
+    }
 
-    const results = allFeatures
-        .filter(f => {
-            const name = (f.properties.association_name || '').toLowerCase();
-            const loc = (f.properties.event_location || '').toLowerCase();
-            return name.includes(term) || loc.includes(term);
-        })
-        .slice(0, 8);
+    const results = allFeatures.filter(f => {
+        const name = (f.properties.association_name || '').toLowerCase();
+        const loc = (f.properties.event_location || '').toLowerCase();
+        return name.includes(term) || loc.includes(term);
+    });
+
+    // Filter map dots to only show matches
+    updateMapDots(results);
 
     if (results.length === 0) {
         searchResults.innerHTML = '<div style="padding:10px;color:#999;font-size:13px;">No results found</div>';
@@ -782,7 +805,7 @@ searchInput.addEventListener('input', function() {
     }
 
     searchResults.innerHTML = '';
-    results.forEach((f, i) => {
+    results.slice(0, 8).forEach(f => {
         const item = document.createElement('div');
         item.className = 'result-item';
         item.innerHTML = `<strong>${f.properties.association_name || 'Block Association'}</strong><small>${f.properties.event_location || ''}</small>`;
@@ -791,6 +814,7 @@ searchInput.addEventListener('input', function() {
             map.flyTo({ center: f.geometry.coordinates, zoom: 16, duration: 800 });
             searchInput.value = '';
             searchResults.innerHTML = '';
+            updateMapDots(allFeatures);
         });
         searchResults.appendChild(item);
     });
@@ -828,6 +852,10 @@ geolocateControl.on('geolocate', e => {
 // Close panel
 document.getElementById('close-panel').addEventListener('click', () => {
     document.getElementById('info-panel').classList.remove('active');
+    if (selectedFeatureId !== null) {
+        map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
+        selectedFeatureId = null;
+    }
 });
 
 // About modal
