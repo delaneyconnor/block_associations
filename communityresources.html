@@ -668,12 +668,13 @@ map.on('load', function() {
         1.5
     ]);
 
-    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', [
+    map.setPaintProperty(communityResourcesLayer, 'circle-opacity', [
         'case',
-        ['boolean', ['feature-state', 'selected'], false], '#000000',
-        '#FFFFFF'
+        ['boolean', ['feature-state', 'selected'], false], 0.6,
+        0.8
     ]);
-    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', 1);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', '#FFFFFF');
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', 0.6);
 
     // Set layer order - Mesh NYC Nodes on bottom (lower number = bottom layer)
     map.setLayoutProperty(communityResourcesLayer, 'circle-sort-key', [
@@ -1024,9 +1025,10 @@ function initCB3Layer() {
         paint: {
             'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 16, ['boolean', ['feature-state', 'hover'], false], 12, 8],
             'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#FFFFFF', ['get', 'color']],
-            'circle-opacity': 0.8,
+            'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.6, 0.8],
             'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 2, 1.5],
-            'circle-stroke-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#000000', '#FFFFFF']
+            'circle-stroke-color': '#FFFFFF',
+            'circle-stroke-opacity': 0.6
         }
     });
 }
