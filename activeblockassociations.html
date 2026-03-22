@@ -751,7 +751,8 @@
 
         async function loadCommunityDistricts() {
             try {
-                const r = await fetch('https://data.cityofnewyork.us/resource/jp9i-3b7y.geojson?$limit=300');
+                const url = 'https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Community_Districts/FeatureServer/0/query?where=1%3D1&outFields=BoroCD&outSR=4326&f=geojson';
+                const r = await fetch(url);
                 if (!r.ok) return;
                 const geojson = await r.json();
                 map.addSource('community-districts', { type: 'geojson', data: geojson });
@@ -760,14 +761,14 @@
                     type: 'fill',
                     source: 'community-districts',
                     paint: { 'fill-color': '#4CAF50', 'fill-opacity': 0.08 },
-                    filter: ['==', ['to-number', ['get', 'boro_cd']], -1]
+                    filter: ['==', ['get', 'BoroCD'], -1]
                 });
                 map.addLayer({
                     id: 'cd-border',
                     type: 'line',
                     source: 'community-districts',
                     paint: { 'line-color': '#4CAF50', 'line-width': 2, 'line-opacity': 0.7 },
-                    filter: ['==', ['to-number', ['get', 'boro_cd']], -1]
+                    filter: ['==', ['get', 'BoroCD'], -1]
                 });
             } catch(e) {
                 console.warn('Could not load community districts:', e);
@@ -777,16 +778,16 @@
         function updateCDBoundary(cbKey) {
             if (!map.getLayer('cd-fill')) return;
             if (!cbKey || cbKey === 'all') {
-                map.setFilter('cd-fill',   ['==', ['to-number', ['get', 'boro_cd']], -1]);
-                map.setFilter('cd-border', ['==', ['to-number', ['get', 'boro_cd']], -1]);
+                map.setFilter('cd-fill',   ['==', ['get', 'BoroCD'], -1]);
+                map.setFilter('cd-border', ['==', ['get', 'BoroCD'], -1]);
                 return;
             }
             const [cbBoro, cbNum] = cbKey.split('|');
             const boroCode = BORO_TO_CODE[cbBoro];
             if (!boroCode) return;
             const boroCd = boroCode * 100 + parseInt(cbNum);
-            map.setFilter('cd-fill',   ['==', ['to-number', ['get', 'boro_cd']], boroCd]);
-            map.setFilter('cd-border', ['==', ['to-number', ['get', 'boro_cd']], boroCd]);
+            map.setFilter('cd-fill',   ['==', ['get', 'BoroCD'], boroCd]);
+            map.setFilter('cd-border', ['==', ['get', 'BoroCD'], boroCd]);
         }
 
         function showPanel(props) {
