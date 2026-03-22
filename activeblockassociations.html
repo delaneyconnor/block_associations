@@ -590,13 +590,34 @@
             'committee', 'co-op', 'cooperative', 'alliance'
         ];
 
+        const PREPOSITIONS = new Set(['of','on','at','in','for','the','and','&','a','an','to','by','with','near','from']);
+
         function cleanName(name) {
-            return name
+            // Step 1: strip known junk words and years
+            let cleaned = name
                 .replace(/\b(annual|block\s+party|block\s+partie[s]?)\b/gi, '')
                 .replace(/\b(halloween|christmas|holiday|summer|spring|fall|autumn|winter|back\s+to\s+school|end\s+of\s+(the\s+)?year|end\s+of\s+(the\s+)?summer|cookout|bbq|picnic|carnival|festival|fair|celebration|party|parade)\b/gi, '')
                 .replace(/\b(19|20)\d{2}\b/g, '')
-                .replace(/[-–—,;:!]+$/, '')
                 .replace(/\s{2,}/g, ' ')
+                .trim();
+
+            // Step 2: truncate after the last association keyword, UNLESS the
+            // word immediately following is a preposition (meaning more context follows)
+            const kwPattern = new RegExp(`\\b(${ASSOC_KEYWORDS.join('|')})\\b`, 'gi');
+            let lastMatch = null, m;
+            while ((m = kwPattern.exec(cleaned)) !== null) lastMatch = m;
+
+            if (lastMatch) {
+                const afterKw = cleaned.slice(lastMatch.index + lastMatch[0].length).trimStart();
+                const nextWord = afterKw.split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+                if (nextWord && !PREPOSITIONS.has(nextWord)) {
+                    cleaned = cleaned.slice(0, lastMatch.index + lastMatch[0].length).trim();
+                }
+            }
+
+            // Step 3: clean up trailing punctuation and title case
+            return cleaned
+                .replace(/[-–—,;:!]+$/, '')
                 .trim()
                 .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
         }
