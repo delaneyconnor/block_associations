@@ -463,6 +463,29 @@
         let allFeatures = [];
         let markers = [];
         let currentSeason = 'upcoming';
+        let selectedMarkerEl = null;
+
+        function selectMarker(el) {
+            if (selectedMarkerEl) resetMarker(selectedMarkerEl);
+            selectedMarkerEl = el;
+            el.style.width = '32px';
+            el.style.height = '32px';
+            el.style.backgroundColor = '#FFFFFF';
+            el.style.border = '3px solid #000000';
+            el.style.opacity = '1';
+            el.style.marginLeft = '-8px';
+            el.style.marginTop = '-8px';
+        }
+
+        function resetMarker(el) {
+            el.style.width = '16px';
+            el.style.height = '16px';
+            el.style.backgroundColor = '#e53935';
+            el.style.border = 'none';
+            el.style.opacity = '0.8';
+            el.style.marginLeft = '0';
+            el.style.marginTop = '0';
+        }
 
         // NYC Open Data API for upcoming events
         const NYC_UPCOMING_URL = 'https://data.cityofnewyork.us/resource/tvpp-9vvx.json';
@@ -472,6 +495,9 @@
             closeButton: true,
             closeOnClick: true,
             maxWidth: '320px'
+        });
+        popup.on('close', () => {
+            if (selectedMarkerEl) { resetMarker(selectedMarkerEl); selectedMarkerEl = null; }
         });
 
         // Format popup content (click - full details)
@@ -553,6 +579,7 @@
         function clearMarkers() {
             markers.forEach(m => m.remove());
             markers = [];
+            selectedMarkerEl = null;
         }
 
         // Add markers for features
@@ -589,6 +616,7 @@
                 // Click - show full details popup
                 el.addEventListener('click', () => {
                     hoverTooltip.style.display = 'none';
+                    selectMarker(el);
                     popup
                         .setLngLat(coords)
                         .setHTML(createPopupHTML(props))
