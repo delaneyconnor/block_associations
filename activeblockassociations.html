@@ -690,102 +690,82 @@
         hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
-        // Get color based on years active
-        function getColorForYearsActive(yearsActive) {
-            const count = Array.isArray(yearsActive) ? yearsActive.length : 0;
-            if (count >= 10) return '#1B5E20'; // Dark green - 10+ years
-            if (count >= 5) return '#388E3C';  // Medium green - 5-9 years
-            if (count >= 2) return '#66BB6A';  // Light green - 2-4 years
-            return '#A5D6A7';                   // Pale green - 1 year
+        // Color by years active — matches communityresources.html circle style
+        const YEARS_COLOR = [
+            'step', ['length', ['get', 'years_active']],
+            '#A5D6A7',   // 1 year
+            2, '#66BB6A', // 2-4 years
+            5, '#388E3C', // 5-9 years
+            10, '#1B5E20' // 10+ years
+        ];
+
+        let hoveredId = null;
+
+        function setupLayers(geojson) {
+            if (map.getSource('associations')) {
+                map.getSource('associations').setData(geojson);
+            } else {
+                map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
+                map.addLayer({
+                    id: 'assoc-points',
+                    type: 'circle',
+                    source: 'associations',
+                    paint: {
+                        'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 14, 8],
+                        'circle-color': YEARS_COLOR,
+                        'circle-opacity': 0.8,
+                        'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1.5],
+                        'circle-stroke-color': '#FFFFFF',
+                        'circle-stroke-opacity': 0.6,
+                    }
+                });
+
+                map.on('mousemove', 'assoc-points', (e) => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    const feat = e.features[0];
+                    if (hoveredId !== null && hoveredId !== feat.id) {
+                        map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: false });
+                    }
+                    hoveredId = feat.id;
+                    map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: true });
+
+                    hoverTooltip.textContent = bestDisplayName(feat.properties);
+                    hoverTooltip.style.display = 'block';
+                    hoverTooltip.style.left = e.originalEvent.pageX + 15 + 'px';
+                    hoverTooltip.style.top  = e.originalEvent.pageY + 15 + 'px';
+                });
+
+                map.on('mouseleave', 'assoc-points', () => {
+                    map.getCanvas().style.cursor = '';
+                    if (hoveredId !== null) {
+                        map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: false });
+                        hoveredId = null;
+                    }
+                    hoverTooltip.style.display = 'none';
+                });
+
+                map.on('click', 'assoc-points', (e) => {
+                    const props = e.features[0].properties;
+                    const coords = e.features[0].geometry.coordinates.slice();
+                    popup.setLngLat(coords).setHTML(createPopupHTML(props)).addTo(map);
+                });
+            }
         }
 
-        // Create marker element with hover effects
-        function createMarkerElement(yearsActive) {
-            const el = document.createElement('div');
-            const color = getColorForYearsActive(yearsActive);
-
-            el.style.width = '16px';
-            el.style.height = '16px';
-            el.style.borderRadius = '50%';
-            el.style.backgroundColor = color;
-            el.style.opacity = '0.8';
-            el.style.border = 'none';
-            el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
-            el.style.cursor = 'pointer';
-            el.style.transition = 'all 0.2s ease';
-
-            // Hover effects
-            el.addEventListener('mouseenter', () => {
-                el.style.width = '28px';
-                el.style.height = '28px';
-                el.style.border = '3px solid white';
-                el.style.opacity = '1';
-                el.style.marginLeft = '-6px';
-                el.style.marginTop = '-6px';
-            });
-
-            el.addEventListener('mouseleave', () => {
-                el.style.width = '16px';
-                el.style.height = '16px';
-                el.style.border = 'none';
-                el.style.opacity = '0.8';
-                el.style.marginLeft = '0';
-                el.style.marginTop = '0';
-            });
-
-            return el;
-        }
-
-        // Clear all markers
+        // Clear all markers (kept for filter compatibility)
         function clearMarkers() {
             markers.forEach(m => m.remove());
             markers = [];
         }
 
-        // Add markers for features
+        // Update visible points via source filter
         function addMarkers(features) {
-            clearMarkers();
-
-            features.forEach(feature => {
-                const coords = feature.geometry.coordinates;
-                const props = feature.properties;
-
-                const el = createMarkerElement(props.years_active);
-
-                const marker = new mapboxgl.Marker(el)
-                    .setLngLat(coords)
-                    .addTo(map);
-
-                // Hover - show association name tooltip
-                el.addEventListener('mouseenter', (e) => {
-                    hoverTooltip.textContent = bestDisplayName(props);
-                    hoverTooltip.style.display = 'block';
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
-                });
-
-                el.addEventListener('mousemove', (e) => {
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    hoverTooltip.style.display = 'none';
-                });
-
-                // Click - show full details popup
-                el.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    hoverTooltip.style.display = 'none';
-                    popup
-                        .setLngLat(coords)
-                        .setHTML(createPopupHTML(props))
-                        .addTo(map);
-                });
-
-                markers.push(marker);
-            });
-
+            const geojson = { type: 'FeatureCollection', features };
+            if (map.isStyleLoaded()) {
+                setupLayers(geojson);
+            } else {
+                map.once('load', () => setupLayers(geojson));
+            }
             document.getElementById('event-count').textContent = features.length;
         }
 
