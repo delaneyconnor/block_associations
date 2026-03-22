@@ -493,6 +493,13 @@
             </select>
         </div>
 
+        <div class="filter-group">
+            <label for="cb-filter">Community Board</label>
+            <select id="cb-filter" class="filter-select">
+                <option value="all">All Boards</option>
+            </select>
+        </div>
+
         <div class="stats-box">
             <div class="stat-item">
                 <span class="stat-label">Associations Shown</span>
@@ -750,15 +757,33 @@
             document.getElementById('event-count').textContent = features.length;
         }
 
+        // Populate community board dropdown from data
+        function populateCBFilter(features) {
+            const cbs = [...new Set(features.map(f => f.properties.community_board).filter(Boolean))];
+            cbs.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            const sel = document.getElementById('cb-filter');
+            cbs.forEach(cb => {
+                const opt = document.createElement('option');
+                opt.value = cb;
+                opt.textContent = `CB ${cb}`;
+                sel.appendChild(opt);
+            });
+        }
+
         // Filter features
         function filterFeatures() {
             const borough = document.getElementById('borough-filter').value;
+            const cb = document.getElementById('cb-filter').value;
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
 
             let filtered = allFeatures;
 
             if (borough !== 'all') {
                 filtered = filtered.filter(f => f.properties.event_borough === borough);
+            }
+
+            if (cb !== 'all') {
+                filtered = filtered.filter(f => f.properties.community_board === cb);
             }
 
             if (searchTerm) {
@@ -783,6 +808,9 @@
                 const geojson = await response.json();
                 allFeatures = geojson.features || [];
 
+                // Populate community board dropdown
+                populateCBFilter(allFeatures);
+
                 // Add markers
                 addMarkers(allFeatures);
 
@@ -801,6 +829,7 @@
 
         // Event listeners
         document.getElementById('borough-filter').addEventListener('change', filterFeatures);
+        document.getElementById('cb-filter').addEventListener('change', filterFeatures);
         document.getElementById('search-input').addEventListener('input', filterFeatures);
 
         // Load data when map is ready
