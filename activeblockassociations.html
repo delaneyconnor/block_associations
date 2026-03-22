@@ -590,12 +590,23 @@
             'committee', 'co-op', 'cooperative', 'alliance'
         ];
 
+        function cleanName(name) {
+            return name
+                .replace(/\b(annual|block\s+party|block\s+partie[s]?)\b/gi, '')  // strip "block party", "annual"
+                .replace(/\b(19|20)\d{2}\b/g, '')   // strip years
+                .replace(/[-–—,;:!]+$/, '')          // strip trailing punctuation
+                .replace(/\s{2,}/g, ' ')             // collapse spaces
+                .trim()
+                .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()); // title case
+        }
+
         function bestDisplayName(properties) {
             let names = properties.all_event_names || [];
             if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
             const withKw = names.filter(n => ASSOC_KEYWORDS.some(kw => n.toLowerCase().includes(kw)));
             const pool = withKw.length > 0 ? withKw : names;
-            return pool.length > 0 ? pool.reduce((a, b) => a.length >= b.length ? a : b) : (properties.association_name || 'Block Association');
+            const raw = pool.length > 0 ? pool.reduce((a, b) => a.length >= b.length ? a : b) : (properties.association_name || 'Block Association');
+            return cleanName(raw);
         }
 
         // Format popup content with year history
