@@ -582,7 +582,7 @@ if (window.self !== window.top) {
 }
 
 const ACTIVE_YEAR = 2023;
-const DATA_URL = 'data/active_block_associations.geojson';
+const DATA_URL = 'data/block_activity.geojson';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuMmpvbXByY2wwaDgwIn0.HSEo0pqv9ZN6DorMNmTB8A';
 
@@ -616,22 +616,22 @@ map.on('load', () => {
             map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
             const circlePaint = (color) => ({
-                'circle-radius': [
-                    'case',
-                    ['boolean', ['feature-state', 'selected'], false], 16,
-                    ['boolean', ['feature-state', 'hover'], false], 12,
-                    8
-                ],
-                'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#FFFFFF', color],
-                'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.6, 0.8],
+                'circle-radius': 8,
+                'circle-color': color,
+                'circle-opacity': 0.8,
                 'circle-stroke-width': [
                     'case',
-                    ['boolean', ['feature-state', 'selected'], false], 3,
-                    ['boolean', ['feature-state', 'hover'], false], 2,
-                    1.5
+                    ['boolean', ['feature-state', 'selected'], false], 10,
+                    ['boolean', ['feature-state', 'hover'], false], 10,
+                    2
                 ],
                 'circle-stroke-color': '#ffffff',
-                'circle-stroke-opacity': 0.6
+                'circle-stroke-opacity': [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], false], 0.3,
+                    ['boolean', ['feature-state', 'hover'], false], 0.3,
+                    1
+                ]
             });
 
             // Dormant layer (drawn first, underneath) — last event before 2018

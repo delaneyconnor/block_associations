@@ -632,12 +632,7 @@ map.on('load', function() {
     console.log('Source layer:', communityResourcesSourceLayer);
 
     // Update the layer's paint properties to match our color scheme
-    map.setPaintProperty(communityResourcesLayer, 'circle-radius', [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false], 16,
-        ['boolean', ['feature-state', 'hover'], false], 12,
-        8
-    ]);
+    map.setPaintProperty(communityResourcesLayer, 'circle-radius', 8);
 
     map.setPaintProperty(communityResourcesLayer, 'circle-color', [
         'case',
@@ -668,13 +663,20 @@ map.on('load', function() {
         1.5
     ]);
 
-    map.setPaintProperty(communityResourcesLayer, 'circle-opacity', [
+    map.setPaintProperty(communityResourcesLayer, 'circle-opacity', 0.8);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-width', [
         'case',
-        ['boolean', ['feature-state', 'selected'], false], 0.6,
-        0.8
+        ['boolean', ['feature-state', 'selected'], false], 10,
+        ['boolean', ['feature-state', 'hover'], false], 10,
+        2
     ]);
     map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', '#FFFFFF');
-    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', 0.6);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false], 0.3,
+        ['boolean', ['feature-state', 'hover'], false], 0.3,
+        1
+    ]);
 
     // Set layer order - Mesh NYC Nodes on bottom (lower number = bottom layer)
     map.setLayoutProperty(communityResourcesLayer, 'circle-sort-key', [
@@ -1023,12 +1025,12 @@ function initCB3Layer() {
         type: 'circle',
         source: 'cb3',
         paint: {
-            'circle-radius': ['case', ['boolean', ['feature-state', 'selected'], false], 16, ['boolean', ['feature-state', 'hover'], false], 12, 8],
-            'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#FFFFFF', ['get', 'color']],
-            'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.6, 0.8],
-            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 2, 1.5],
+            'circle-radius': 8,
+            'circle-color': ['get', 'color'],
+            'circle-opacity': 0.8,
+            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 10, ['boolean', ['feature-state', 'hover'], false], 10, 2],
             'circle-stroke-color': '#FFFFFF',
-            'circle-stroke-opacity': 0.6
+            'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.3, ['boolean', ['feature-state', 'hover'], false], 0.3, 1]
         }
     });
 }

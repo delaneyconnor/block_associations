@@ -153,10 +153,11 @@
         .info-panel.active { display: block; }
 
         .popup-header {
-            background: #222222;
-            color: white;
+            background: white;
+            color: #111;
             padding: 12px 15px;
             border-radius: 12px 12px 0 0;
+            border-bottom: 1px solid #e0e0e0;
             position: relative;
         }
 
@@ -179,7 +180,7 @@
             right: 12px;
             background: none;
             border: none;
-            color: white;
+            color: #999;
             font-size: 20px;
             cursor: pointer;
             line-height: 1;
@@ -819,26 +820,22 @@
                     type: 'circle',
                     source: 'associations',
                     paint: {
-                        'circle-radius': [
-                            'case',
-                            ['boolean', ['feature-state', 'selected'], false], 16,
-                            ['boolean', ['feature-state', 'hover'], false], 12,
-                            8
-                        ],
-                        'circle-color': [
-                            'case',
-                            ['boolean', ['feature-state', 'selected'], false], '#FFFFFF',
-                            YEARS_COLOR
-                        ],
-                        'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.6, 0.8],
+                        'circle-radius': 8,
+                        'circle-color': YEARS_COLOR,
+                        'circle-opacity': 0.8,
                         'circle-stroke-width': [
                             'case',
-                            ['boolean', ['feature-state', 'selected'], false], 3,
-                            ['boolean', ['feature-state', 'hover'], false], 2,
-                            1.5
+                            ['boolean', ['feature-state', 'selected'], false], 10,
+                            ['boolean', ['feature-state', 'hover'], false], 10,
+                            2
                         ],
                         'circle-stroke-color': '#FFFFFF',
-                        'circle-stroke-opacity': 0.6,
+                        'circle-stroke-opacity': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], 0.3,
+                            ['boolean', ['feature-state', 'hover'], false], 0.3,
+                            1
+                        ],
                     }
                 });
 

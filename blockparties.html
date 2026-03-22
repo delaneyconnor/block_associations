@@ -468,23 +468,11 @@
         function selectMarker(el) {
             if (selectedMarkerEl) resetMarker(selectedMarkerEl);
             selectedMarkerEl = el;
-            el.style.width = '32px';
-            el.style.height = '32px';
-            el.style.backgroundColor = '#FFFFFF';
-            el.style.border = '3px solid rgba(255,255,255,0.6)';
-            el.style.opacity = '0.6';
-            el.style.marginLeft = '-8px';
-            el.style.marginTop = '-8px';
+            el.style.boxShadow = '0 0 0 10px rgba(255,255,255,0.3)';
         }
 
         function resetMarker(el) {
-            el.style.width = '16px';
-            el.style.height = '16px';
-            el.style.backgroundColor = '#e53935';
-            el.style.border = 'none';
-            el.style.opacity = '0.8';
-            el.style.marginLeft = '0';
-            el.style.marginTop = '0';
+            el.style.boxShadow = 'none';
         }
 
         // NYC Open Data API for upcoming events
@@ -548,28 +536,22 @@
             el.style.borderRadius = '50%';
             el.style.backgroundColor = '#e53935';
             el.style.opacity = '0.8';
-            el.style.border = 'none';
-            el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+            el.style.border = '2px solid rgba(255,255,255,1)';
+            el.style.boxShadow = 'none';
             el.style.cursor = 'pointer';
-            el.style.transition = 'all 0.2s ease';
+            el.style.transition = 'box-shadow 0.15s ease';
 
             // Hover effects
             el.addEventListener('mouseenter', () => {
-                el.style.width = '28px';
-                el.style.height = '28px';
-                el.style.border = '3px solid white';
-                el.style.opacity = '1';
-                el.style.marginLeft = '-6px';
-                el.style.marginTop = '-6px';
+                if (el !== selectedMarkerEl) {
+                    el.style.boxShadow = '0 0 0 8px rgba(255,255,255,0.3)';
+                }
             });
 
             el.addEventListener('mouseleave', () => {
-                el.style.width = '16px';
-                el.style.height = '16px';
-                el.style.border = 'none';
-                el.style.opacity = '0.8';
-                el.style.marginLeft = '0';
-                el.style.marginTop = '0';
+                if (el !== selectedMarkerEl) {
+                    el.style.boxShadow = 'none';
+                }
             });
 
             return el;
