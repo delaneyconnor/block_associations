@@ -604,9 +604,12 @@
             return `
                 <div class="popup-header">
                     <h3>${properties.association_name || 'Block Association'}</h3>
-                    <div class="party-count">${properties.event_location || ''}</div>
                 </div>
                 <div class="popup-body">
+                    <div class="popup-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${properties.event_location || ''}</span>
+                    </div>
                     <div class="popup-detail">
                         <i class="fas fa-building"></i>
                         <span>${properties.event_borough || 'NYC'}${properties.community_board ? ` · Community Board ${properties.community_board}` : ''}</span>
