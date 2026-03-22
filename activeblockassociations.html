@@ -781,7 +781,11 @@
                             ['boolean', ['feature-state', 'hover'], false], 12,
                             8
                         ],
-                        'circle-color': YEARS_COLOR,
+                        'circle-color': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], '#FFFFFF',
+                            YEARS_COLOR
+                        ],
                         'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0.8],
                         'circle-stroke-width': [
                             'case',

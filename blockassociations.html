@@ -622,7 +622,7 @@ map.on('load', () => {
                     ['boolean', ['feature-state', 'hover'], false], 12,
                     8
                 ],
-                'circle-color': color,
+                'circle-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#FFFFFF', color],
                 'circle-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, baseOpacity],
                 'circle-stroke-width': [
                     'case',
