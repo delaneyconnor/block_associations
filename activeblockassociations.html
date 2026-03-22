@@ -746,6 +746,49 @@
         let hoveredId = null;
         let selectedId = null;
 
+        // Borough name → numeric code (for NYC Open Data boro_cd field)
+        const BORO_TO_CODE = { 'Manhattan': 1, 'Bronx': 2, 'Brooklyn': 3, 'Queens': 4, 'Staten Island': 5 };
+
+        async function loadCommunityDistricts() {
+            try {
+                const r = await fetch('https://data.cityofnewyork.us/resource/jp9i-3b7y.geojson?$limit=300');
+                if (!r.ok) return;
+                const geojson = await r.json();
+                map.addSource('community-districts', { type: 'geojson', data: geojson });
+                map.addLayer({
+                    id: 'cd-fill',
+                    type: 'fill',
+                    source: 'community-districts',
+                    paint: { 'fill-color': '#4CAF50', 'fill-opacity': 0.08 },
+                    filter: ['==', ['to-number', ['get', 'boro_cd']], -1]
+                });
+                map.addLayer({
+                    id: 'cd-border',
+                    type: 'line',
+                    source: 'community-districts',
+                    paint: { 'line-color': '#4CAF50', 'line-width': 2, 'line-opacity': 0.7 },
+                    filter: ['==', ['to-number', ['get', 'boro_cd']], -1]
+                });
+            } catch(e) {
+                console.warn('Could not load community districts:', e);
+            }
+        }
+
+        function updateCDBoundary(cbKey) {
+            if (!map.getLayer('cd-fill')) return;
+            if (!cbKey || cbKey === 'all') {
+                map.setFilter('cd-fill',   ['==', ['to-number', ['get', 'boro_cd']], -1]);
+                map.setFilter('cd-border', ['==', ['to-number', ['get', 'boro_cd']], -1]);
+                return;
+            }
+            const [cbBoro, cbNum] = cbKey.split('|');
+            const boroCode = BORO_TO_CODE[cbBoro];
+            if (!boroCode) return;
+            const boroCd = boroCode * 100 + parseInt(cbNum);
+            map.setFilter('cd-fill',   ['==', ['to-number', ['get', 'boro_cd']], boroCd]);
+            map.setFilter('cd-border', ['==', ['to-number', ['get', 'boro_cd']], boroCd]);
+        }
+
         function showPanel(props) {
             document.getElementById('panel-name').textContent = bestDisplayName(props);
             document.getElementById('panel-location').textContent = props.event_location || '';
@@ -943,12 +986,19 @@
         }
 
         // Event listeners
-        document.getElementById('borough-filter').addEventListener('change', filterFeatures);
-        document.getElementById('cb-filter').addEventListener('change', filterFeatures);
+        document.getElementById('borough-filter').addEventListener('change', () => {
+            filterFeatures();
+            updateCDBoundary(document.getElementById('cb-filter').value);
+        });
+        document.getElementById('cb-filter').addEventListener('change', function() {
+            filterFeatures();
+            updateCDBoundary(this.value);
+        });
         document.getElementById('search-input').addEventListener('input', filterFeatures);
 
         // Load data when map is ready
         map.on('load', function() {
+            loadCommunityDistricts();
             loadData();
         });
 
