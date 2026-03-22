@@ -592,12 +592,13 @@
 
         function cleanName(name) {
             return name
-                .replace(/\b(annual|block\s+party|block\s+partie[s]?)\b/gi, '')  // strip "block party", "annual"
-                .replace(/\b(19|20)\d{2}\b/g, '')   // strip years
-                .replace(/[-–—,;:!]+$/, '')          // strip trailing punctuation
-                .replace(/\s{2,}/g, ' ')             // collapse spaces
+                .replace(/\b(annual|block\s+party|block\s+partie[s]?)\b/gi, '')
+                .replace(/\b(halloween|christmas|holiday|summer|spring|fall|autumn|winter|back\s+to\s+school|end\s+of\s+(the\s+)?year|end\s+of\s+(the\s+)?summer|cookout|bbq|picnic|carnival|festival|fair|celebration|party|parade)\b/gi, '')
+                .replace(/\b(19|20)\d{2}\b/g, '')
+                .replace(/[-–—,;:!]+$/, '')
+                .replace(/\s{2,}/g, ' ')
                 .trim()
-                .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()); // title case
+                .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
         }
 
         function bestDisplayName(properties) {
@@ -639,7 +640,7 @@
                     </div>
                     <div class="popup-detail">
                         <i class="fas fa-building"></i>
-                        <span>${properties.event_borough || 'NYC'}${properties.community_board ? ` · Community Board ${properties.community_board}` : ''}</span>
+                        <span>${properties.event_borough || 'NYC'}${properties.community_board && properties.community_board !== 'N/A' ? ` · Community Board ${properties.community_board}` : ''}</span>
                     </div>
 
                     ${website ? `
