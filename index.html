@@ -99,6 +99,20 @@
             height: 100%;
             border: none;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .link-box-preview iframe.ready {
+            opacity: 1;
+        }
+
+        .link-box-preview::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #1a1a1a;
+            z-index: 0;
         }
 
         .link-box-content {
@@ -313,6 +327,23 @@
     </div>
 
     <script>
+        // Fade in map previews when they signal they've finished rendering
+        const iframes = document.querySelectorAll('.link-box-preview iframe');
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'map-ready') {
+                iframes.forEach(function(iframe) {
+                    if (iframe.contentWindow === e.source) {
+                        iframe.classList.add('ready');
+                    }
+                });
+            }
+        });
+
+        // Fallback: show iframes after 8 seconds regardless
+        setTimeout(function() {
+            iframes.forEach(function(iframe) { iframe.classList.add('ready'); });
+        }, 8000);
+
         // About modal handlers
         document.getElementById('about-link').addEventListener('click', function(e) {
             e.preventDefault();

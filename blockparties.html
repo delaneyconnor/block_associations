@@ -792,6 +792,10 @@
         // Load data when map is ready
         map.on('load', function() {
             loadData('upcoming');
+            // Signal parent iframe when map tiles are rendered
+            if (window.self !== window.top) {
+                map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
+            }
         });
 
         // About modal handlers

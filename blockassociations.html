@@ -652,6 +652,11 @@ map.on('load', () => {
             });
 
             setupInteractions();
+
+            // Signal parent iframe when map has fully rendered
+            if (window.self !== window.top) {
+                map.once('idle', () => window.parent.postMessage({ type: 'map-ready' }, '*'));
+            }
         })
         .catch(err => console.error('Failed to load GeoJSON:', err));
 });
@@ -724,13 +729,24 @@ function showInfo(props) {
         ? `${props.total_block_parties} block parties`
         : '—';
 
-    // Event names — one per line
-    let allNames = props.all_event_names || [];
-    if (typeof allNames === 'string') { try { allNames = JSON.parse(allNames); } catch(e) { allNames = []; } }
+    // Event names with years
+    let namesWithYears = props.event_names_with_years || [];
+    if (typeof namesWithYears === 'string') { try { namesWithYears = JSON.parse(namesWithYears); } catch(e) { namesWithYears = []; } }
+    // Fallback to flat names array if enriched data not present
+    if (namesWithYears.length === 0) {
+        let allNames = props.all_event_names || [];
+        if (typeof allNames === 'string') { try { allNames = JSON.parse(allNames); } catch(e) { allNames = []; } }
+        namesWithYears = allNames.map(n => ({ name: n, years: [] }));
+    }
     const nameSection = document.getElementById('assoc-names-section');
-    if (allNames.length > 0) {
+    if (namesWithYears.length > 0) {
         document.getElementById('assoc-other-names').innerHTML =
-            allNames.map(n => `<div>${n}</div>`).join('');
+            namesWithYears.map(item => {
+                const name = typeof item === 'string' ? item : item.name;
+                const years = (typeof item === 'object' && item.years && item.years.length) ? item.years : [];
+                const yearTag = years.length ? ` <span style="color:#999;font-size:12px">(${years.join(', ')})</span>` : '';
+                return `<div>${name}${yearTag}</div>`;
+            }).join('');
         nameSection.style.display = '';
     } else {
         nameSection.style.display = 'none';

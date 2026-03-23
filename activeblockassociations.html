@@ -812,6 +812,11 @@
                     const features = map.queryRenderedFeatures(e.point, { layers: ['assoc-points'] });
                     if (features.length === 0) closePanel();
                 });
+
+                // Signal parent iframe when map has fully rendered
+                if (window.self !== window.top) {
+                    map.once('idle', () => window.parent.postMessage({ type: 'map-ready' }, '*'));
+                }
             }
         }
 
@@ -908,14 +913,6 @@
                 // Add markers
                 addMarkers(allFeatures);
 
-                // Fit map to show all points
-                if (allFeatures.length > 0) {
-                    const bounds = new mapboxgl.LngLatBounds();
-                    allFeatures.forEach(f => {
-                        bounds.extend(f.geometry.coordinates);
-                    });
-                    map.fitBounds(bounds, { padding: 50 });
-                }
             } catch (error) {
                 console.error('Error loading data:', error);
             }

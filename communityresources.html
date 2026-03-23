@@ -1038,6 +1038,10 @@ function initCB3Layer() {
 map.on('load', function() {
     cb3MapReady = true;
     initCB3Layer();
+    // Signal parent iframe when map has fully rendered
+    if (window.self !== window.top) {
+        map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
+    }
 });
 
 fetch(CB3_CSV_URL)
