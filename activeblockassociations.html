@@ -549,6 +549,10 @@
             zoom: 11
         });
 
+        // Offset camera so Brooklyn is centered in the visible area
+        // (filter panel covers ~320px on the left side)
+        map.setPadding({ left: 320, top: 0, right: 0, bottom: 0 });
+
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
@@ -892,7 +896,7 @@
             if (zoomToResult && filtered.length > 0) {
                 const bounds = new mapboxgl.LngLatBounds();
                 filtered.forEach(f => bounds.extend(f.geometry.coordinates));
-                map.fitBounds(bounds, { padding: 80, maxZoom: 12, duration: 800 });
+                map.fitBounds(bounds, { padding: { left: 400, top: 80, right: 80, bottom: 80 }, maxZoom: 12, duration: 800 });
             }
         }
 
