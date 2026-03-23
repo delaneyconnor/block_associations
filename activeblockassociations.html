@@ -31,14 +31,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide header and controls when embedded */
-        body.embedded .header,
-        body.embedded .filter-panel {
+        /* Hide header when embedded */
+        body.embedded .header {
             display: none;
         }
 
-        body.embedded .mapboxgl-control-container {
-            display: none;
+        /* Reposition filter panel to top when header is hidden */
+        body.embedded .filter-panel {
+            top: 20px;
         }
 
         .header h1 {
