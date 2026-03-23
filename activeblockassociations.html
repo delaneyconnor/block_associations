@@ -641,7 +641,15 @@
 
             const na = `<span style="color:#bbb">Not available</span>`;
 
+            const rawLocation = properties.event_location || '';
+            const location = rawLocation.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+
             return `
+                ${location ? `
+                <div class="info-section">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">${location}</div>
+                </div>` : ''}
                 <div class="info-section">
                     <div class="info-label">Borough · Community Board</div>
                     <div class="info-value">${cbText || '—'}</div>
