@@ -438,20 +438,46 @@
         .hover-tooltip.visible { opacity: 1; }
 
         @media (max-width: 768px) {
-            .filter-panel {
-                width: calc(100% - 40px);
-                top: 110px;
+            /* Compact header — hide byline */
+            .header { padding: 12px 15px; }
+            .header h1 { font-size: 22px; margin: 0; }
+            .header p { display: none; }
+
+            /* Filter panel: sits just below compact header, collapsible */
+            .filter-panel { width: calc(100% - 40px); top: 60px; }
+
+            .filter-panel h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+                user-select: none;
+            }
+            .filter-panel h3::after { content: '▾'; font-size: 16px; color: #999; }
+            .filter-panel.open h3 { margin-bottom: 12px; }
+            .filter-panel.open h3::after { content: '▴'; }
+            .filter-body { display: none; }
+            .filter-panel.open .filter-body { display: block; }
+
+            /* Legend: compact corner card, not full-width */
+            .legend { bottom: 20px; right: 10px; left: auto; font-size: 11px; padding: 8px 10px; }
+            .legend-title { margin-bottom: 5px; }
+            .legend-item { margin-bottom: 3px; }
+
+            /* Info panel: slides up from bottom, full-width */
+            .info-panel {
+                top: auto;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 16px 16px 0 0;
+                max-height: 55vh;
             }
 
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .legend {
-                bottom: 20px;
-                right: 10px;
-                left: 10px;
-            }
+            /* No hover tooltip on touch screens */
+            .hover-tooltip { display: none !important; }
         }
     </style>
 </head>
@@ -481,42 +507,44 @@
     <div id="map"></div>
 
     <!-- Filter Panel -->
-    <div class="filter-panel">
-        <h3>Find Associations</h3>
+    <div class="filter-panel" id="filter-panel">
+        <h3 id="filter-toggle">Find Associations</h3>
 
-        <div class="filter-group">
-            <label for="search-input">Search by Name</label>
-            <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
-        </div>
-
-        <div class="filter-group">
-            <label for="borough-filter">Borough</label>
-            <select id="borough-filter" class="filter-select">
-                <option value="all">All Boroughs</option>
-                <option value="Brooklyn">Brooklyn</option>
-                <option value="Manhattan">Manhattan</option>
-                <option value="Queens">Queens</option>
-                <option value="Bronx">Bronx</option>
-                <option value="Staten Island">Staten Island</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label for="cb-filter">Community Board</label>
-            <select id="cb-filter" class="filter-select">
-                <option value="all">All Boards</option>
-            </select>
-        </div>
-
-        <div class="stats-box">
-            <div class="stat-item">
-                <span class="stat-label">Associations Shown</span>
-                <span class="stat-value" id="event-count">0</span>
+        <div class="filter-body">
+            <div class="filter-group">
+                <label for="search-input">Search by Name</label>
+                <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
             </div>
+
+            <div class="filter-group">
+                <label for="borough-filter">Borough</label>
+                <select id="borough-filter" class="filter-select">
+                    <option value="all">All Boroughs</option>
+                    <option value="Brooklyn">Brooklyn</option>
+                    <option value="Manhattan">Manhattan</option>
+                    <option value="Queens">Queens</option>
+                    <option value="Bronx">Bronx</option>
+                    <option value="Staten Island">Staten Island</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="cb-filter">Community Board</label>
+                <select id="cb-filter" class="filter-select">
+                    <option value="all">All Boards</option>
+                </select>
+            </div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span class="stat-label">Associations Shown</span>
+                    <span class="stat-value" id="event-count">0</span>
+                </div>
+            </div>
+            <button class="add-association-btn" id="add-association-btn">
+                Add Your Association
+            </button>
         </div>
-        <button class="add-association-btn" id="add-association-btn">
-            Add Your Association
-        </button>
     </div>
 
     <!-- Legend -->
@@ -859,6 +887,10 @@
                     selectedId = feat.id;
                     map.setFeatureState({ source: 'associations', id: selectedId }, { selected: true });
                     showPanel(feat.properties);
+                    // On mobile: zoom in to the selected point
+                    if (window.innerWidth <= 768) {
+                        map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
+                    }
                 });
 
                 map.on('click', (e) => {
@@ -975,6 +1007,11 @@
                 console.error('Error loading data:', error);
             }
         }
+
+        // Mobile: tap filter panel header to expand/collapse
+        document.getElementById('filter-toggle').addEventListener('click', function() {
+            document.getElementById('filter-panel').classList.toggle('open');
+        });
 
         // Event listeners
         document.getElementById('borough-filter').addEventListener('change', () => {
