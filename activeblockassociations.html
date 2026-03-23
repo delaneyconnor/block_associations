@@ -818,21 +818,21 @@
                     type: 'circle',
                     source: 'associations',
                     paint: {
-                        'circle-radius': 8,
+                        'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
                         'circle-color': YEARS_COLOR,
                         'circle-opacity': 0.8,
                         'circle-stroke-width': [
                             'case',
                             ['boolean', ['feature-state', 'selected'], false], 10,
                             ['boolean', ['feature-state', 'hover'], false], 10,
-                            2
+                            0
                         ],
                         'circle-stroke-color': '#FFFFFF',
                         'circle-stroke-opacity': [
                             'case',
                             ['boolean', ['feature-state', 'selected'], false], 0.3,
                             ['boolean', ['feature-state', 'hover'], false], 0.3,
-                            1
+                            0
                         ],
                     }
                 });

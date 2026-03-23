@@ -466,6 +466,23 @@
         let currentSeason = 'upcoming';
         let selectedMarkerEl = null;
 
+        function markerSizeForZoom(zoom) {
+            if (zoom <= 9) return 6;
+            if (zoom >= 15) return 20;
+            return 6 + (zoom - 9) * (14 / 6);
+        }
+
+        function updateMarkerSizes() {
+            const size = Math.round(markerSizeForZoom(map.getZoom()));
+            markers.forEach(m => {
+                const el = m.getElement();
+                el.style.width = size + 'px';
+                el.style.height = size + 'px';
+            });
+        }
+
+        map.on('zoom', updateMarkerSizes);
+
         function selectMarker(el) {
             if (selectedMarkerEl) resetMarker(selectedMarkerEl);
             selectedMarkerEl = el;
@@ -532,12 +549,13 @@
         // Create marker element with hover effects
         function createMarkerElement() {
             const el = document.createElement('div');
-            el.style.width = '16px';
-            el.style.height = '16px';
+            const size = Math.round(markerSizeForZoom(map.getZoom())) + 'px';
+            el.style.width = size;
+            el.style.height = size;
             el.style.borderRadius = '50%';
             el.style.backgroundColor = '#222222';
             el.style.opacity = '0.8';
-            el.style.border = '2px solid rgba(255,255,255,1)';
+            el.style.border = 'none';
             el.style.boxShadow = 'none';
             el.style.cursor = 'pointer';
             el.style.transition = 'box-shadow 0.15s ease';
