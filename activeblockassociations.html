@@ -895,10 +895,7 @@
                     selectedId = feat.id;
                     map.setFeatureState({ source: 'associations', id: selectedId }, { selected: true });
                     showPanel(feat.properties);
-                    // On mobile: zoom in to the selected point
-                    if (window.innerWidth <= 768) {
-                        map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
-                    }
+                    map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
                 });
 
                 map.on('click', (e) => {
