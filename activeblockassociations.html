@@ -873,7 +873,7 @@
             if (zoomToResult && filtered.length > 0) {
                 const bounds = new mapboxgl.LngLatBounds();
                 filtered.forEach(f => bounds.extend(f.geometry.coordinates));
-                map.fitBounds(bounds, { padding: 80, maxZoom: 14, duration: 800 });
+                map.fitBounds(bounds, { padding: 80, maxZoom: 12, duration: 800 });
             }
         }
 
