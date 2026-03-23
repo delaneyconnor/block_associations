@@ -465,7 +465,7 @@
             .legend-title { margin-bottom: 5px; }
             .legend-item { margin-bottom: 3px; }
 
-            /* Info panel: slides up from bottom, full-width */
+            /* Info panel: slides up from bottom, full-width, above all controls */
             .info-panel {
                 top: auto;
                 bottom: 0;
@@ -473,7 +473,8 @@
                 left: 0;
                 width: 100%;
                 border-radius: 16px 16px 0 0;
-                max-height: 55vh;
+                max-height: 40vh;
+                z-index: 10;
             }
 
             /* No hover tooltip on touch screens */
@@ -811,6 +812,9 @@
             document.getElementById('panel-name').textContent = bestDisplayName(props);
             document.getElementById('panel-body').innerHTML = createPopupHTML(props);
             document.getElementById('info-panel').classList.add('active');
+            if (window.innerWidth <= 768) {
+                document.getElementById('filter-panel').style.display = 'none';
+            }
         }
 
         function closePanel() {
@@ -818,6 +822,9 @@
             if (selectedId !== null) {
                 map.setFeatureState({ source: 'associations', id: selectedId }, { selected: false });
                 selectedId = null;
+            }
+            if (window.innerWidth <= 768) {
+                document.getElementById('filter-panel').style.display = '';
             }
         }
 
