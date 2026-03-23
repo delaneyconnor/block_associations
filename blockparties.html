@@ -615,6 +615,9 @@
                         .setLngLat(coords)
                         .setHTML(createPopupHTML(props))
                         .addTo(map);
+                    if (window.innerWidth <= 768) {
+                        map.flyTo({ center: coords, zoom: 15, duration: 600 });
+                    }
                 });
 
                 markers.push(marker);

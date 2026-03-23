@@ -702,6 +702,9 @@ function setupInteractions() {
             selectedFeatureId = feat.id;
             map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: true });
             showInfo(feat.properties);
+            if (window.innerWidth <= 768) {
+                map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
+            }
         });
     });
 
