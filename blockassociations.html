@@ -506,10 +506,10 @@
 <!-- Legend -->
 <div class="map-legend map-legend-recency">
     <div class="legend-title">Block Parties Hosted</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.15);"></div>2–3</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.35);"></div>4–6</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.6);"></div>7–10</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.8);"></div>11+</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(253,216,53,0.15);"></div>2–3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(253,216,53,0.35);"></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(253,216,53,0.6);"></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(253,216,53,0.8);"></div>11+</div>
 </div>
 
 <!-- Info Panel -->
@@ -631,7 +631,7 @@ map.on('load', () => {
                 source: 'associations',
                 paint: {
                     'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
-                    'circle-color': '#311B92',
+                    'circle-color': '#FDD835',
                     'circle-opacity': PARTIES_OPACITY,
                     'circle-stroke-width': [
                         'case',
