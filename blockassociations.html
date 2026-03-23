@@ -509,7 +509,7 @@
     <div id="assoc-status"></div>
 
     <div class="info-section">
-        <div class="info-label">Location</div>
+        <div class="info-label">Borough · Community Board</div>
         <div class="info-value" id="assoc-location"></div>
     </div>
 
@@ -519,12 +519,12 @@
     </div>
 
     <div class="info-section" id="assoc-names-section">
-        <div class="info-label">Also known as</div>
+        <div class="info-label">Street Events</div>
         <div class="info-value" id="assoc-other-names"></div>
     </div>
 
     <div class="info-section">
-        <div class="info-label">Active Years</div>
+        <div class="info-label">Block Parties Hosted</div>
         <div id="assoc-years" class="year-grid"></div>
     </div>
 </div>
@@ -534,10 +534,12 @@
 
 <!-- Legend -->
 <div class="map-legend">
-    <h4>Status</h4>
-    <div class="legend-item"><div class="legend-dot" style="background:#FF3B30;"></div>Active (2022 or later)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#FF9500;"></div>Recent (2018–2021)</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#aaa;"></div>Dormant (before 2018)</div>
+    <h4>Block Parties Hosted</h4>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFCDD2;"></div>2–3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#EF9A9A;"></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#EF5350;"></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#C62828;"></div>11–15</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7F0000;"></div>16+</div>
 </div>
 
 <!-- Hover Tooltip -->
@@ -615,50 +617,37 @@ map.on('load', () => {
 
             map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
-            const circlePaint = (color) => ({
-                'circle-radius': 8,
-                'circle-color': color,
-                'circle-opacity': 0.8,
-                'circle-stroke-width': [
-                    'case',
-                    ['boolean', ['feature-state', 'selected'], false], 10,
-                    ['boolean', ['feature-state', 'hover'], false], 10,
-                    2
-                ],
-                'circle-stroke-color': '#ffffff',
-                'circle-stroke-opacity': [
-                    'case',
-                    ['boolean', ['feature-state', 'selected'], false], 0.3,
-                    ['boolean', ['feature-state', 'hover'], false], 0.3,
-                    1
-                ]
-            });
+            const PARTIES_COLOR = [
+                'interpolate', ['linear'], ['coalesce', ['get', 'total_block_parties'], 2],
+                2,  '#FFCDD2',
+                4,  '#EF9A9A',
+                7,  '#EF5350',
+                11, '#C62828',
+                16, '#7F0000'
+            ];
 
-            // Dormant layer (drawn first, underneath) — last event before 2018
             map.addLayer({
-                id: 'assoc-dormant',
+                id: 'assoc-points',
                 type: 'circle',
                 source: 'associations',
-                filter: ['==', ['get', 'status'], 'dormant'],
-                paint: circlePaint('#aaaaaa')
-            });
-
-            // Recent layer — last event 2018–2021
-            map.addLayer({
-                id: 'assoc-recent',
-                type: 'circle',
-                source: 'associations',
-                filter: ['==', ['get', 'status'], 'recent'],
-                paint: circlePaint('#FF9500')
-            });
-
-            // Active layer (on top) — last event 2022+
-            map.addLayer({
-                id: 'assoc-active',
-                type: 'circle',
-                source: 'associations',
-                filter: ['==', ['get', 'status'], 'active'],
-                paint: circlePaint('#FF3B30')
+                paint: {
+                    'circle-radius': 8,
+                    'circle-color': PARTIES_COLOR,
+                    'circle-opacity': 0.8,
+                    'circle-stroke-width': [
+                        'case',
+                        ['boolean', ['feature-state', 'selected'], false], 10,
+                        ['boolean', ['feature-state', 'hover'], false], 10,
+                        2
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                    'circle-stroke-opacity': [
+                        'case',
+                        ['boolean', ['feature-state', 'selected'], false], 0.3,
+                        ['boolean', ['feature-state', 'hover'], false], 0.3,
+                        1
+                    ]
+                }
             });
 
             setupInteractions();
@@ -671,7 +660,7 @@ function setHover(id, state) {
 }
 
 function setupInteractions() {
-    const layers = ['assoc-active', 'assoc-recent', 'assoc-dormant'];
+    const layers = ['assoc-points'];
 
     layers.forEach(layer => {
         map.on('mousemove', layer, e => {
@@ -684,7 +673,7 @@ function setupInteractions() {
             hoveredFeatureId = feature.id;
             setHover(hoveredFeatureId, true);
 
-            tooltip.textContent = feature.properties.association_name || 'Block Association';
+            tooltip.textContent = feature.properties.event_location || 'Block Party Location';
             tooltip.style.left = e.point.x + 15 + 'px';
             tooltip.style.top = e.point.y + 15 + 'px';
             tooltip.classList.add('visible');
@@ -724,45 +713,38 @@ function setupInteractions() {
 }
 
 function showInfo(props) {
-    document.getElementById('assoc-name').textContent = props.association_name || 'Block Association';
+    document.getElementById('assoc-name').textContent = props.event_location || 'Block Party Location';
+    document.getElementById('assoc-status').innerHTML = '';
 
-    const status = props.status || (((props.last_year || 0) >= ACTIVE_YEAR) ? 'active' : 'dormant');
-    const statusHTML = {
-        active:  '<span class="status-badge status-active">Active</span>',
-        recent:  '<span class="status-badge status-recent">Recent</span>',
-        dormant: '<span class="status-badge status-dormant">Dormant</span>',
-    };
-    document.getElementById('assoc-status').innerHTML = statusHTML[status] || statusHTML.dormant;
+    document.getElementById('assoc-location').textContent =
+        `${props.event_borough || ''}${props.community_board ? ' · CB ' + props.community_board : ''}`;
 
-    document.getElementById('assoc-location').textContent = props.event_location || '—';
+    document.getElementById('assoc-total').textContent = props.total_block_parties
+        ? `${props.total_block_parties} block parties`
+        : '—';
 
+    // Event names — one per line
     let allNames = [];
     try { allNames = JSON.parse(props.all_event_names || '[]'); } catch(e) {}
     if (typeof allNames === 'string') { try { allNames = JSON.parse(allNames); } catch(e) { allNames = []; } }
-    const otherNames = allNames.filter(n => n !== props.association_name);
     const nameSection = document.getElementById('assoc-names-section');
-    if (otherNames.length > 0) {
-        document.getElementById('assoc-other-names').textContent = otherNames.join(', ');
+    if (allNames.length > 0) {
+        document.getElementById('assoc-other-names').innerHTML =
+            allNames.map(n => `<div>${n}</div>`).join('');
         nameSection.style.display = '';
     } else {
         nameSection.style.display = 'none';
     }
-    document.getElementById('assoc-total').textContent = props.total_block_parties
-        ? `${props.total_block_parties} block parties (${props.first_year}–${props.last_year})`
-        : '—';
 
+    // Year chips
     const yearsEl = document.getElementById('assoc-years');
     let activeYears = [];
     try { activeYears = JSON.parse(props.years_active || '[]'); } catch(e) {}
     if (typeof activeYears === 'string') {
         try { activeYears = JSON.parse(activeYears); } catch(e) { activeYears = []; }
     }
-    const allYears = [];
-    const first = props.first_year || 2008;
-    const last = props.last_year || 2025;
-    for (let y = first; y <= last; y++) allYears.push(y);
-
-    yearsEl.innerHTML = allYears.map(y =>
+    const ALL_YRS = [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    yearsEl.innerHTML = ALL_YRS.map(y =>
         `<span class="year-chip ${activeYears.includes(y) ? 'active' : 'inactive'}">${y}</span>`
     ).join('');
 
