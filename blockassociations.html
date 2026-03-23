@@ -455,11 +455,12 @@
                 right: 10px;
                 width: calc(100% - 20px);
                 border-radius: 12px;
-                max-height: 30vh;
+                max-height: 40vh;
                 padding: 20px;
                 transform: translateY(calc(100% + 10px));
                 transition: transform 0.3s ease-out;
                 overflow-y: auto;
+                z-index: 10;
             }
             .info-panel.active { transform: translateY(0); }
             .info-panel h2 { font-size: 20px; }
@@ -705,13 +706,7 @@ function setupInteractions() {
     // Click on empty area closes panel
     map.on('click', e => {
         const features = map.queryRenderedFeatures(e.point, { layers });
-        if (features.length === 0) {
-            if (selectedFeatureId !== null) {
-                map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
-                selectedFeatureId = null;
-            }
-            document.getElementById('info-panel').classList.remove('active');
-        }
+        if (features.length === 0) closePanelBA();
     });
 }
 
@@ -759,6 +754,9 @@ function showInfo(props) {
     ).join('');
 
     document.getElementById('info-panel').classList.add('active');
+    if (window.innerWidth <= 768) {
+        document.querySelector('.search-box').style.display = 'none';
+    }
 }
 
 // Search
@@ -839,13 +837,17 @@ geolocateControl.on('geolocate', e => {
 });
 
 // Close panel
-document.getElementById('close-panel').addEventListener('click', () => {
+function closePanelBA() {
     document.getElementById('info-panel').classList.remove('active');
     if (selectedFeatureId !== null) {
         map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
         selectedFeatureId = null;
     }
-});
+    if (window.innerWidth <= 768) {
+        document.querySelector('.search-box').style.display = '';
+    }
+}
+document.getElementById('close-panel').addEventListener('click', closePanelBA);
 
 // About modal
 document.getElementById('about-btn').addEventListener('click', () => {
