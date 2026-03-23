@@ -591,9 +591,14 @@
         // All years from 2008-2025
         const ALL_YEARS = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
-        // Phrases that should never appear as a display name or on the map
-        const EXCLUDE_NAMES = ['little league', 'athletics league'];
+        // A feature must have at least one name containing one of these to appear on the map
+        const ASSOC_REQUIRED = [
+            'association', 'assoc', 'block club', 'neighbors', 'neighbour', 'neighbor',
+            'neighborhood', 'collective', 'tenant', 'residents', 'houses', 'council',
+            'coalition', 'civic', 'committee', 'co-op', 'cooperative', 'alliance', 'union'
+        ];
 
+        // Keywords used to pick the best display name (broader, includes league for civic leagues etc.)
         const ASSOC_KEYWORDS = [
             'association', 'assoc', 'neighbors', 'neighbour', 'neighbor',
             'neighborhood', 'collective', 'block club', 'tenant', 'residents',
@@ -636,11 +641,9 @@
         function bestDisplayName(properties) {
             let names = properties.all_event_names || [];
             if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
-            // Strip out excluded phrases before picking a name
-            const eligible = names.filter(n => !EXCLUDE_NAMES.some(ex => n.toLowerCase().includes(ex)));
-            const pool_names = eligible.length > 0 ? eligible : names;
-            const withKw = pool_names.filter(n => ASSOC_KEYWORDS.some(kw => n.toLowerCase().includes(kw)));
-            const pool = withKw.length > 0 ? withKw : pool_names;
+            // Prefer names containing association keywords; fall back to longest name
+            const withKw = names.filter(n => ASSOC_KEYWORDS.some(kw => n.toLowerCase().includes(kw)));
+            const pool = withKw.length > 0 ? withKw : names;
             const raw = pool.length > 0 ? pool.reduce((a, b) => a.length >= b.length ? a : b) : (properties.association_name || 'Block Association');
             return cleanName(raw);
         }
@@ -946,8 +949,10 @@
                 }
                 const geojson = await response.json();
                 allFeatures = (geojson.features || []).filter(f => {
-                    const name = bestDisplayName(f.properties).toLowerCase();
-                    return !EXCLUDE_NAMES.some(ex => name.includes(ex));
+                    let names = f.properties.all_event_names || [];
+                    if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
+                    // Only include locations where at least one event name contains a genuine association keyword
+                    return names.some(n => ASSOC_REQUIRED.some(kw => n.toLowerCase().includes(kw)));
                 });
 
                 // Populate community board dropdown
