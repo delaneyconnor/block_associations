@@ -545,19 +545,19 @@
     <div class="legend">
         <div class="legend-title">Last Active</div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #1B5E20;"></div>
+            <div class="legend-dot" style="background: #AD1457;"></div>
             <span>0–2 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #388E3C;"></div>
+            <div class="legend-dot" style="background: #C2185B;"></div>
             <span>3–5 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #66BB6A;"></div>
+            <div class="legend-dot" style="background: #E91E8C;"></div>
             <span>6–10 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #A5D6A7;"></div>
+            <div class="legend-dot" style="background: #F8BBD9;"></div>
             <span>11+ years ago</span>
         </div>
     </div>
@@ -737,10 +737,10 @@
         const YEARS_COLOR = [
             'step',
             ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
-            '#1B5E20',   // 0-2 years ago
-            3, '#388E3C', // 3-5 years ago
-            6, '#66BB6A', // 6-10 years ago
-            11, '#A5D6A7' // 11+ years ago
+            '#AD1457',   // 0-2 years ago
+            3, '#C2185B', // 3-5 years ago
+            6, '#E91E8C', // 6-10 years ago
+            11, '#F8BBD9' // 11+ years ago
         ];
 
         let hoveredId = null;
