@@ -279,7 +279,7 @@
             height: 50px;
             font-size: 24px;
             cursor: pointer;
-            z-index: 1;
+            z-index: 3;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             transition: all 0.2s;
             display: flex;
@@ -293,6 +293,7 @@
             border-color: #333333;
             transform: scale(1.05);
         }
+        body.embedded .home-btn { display: none; }
 
         /* About Modal */
         .about-modal {
@@ -466,7 +467,6 @@
             .info-panel h2 { font-size: 20px; }
             .result-item { padding: 12px; }
             .about-btn { display: none; }
-            .home-btn { display: none; }
             .map-legend { display: none; }
             .about-content { padding: 20px; max-height: 70vh; }
             .about-content h2 { font-size: 20px; }
