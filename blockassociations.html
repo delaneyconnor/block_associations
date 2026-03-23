@@ -228,7 +228,6 @@
             z-index: 1;
             font-size: 12px;
         }
-        .map-legend-volume  { bottom: 230px; }
         .map-legend-recency { bottom: 80px; }
         body.embedded .map-legend { display: none; }
         .map-legend .legend-title {
@@ -505,20 +504,12 @@
 </div>
 
 <!-- Legend -->
-<div class="map-legend map-legend-volume">
-    <div class="legend-title">Block Parties Hosted</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
-</div>
 <div class="map-legend map-legend-recency">
-    <div class="legend-title">Last Active</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.8);"></div>0–2 years ago</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.5);"></div>3–5 years ago</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.25);"></div>6–10 years ago</div>
-    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.1);"></div>11+ years ago</div>
+    <div class="legend-title">Block Parties Hosted</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.15);"></div>2–3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.35);"></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.6);"></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.8);"></div>11+</div>
 </div>
 
 <!-- Info Panel -->
@@ -626,24 +617,12 @@ map.on('load', () => {
 
             map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
 
-            const CURRENT_YEAR = new Date().getFullYear();
-
-            const PARTIES_COLOR = [
-                'interpolate', ['linear'], ['coalesce', ['get', 'total_block_parties'], 2],
-                2,  '#D1C4E9',
-                4,  '#9575CD',
-                7,  '#5E35B1',
-                11, '#4527A0',
-                16, '#311B92'
-            ];
-
-            const RECENCY_OPACITY = [
-                'step',
-                ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
-                0.8,       // 0-2 years ago
-                3,  0.5,   // 3-5 years ago
-                6,  0.25,  // 6-10 years ago
-                11, 0.1    // 11+ years ago
+            const PARTIES_OPACITY = [
+                'step', ['coalesce', ['get', 'total_block_parties'], 2],
+                0.15,       // 2–3
+                4,  0.35,   // 4–6
+                7,  0.6,    // 7–10
+                11, 0.8     // 11+
             ];
 
             map.addLayer({
@@ -652,8 +631,8 @@ map.on('load', () => {
                 source: 'associations',
                 paint: {
                     'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
-                    'circle-color': PARTIES_COLOR,
-                    'circle-opacity': RECENCY_OPACITY,
+                    'circle-color': '#311B92',
+                    'circle-opacity': PARTIES_OPACITY,
                     'circle-stroke-width': [
                         'case',
                         ['boolean', ['feature-state', 'selected'], false], 10,
