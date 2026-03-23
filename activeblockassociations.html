@@ -625,22 +625,25 @@
                     ? 'CB ' + properties.community_board : ''
             ].filter(Boolean).join(' · ');
 
-            const contactLines = [
-                website ? `<div><a href="${website}" target="_blank" rel="noopener">${website}</a></div>` : '',
-                email   ? `<div><a href="mailto:${email}">${email}</a></div>` : '',
-                phone   ? `<div>${phone}</div>` : ''
-            ].filter(Boolean).join('');
+            const na = `<span style="color:#bbb">Not available</span>`;
 
             return `
                 <div class="info-section">
                     <div class="info-label">Borough · Community Board</div>
                     <div class="info-value">${cbText || '—'}</div>
                 </div>
-                ${contactLines ? `
                 <div class="info-section">
-                    <div class="info-label">Contact</div>
-                    <div class="info-value">${contactLines}</div>
-                </div>` : ''}
+                    <div class="info-label">Website</div>
+                    <div class="info-value">${website ? `<a href="${website}" target="_blank" rel="noopener">${website}</a>` : na}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">${email ? `<a href="mailto:${email}">${email}</a>` : na}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value">${phone || na}</div>
+                </div>
                 <div class="info-section">
                     <div class="info-label">Block Party History</div>
                     <div class="year-grid">${yearChipsHTML}</div>
