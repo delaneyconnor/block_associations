@@ -768,14 +768,6 @@
             const boroughFilter = document.getElementById('borough-filter').value;
             filterByBorough(boroughFilter);
 
-            // Fit map to show all points
-            if (allFeatures.length > 0) {
-                const bounds = new mapboxgl.LngLatBounds();
-                allFeatures.forEach(f => {
-                    bounds.extend(f.geometry.coordinates);
-                });
-                map.fitBounds(bounds, { padding: 50 });
-            }
         }
 
         // Season filter handler
