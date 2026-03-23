@@ -392,21 +392,21 @@
         /* Hover tooltip */
         .hover-tooltip {
             position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: #ffffff;
+            color: #000000;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
             pointer-events: none;
-            z-index: 10;
+            z-index: 1000;
             white-space: nowrap;
-            max-width: 250px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transform: translate(-50%, -100%);
-            margin-top: -10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
         }
+        .hover-tooltip.visible { opacity: 1; }
 
         @media (max-width: 768px) {
             .filter-panel {
@@ -651,7 +651,6 @@
         // Create hover tooltip element
         const hoverTooltip = document.createElement('div');
         hoverTooltip.className = 'hover-tooltip';
-        hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
         // Color by years since last active — darker = more recent
@@ -768,9 +767,9 @@
                     hoveredId = feat.id;
                     map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: true });
                     hoverTooltip.textContent = bestDisplayName(feat.properties);
-                    hoverTooltip.style.display = 'block';
                     hoverTooltip.style.left = e.originalEvent.pageX + 15 + 'px';
                     hoverTooltip.style.top  = e.originalEvent.pageY + 15 + 'px';
+                    hoverTooltip.classList.add('visible');
                 });
 
                 map.on('mouseleave', 'assoc-points', () => {
@@ -779,7 +778,7 @@
                         map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: false });
                         hoveredId = null;
                     }
-                    hoverTooltip.style.display = 'none';
+                    hoverTooltip.classList.remove('visible');
                 });
 
                 map.on('click', 'assoc-points', (e) => {
