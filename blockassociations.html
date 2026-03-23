@@ -535,11 +535,11 @@
 <!-- Legend -->
 <div class="map-legend">
     <h4>Block Parties Hosted</h4>
-    <div class="legend-item"><div class="legend-dot" style="background:#FFCDD2;"></div>2–3</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#EF9A9A;"></div>4–6</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#EF5350;"></div>7–10</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#C62828;"></div>11–15</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#7F0000;"></div>16+</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
 </div>
 
 <!-- Hover Tooltip -->
@@ -619,11 +619,11 @@ map.on('load', () => {
 
             const PARTIES_COLOR = [
                 'interpolate', ['linear'], ['coalesce', ['get', 'total_block_parties'], 2],
-                2,  '#FFCDD2',
-                4,  '#EF9A9A',
-                7,  '#EF5350',
-                11, '#C62828',
-                16, '#7F0000'
+                2,  '#D1C4E9',
+                4,  '#9575CD',
+                7,  '#5E35B1',
+                11, '#4527A0',
+                16, '#311B92'
             ];
 
             map.addLayer({
