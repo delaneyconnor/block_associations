@@ -135,6 +135,25 @@
             color: #222222;
         }
 
+        /* Add Association Button */
+        .add-association-btn {
+            width: 100%;
+            padding: 12px;
+            background: black;
+            border: 2px solid black;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+        .add-association-btn:hover {
+            background: white;
+            color: black;
+        }
+
         /* Info panel */
         .info-panel {
             position: absolute;
@@ -495,6 +514,9 @@
                 <span class="stat-value" id="event-count">0</span>
             </div>
         </div>
+        <button class="add-association-btn" id="add-association-btn">
+            Add Your Association
+        </button>
     </div>
 
     <!-- Legend -->
@@ -940,6 +962,10 @@
             updateCDBoundary(this.value);
         });
         document.getElementById('search-input').addEventListener('input', () => filterFeatures(false));
+
+        // Add Your Association button
+        const addAssocUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog';
+        document.getElementById('add-association-btn').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 
         // Load data when map is ready
         map.on('load', function() {

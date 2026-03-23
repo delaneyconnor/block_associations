@@ -491,7 +491,7 @@
 
 <!-- Search Box -->
 <div class="search-box">
-    <h3>Search Associations</h3>
+    <h3>Search a Block</h3>
     <input
         type="text"
         class="search-input"
@@ -499,9 +499,6 @@
         placeholder="Type to search..."
     >
     <div class="search-results" id="search-results"></div>
-    <button class="add-association-btn" id="add-association-btn">
-        Add Your Association
-    </button>
 
 </div>
 
@@ -861,9 +858,8 @@ document.getElementById('about-modal').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('active');
 });
 
-// Add association buttons
+// Add association button (about modal)
 const addAssocUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog';
-document.getElementById('add-association-btn').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 document.getElementById('add-association-btn-modal').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 
 </script>
