@@ -606,6 +606,12 @@
             'committee', 'co-op', 'cooperative', 'alliance'
         ];
 
+        // Word-boundary keyword matcher — prevents "union" matching "reunion", etc.
+        function hasKeyword(name, keywords) {
+            const lower = name.toLowerCase();
+            return keywords.some(kw => new RegExp('\\b' + kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(lower));
+        }
+
         const PREPOSITIONS = new Set(['of','on','at','in','for','the','and','&','a','an','to','by','with','near','from']);
 
         function cleanName(name) {
@@ -642,7 +648,7 @@
             let names = properties.all_event_names || [];
             if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
             // Prefer names containing association keywords; fall back to longest name
-            const withKw = names.filter(n => ASSOC_KEYWORDS.some(kw => n.toLowerCase().includes(kw)));
+            const withKw = names.filter(n => hasKeyword(n, ASSOC_KEYWORDS));
             const pool = withKw.length > 0 ? withKw : names;
             const raw = pool.length > 0 ? pool.reduce((a, b) => a.length >= b.length ? a : b) : (properties.association_name || 'Block Association');
             return cleanName(raw);
@@ -952,7 +958,7 @@
                     let names = f.properties.all_event_names || [];
                     if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
                     // Only include locations where at least one event name contains a genuine association keyword
-                    return names.some(n => ASSOC_REQUIRED.some(kw => n.toLowerCase().includes(kw)));
+                    return names.some(n => hasKeyword(n, ASSOC_REQUIRED));
                 });
 
                 // Populate community board dropdown
