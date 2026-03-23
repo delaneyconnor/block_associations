@@ -694,6 +694,8 @@
                     paint: { 'line-color': '#FFFFFF', 'line-width': 2, 'line-opacity': 0.7 },
                     filter: ['==', ['get', 'BoroCD'], -1]
                 });
+                // Keep points above CB boundary if already loaded
+                if (map.getLayer('assoc-points')) map.moveLayer('assoc-points');
             } catch(e) {
                 console.warn('Could not load community districts:', e);
             }
@@ -760,6 +762,8 @@
                         ],
                     }
                 });
+                // Ensure points render above CB boundary layers
+                map.moveLayer('assoc-points');
 
                 map.on('mousemove', 'assoc-points', (e) => {
                     map.getCanvas().style.cursor = 'pointer';
