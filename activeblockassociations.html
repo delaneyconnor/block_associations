@@ -491,19 +491,19 @@
     <div class="legend">
         <div class="legend-title">Last Active</div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(46,125,50,1.0);"></div>
+            <div class="legend-dot" style="background: rgba(46,125,50,0.8);"></div>
             <span>0–2 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(46,125,50,0.65);"></div>
+            <div class="legend-dot" style="background: rgba(46,125,50,0.5);"></div>
             <span>3–5 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(46,125,50,0.3);"></div>
+            <div class="legend-dot" style="background: rgba(46,125,50,0.25);"></div>
             <span>6–10 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(46,125,50,0.12);"></div>
+            <div class="legend-dot" style="background: rgba(46,125,50,0.1);"></div>
             <span>11+ years ago</span>
         </div>
     </div>
@@ -661,10 +661,10 @@
         const YEARS_OPACITY = [
             'step',
             ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
-            1.0,        // 0-2 years ago
-            3,  0.65,   // 3-5 years ago
-            6,  0.3,    // 6-10 years ago
-            11, 0.12    // 11+ years ago
+            0.8,        // 0-2 years ago
+            3,  0.5,    // 3-5 years ago
+            6,  0.25,   // 6-10 years ago
+            11, 0.1     // 11+ years ago
         ];
 
         let hoveredId = null;
