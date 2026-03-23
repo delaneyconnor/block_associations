@@ -373,11 +373,21 @@
             margin-bottom: 0;
         }
 
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .legend-dot-wrap {
+            width: 18px;
+            height: 18px;
+            background: #1a1a1a;
+            border-radius: 3px;
             margin-right: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
 
         body.embedded .legend {
@@ -491,19 +501,19 @@
     <div class="legend">
         <div class="legend-title">Last Active</div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(229,57,53,0.8);"></div>
+            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.8);"></div></div>
             <span>0–2 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(229,57,53,0.5);"></div>
+            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.5);"></div></div>
             <span>3–5 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(229,57,53,0.25);"></div>
+            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.25);"></div></div>
             <span>6–10 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: rgba(229,57,53,0.1);"></div>
+            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.1);"></div></div>
             <span>11+ years ago</span>
         </div>
     </div>
