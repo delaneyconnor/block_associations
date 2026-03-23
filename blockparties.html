@@ -135,52 +135,43 @@
         .popup-header {
             background: white;
             color: #111;
-            padding: 12px 15px;
+            padding: 20px 20px 12px 20px;
             border-bottom: 1px solid #e0e0e0;
         }
 
         .popup-header h3 {
             margin: 0;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
+            color: black;
+            padding-right: 20px;
         }
 
         .popup-body {
-            padding: 15px;
+            padding: 20px;
         }
 
-        .popup-detail {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            font-size: 13px;
+        .info-section {
+            margin-bottom: 16px;
         }
 
-        .popup-detail:last-child {
+        .info-section:last-child {
             margin-bottom: 0;
         }
 
-        .popup-detail i {
-            width: 20px;
-            color: #222222;
-            margin-right: 10px;
-            margin-top: 2px;
-        }
-
-        .popup-detail span {
-            color: #333;
-            line-height: 1.4;
-        }
-
-        .popup-badge {
-            display: inline-block;
-            background: #f0f0f0;
-            color: #444;
-            padding: 4px 10px;
-            border-radius: 12px;
+        .info-label {
             font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
             font-weight: 600;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
         }
 
         /* Home button */
@@ -513,29 +504,27 @@
                     <h3>${properties.event_name || 'Block Party'}</h3>
                 </div>
                 <div class="popup-body">
-                    <div class="popup-detail">
-                        <i class="fas fa-play-circle"></i>
-                        <span><strong>Start:</strong> ${properties.start_formatted || 'Date TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Start</div>
+                        <div class="info-value">${properties.start_formatted || 'Date TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-stop-circle"></i>
-                        <span><strong>End:</strong> ${properties.end_formatted || 'Date TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">End</div>
+                        <div class="info-value">${properties.end_formatted || 'Date TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${properties.event_location || 'Location TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">${properties.event_location || 'Location TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-building"></i>
-                        <span>${properties.event_borough || 'NYC'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Borough</div>
+                        <div class="info-value">${properties.event_borough || 'NYC'}</div>
                     </div>
                     ${properties.street_closure_type && properties.street_closure_type !== 'N/A' ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-road"></i>
-                        <span>${properties.street_closure_type}</span>
-                    </div>
-                    ` : ''}
-                    <span class="popup-badge">${properties.event_type || 'Block Party'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Closure Type</div>
+                        <div class="info-value">${properties.street_closure_type}</div>
+                    </div>` : ''}
                 </div>
             `;
         }

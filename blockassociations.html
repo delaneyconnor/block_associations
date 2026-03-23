@@ -219,14 +219,9 @@
 
         /* Legend */
         .map-legend {
-            position: absolute;
-            bottom: 80px;
-            left: 20px;
-            background: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 1;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
         }
         body.embedded .map-legend { display: none; }
         .map-legend h4 {
@@ -500,6 +495,16 @@
     <button class="add-association-btn" id="add-association-btn">
         Add Your Association
     </button>
+
+    <!-- Legend -->
+    <div class="map-legend">
+        <h4>Block Parties Hosted</h4>
+        <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
+    </div>
 </div>
 
 <!-- Info Panel -->
@@ -531,16 +536,6 @@
 
 <!-- Map Container -->
 <div id="map"></div>
-
-<!-- Legend -->
-<div class="map-legend">
-    <h4>Block Parties Hosted</h4>
-    <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
-</div>
 
 <!-- Hover Tooltip -->
 <div class="hover-tooltip" id="hover-tooltip"></div>

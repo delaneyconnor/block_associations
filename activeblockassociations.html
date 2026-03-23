@@ -141,6 +141,7 @@
             top: 120px;
             right: 20px;
             background: white;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
@@ -152,121 +153,68 @@
 
         .info-panel.active { display: block; }
 
-        .popup-header {
-            background: white;
-            color: #111;
-            padding: 12px 15px;
-            border-radius: 12px 12px 0 0;
-            border-bottom: 1px solid #e0e0e0;
-            position: relative;
+        .info-panel h2 {
+            margin: 0 0 12px 0;
+            font-size: 20px;
+            color: black;
+            padding-right: 30px;
         }
 
-        .popup-header h3 {
-            margin: 0;
-            font-size: 15px;
-            font-weight: 600;
-            padding-right: 24px;
-        }
-
-        .popup-header .party-count {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-
-        .close-panel-btn {
+        .close-btn {
             position: absolute;
-            top: 10px;
-            right: 12px;
+            top: 25px;
+            right: 25px;
             background: none;
             border: none;
-            color: #999;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 24px;
+            height: 24px;
             line-height: 1;
-            opacity: 0.8;
         }
-        .close-panel-btn:hover { opacity: 1; }
+        .close-btn:hover { color: black; }
 
-        .popup-body {
-            padding: 15px;
-        }
-
-        .popup-detail {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            font-size: 13px;
+        .info-section {
+            margin-bottom: 16px;
         }
 
-        .popup-detail:last-child {
-            margin-bottom: 0;
-        }
-
-        .popup-detail-empty {
-            opacity: 0.4;
-        }
-
-        .popup-detail i {
-            width: 20px;
-            color: #222222;
-            margin-right: 10px;
-            margin-top: 2px;
-        }
-
-        .popup-detail span {
-            color: #333;
-            line-height: 1.4;
-        }
-
-        .popup-badge {
-            display: inline-block;
-            background: #f0f0f0;
-            color: #444;
-            padding: 4px 10px;
-            border-radius: 12px;
+        .info-label {
             font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
             font-weight: 600;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
-        /* Year history grid */
-        .year-history {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
+        .info-value {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
         }
 
-        .year-history-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 8px;
+        .info-value a {
+            color: #333;
+            text-decoration: none;
         }
+        .info-value a:hover { text-decoration: underline; }
 
         .year-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 4px;
         }
 
-        .year-cell {
-            text-align: center;
-            padding: 4px 2px;
+        .year-chip {
+            padding: 2px 7px;
             border-radius: 4px;
-            font-size: 10px;
-            font-weight: 500;
+            font-size: 11px;
+            font-weight: 600;
         }
-
-        .year-cell.active {
-            background: #333;
-            color: white;
-        }
-
-        .year-cell.inactive {
-            background: #f5f5f5;
-            color: #bbb;
-        }
+        .year-chip.active   { background: #333; color: white; }
+        .year-chip.inactive { background: #f0f0f0; color: #bbb; }
 
         /* Home button */
         .home-btn {
@@ -495,11 +443,9 @@
 
     <!-- Info Panel -->
     <div class="info-panel" id="info-panel">
-        <div class="popup-header">
-            <button class="close-panel-btn" id="close-panel">×</button>
-            <h3 id="panel-name"></h3>
-        </div>
-        <div class="popup-body" id="panel-body"></div>
+        <button class="close-btn" id="close-panel">×</button>
+        <h2 id="panel-name"></h2>
+        <div id="panel-body"></div>
     </div>
 
     <!-- Map Container -->
@@ -545,19 +491,19 @@
     <div class="legend">
         <div class="legend-title">Last Active</div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #AD1457;"></div>
+            <div class="legend-dot" style="background: #2E7D32;"></div>
             <span>0–2 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #C2185B;"></div>
+            <div class="legend-dot" style="background: #388E3C;"></div>
             <span>3–5 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #E91E8C;"></div>
+            <div class="legend-dot" style="background: #66BB6A;"></div>
             <span>6–10 years ago</span>
         </div>
         <div class="legend-item">
-            <div class="legend-dot" style="background: #F8BBD9;"></div>
+            <div class="legend-dot" style="background: #A5D6A7;"></div>
             <span>11+ years ago</span>
         </div>
     </div>
@@ -659,69 +605,45 @@
 
         // Format popup content with year history
         function createPopupHTML(properties) {
-            const totalParties = properties.total_block_parties || 0;
             let yearsActive = properties.years_active || [];
             if (typeof yearsActive === 'string') { try { yearsActive = JSON.parse(yearsActive); } catch(e) { yearsActive = []; } }
             const yearsActiveSet = new Set(yearsActive);
-            const uniqueNames = properties.unique_association_names_count || 1;
 
-            // Create year grid HTML
-            let yearGridHTML = '';
+            let yearChipsHTML = '';
             ALL_YEARS.forEach(year => {
                 const isActive = yearsActiveSet.has(year);
-                yearGridHTML += `<div class="year-cell ${isActive ? 'active' : 'inactive'}">${year}</div>`;
+                yearChipsHTML += `<div class="year-chip ${isActive ? 'active' : 'inactive'}">${year}</div>`;
             });
 
             const website = properties.website || '';
             const email = properties.email || '';
             const phone = properties.phone || '';
 
+            const cbText = [
+                properties.event_borough || '',
+                (properties.community_board && properties.community_board !== 'N/A' && properties.community_board !== '')
+                    ? 'CB ' + properties.community_board : ''
+            ].filter(Boolean).join(' · ');
+
+            const contactLines = [
+                website ? `<div><a href="${website}" target="_blank" rel="noopener">${website}</a></div>` : '',
+                email   ? `<div><a href="mailto:${email}">${email}</a></div>` : '',
+                phone   ? `<div>${phone}</div>` : ''
+            ].filter(Boolean).join('');
+
             return `
-                <div class="popup-detail">
-                    <i class="fas fa-building"></i>
-                    <span>${properties.event_borough || 'NYC'}</span>
+                <div class="info-section">
+                    <div class="info-label">Borough · Community Board</div>
+                    <div class="info-value">${cbText || '—'}</div>
                 </div>
-                ${properties.community_board && properties.community_board !== 'N/A' && properties.community_board !== '' ? `
-                <div class="popup-detail">
-                    <i class="fas fa-map"></i>
-                    <span>Community Board ${properties.community_board}</span>
+                ${contactLines ? `
+                <div class="info-section">
+                    <div class="info-label">Contact</div>
+                    <div class="info-value">${contactLines}</div>
                 </div>` : ''}
-
-                ${website ? `
-                <div class="popup-detail">
-                    <i class="fas fa-globe"></i>
-                    <span><a href="${website}" target="_blank" rel="noopener">${website}</a></span>
-                </div>` : `
-                <div class="popup-detail popup-detail-empty">
-                    <i class="fas fa-globe"></i>
-                    <span>Website not listed</span>
-                </div>`}
-
-                ${email ? `
-                <div class="popup-detail">
-                    <i class="fas fa-envelope"></i>
-                    <span><a href="mailto:${email}">${email}</a></span>
-                </div>` : `
-                <div class="popup-detail popup-detail-empty">
-                    <i class="fas fa-envelope"></i>
-                    <span>Email not listed</span>
-                </div>`}
-
-                ${phone ? `
-                <div class="popup-detail">
-                    <i class="fas fa-phone"></i>
-                    <span>${phone}</span>
-                </div>` : `
-                <div class="popup-detail popup-detail-empty">
-                    <i class="fas fa-phone"></i>
-                    <span>Phone not listed</span>
-                </div>`}
-
-                <div class="year-history">
-                    <div class="year-history-title">Block Party History</div>
-                    <div class="year-grid">
-                        ${yearGridHTML}
-                    </div>
+                <div class="info-section">
+                    <div class="info-label">Block Party History</div>
+                    <div class="year-grid">${yearChipsHTML}</div>
                 </div>
             `;
         }
@@ -737,10 +659,10 @@
         const YEARS_COLOR = [
             'step',
             ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
-            '#AD1457',   // 0-2 years ago
-            3, '#C2185B', // 3-5 years ago
-            6, '#E91E8C', // 6-10 years ago
-            11, '#F8BBD9' // 11+ years ago
+            '#2E7D32',   // 0-2 years ago
+            3, '#388E3C', // 3-5 years ago
+            6, '#66BB6A', // 6-10 years ago
+            11, '#A5D6A7' // 11+ years ago
         ];
 
         let hoveredId = null;
