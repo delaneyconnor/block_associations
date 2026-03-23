@@ -219,19 +219,24 @@
 
         /* Legend */
         .map-legend {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #e0e0e0;
+            position: absolute;
+            bottom: 40px;
+            left: 20px;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1;
+            font-size: 12px;
         }
         body.embedded .map-legend { display: none; }
-        .map-legend h4 {
-            margin: 0 0 8px 0;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #555;
+        .map-legend .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
         }
-        .legend-item { display: flex; align-items: center; margin-bottom: 5px; font-size: 12px; color: #333; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 4px; font-size: 12px; color: #333; }
+        .legend-item:last-child { margin-bottom: 0; }
         .legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
 
         /* About Button */
@@ -496,15 +501,16 @@
         Add Your Association
     </button>
 
-    <!-- Legend -->
-    <div class="map-legend">
-        <h4>Block Parties Hosted</h4>
-        <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
-    </div>
+</div>
+
+<!-- Legend -->
+<div class="map-legend">
+    <div class="legend-title">Block Parties Hosted</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
 </div>
 
 <!-- Info Panel -->
