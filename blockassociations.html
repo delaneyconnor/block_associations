@@ -220,7 +220,6 @@
         /* Legend */
         .map-legend {
             position: absolute;
-            bottom: 80px;
             right: 20px;
             background: white;
             padding: 12px 15px;
@@ -229,6 +228,8 @@
             z-index: 1;
             font-size: 12px;
         }
+        .map-legend-volume  { bottom: 230px; }
+        .map-legend-recency { bottom: 80px; }
         body.embedded .map-legend { display: none; }
         .map-legend .legend-title {
             font-weight: 600;
@@ -504,14 +505,16 @@
 </div>
 
 <!-- Legend -->
-<div class="map-legend">
+<div class="map-legend map-legend-volume">
     <div class="legend-title">Block Parties Hosted</div>
     <div class="legend-item"><div class="legend-dot" style="background:#D1C4E9;"></div>2–3</div>
     <div class="legend-item"><div class="legend-dot" style="background:#9575CD;"></div>4–6</div>
     <div class="legend-item"><div class="legend-dot" style="background:#5E35B1;"></div>7–10</div>
     <div class="legend-item"><div class="legend-dot" style="background:#4527A0;"></div>11–15</div>
     <div class="legend-item"><div class="legend-dot" style="background:#311B92;"></div>16+</div>
-    <div class="legend-title" style="margin-top:12px;">Last Active</div>
+</div>
+<div class="map-legend map-legend-recency">
+    <div class="legend-title">Last Active</div>
     <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.8);"></div>0–2 years ago</div>
     <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.5);"></div>3–5 years ago</div>
     <div class="legend-item"><div class="legend-dot" style="background:rgba(49,27,146,0.25);"></div>6–10 years ago</div>
