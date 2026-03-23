@@ -844,7 +844,7 @@
         }
 
         // Filter features
-        function filterFeatures() {
+        function filterFeatures(zoomToResult) {
             const borough = document.getElementById('borough-filter').value;
             const cbKey = document.getElementById('cb-filter').value;
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
@@ -869,6 +869,12 @@
             }
 
             addMarkers(filtered);
+
+            if (zoomToResult && filtered.length > 0) {
+                const bounds = new mapboxgl.LngLatBounds();
+                filtered.forEach(f => bounds.extend(f.geometry.coordinates));
+                map.fitBounds(bounds, { padding: 80, maxZoom: 14, duration: 800 });
+            }
         }
 
         // Load data from GeoJSON file
@@ -903,14 +909,14 @@
 
         // Event listeners
         document.getElementById('borough-filter').addEventListener('change', () => {
-            filterFeatures();
+            filterFeatures(true);
             updateCDBoundary(document.getElementById('cb-filter').value);
         });
         document.getElementById('cb-filter').addEventListener('change', function() {
-            filterFeatures();
+            filterFeatures(true);
             updateCDBoundary(this.value);
         });
-        document.getElementById('search-input').addEventListener('input', filterFeatures);
+        document.getElementById('search-input').addEventListener('input', () => filterFeatures(false));
 
         // Load data when map is ready
         map.on('load', function() {
