@@ -36,11 +36,6 @@
             display: none;
         }
 
-        /* Reposition filter panel to top when header is hidden */
-        body.embedded .filter-panel {
-            top: 20px;
-        }
-
         .header h1 {
             margin: 0 0 5px 0;
             font-size: 30px;
@@ -51,108 +46,6 @@
             margin: 0;
             font-size: 14px;
             opacity: 0.9;
-        }
-
-        /* Filter Panel */
-        .filter-panel {
-            position: absolute;
-            top: 120px;
-            left: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1;
-            width: 280px;
-        }
-
-        .filter-panel h3 {
-            margin: 0 0 12px 0;
-            font-size: 16px;
-            color: black;
-        }
-
-        .filter-group {
-            margin-bottom: 12px;
-        }
-
-        .filter-group label {
-            display: block;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-
-        .filter-select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-            cursor: pointer;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: #222222;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #222222;
-        }
-
-        .stats-box {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .stat-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #222222;
-        }
-
-        /* Add Association Button */
-        .add-association-btn {
-            width: 100%;
-            padding: 12px;
-            background: black;
-            border: 2px solid black;
-            border-radius: 8px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 10px;
-        }
-        .add-association-btn:hover {
-            background: white;
-            color: black;
         }
 
         /* Info panel */
@@ -364,56 +257,6 @@
             color: black;
         }
 
-        /* Legend */
-        .legend {
-            position: absolute;
-            bottom: 80px;
-            right: 20px;
-            background: white;
-            padding: 12px 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 1;
-            font-size: 12px;
-        }
-
-        .legend-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .legend-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .legend-dot-wrap {
-            width: 18px;
-            height: 18px;
-            background: #1a1a1a;
-            border-radius: 3px;
-            margin-right: 8px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        body.embedded .legend {
-            display: none;
-        }
-
         /* Mapbox Navigation Controls */
         .mapboxgl-ctrl-bottom-left {
             bottom: 90px !important;
@@ -443,28 +286,6 @@
             .header { padding: 12px 15px; }
             .header h1 { font-size: 22px; margin: 0; }
             .header p { display: none; }
-
-            /* Filter panel: sits just below compact header, collapsible */
-            .filter-panel { width: calc(100% - 40px); top: 60px; }
-
-            .filter-panel h3 {
-                cursor: pointer;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 0;
-                user-select: none;
-            }
-            .filter-panel h3::after { content: '▾'; font-size: 16px; color: #999; }
-            .filter-panel.open h3 { margin-bottom: 12px; }
-            .filter-panel.open h3::after { content: '▴'; }
-            .filter-body { display: none; }
-            .filter-panel.open .filter-body { display: block; }
-
-            /* Legend: compact corner card, not full-width */
-            .legend { bottom: 20px; right: 10px; left: auto; font-size: 11px; padding: 8px 10px; }
-            .legend-title { margin-bottom: 5px; }
-            .legend-item { margin-bottom: 3px; }
 
             /* Info panel: slides up from bottom, full-width, above all controls */
             .info-panel {
@@ -508,68 +329,6 @@
     <!-- Map Container -->
     <div id="map"></div>
 
-    <!-- Filter Panel -->
-    <div class="filter-panel" id="filter-panel">
-        <h3 id="filter-toggle">Find Associations</h3>
-
-        <div class="filter-body">
-            <div class="filter-group">
-                <label for="search-input">Search by Name</label>
-                <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
-            </div>
-
-            <div class="filter-group">
-                <label for="borough-filter">Borough</label>
-                <select id="borough-filter" class="filter-select">
-                    <option value="all">All Boroughs</option>
-                    <option value="Brooklyn">Brooklyn</option>
-                    <option value="Manhattan">Manhattan</option>
-                    <option value="Queens">Queens</option>
-                    <option value="Bronx">Bronx</option>
-                    <option value="Staten Island">Staten Island</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="cb-filter">Community Board</label>
-                <select id="cb-filter" class="filter-select">
-                    <option value="all">All Boards</option>
-                </select>
-            </div>
-
-            <div class="stats-box">
-                <div class="stat-item">
-                    <span class="stat-label">Associations Shown</span>
-                    <span class="stat-value" id="event-count">0</span>
-                </div>
-            </div>
-            <button class="add-association-btn" id="add-association-btn">
-                Add Your Association
-            </button>
-        </div>
-    </div>
-
-    <!-- Legend -->
-    <div class="legend">
-        <div class="legend-title">Last Active</div>
-        <div class="legend-item">
-            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.8);"></div></div>
-            <span>0–2 years ago</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.5);"></div></div>
-            <span>3–5 years ago</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.25);"></div></div>
-            <span>6–10 years ago</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,0.1);"></div></div>
-            <span>11+ years ago</span>
-        </div>
-    </div>
-
     <!-- About Modal -->
     <div class="about-modal" id="about-modal">
         <div class="about-content">
@@ -600,10 +359,6 @@
             center: [-73.9442, 40.6782], // Centered on Brooklyn
             zoom: 11
         });
-
-        // Offset camera so Brooklyn is centered in the visible area
-        // (filter panel covers ~320px on the left side)
-        map.setPadding({ left: 320, top: 0, right: 0, bottom: 0 });
 
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
@@ -1006,9 +761,6 @@
                     return names.some(n => hasKeyword(n, ASSOC_REQUIRED));
                 });
 
-                // Populate community board dropdown
-                populateCBFilter(allFeatures);
-
                 // Add markers
                 addMarkers(allFeatures);
 
@@ -1016,26 +768,6 @@
                 console.error('Error loading data:', error);
             }
         }
-
-        // Mobile: tap filter panel header to expand/collapse
-        document.getElementById('filter-toggle').addEventListener('click', function() {
-            document.getElementById('filter-panel').classList.toggle('open');
-        });
-
-        // Event listeners
-        document.getElementById('borough-filter').addEventListener('change', () => {
-            filterFeatures(true);
-            updateCDBoundary(document.getElementById('cb-filter').value);
-        });
-        document.getElementById('cb-filter').addEventListener('change', function() {
-            filterFeatures(true);
-            updateCDBoundary(this.value);
-        });
-        document.getElementById('search-input').addEventListener('input', () => filterFeatures(false));
-
-        // Add Your Association button
-        const addAssocUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog';
-        document.getElementById('add-association-btn').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 
         // Load data when map is ready
         map.on('load', function() {
