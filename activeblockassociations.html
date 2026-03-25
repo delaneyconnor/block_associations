@@ -36,9 +36,10 @@
             display: none;
         }
 
-        /* Reposition filter panel to top when header is hidden */
-        body.embedded .filter-panel {
-            top: 20px;
+        /* Hide filter panel and legend when embedded */
+        body.embedded .filter-panel,
+        body.embedded .legend {
+            display: none;
         }
 
         .header h1 {
