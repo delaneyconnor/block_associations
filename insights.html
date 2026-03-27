@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Block Association Insights — NYC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        /* ── Header ── */
+        .page-header {
+            border-bottom: 2px solid #1a1a1a;
+            padding: 2rem 3rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 0.4rem;
+        }
+
+        .page-header p {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: #666;
+        }
+
+        .page-header a {
+            color: #1a1a1a;
+            text-decoration: none;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        /* ── Stat strip ── */
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .stat-cell {
+            padding: 1.5rem 2rem;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .stat-cell:last-child { border-right: none; }
+
+        .stat-num {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ── Content grid ── */
+        .content {
+            padding: 2.5rem 3rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-grid.full { grid-template-columns: 1fr; }
+        .chart-grid.thirds { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* ── Chart card ── */
+        .chart-card {
+            border: 1px solid #e0e0e0;
+            padding: 1.5rem 1.75rem 1.25rem;
+            background: #ffffff;
+        }
+
+        .chart-card .card-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #999;
+            margin-bottom: 0.35rem;
+        }
+
+        .chart-card h2 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-bottom: 0.3rem;
+        }
+
+        .chart-card .card-sub {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: #666;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .chart-wrap {
+            position: relative;
+        }
+
+        /* ── Borough toggle buttons ── */
+        .borough-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .borough-tab {
+            padding: 0.3rem 0.8rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            border: 1.5px solid #e0e0e0;
+            background: white;
+            color: #666;
+            transition: all 0.15s;
+        }
+
+        .borough-tab:hover { border-color: #1a1a1a; color: #1a1a1a; }
+
+        .borough-tab.active {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            color: white;
+        }
+
+        /* ── Legend ── */
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: #666;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── Annotation callout ── */
+        .callout {
+            background: #f7f7f7;
+            border-left: 3px solid #1a1a1a;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: #444;
+            line-height: 1.5;
+            margin-top: 1rem;
+        }
+
+        .callout strong { font-weight: 600; }
+
+        /* ── Footer ── */
+        .page-footer {
+            border-top: 1px solid #e0e0e0;
+            padding: 1.5rem 3rem;
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: #999;
+        }
+
+        @media (max-width: 900px) {
+            .page-header { padding: 1.5rem; }
+            .content { padding: 1.5rem; }
+            .stat-strip { grid-template-columns: 1fr 1fr; }
+            .stat-cell { border-bottom: 1px solid #e0e0e0; }
+            .chart-grid { grid-template-columns: 1fr; }
+            .chart-grid.thirds { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <h1>Block Association Activity in NYC</h1>
+    <p>Based on NYC Open Data street activity permit records, 2008–2025 &nbsp;·&nbsp; <a href="activeblockassociations.html">Explore the map →</a></p>
+</div>
+
+<!-- Stat strip -->
+<div class="stat-strip">
+    <div class="stat-cell">
+        <div class="stat-num">1,556</div>
+        <div class="stat-label">Block associations identified</div>
+    </div>
+    <div class="stat-cell">
+        <div class="stat-num">8,472</div>
+        <div class="stat-label">Block party permits filed</div>
+    </div>
+    <div class="stat-cell">
+        <div class="stat-num">5.7</div>
+        <div class="stat-label">Avg. years active per location</div>
+    </div>
+    <div class="stat-cell">
+        <div class="stat-num">18</div>
+        <div class="stat-label">Years of data (2008–2025)</div>
+    </div>
+</div>
+
+<div class="content">
+
+    <!-- Chart 1: Activity over time — full width -->
+    <div class="chart-grid full" style="margin-bottom: 1.5rem;">
+        <div class="chart-card">
+            <div class="card-label">Activity over time</div>
+            <h2>A city at block level: associations per year, 2008–2025</h2>
+            <p class="card-sub">Number of associations that filed at least one block party permit in a given year. The 2020 collapse was near-total; recovery has been steady but uneven.</p>
+            <div class="chart-wrap" style="height: 260px;">
+                <canvas id="chart-years"></canvas>
+            </div>
+            <div class="callout">
+                <strong>2020:</strong> Only 36 block parties were permitted citywide — a 93% drop from 2019. By 2025, activity had recovered to ~85% of pre-pandemic levels, but the associations that returned skew toward those with longer histories.
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts 2 + 3: Borough bar + Status donut -->
+    <div class="chart-grid" style="margin-bottom: 1.5rem;">
+        <div class="chart-card">
+            <div class="card-label">Geography</div>
+            <h2>Brooklyn accounts for more than half of all identified associations</h2>
+            <p class="card-sub">Count of block associations by borough.</p>
+            <div class="chart-wrap" style="height: 220px;">
+                <canvas id="chart-borough"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="card-label">Status</div>
+            <h2>Nearly half have gone dormant since 2020</h2>
+            <p class="card-sub">
+                <strong>Active</strong> = filed a permit in 2023–2025 &nbsp; <strong>Recent</strong> = 2020–2022 &nbsp; <strong>Dormant</strong> = last active before 2020
+            </p>
+            <div class="chart-wrap" style="height: 180px; display: flex; align-items: center; justify-content: center;">
+                <canvas id="chart-status" style="max-width: 240px;"></canvas>
+            </div>
+            <div class="chart-legend" style="justify-content: center;">
+                <div class="legend-item"><div class="legend-dot" style="background:#1a1a1a;"></div>Active (645)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#888;"></div>Recent (183)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#d8d8d8;"></div>Dormant (728)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart 4: CB chart — full width with borough tabs -->
+    <div class="chart-grid full" style="margin-bottom: 1.5rem;">
+        <div class="chart-card">
+            <div class="card-label">Community boards</div>
+            <h2>Bed-Stuy's CB3 leads all 59 community boards citywide</h2>
+            <p class="card-sub">Associations per community board. Select a borough to zoom in.</p>
+            <div class="borough-tabs" id="cb-tabs">
+                <button class="borough-tab active" data-borough="all">All</button>
+                <button class="borough-tab" data-borough="Brooklyn">Brooklyn</button>
+                <button class="borough-tab" data-borough="Manhattan">Manhattan</button>
+                <button class="borough-tab" data-borough="Queens">Queens</button>
+                <button class="borough-tab" data-borough="Bronx">Bronx</button>
+                <button class="borough-tab" data-borough="Staten Island">Staten Island</button>
+            </div>
+            <div class="chart-wrap" style="height: 340px;">
+                <canvas id="chart-cb"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts 5 + 6: Longevity + COVID recovery -->
+    <div class="chart-grid" style="margin-bottom: 1.5rem;">
+        <div class="chart-card">
+            <div class="card-label">Longevity</div>
+            <h2>One-third of associations appear only a single year</h2>
+            <p class="card-sub">Distribution of years active per association location, 2008–2025.</p>
+            <div class="chart-wrap" style="height: 220px;">
+                <canvas id="chart-longevity"></canvas>
+            </div>
+            <div class="callout">
+                528 associations (34%) appear in the data for just one year. But 126 associations have been continuously active for 15 or more years.
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="card-label">COVID impact</div>
+            <h2>Brooklyn recovered; the Bronx and Staten Island have not</h2>
+            <p class="card-sub">Associations active in 2019 vs. 2021 vs. 2024, by borough.</p>
+            <div class="chart-wrap" style="height: 220px;">
+                <canvas id="chart-covid"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#1a1a1a;"></div>2019</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#e53935;"></div>2020</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#888;"></div>2021</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#444;"></div>2024</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart 7: New associations per year — full width -->
+    <div class="chart-grid full">
+        <div class="chart-card">
+            <div class="card-label">New entries</div>
+            <h2>The first permit tells the story: when did associations first appear in city records?</h2>
+            <p class="card-sub">Count of associations whose earliest block party permit is from each year. The 2008 spike reflects the start of the dataset — many associations were already active before records began.</p>
+            <div class="chart-wrap" style="height: 200px;">
+                <canvas id="chart-first-year"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="page-footer">
+    Data source: NYC Open Data — Permitted Event Information (2008–2025). Associations identified by keyword filtering on block party permits. Method: <a href="activeblockassociations.html" style="color:#1a1a1a;">see the map</a>.
+</div>
+
+<script>
+    // ── Shared styling defaults ──
+    Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.color = '#666';
+
+    const BOROUGH_COLORS = {
+        'Brooklyn':      '#1a1a1a',
+        'Queens':        '#555555',
+        'Manhattan':     '#888888',
+        'Bronx':         '#aaaaaa',
+        'Staten Island': '#cccccc'
+    };
+
+    // ── Load GeoJSON ──
+    fetch('data/active_block_associations.geojson')
+    .then(r => r.json())
+    .then(geojson => {
+        const features = geojson.features;
+        buildAll(features);
+    });
+
+    function buildAll(features) {
+
+        // ── 1. Activity by year ──
+        const yearActivity = {};
+        for (let y = 2008; y <= 2025; y++) yearActivity[y] = 0;
+        features.forEach(f => {
+            (f.properties.years_active || []).forEach(y => {
+                if (yearActivity[y] !== undefined) yearActivity[y]++;
+            });
+        });
+
+        const years = Object.keys(yearActivity).map(Number);
+        const yValues = years.map(y => yearActivity[y]);
+
+        // background colors — red for 2020, dark for others
+        const barBgColors = years.map(y =>
+            y === 2020 ? 'rgba(229,57,53,0.85)' :
+            y >= 2021  ? 'rgba(26,26,26,0.7)' :
+                         'rgba(26,26,26,0.9)'
+        );
+
+        new Chart(document.getElementById('chart-years'), {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [{
+                    data: yValues,
+                    backgroundColor: barBgColors,
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: ctx => `${ctx[0].label}`,
+                            label: ctx => ` ${ctx.raw} associations active`
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            covidLine: {
+                                type: 'line',
+                                xMin: '2020',
+                                xMax: '2020',
+                                borderColor: 'rgba(229,57,53,0.4)',
+                                borderWidth: 1,
+                                borderDash: [4, 3]
+                            },
+                            covidLabel: {
+                                type: 'label',
+                                xValue: '2020',
+                                yValue: 700,
+                                content: ['COVID-19'],
+                                font: { size: 10, family: "'IBM Plex Mono', monospace" },
+                                color: '#e53935',
+                                textAlign: 'left',
+                                xAdjust: 8
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false },
+                        ticks: { maxRotation: 0 }
+                    },
+                    y: {
+                        grid: { color: '#f0f0f0' },
+                        border: { display: false, dash: [3, 3] },
+                        ticks: { maxTicksLimit: 5 }
+                    }
+                }
+            }
+        });
+
+        // ── 2. Borough bar chart ──
+        const boroughs = ['Brooklyn', 'Queens', 'Manhattan', 'Bronx', 'Staten Island'];
+        const boroughCounts = {};
+        features.forEach(f => {
+            const b = f.properties.event_borough;
+            boroughCounts[b] = (boroughCounts[b] || 0) + 1;
+        });
+
+        new Chart(document.getElementById('chart-borough'), {
+            type: 'bar',
+            data: {
+                labels: boroughs,
+                datasets: [{
+                    data: boroughs.map(b => boroughCounts[b] || 0),
+                    backgroundColor: boroughs.map(b => BOROUGH_COLORS[b]),
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.raw} associations`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: '#f0f0f0' },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 4 }
+                    },
+                    y: {
+                        grid: { display: false },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ── 3. Status donut ──
+        const statusCounts = { active: 0, recent: 0, dormant: 0 };
+        features.forEach(f => {
+            const s = f.properties.status;
+            if (statusCounts[s] !== undefined) statusCounts[s]++;
+        });
+
+        new Chart(document.getElementById('chart-status'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Active', 'Recent', 'Dormant'],
+                datasets: [{
+                    data: [statusCounts.active, statusCounts.recent, statusCounts.dormant],
+                    backgroundColor: ['#1a1a1a', '#888888', '#d8d8d8'],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: false,
+                cutout: '62%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.raw} (${Math.round(ctx.raw / features.length * 100)}%)`
+                        }
+                    }
+                }
+            }
+        });
+
+        // ── 4. Community board chart ──
+        const cbData = {};
+        features.forEach(f => {
+            const b = f.properties.event_borough;
+            const cb = f.properties.community_board;
+            if (cb && cb !== 'N/A' && cb !== '') {
+                const key = `${b} CB${cb}`;
+                if (!cbData[key]) cbData[key] = { count: 0, borough: b };
+                cbData[key].count++;
+            }
+        });
+
+        let cbChart = null;
+
+        function renderCBChart(filterBorough) {
+            let entries = Object.entries(cbData);
+            if (filterBorough !== 'all') {
+                entries = entries.filter(([k, v]) => v.borough === filterBorough);
+                entries.sort((a, b) => parseInt(a[0].match(/CB(\d+)/)[1]) - parseInt(b[0].match(/CB(\d+)/)[1]));
+            } else {
+                entries.sort((a, b) => b[1].count - a[1].count);
+                entries = entries.slice(0, 25);
+            }
+
+            const labels = entries.map(([k]) => k.replace(/^(\w+) CB/, 'CB ').replace(/^Brooklyn/, 'BK').replace(/^Manhattan/, 'MN').replace(/^Queens/, 'QN').replace(/^Bronx/, 'BX').replace(/^Staten Island/, 'SI'));
+            const values = entries.map(([,v]) => v.count);
+            const colors = entries.map(([,v]) => BOROUGH_COLORS[v.borough] || '#1a1a1a');
+
+            const canvas = document.getElementById('chart-cb');
+            const wrapEl = canvas.parentElement;
+            const newH = Math.max(280, entries.length * 22);
+            wrapEl.style.height = newH + 'px';
+
+            if (cbChart) cbChart.destroy();
+            cbChart = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: ctx => entries[ctx[0].dataIndex][0],
+                                label: ctx => ` ${ctx.raw} associations`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#f0f0f0' },
+                            border: { display: false },
+                            ticks: { maxTicksLimit: 5 }
+                        },
+                        y: {
+                            grid: { display: false },
+                            border: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        renderCBChart('all');
+
+        document.getElementById('cb-tabs').addEventListener('click', e => {
+            const btn = e.target.closest('.borough-tab');
+            if (!btn) return;
+            document.querySelectorAll('.borough-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCBChart(btn.dataset.borough);
+        });
+
+        // ── 5. Longevity histogram ──
+        const longevity = {};
+        features.forEach(f => {
+            const y = f.properties.years_active_count;
+            longevity[y] = (longevity[y] || 0) + 1;
+        });
+
+        const longevityLabels = [];
+        const longevityValues = [];
+        for (let y = 1; y <= 18; y++) {
+            longevityLabels.push(y === 1 ? '1 yr' : y === 18 ? '18 yrs' : String(y));
+            longevityValues.push(longevity[y] || 0);
+        }
+
+        new Chart(document.getElementById('chart-longevity'), {
+            type: 'bar',
+            data: {
+                labels: longevityLabels,
+                datasets: [{
+                    data: longevityValues,
+                    backgroundColor: longevityValues.map((v, i) =>
+                        i === 0 ? 'rgba(229,57,53,0.8)' : 'rgba(26,26,26,0.8)'
+                    ),
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: ctx => `Active ${ctx[0].label}`,
+                            label: ctx => ` ${ctx.raw} associations`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false }
+                    },
+                    y: {
+                        grid: { color: '#f0f0f0' },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 4 }
+                    }
+                }
+            }
+        });
+
+        // ── 6. COVID recovery grouped bar ──
+        const covidYears = [2019, 2020, 2021, 2024];
+        const covidBoroughs = ['Brooklyn', 'Manhattan', 'Queens', 'Bronx', 'Staten Island'];
+        const covidByBorough = {};
+        covidBoroughs.forEach(b => {
+            covidByBorough[b] = {};
+            covidYears.forEach(y => covidByBorough[b][y] = 0);
+        });
+        features.forEach(f => {
+            const b = f.properties.event_borough;
+            if (covidByBorough[b]) {
+                (f.properties.years_active || []).forEach(y => {
+                    if (covidByBorough[b][y] !== undefined) covidByBorough[b][y]++;
+                });
+            }
+        });
+
+        const covidColors = ['#1a1a1a', '#e53935', '#888888', '#444444'];
+        const covidDatasets = covidYears.map((yr, i) => ({
+            label: String(yr),
+            data: covidBoroughs.map(b => covidByBorough[b][yr]),
+            backgroundColor: covidColors[i],
+            borderWidth: 0,
+            borderRadius: 2
+        }));
+
+        const shortBoroughs = ['Brooklyn', 'Manhattan', 'Queens', 'Bronx', 'Staten Is.'];
+
+        new Chart(document.getElementById('chart-covid'), {
+            type: 'bar',
+            data: {
+                labels: shortBoroughs,
+                datasets: covidDatasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} associations`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false },
+                        ticks: { font: { size: 10 } }
+                    },
+                    y: {
+                        grid: { color: '#f0f0f0' },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 4 }
+                    }
+                }
+            }
+        });
+
+        // ── 7. First year (new associations per year) ──
+        const firstYearCounts = {};
+        features.forEach(f => {
+            const fy = f.properties.first_year;
+            if (fy) firstYearCounts[fy] = (firstYearCounts[fy] || 0) + 1;
+        });
+
+        const fyLabels = Object.keys(firstYearCounts).map(Number).sort();
+        const fyValues = fyLabels.map(y => firstYearCounts[y]);
+        const fyColors = fyLabels.map(y =>
+            y === 2008 ? 'rgba(26,26,26,0.4)' : 'rgba(26,26,26,0.85)'
+        );
+
+        new Chart(document.getElementById('chart-first-year'), {
+            type: 'bar',
+            data: {
+                labels: fyLabels,
+                datasets: [{
+                    data: fyValues,
+                    backgroundColor: fyColors,
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: ctx => `First permit: ${ctx[0].label}`,
+                            label: ctx => ` ${ctx.raw} associations`
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            dataStartLabel: {
+                                type: 'label',
+                                xValue: '2008',
+                                yValue: 680,
+                                content: ['Dataset begins'],
+                                font: { size: 10, family: "'IBM Plex Mono', monospace" },
+                                color: '#999',
+                                textAlign: 'left',
+                                xAdjust: 10
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false }
+                    },
+                    y: {
+                        grid: { color: '#f0f0f0' },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 4 }
+                    }
+                }
+            }
+        });
+
+    } // end buildAll
+</script>
+
+</body>
+</html>
