@@ -36,10 +36,30 @@
             display: none;
         }
 
-        /* Hide filter panel and legend when embedded */
-        body.embedded .filter-panel,
-        body.embedded .legend {
+        /* Adjust panel positioning when header is hidden */
+        body.embedded .filter-panel {
+            top: 20px;
+        }
+
+        body.embedded .info-panel {
+            top: 20px;
+        }
+
+        /* Preview mode: hide all UI chrome */
+        body.preview .header,
+        body.preview .filter-panel,
+        body.preview .legend,
+        body.preview .info-panel,
+        body.preview .home-btn,
+        body.preview .about-btn,
+        body.preview .about-modal {
             display: none;
+        }
+
+        body.preview .mapboxgl-ctrl-bottom-left,
+        body.preview .mapboxgl-ctrl-bottom-right,
+        body.preview .mapboxgl-ctrl-logo {
+            display: none !important;
         }
 
         .header h1 {
@@ -265,9 +285,6 @@
             transform: scale(1.05);
         }
 
-        body.embedded .home-btn {
-            display: none;
-        }
 
         /* About button */
         .about-btn {
@@ -297,9 +314,6 @@
             transform: scale(1.05);
         }
 
-        body.embedded .about-btn {
-            display: none;
-        }
 
         /* About Modal */
         .about-modal {
@@ -411,9 +425,6 @@
             border-radius: 50%;
         }
 
-        body.embedded .legend {
-            display: none;
-        }
 
         /* Mapbox Navigation Controls */
         .mapboxgl-ctrl-bottom-left {
@@ -587,8 +598,11 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
     <script>
-        // Check if embedded in iframe
-        if (window.self !== window.top) {
+        // Check if preview mode (thumbnail in index page) or embedded in a site
+        const _urlParams = new URLSearchParams(window.location.search);
+        if (_urlParams.get('preview') === 'true') {
+            document.body.classList.add('preview');
+        } else if (window.self !== window.top) {
             document.body.classList.add('embedded');
         }
 
