@@ -379,12 +379,36 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             z-index: 1;
             font-size: 12px;
+            min-width: 160px;
         }
 
-        .legend-title {
+        .legend-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 3px;
+            margin-bottom: 10px;
+            gap: 2px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 5px 8px;
+            border: none;
+            border-radius: 16px;
+            font-size: 11px;
             font-weight: 600;
-            margin-bottom: 8px;
+            cursor: pointer;
+            background: transparent;
+            color: #888;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .toggle-btn.active {
+            background: white;
             color: #333;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
         }
 
         .legend-item {
@@ -402,6 +426,7 @@
             height: 12px;
             border-radius: 50%;
             margin-right: 8px;
+            flex-shrink: 0;
         }
 
         body.embedded .legend {
@@ -499,23 +524,11 @@
 
     <!-- Legend -->
     <div class="legend">
-        <div class="legend-title">Years Active</div>
-        <div class="legend-item">
-            <div class="legend-dot" style="background: #1B5E20;"></div>
-            <span>10+ years</span>
+        <div class="legend-toggle">
+            <button class="toggle-btn active" data-view="years-active">Years Active</button>
+            <button class="toggle-btn" data-view="last-active">Last Active</button>
         </div>
-        <div class="legend-item">
-            <div class="legend-dot" style="background: #388E3C;"></div>
-            <span>5-9 years</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-dot" style="background: #66BB6A;"></div>
-            <span>2-4 years</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-dot" style="background: #A5D6A7;"></div>
-            <span>1 year</span>
-        </div>
+        <div id="legend-items"></div>
     </div>
 
     <!-- About Modal -->
@@ -560,7 +573,9 @@
 
         // Store all features for filtering
         let allFeatures = [];
+        let currentFiltered = [];
         let markers = [];
+        let currentView = 'years-active'; // or 'last-active'
 
         // Create popup
         const popup = new mapboxgl.Popup({
@@ -629,35 +644,75 @@
         hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
-        // Get color based on years active
+        // Color functions for each view
         function getColorForYearsActive(yearsActive) {
             const count = Array.isArray(yearsActive) ? yearsActive.length : 0;
-            if (count >= 10) return '#1B5E20'; // Dark green - 10+ years
-            if (count >= 5) return '#388E3C';  // Medium green - 5-9 years
-            if (count >= 2) return '#66BB6A';  // Light green - 2-4 years
-            return '#A5D6A7';                   // Pale green - 1 year
+            if (count >= 10) return '#1B5E20';
+            if (count >= 5)  return '#388E3C';
+            if (count >= 2)  return '#66BB6A';
+            return '#A5D6A7';
+        }
+
+        function getColorForLastActive(yearsActive) {
+            const years = Array.isArray(yearsActive) ? yearsActive : [];
+            const last = years.length ? Math.max(...years) : 0;
+            if (last >= 2024) return '#1B5E20';
+            if (last >= 2022) return '#388E3C';
+            if (last >= 2019) return '#66BB6A';
+            return '#A5D6A7';
+        }
+
+        function getMarkerColor(props) {
+            const ya = props.years_active || [];
+            return currentView === 'last-active'
+                ? getColorForLastActive(ya)
+                : getColorForYearsActive(ya);
+        }
+
+        // Render legend items based on current view
+        function updateLegend() {
+            const container = document.getElementById('legend-items');
+            const items = currentView === 'years-active'
+                ? [
+                    { color: '#1B5E20', label: '10+ years' },
+                    { color: '#388E3C', label: '5–9 years' },
+                    { color: '#66BB6A', label: '2–4 years' },
+                    { color: '#A5D6A7', label: '1 year' }
+                ]
+                : [
+                    { color: '#1B5E20', label: 'Active 2024–25' },
+                    { color: '#388E3C', label: 'Active 2022–23' },
+                    { color: '#66BB6A', label: 'Active 2019–21' },
+                    { color: '#A5D6A7', label: 'Last active pre-2019' }
+                ];
+            container.innerHTML = items.map(item => `
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: ${item.color};"></div>
+                    <span>${item.label}</span>
+                </div>
+            `).join('');
         }
 
         // Create marker element with hover effects
-        function createMarkerElement(yearsActive) {
+        function createMarkerElement(props) {
             const el = document.createElement('div');
-            const color = getColorForYearsActive(yearsActive);
+            const color = getMarkerColor(props);
 
             el.style.width = '16px';
             el.style.height = '16px';
             el.style.borderRadius = '50%';
             el.style.backgroundColor = color;
             el.style.opacity = '0.8';
-            el.style.border = 'none';
+            el.style.border = '0';
             el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
             el.style.cursor = 'pointer';
-            el.style.transition = 'all 0.2s ease';
+            el.style.transition = 'width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.2s ease';
 
             // Hover effects
             el.addEventListener('mouseenter', () => {
                 el.style.width = '28px';
                 el.style.height = '28px';
-                el.style.border = '3px solid white';
+                el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3), 0 0 0 3px white';
                 el.style.opacity = '1';
                 el.style.marginLeft = '-6px';
                 el.style.marginTop = '-6px';
@@ -666,7 +721,7 @@
             el.addEventListener('mouseleave', () => {
                 el.style.width = '16px';
                 el.style.height = '16px';
-                el.style.border = 'none';
+                el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
                 el.style.opacity = '0.8';
                 el.style.marginLeft = '0';
                 el.style.marginTop = '0';
@@ -683,13 +738,15 @@
 
         // Add markers for features
         function addMarkers(features) {
+            currentFiltered = features;
+            updateLegend();
             clearMarkers();
 
             features.forEach(feature => {
                 const coords = feature.geometry.coordinates;
                 const props = feature.properties;
 
-                const el = createMarkerElement(props.years_active);
+                const el = createMarkerElement(props);
 
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(coords)
@@ -776,6 +833,16 @@
                 console.error('Error loading data:', error);
             }
         }
+
+        // Legend toggle
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentView = btn.dataset.view;
+                addMarkers(currentFiltered);
+            });
+        });
 
         // Event listeners
         document.getElementById('borough-filter').addEventListener('change', filterFeatures);
