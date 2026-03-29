@@ -2,18 +2,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Active Block Associations</title>
+    <title>Find Your Block Association</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
         }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
@@ -30,14 +31,35 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide header and controls when embedded */
-        body.embedded .header,
-        body.embedded .filter-panel {
+        /* Hide header when embedded */
+        body.embedded .header {
             display: none;
         }
 
-        body.embedded .mapboxgl-control-container {
+        /* Adjust panel positioning when header is hidden */
+        body.embedded .filter-panel {
+            top: 20px;
+        }
+
+        body.embedded .info-panel {
+            top: 20px;
+        }
+
+        /* Preview mode: hide all UI chrome */
+        body.preview .header,
+        body.preview .filter-panel,
+        body.preview .legend,
+        body.preview .info-panel,
+        body.preview .home-btn,
+        body.preview .about-btn,
+        body.preview .about-modal {
             display: none;
+        }
+
+        body.preview .mapboxgl-ctrl-bottom-left,
+        body.preview .mapboxgl-ctrl-bottom-right,
+        body.preview .mapboxgl-ctrl-logo {
+            display: none !important;
         }
 
         .header h1 {
@@ -94,7 +116,7 @@
 
         .filter-select:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: #222222;
         }
 
         .search-input {
@@ -108,7 +130,7 @@
 
         .search-input:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: #222222;
         }
 
         .stats-box {
@@ -132,113 +154,108 @@
         .stat-value {
             font-size: 18px;
             font-weight: 700;
-            color: #4CAF50;
+            color: #222222;
         }
 
-        /* Popup styling */
-        .mapboxgl-popup {
-            max-width: 360px !important;
-        }
-
-        .mapboxgl-popup-content {
-            padding: 0;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .popup-header {
-            background: #4CAF50;
+        /* Add Association Button */
+        .add-association-btn {
+            width: 100%;
+            padding: 12px;
+            background: black;
+            border: 2px solid black;
+            border-radius: 8px;
             color: white;
-            padding: 12px 15px;
-        }
-
-        .popup-header h3 {
-            margin: 0;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-        }
-
-        .popup-header .party-count {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-
-        .popup-body {
-            padding: 15px;
-        }
-
-        .popup-detail {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-
-        .popup-detail:last-child {
-            margin-bottom: 0;
-        }
-
-        .popup-detail i {
-            width: 20px;
-            color: #4CAF50;
-            margin-right: 10px;
-            margin-top: 2px;
-        }
-
-        .popup-detail span {
-            color: #333;
-            line-height: 1.4;
-        }
-
-        .popup-badge {
-            display: inline-block;
-            background: #E8F5E9;
-            color: #2E7D32;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
             margin-top: 10px;
         }
-
-        /* Year history grid */
-        .year-history {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
+        .add-association-btn:hover {
+            background: white;
+            color: black;
         }
 
-        .year-history-title {
-            font-size: 12px;
+        /* Info panel */
+        .info-panel {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 350px;
+            max-height: calc(100vh - 350px);
+            overflow-y: auto;
+            display: none;
+        }
+
+        .info-panel.active { display: block; }
+
+        .info-panel h2 {
+            margin: 0 0 12px 0;
+            font-size: 20px;
+            color: black;
+            padding-right: 30px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+        }
+        .close-btn:hover { color: black; }
+
+        .info-section {
+            margin-bottom: 16px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
             font-weight: 600;
-            color: #666;
-            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
+
+        .info-value {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        .info-value a {
+            color: #333;
+            text-decoration: none;
+        }
+        .info-value a:hover { text-decoration: underline; }
 
         .year-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 4px;
         }
 
-        .year-cell {
-            text-align: center;
-            padding: 4px 2px;
+        .year-chip {
+            padding: 2px 7px;
             border-radius: 4px;
-            font-size: 10px;
-            font-weight: 500;
+            font-size: 11px;
+            font-weight: 600;
         }
-
-        .year-cell.active {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .year-cell.inactive {
-            background: #f5f5f5;
-            color: #bbb;
-        }
+        .year-chip.active   { background: #333; color: white; }
+        .year-chip.inactive { background: #f0f0f0; color: #bbb; }
 
         /* Home button */
         .home-btn {
@@ -263,14 +280,11 @@
         }
 
         .home-btn:hover {
-            background: #f0f7f7;
-            border-color: #4CAF50;
+            background: #f5f5f5;
+            border-color: #222222;
             transform: scale(1.05);
         }
 
-        body.embedded .home-btn {
-            display: none;
-        }
 
         /* About button */
         .about-btn {
@@ -295,14 +309,11 @@
         }
 
         .about-btn:hover {
-            background: #f0f7f7;
-            border-color: #4CAF50;
+            background: #f5f5f5;
+            border-color: #222222;
             transform: scale(1.05);
         }
 
-        body.embedded .about-btn {
-            display: none;
-        }
 
         /* About Modal */
         .about-modal {
@@ -379,7 +390,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             z-index: 1;
             font-size: 12px;
-            min-width: 160px;
+            min-width: 170px;
         }
 
         .legend-toggle {
@@ -393,22 +404,29 @@
 
         .toggle-btn {
             flex: 1;
-            padding: 5px 8px;
+            padding: 5px 6px;
             border: none;
             border-radius: 16px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
             background: transparent;
             color: #888;
             transition: all 0.2s;
             white-space: nowrap;
+            font-family: inherit;
         }
 
         .toggle-btn.active {
             background: white;
             color: #333;
             box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
         }
 
         .legend-item {
@@ -421,17 +439,23 @@
             margin-bottom: 0;
         }
 
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .legend-dot-wrap {
+            width: 18px;
+            height: 18px;
+            background: #1a1a1a;
+            border-radius: 3px;
             margin-right: 8px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
 
-        body.embedded .legend {
-            display: none;
-        }
 
         /* Mapbox Navigation Controls */
         .mapboxgl-ctrl-bottom-left {
@@ -441,45 +465,72 @@
         /* Hover tooltip */
         .hover-tooltip {
             position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: #ffffff;
+            color: #000000;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
             pointer-events: none;
-            z-index: 10;
+            z-index: 1000;
             white-space: nowrap;
-            max-width: 250px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transform: translate(-50%, -100%);
-            margin-top: -10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
         }
+        .hover-tooltip.visible { opacity: 1; }
 
         @media (max-width: 768px) {
-            .filter-panel {
-                width: calc(100% - 40px);
-                top: 110px;
+            /* Compact header — hide byline */
+            .header { padding: 12px 15px; }
+            .header h1 { font-size: 22px; margin: 0; }
+            .header p { display: none; }
+
+            /* Filter panel: sits just below compact header, collapsible */
+            .filter-panel { width: calc(100% - 40px); top: 60px; }
+
+            .filter-panel h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+                user-select: none;
+            }
+            .filter-panel h3::after { content: '▾'; font-size: 16px; color: #999; }
+            .filter-panel.open h3 { margin-bottom: 12px; }
+            .filter-panel.open h3::after { content: '▴'; }
+            .filter-body { display: none; }
+            .filter-panel.open .filter-body { display: block; }
+
+            /* Legend: compact corner card, not full-width */
+            .legend { bottom: 20px; right: 10px; left: auto; font-size: 11px; padding: 8px 10px; }
+            .legend-title { margin-bottom: 5px; }
+            .legend-item { margin-bottom: 3px; }
+
+            /* Info panel: slides up from bottom, full-width, above all controls */
+            .info-panel {
+                top: auto;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 16px 16px 0 0;
+                max-height: 40vh;
+                z-index: 10;
             }
 
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .legend {
-                bottom: 20px;
-                right: 10px;
-                left: 10px;
-            }
+            /* No hover tooltip on touch screens */
+            .hover-tooltip { display: none !important; }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header">
-        <h1>Active Block Associations</h1>
-        <p>Block associations that have hosted block parties across NYC</p>
+        <h1>Find Your Block Association</h1>
+        <p>Active block associations that have hosted block parties across NYC</p>
     </div>
 
     <!-- Home Button -->
@@ -490,43 +541,62 @@
     <!-- About Button -->
     <button class="about-btn" id="about-btn">?</button>
 
+    <!-- Info Panel -->
+    <div class="info-panel" id="info-panel">
+        <button class="close-btn" id="close-panel">×</button>
+        <h2 id="panel-name"></h2>
+        <div id="panel-body"></div>
+    </div>
+
     <!-- Map Container -->
     <div id="map"></div>
 
     <!-- Filter Panel -->
-    <div class="filter-panel">
-        <h3>Find Associations</h3>
+    <div class="filter-panel" id="filter-panel">
+        <h3 id="filter-toggle">Find Associations</h3>
 
-        <div class="filter-group">
-            <label for="search-input">Search by Name</label>
-            <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
-        </div>
-
-        <div class="filter-group">
-            <label for="borough-filter">Borough</label>
-            <select id="borough-filter" class="filter-select">
-                <option value="all">All Boroughs</option>
-                <option value="Brooklyn">Brooklyn</option>
-                <option value="Manhattan">Manhattan</option>
-                <option value="Queens">Queens</option>
-                <option value="Bronx">Bronx</option>
-                <option value="Staten Island">Staten Island</option>
-            </select>
-        </div>
-
-        <div class="stats-box">
-            <div class="stat-item">
-                <span class="stat-label">Associations Shown</span>
-                <span class="stat-value" id="event-count">0</span>
+        <div class="filter-body">
+            <div class="filter-group">
+                <label for="search-input">Search by Name</label>
+                <input type="text" id="search-input" class="search-input" placeholder="Type to search...">
             </div>
+
+            <div class="filter-group">
+                <label for="borough-filter">Borough</label>
+                <select id="borough-filter" class="filter-select">
+                    <option value="all">All Boroughs</option>
+                    <option value="Brooklyn">Brooklyn</option>
+                    <option value="Manhattan">Manhattan</option>
+                    <option value="Queens">Queens</option>
+                    <option value="Bronx">Bronx</option>
+                    <option value="Staten Island">Staten Island</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="cb-filter">Community Board</label>
+                <select id="cb-filter" class="filter-select">
+                    <option value="all">All Boards</option>
+                </select>
+            </div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span class="stat-label">Associations Shown</span>
+                    <span class="stat-value" id="event-count">0</span>
+                </div>
+            </div>
+            <button class="add-association-btn" id="add-association-btn">
+                Add Your Association
+            </button>
         </div>
     </div>
 
     <!-- Legend -->
     <div class="legend">
         <div class="legend-toggle">
-            <button class="toggle-btn active" data-view="years-active">Years Active</button>
-            <button class="toggle-btn" data-view="last-active">Last Active</button>
+            <button class="toggle-btn active" data-view="last-active">Last Active</button>
+            <button class="toggle-btn" data-view="years-active">Years Active</button>
         </div>
         <div id="legend-items"></div>
     </div>
@@ -547,8 +617,11 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
     <script>
-        // Check if embedded in iframe
-        if (window.self !== window.top) {
+        // Check if preview mode (thumbnail in index page) or embedded in a site
+        const _urlParams = new URLSearchParams(window.location.search);
+        if (_urlParams.get('preview') === 'true') {
+            document.body.classList.add('preview');
+        } else if (window.self !== window.top) {
             document.body.classList.add('embedded');
         }
 
@@ -562,6 +635,10 @@
             zoom: 11
         });
 
+        // Offset camera so Brooklyn is centered in the visible area
+        // (filter panel covers ~320px on the left side)
+        map.setPadding({ left: 320, top: 0, right: 0, bottom: 0 });
+
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
@@ -573,67 +650,130 @@
 
         // Store all features for filtering
         let allFeatures = [];
-        let currentFiltered = [];
         let markers = [];
-        let currentView = 'years-active'; // or 'last-active'
-
-        // Create popup
-        const popup = new mapboxgl.Popup({
-            closeButton: true,
-            closeOnClick: true,
-            maxWidth: '360px'
-        });
 
         // All years from 2008-2025
         const ALL_YEARS = [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
 
+        // A feature must have at least one name containing one of these to appear on the map.
+        // 'neighborhood' and 'collective' intentionally excluded — too common in slogans/arts
+        // groups that aren't genuine block associations (e.g. "Love Thy Neighborhood",
+        // "Potion Collective"). Legitimate orgs using those words almost always also have
+        // a stronger keyword like 'association' or 'council'.
+        const ASSOC_REQUIRED = [
+            'association', 'assoc', 'block club', 'neighbors', 'neighbour', 'neighbor',
+            'tenant', 'residents', 'houses', 'council', 'coalition', 'civic',
+            'committee', 'co-op', 'cooperative', 'alliance', 'union'
+        ];
+
+        // Keywords used to pick the best display name (broader, includes league for civic leagues etc.)
+        const ASSOC_KEYWORDS = [
+            'association', 'assoc', 'neighbors', 'neighbour', 'neighbor',
+            'neighborhood', 'collective', 'block club', 'tenant', 'residents',
+            'houses', 'union', 'council', 'coalition', 'league', 'civic',
+            'committee', 'co-op', 'cooperative', 'alliance'
+        ];
+
+        // Word-boundary keyword matcher — prevents "union" matching "reunion", etc.
+        function hasKeyword(name, keywords) {
+            const lower = name.toLowerCase();
+            return keywords.some(kw => new RegExp('\\b' + kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(lower));
+        }
+
+        const PREPOSITIONS = new Set(['of','on','at','in','for','the','and','&','a','an','to','by','with','near','from']);
+
+        function cleanName(name) {
+            // Step 1: strip known junk words and years
+            let cleaned = name
+                .replace(/\b(annual|block\s+party|block\s+partie[s]?)\b/gi, '')
+                .replace(/\b(halloween|christmas|holiday|summer|spring|fall|autumn|winter|back\s+to\s+school|end\s+of\s+(the\s+)?year|end\s+of\s+(the\s+)?summer|cookout|bbq|picnic|carnival|festival|fair|celebration|party|parade)\b/gi, '')
+                .replace(/\b(19|20)\d{2}\b/g, '')
+                .replace(/\s{2,}/g, ' ')
+                .trim();
+
+            // Step 2: truncate after the last association keyword, UNLESS the
+            // word immediately following is a preposition (meaning more context follows)
+            const kwPattern = new RegExp(`\\b(${ASSOC_KEYWORDS.join('|')})\\b`, 'gi');
+            let lastMatch = null, m;
+            while ((m = kwPattern.exec(cleaned)) !== null) lastMatch = m;
+
+            if (lastMatch) {
+                const afterKw = cleaned.slice(lastMatch.index + lastMatch[0].length).trimStart();
+                const nextWord = afterKw.split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+                if (nextWord && !PREPOSITIONS.has(nextWord)) {
+                    cleaned = cleaned.slice(0, lastMatch.index + lastMatch[0].length).trim();
+                }
+            }
+
+            // Step 3: clean up trailing punctuation and title case
+            return cleaned
+                .replace(/[-–—,;:!]+$/, '')
+                .trim()
+                .replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+        }
+
+        function bestDisplayName(properties) {
+            let names = properties.all_event_names || [];
+            if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
+            // Prefer names containing association keywords; fall back to longest name
+            const withKw = names.filter(n => hasKeyword(n, ASSOC_KEYWORDS));
+            const pool = withKw.length > 0 ? withKw : names;
+            const raw = pool.length > 0 ? pool.reduce((a, b) => a.length >= b.length ? a : b) : (properties.association_name || 'Block Association');
+            return cleanName(raw);
+        }
+
         // Format popup content with year history
         function createPopupHTML(properties) {
-            const totalParties = properties.total_block_parties || 0;
-            const yearsActive = properties.years_active || [];
+            let yearsActive = properties.years_active || [];
+            if (typeof yearsActive === 'string') { try { yearsActive = JSON.parse(yearsActive); } catch(e) { yearsActive = []; } }
             const yearsActiveSet = new Set(yearsActive);
-            const uniqueNames = properties.unique_association_names_count || 1;
 
-            // Create year grid HTML
-            let yearGridHTML = '';
+            let yearChipsHTML = '';
             ALL_YEARS.forEach(year => {
                 const isActive = yearsActiveSet.has(year);
-                yearGridHTML += `<div class="year-cell ${isActive ? 'active' : 'inactive'}">${year}</div>`;
+                yearChipsHTML += `<div class="year-chip ${isActive ? 'active' : 'inactive'}">${year}</div>`;
             });
 
-            return `
-                <div class="popup-header">
-                    <h3>${properties.event_location || 'Block Location'}</h3>
-                    <div class="party-count">${totalParties} block ${totalParties === 1 ? 'party' : 'parties'} at this location since 2008</div>
-                </div>
-                <div class="popup-body">
-                    <div class="popup-detail">
-                        <i class="fas fa-building"></i>
-                        <span>${properties.event_borough || 'NYC'}</span>
-                    </div>
-                    ${properties.community_board ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-users"></i>
-                        <span>Community Board ${properties.community_board}</span>
-                    </div>
-                    ` : ''}
-                    <div class="popup-detail">
-                        <i class="fas fa-user-friends"></i>
-                        <span>Most recent: ${properties.association_name || 'Unknown'}</span>
-                    </div>
-                    ${uniqueNames > 1 ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-info-circle"></i>
-                        <span style="font-size: 11px; color: #888;">${uniqueNames} different association names used</span>
-                    </div>
-                    ` : ''}
+            const website = properties.website || '';
+            const email = properties.email || '';
+            const phone = properties.phone || '';
 
-                    <div class="year-history">
-                        <div class="year-history-title">Block Party History (${yearsActive.length} years active)</div>
-                        <div class="year-grid">
-                            ${yearGridHTML}
-                        </div>
-                    </div>
+            const cbText = [
+                properties.event_borough || '',
+                (properties.community_board && properties.community_board !== 'N/A' && properties.community_board !== '')
+                    ? 'CB ' + properties.community_board : ''
+            ].filter(Boolean).join(' · ');
+
+            const na = `<span style="color:#bbb">Not available</span>`;
+
+            const rawLocation = properties.event_location || '';
+            const location = rawLocation.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+
+            return `
+                ${location ? `
+                <div class="info-section">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">${location}</div>
+                </div>` : ''}
+                <div class="info-section">
+                    <div class="info-label">Borough · Community Board</div>
+                    <div class="info-value">${cbText || '—'}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Website</div>
+                    <div class="info-value">${website ? `<a href="${website}" target="_blank" rel="noopener">${website}</a>` : na}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">${email ? `<a href="mailto:${email}">${email}</a>` : na}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value">${phone || na}</div>
+                </div>
+                <div class="info-section">
+                    <div class="info-label">Block Party History</div>
+                    <div class="year-grid">${yearChipsHTML}</div>
                 </div>
             `;
         }
@@ -641,159 +781,260 @@
         // Create hover tooltip element
         const hoverTooltip = document.createElement('div');
         hoverTooltip.className = 'hover-tooltip';
-        hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
-        // Color functions for each view
-        function getColorForYearsActive(yearsActive) {
-            const count = Array.isArray(yearsActive) ? yearsActive.length : 0;
-            if (count >= 10) return '#1B5E20';
-            if (count >= 5)  return '#388E3C';
-            if (count >= 2)  return '#66BB6A';
-            return '#A5D6A7';
-        }
+        // Opacity by years since last active — more opaque = more recent
+        const CURRENT_YEAR = new Date().getFullYear();
+        const YEARS_OPACITY = [
+            'step',
+            ['-', CURRENT_YEAR, ['coalesce', ['get', 'last_year'], 9999]],
+            0.8,        // 0-2 years ago
+            3,  0.5,    // 3-5 years ago
+            6,  0.25,   // 6-10 years ago
+            11, 0.1     // 11+ years ago
+        ];
 
-        function getColorForLastActive(yearsActive) {
-            const years = Array.isArray(yearsActive) ? yearsActive : [];
-            const last = years.length ? Math.max(...years) : 0;
-            if (last >= 2024) return '#1B5E20';
-            if (last >= 2022) return '#388E3C';
-            if (last >= 2019) return '#66BB6A';
-            return '#A5D6A7';
-        }
+        // Opacity by total years active — more opaque = more years
+        const YEARS_ACTIVE_OPACITY = [
+            'step',
+            ['coalesce', ['get', 'years_active_count'], 0],
+            0.15,       // 1 year
+            2,  0.35,   // 2–4 years
+            5,  0.6,    // 5–9 years
+            10, 0.9     // 10+ years
+        ];
 
-        function getMarkerColor(props) {
-            const ya = props.years_active || [];
-            return currentView === 'last-active'
-                ? getColorForLastActive(ya)
-                : getColorForYearsActive(ya);
-        }
+        let currentView = 'last-active';
 
-        // Render legend items based on current view
         function updateLegend() {
-            const container = document.getElementById('legend-items');
-            const items = currentView === 'years-active'
+            const items = currentView === 'last-active'
                 ? [
-                    { color: '#1B5E20', label: '10+ years' },
-                    { color: '#388E3C', label: '5–9 years' },
-                    { color: '#66BB6A', label: '2–4 years' },
-                    { color: '#A5D6A7', label: '1 year' }
+                    { opacity: 0.8,   label: '0–2 years ago' },
+                    { opacity: 0.5,   label: '3–5 years ago' },
+                    { opacity: 0.25,  label: '6–10 years ago' },
+                    { opacity: 0.1,   label: '11+ years ago' }
                 ]
                 : [
-                    { color: '#1B5E20', label: 'Active 2024–25' },
-                    { color: '#388E3C', label: 'Active 2022–23' },
-                    { color: '#66BB6A', label: 'Active 2019–21' },
-                    { color: '#A5D6A7', label: 'Last active pre-2019' }
+                    { opacity: 0.9,   label: '10+ years' },
+                    { opacity: 0.6,   label: '5–9 years' },
+                    { opacity: 0.35,  label: '2–4 years' },
+                    { opacity: 0.15,  label: '1 year' }
                 ];
-            container.innerHTML = items.map(item => `
+            document.getElementById('legend-items').innerHTML = items.map(({ opacity, label }) => `
                 <div class="legend-item">
-                    <div class="legend-dot" style="background: ${item.color};"></div>
-                    <span>${item.label}</span>
+                    <div class="legend-dot-wrap"><div class="legend-dot" style="background: rgba(229,57,53,${opacity});"></div></div>
+                    <span>${label}</span>
                 </div>
             `).join('');
         }
 
-        // Create marker element with hover effects
-        function createMarkerElement(props) {
-            const el = document.createElement('div');
-            const color = getMarkerColor(props);
+        let hoveredId = null;
+        let selectedId = null;
 
-            el.style.width = '16px';
-            el.style.height = '16px';
-            el.style.borderRadius = '50%';
-            el.style.backgroundColor = color;
-            el.style.opacity = '0.8';
-            el.style.border = '0';
-            el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
-            el.style.cursor = 'pointer';
-            el.style.transition = 'width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.2s ease';
+        // Borough name → numeric code (for NYC Open Data boro_cd field)
+        const BORO_TO_CODE = { 'Manhattan': 1, 'Bronx': 2, 'Brooklyn': 3, 'Queens': 4, 'Staten Island': 5 };
 
-            // Hover effects
-            el.addEventListener('mouseenter', () => {
-                el.style.width = '28px';
-                el.style.height = '28px';
-                el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3), 0 0 0 3px white';
-                el.style.opacity = '1';
-                el.style.marginLeft = '-6px';
-                el.style.marginTop = '-6px';
-            });
-
-            el.addEventListener('mouseleave', () => {
-                el.style.width = '16px';
-                el.style.height = '16px';
-                el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
-                el.style.opacity = '0.8';
-                el.style.marginLeft = '0';
-                el.style.marginTop = '0';
-            });
-
-            return el;
+        async function loadCommunityDistricts() {
+            try {
+                const url = 'https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Community_Districts/FeatureServer/0/query?where=1%3D1&outFields=BoroCD&outSR=4326&f=geojson';
+                const r = await fetch(url);
+                if (!r.ok) return;
+                const geojson = await r.json();
+                map.addSource('community-districts', { type: 'geojson', data: geojson });
+                map.addLayer({
+                    id: 'cd-fill',
+                    type: 'fill',
+                    source: 'community-districts',
+                    paint: { 'fill-color': '#FFFFFF', 'fill-opacity': 0.08 },
+                    filter: ['==', ['get', 'BoroCD'], -1]
+                });
+                map.addLayer({
+                    id: 'cd-border',
+                    type: 'line',
+                    source: 'community-districts',
+                    paint: { 'line-color': '#FFFFFF', 'line-width': 2, 'line-opacity': 0.7 },
+                    filter: ['==', ['get', 'BoroCD'], -1]
+                });
+                // Keep points above CB boundary if already loaded
+                if (map.getLayer('assoc-points')) map.moveLayer('assoc-points');
+            } catch(e) {
+                console.warn('Could not load community districts:', e);
+            }
         }
 
-        // Clear all markers
+        function updateCDBoundary(cbKey) {
+            if (!map.getLayer('cd-fill')) return;
+            if (!cbKey || cbKey === 'all') {
+                map.setFilter('cd-fill',   ['==', ['get', 'BoroCD'], -1]);
+                map.setFilter('cd-border', ['==', ['get', 'BoroCD'], -1]);
+                return;
+            }
+            const [cbBoro, cbNum] = cbKey.split('|');
+            const boroCode = BORO_TO_CODE[cbBoro];
+            if (!boroCode) return;
+            const boroCd = boroCode * 100 + parseInt(cbNum);
+            map.setFilter('cd-fill',   ['==', ['get', 'BoroCD'], boroCd]);
+            map.setFilter('cd-border', ['==', ['get', 'BoroCD'], boroCd]);
+        }
+
+        function showPanel(props) {
+            document.getElementById('panel-name').textContent = bestDisplayName(props);
+            document.getElementById('panel-body').innerHTML = createPopupHTML(props);
+            document.getElementById('info-panel').classList.add('active');
+            if (window.innerWidth <= 768) {
+                document.getElementById('filter-panel').style.display = 'none';
+            }
+        }
+
+        function closePanel() {
+            document.getElementById('info-panel').classList.remove('active');
+            if (selectedId !== null) {
+                map.setFeatureState({ source: 'associations', id: selectedId }, { selected: false });
+                selectedId = null;
+            }
+            if (window.innerWidth <= 768) {
+                document.getElementById('filter-panel').style.display = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('close-panel').addEventListener('click', closePanel);
+        });
+
+        function setupLayers(geojson) {
+            if (map.getSource('associations')) {
+                map.getSource('associations').setData(geojson);
+            } else {
+                map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
+                map.addLayer({
+                    id: 'assoc-points',
+                    type: 'circle',
+                    source: 'associations',
+                    paint: {
+                        'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
+                        'circle-color': '#E53935',
+                        'circle-opacity': currentView === 'years-active' ? YEARS_ACTIVE_OPACITY : YEARS_OPACITY,
+                        'circle-stroke-width': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], 10,
+                            ['boolean', ['feature-state', 'hover'], false], 10,
+                            0
+                        ],
+                        'circle-stroke-color': '#FFFFFF',
+                        'circle-stroke-opacity': [
+                            'case',
+                            ['boolean', ['feature-state', 'selected'], false], 0.3,
+                            ['boolean', ['feature-state', 'hover'], false], 0.3,
+                            0
+                        ],
+                    }
+                });
+                // Ensure points render above CB boundary layers
+                map.moveLayer('assoc-points');
+
+                map.on('mousemove', 'assoc-points', (e) => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    const feat = e.features[0];
+                    if (hoveredId !== null && hoveredId !== feat.id) {
+                        map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: false });
+                    }
+                    hoveredId = feat.id;
+                    map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: true });
+                    hoverTooltip.textContent = bestDisplayName(feat.properties);
+                    hoverTooltip.style.left = e.originalEvent.pageX + 15 + 'px';
+                    hoverTooltip.style.top  = e.originalEvent.pageY + 15 + 'px';
+                    hoverTooltip.classList.add('visible');
+                });
+
+                map.on('mouseleave', 'assoc-points', () => {
+                    map.getCanvas().style.cursor = '';
+                    if (hoveredId !== null) {
+                        map.setFeatureState({ source: 'associations', id: hoveredId }, { hover: false });
+                        hoveredId = null;
+                    }
+                    hoverTooltip.classList.remove('visible');
+                });
+
+                map.on('click', 'assoc-points', (e) => {
+                    const feat = e.features[0];
+                    if (selectedId !== null) {
+                        map.setFeatureState({ source: 'associations', id: selectedId }, { selected: false });
+                    }
+                    selectedId = feat.id;
+                    map.setFeatureState({ source: 'associations', id: selectedId }, { selected: true });
+                    showPanel(feat.properties);
+                    map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
+                });
+
+                map.on('click', (e) => {
+                    const features = map.queryRenderedFeatures(e.point, { layers: ['assoc-points'] });
+                    if (features.length === 0) closePanel();
+                });
+
+                // Signal parent iframe when map has fully rendered
+                if (window.self !== window.top) {
+                    map.once('idle', () => window.parent.postMessage({ type: 'map-ready' }, '*'));
+                }
+            }
+        }
+
+        // Clear all markers (kept for filter compatibility)
         function clearMarkers() {
             markers.forEach(m => m.remove());
             markers = [];
         }
 
-        // Add markers for features
+        // Update visible points via source filter
         function addMarkers(features) {
-            currentFiltered = features;
-            updateLegend();
-            clearMarkers();
-
-            features.forEach(feature => {
-                const coords = feature.geometry.coordinates;
-                const props = feature.properties;
-
-                const el = createMarkerElement(props);
-
-                const marker = new mapboxgl.Marker(el)
-                    .setLngLat(coords)
-                    .addTo(map);
-
-                // Hover - show association name tooltip
-                el.addEventListener('mouseenter', (e) => {
-                    hoverTooltip.textContent = props.association_name || 'Block Association';
-                    hoverTooltip.style.display = 'block';
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
-                });
-
-                el.addEventListener('mousemove', (e) => {
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    hoverTooltip.style.display = 'none';
-                });
-
-                // Click - show full details popup
-                el.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    hoverTooltip.style.display = 'none';
-                    popup
-                        .setLngLat(coords)
-                        .setHTML(createPopupHTML(props))
-                        .addTo(map);
-                });
-
-                markers.push(marker);
-            });
-
+            const geojson = { type: 'FeatureCollection', features };
+            if (map.isStyleLoaded()) {
+                setupLayers(geojson);
+            } else {
+                map.once('load', () => setupLayers(geojson));
+            }
             document.getElementById('event-count').textContent = features.length;
         }
 
+        // Populate community board dropdown from data
+        // Uses composite "Borough|CB" keys so Brooklyn CB 3 ≠ Manhattan CB 3
+        function populateCBFilter(features) {
+            const seen = new Set();
+            const entries = [];
+            features.forEach(f => {
+                const boro = f.properties.event_borough || '';
+                const cb = f.properties.community_board || '';
+                if (!boro || !cb) return;
+                const key = `${boro}|${cb}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    entries.push({ key, boro, cb });
+                }
+            });
+            entries.sort((a, b) => a.boro.localeCompare(b.boro) || a.cb.localeCompare(b.cb, undefined, { numeric: true }));
+            const sel = document.getElementById('cb-filter');
+            entries.forEach(({ key, boro, cb }) => {
+                const opt = document.createElement('option');
+                opt.value = key;
+                opt.textContent = `${boro} CB ${cb}`;
+                sel.appendChild(opt);
+            });
+        }
+
         // Filter features
-        function filterFeatures() {
+        function filterFeatures(zoomToResult) {
             const borough = document.getElementById('borough-filter').value;
+            const cbKey = document.getElementById('cb-filter').value;
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
 
             let filtered = allFeatures;
 
             if (borough !== 'all') {
                 filtered = filtered.filter(f => f.properties.event_borough === borough);
+            }
+
+            if (cbKey !== 'all') {
+                const [cbBoro, cbNum] = cbKey.split('|');
+                filtered = filtered.filter(f => f.properties.event_borough === cbBoro && f.properties.community_board === cbNum);
             }
 
             if (searchTerm) {
@@ -805,6 +1046,16 @@
             }
 
             addMarkers(filtered);
+
+            if (zoomToResult && filtered.length > 0) {
+                const bounds = new mapboxgl.LngLatBounds();
+                filtered.forEach(f => bounds.extend(f.geometry.coordinates));
+                const isMobile = window.innerWidth <= 768;
+                const padding = isMobile
+                    ? { left: 20, top: 20, right: 20, bottom: 20 }
+                    : { left: 400, top: 80, right: 80, bottom: 80 };
+                map.fitBounds(bounds, { padding, maxZoom: 12, duration: 800 });
+            }
         }
 
         // Load data from GeoJSON file
@@ -816,40 +1067,65 @@
                     return;
                 }
                 const geojson = await response.json();
-                allFeatures = geojson.features || [];
+                allFeatures = (geojson.features || []).filter(f => {
+                    let names = f.properties.all_event_names || [];
+                    if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
+                    // Only include locations where at least one event name contains a genuine association keyword
+                    return names.some(n => hasKeyword(n, ASSOC_REQUIRED));
+                });
+
+                // Populate community board dropdown
+                populateCBFilter(allFeatures);
 
                 // Add markers
                 addMarkers(allFeatures);
 
-                // Fit map to show all points
-                if (allFeatures.length > 0) {
-                    const bounds = new mapboxgl.LngLatBounds();
-                    allFeatures.forEach(f => {
-                        bounds.extend(f.geometry.coordinates);
-                    });
-                    map.fitBounds(bounds, { padding: 50 });
-                }
             } catch (error) {
                 console.error('Error loading data:', error);
             }
         }
 
-        // Legend toggle
+        // Render initial legend
+        updateLegend();
+
+        // Legend view toggle
         document.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentView = btn.dataset.view;
-                addMarkers(currentFiltered);
+                updateLegend();
+                if (map.getLayer('assoc-points')) {
+                    map.setPaintProperty('assoc-points', 'circle-opacity',
+                        currentView === 'years-active' ? YEARS_ACTIVE_OPACITY : YEARS_OPACITY
+                    );
+                }
             });
         });
 
+        // Mobile: tap filter panel header to expand/collapse
+        document.getElementById('filter-toggle').addEventListener('click', function() {
+            document.getElementById('filter-panel').classList.toggle('open');
+        });
+
         // Event listeners
-        document.getElementById('borough-filter').addEventListener('change', filterFeatures);
-        document.getElementById('search-input').addEventListener('input', filterFeatures);
+        document.getElementById('borough-filter').addEventListener('change', () => {
+            filterFeatures(true);
+            updateCDBoundary(document.getElementById('cb-filter').value);
+        });
+        document.getElementById('cb-filter').addEventListener('change', function() {
+            filterFeatures(true);
+            updateCDBoundary(this.value);
+        });
+        document.getElementById('search-input').addEventListener('input', () => filterFeatures(false));
+
+        // Add Your Association button
+        const addAssocUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog';
+        document.getElementById('add-association-btn').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 
         // Load data when map is ready
         map.on('load', function() {
+            loadCommunityDistricts();
             loadData();
         });
 
