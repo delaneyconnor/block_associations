@@ -2,22 +2,22 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bed-Stuy Block Associations</title>
+    <title>Block Activity</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src='https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; }
-        body { 
-            margin: 0; 
-            padding: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'IBM Plex Mono', monospace;
         }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        
+
         /* Header */
         .header {
             position: absolute;
@@ -31,29 +31,33 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide header and search when embedded */
-        body.embedded .header,
-        body.embedded .search-box {
+        /* Hide header title when embedded, keep search visible */
+        body.embedded .header {
             display: none;
+        }
+
+        /* When embedded, move search box to top */
+        body.embedded .search-box {
+            top: 20px;
         }
 
         /* Hide map controls when embedded */
         body.embedded .mapboxgl-control-container {
             display: none;
         }
-        
+
         .header h1 {
             margin: 0 0 5px 0;
             font-size: 30px;
             font-weight: 800;
         }
-        
+
         .header p {
             margin: 0;
             font-size: 14px;
             opacity: 0.9;
         }
-        
+
         /* Search Box */
         .search-box {
             position: absolute;
@@ -68,13 +72,13 @@
             max-height: calc(100vh - 140px);
             overflow-y: auto;
         }
-        
+
         .search-box h3 {
             margin: 0 0 10px 0;
             font-size: 18px;
             color: black;
         }
-        
+
         .search-input {
             width: 100%;
             padding: 12px;
@@ -84,17 +88,17 @@
             margin-bottom: 10px;
             transition: border-color 0.2s;
         }
-        
+
         .search-input:focus {
             outline: none;
-            border-color: #7DBBBB;
+            border-color: #333333;
         }
-        
+
         .search-results {
             max-height: 300px;
             overflow-y: auto;
         }
-        
+
         .result-item {
             padding: 12px;
             border: 1px solid #e0e0e0;
@@ -103,24 +107,24 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .result-item:hover {
-            border-color: #7DBBBB;
-            background: #f0f7f7;
+            border-color: #333333;
+            background: #f5f5f5;
         }
-        
+
         .result-item strong {
             display: block;
             color: black;
             font-size: 14px;
             margin-bottom: 4px;
         }
-        
+
         .result-item small {
             color: #666;
             font-size: 12px;
         }
-        
+
         /* Association Info Panel */
         .info-panel {
             position: absolute;
@@ -132,22 +136,22 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
             width: 350px;
-            max-height: calc(100vh - 140px);
+            max-height: calc(100vh - 350px);
             overflow-y: auto;
             display: none;
         }
-        
+
         .info-panel.active {
             display: block;
         }
-        
+
         .info-panel h2 {
-            margin: 0 0 20px 0;
+            margin: 0 0 12px 0;
             font-size: 20px;
             color: black;
             padding-right: 30px;
         }
-        
+
         .close-btn {
             position: absolute;
             top: 25px;
@@ -162,43 +166,80 @@
             height: 24px;
             line-height: 1;
         }
-        
+
         .close-btn:hover {
             color: black;
         }
-        
+
         .info-section {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-        
+
         .info-label {
-            font-size: 14px;
+            font-size: 11px;
             text-transform: uppercase;
             color: #999;
             font-weight: 600;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
-        
+
         .info-value {
-            font-size: 12px;
+            font-size: 14px;
             color: black;
             line-height: 1.5;
         }
-        
-        .info-value a {
-            color: black;
-            text-decoration: none;
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
         }
-        
-        .info-value a:hover {
-            text-decoration: underline;
+        .status-active  { background: #f0f0f0; color: #111; }
+        .status-recent  { background: #f0f0f0; color: #555; }
+        .status-dormant { background: #f0f0f0; color: #999; }
+
+        .year-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
         }
-        
-        .placeholder-text {
-            color: #999;
-            font-style: italic;
+        .year-chip {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
         }
+        .year-chip.active   { background: #333; color: white; }
+        .year-chip.inactive { background: #f0f0f0; color: #bbb; }
+
+        /* Legend */
+        .map-legend {
+            position: absolute;
+            right: 20px;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1;
+            font-size: 12px;
+        }
+        .map-legend-recency { bottom: 80px; }
+        body.embedded .map-legend { display: none; }
+        .map-legend .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .legend-item { display: flex; align-items: center; margin-bottom: 4px; font-size: 12px; color: #333; }
+        .legend-item:last-child { margin-bottom: 0; }
+        .legend-dot-wrap { width: 18px; height: 18px; background: #1a1a1a; border-radius: 3px; margin-right: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 
         /* About Button */
         .about-btn {
@@ -221,10 +262,9 @@
             font-weight: bold;
             color: black;
         }
-
         .about-btn:hover {
-            background: #f0f7f7;
-            border-color: #7DBBBB;
+            background: #f5f5f5;
+            border-color: #333333;
             transform: scale(1.05);
         }
 
@@ -240,7 +280,7 @@
             height: 50px;
             font-size: 24px;
             cursor: pointer;
-            z-index: 1;
+            z-index: 3;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             transition: all 0.2s;
             display: flex;
@@ -249,12 +289,12 @@
             text-decoration: none;
             color: black;
         }
-
         .home-btn:hover {
-            background: #f0f7f7;
-            border-color: #7DBBBB;
+            background: #f5f5f5;
+            border-color: #333333;
             transform: scale(1.05);
         }
+        body.embedded .home-btn { display: none; }
 
         /* About Modal */
         .about-modal {
@@ -270,11 +310,9 @@
             justify-content: center;
             padding: 20px;
         }
-
         .about-modal.active {
             display: flex;
         }
-
         .about-content {
             background: white;
             border-radius: 12px;
@@ -286,21 +324,18 @@
             position: relative;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-
         .about-content h2 {
             margin: 0 0 20px 0;
             font-size: 24px;
             color: black;
             padding-right: 30px;
         }
-
         .about-content p {
             margin: 0 0 15px 0;
             line-height: 1.6;
             color: #333;
             font-size: 14px;
         }
-
         .about-content p:last-child {
             margin-bottom: 0;
         }
@@ -319,11 +354,26 @@
             transition: all 0.2s;
             margin-top: 10px;
         }
-
         .add-association-btn:hover {
             background: white;
             color: black;
             border: 2px solid black;
+        }
+
+        /* Geolocation Notification */
+        .geolocation-notification {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         /* Hover Tooltip */
@@ -343,84 +393,39 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             border: 1px solid #000000;
         }
-
-        .hover-tooltip.visible {
-            opacity: 1;
-        }
-
-        /* Mapbox Navigation Controls - move up to avoid overlap */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
-        }
+        .hover-tooltip.visible { opacity: 1; }
 
         /* Hide Mapbox logo */
-        .mapboxgl-ctrl-logo {
-            display: none !important;
-        }
+        .mapboxgl-ctrl-logo { display: none !important; }
 
-        /* Geolocation Notification */
-        .geolocation-notification {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
+        /* Mapbox Navigation Controls */
+        .mapboxgl-ctrl-bottom-left { bottom: 80px !important; }
 
-        /* Geolocation Control Styling - Greyscale/White */
+        /* Geolocation dot styling */
         .mapboxgl-user-location-dot {
             background-color: white !important;
             border: 2px solid #666 !important;
             width: 15px !important;
             height: 15px !important;
         }
-
-        .mapboxgl-user-location-dot::before {
-            background-color: white !important;
-        }
-
+        .mapboxgl-user-location-dot::before { background-color: white !important; }
         .mapboxgl-user-location-dot::after {
-            border: 2px solid rgba(255, 255, 255, 0.8) !important;
-            background-color: rgba(255, 255, 255, 0.2) !important;
+            border: 2px solid rgba(255,255,255,0.8) !important;
+            background-color: rgba(255,255,255,0.2) !important;
             width: 100% !important;
             height: 100% !important;
             margin: -50% !important;
         }
-
-        /* Hide the heading indicator (triangle) */
-        .mapboxgl-user-location-heading {
-            display: none !important;
-        }
-
-        /* Style the accuracy circle to be greyscale */
+        .mapboxgl-user-location-heading { display: none !important; }
         .mapboxgl-user-location-accuracy-circle {
-            background-color: rgba(200, 200, 200, 0.2) !important;
-            border: 1px solid rgba(150, 150, 150, 0.3) !important;
+            background-color: rgba(200,200,200,0.2) !important;
+            border: 1px solid rgba(150,150,150,0.3) !important;
         }
 
         @media (max-width: 768px) {
-            .header {
-                padding: 15px;
-                padding-bottom: 12px;
-            }
-            
-            .header h1 {
-                font-size: 25px;
-                margin-bottom: 8px;
-            }
-            
-            .header p {
-                font-size: 14px;
-                margin-bottom: 12px;
-            }
-            
+            .header { padding: 15px; padding-bottom: 12px; }
+            .header h1 { font-size: 25px; margin-bottom: 0; }
+            .header p { display: none; }
             .search-box {
                 position: static;
                 background: transparent;
@@ -430,17 +435,8 @@
                 max-height: none;
                 margin-top: 0;
             }
-            
-            .search-box h3 {
-                display: none;
-            }
-            
-            .search-input {
-                padding: 10px;
-                font-size: 14px;
-                margin-bottom: 0;
-            }
-            
+            .search-box h3 { display: none; }
+            .search-input { padding: 10px; font-size: 14px; margin-bottom: 0; }
             .search-results {
                 position: absolute;
                 left: 15px;
@@ -453,7 +449,6 @@
                 max-height: 40vh;
                 z-index: 10;
             }
-            
             .info-panel {
                 position: fixed;
                 top: auto;
@@ -462,73 +457,30 @@
                 right: 10px;
                 width: calc(100% - 20px);
                 border-radius: 12px;
-                max-height: 30vh;
+                max-height: 40vh;
                 padding: 20px;
                 transform: translateY(calc(100% + 10px));
                 transition: transform 0.3s ease-out;
                 overflow-y: auto;
+                z-index: 10;
             }
-            
-            .info-panel.active {
-                transform: translateY(0);
-            }
-            
-            .info-panel h2 {
-                font-size: 20px;
-            }
-            
-            .result-item {
-                padding: 12px;
-            }
-
-            .about-btn {
-                display: none;
-            }
-
-            .home-btn {
-                display: none;
-            }
-
-            .about-content {
-                padding: 20px;
-                max-height: 70vh;
-            }
-
-            .about-content h2 {
-                font-size: 20px;
-            }
+            .info-panel.active { transform: translateY(0); }
+            .info-panel h2 { font-size: 20px; }
+            .result-item { padding: 12px; }
+            .about-btn { display: none; }
+            .map-legend { display: none; }
+            .hover-tooltip { display: none !important; }
+            .about-content { padding: 20px; max-height: 70vh; }
+            .about-content h2 { font-size: 20px; }
         }
 
         @media (max-width: 480px) {
-            .header {
-                padding: 12px;
-                padding-bottom: 10px;
-            }
-            
-            .header h1 {
-                font-size: 25px;
-                margin-bottom: 6px;
-            }
-            
-            .header p {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            
-            .search-input {
-                padding: 8px;
-                font-size: 12px;
-            }
-            
-            .search-results {
-                left: 12px;
-                right: 12px;
-            }
-            
-            .info-panel {
-                max-height: 30vh;
-                padding: 15px;
-            }
+            .header { padding: 12px; padding-bottom: 10px; }
+            .header h1 { font-size: 25px; margin-bottom: 6px; }
+            .header p { font-size: 14px; margin-bottom: 10px; }
+            .search-input { padding: 8px; font-size: 12px; }
+            .search-results { left: 12px; right: 12px; }
+            .info-panel { max-height: 30vh; padding: 15px; }
         }
     </style>
 </head>
@@ -536,60 +488,67 @@
 
 <!-- Header -->
 <div class="header">
-    <h1>Bed-Stuy Block Associations</h1>
-    
-    <!-- Search Box -->
-    <div class="search-box">
-        <h3>Click On or Search Your Street</h3>
-        <input
-            type="text"
-            class="search-input"
-            id="street-search"
-            placeholder="Type your street name (e.g., Decatur)..."
-        >
+    <h1>Block Activity</h1>
+    <p>All locations that have hosted repeated block parties across NYC</p>
+</div>
 
-        <div class="search-results" id="search-results"></div>
+<!-- Search Box -->
+<div class="search-box">
+    <h3>Search a Block</h3>
+    <input
+        type="text"
+        class="search-input"
+        id="street-search"
+        placeholder="Type to search..."
+    >
+    <div class="search-results" id="search-results"></div>
 
-        <button class="add-association-btn" id="add-association-btn">
-            Add Your Association
-        </button>
-    </div>
+</div>
+
+<!-- Legend -->
+<div class="map-legend map-legend-recency">
+    <div class="legend-title">Block Parties Hosted</div>
+    <div class="legend-item"><div class="legend-dot-wrap"><div class="legend-dot" style="background:rgba(253,216,53,0.8);"></div></div>11+</div>
+    <div class="legend-item"><div class="legend-dot-wrap"><div class="legend-dot" style="background:rgba(253,216,53,0.6);"></div></div>7–10</div>
+    <div class="legend-item"><div class="legend-dot-wrap"><div class="legend-dot" style="background:rgba(253,216,53,0.35);"></div></div>4–6</div>
+    <div class="legend-item"><div class="legend-dot-wrap"><div class="legend-dot" style="background:rgba(253,216,53,0.15);"></div></div>2–3</div>
 </div>
 
 <!-- Info Panel -->
 <div class="info-panel" id="info-panel">
     <button class="close-btn" id="close-panel">×</button>
-    <h2 id="association-name">Block Association Name</h2>
+    <h2 id="assoc-name"></h2>
+    <div id="assoc-status"></div>
 
     <div class="info-section">
-        <div class="info-label">Street Location</div>
-        <div class="info-value" id="street-location"></div>
+        <div class="info-label">Borough · Community Board</div>
+        <div class="info-value" id="assoc-location"></div>
     </div>
 
     <div class="info-section">
-        <div class="info-label">Contact Email</div>
-        <div class="info-value placeholder-text" id="email">Data Unavailable</div>
+        <div class="info-label">Total Block Parties</div>
+        <div class="info-value" id="assoc-total"></div>
+    </div>
+
+    <div class="info-section" id="assoc-names-section">
+        <div class="info-label">Street Events</div>
+        <div class="info-value" id="assoc-other-names"></div>
     </div>
 
     <div class="info-section">
-        <div class="info-label">Phone</div>
-        <div class="info-value placeholder-text" id="phone">Data Unavailable</div>
-    </div>
-
-    <div class="info-section">
-        <div class="info-label">Website</div>
-        <div class="info-value placeholder-text" id="website">Data Unavailable</div>
+        <div class="info-label">Block Parties Hosted</div>
+        <div id="assoc-years" class="year-grid"></div>
     </div>
 </div>
 
 <!-- Map Container -->
 <div id="map"></div>
 
-<!-- Geolocation Notification -->
-<div id="geoNotification" class="geolocation-notification"></div>
-
 <!-- Hover Tooltip -->
 <div class="hover-tooltip" id="hover-tooltip"></div>
+
+<!-- Geolocation Notification -->
+<div id="geoNotification" class="geolocation-notification"></div>
 
 <!-- Back to Home Button -->
 <a href="index.html" class="home-btn" title="Back to Home">
@@ -606,14 +565,15 @@
         <h2>About This Map</h2>
         <p>This is an interactive map designed to help residents of Bedford-Stuyvesant locate and connect with block associations.</p>
         <p><strong>How to use this map:</strong></p>
-        <p>• Click on any street segment on the map to view the block association information</p>
-        <p>• Use the search box to find your street by name</p>
-        <p>• Contact information and meeting schedules are displayed when available</p>
-        <p>If you notice any missing or incorrect information, please use the "Add Your Association" button to help us improve this resource.</p>
+        <p>• Click on any dot to view block association information</p>
+        <p>• Red dots are active associations (hosted a block party in 2022 or later)</p>
+        <p>• Orange dots are recent associations (last active 2018–2021)</p>
+        <p>• Grey dots are dormant associations (last active before 2018)</p>
+        <p>• Use the search box to find an association by street or name</p>
         <button class="add-association-btn" id="add-association-btn-modal">
             Add Your Association
         </button>
-        <p style="margin-top: 20px;">This map is a work in progress. If you'd like to contribute to provide feedback or ideas, contact <a href="mailto:delaneyconnor1@gmail.com">delaneyconnor1@gmail.com</a></p>
+        <p style="margin-top: 20px;">This map is a work in progress. To provide feedback or ideas, contact <a href="mailto:delaneyconnor1@gmail.com">delaneyconnor1@gmail.com</a></p>
     </div>
 </div>
 
@@ -625,471 +585,287 @@ if (window.self !== window.top) {
     document.body.classList.add('embedded');
 }
 
+const ACTIVE_YEAR = 2023;
+const DATA_URL = 'data/block_activity.geojson';
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuMmpvbXByY2wwaDgwIn0.HSEo0pqv9ZN6DorMNmTB8A';
 
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
-    center: [-73.9351, 40.6872],
-    zoom: 14
+    center: [-73.9442, 40.6782],
+    zoom: 11
 });
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
 
-// Add Geolocation Control
 const geolocateControl = new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
+    positionOptions: { enableHighAccuracy: true },
     trackUserLocation: true,
     showUserHeading: false
 });
 map.addControl(geolocateControl, 'bottom-left');
 
 let allFeatures = [];
-let hoveredSegmentId = null;
-let selectedSegmentId = null;
+let hoveredFeatureId = null;
+let selectedFeatureId = null;
+const tooltip = document.getElementById('hover-tooltip');
 
-// Helper function to find the first label layer
-function getFirstLabelLayerId(map) {
-    const layers = map.getStyle().layers;
-    for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-            return layers[i].id;
-        }
-    }
-    return undefined; // Fallback
+map.on('load', () => {
+    fetch(DATA_URL)
+        .then(r => r.json())
+        .then(geojson => {
+            allFeatures = geojson.features;
+
+            map.addSource('associations', { type: 'geojson', data: geojson, generateId: true });
+
+            const PARTIES_OPACITY = [
+                'step', ['coalesce', ['get', 'total_block_parties'], 2],
+                0.15,       // 2–3
+                4,  0.35,   // 4–6
+                7,  0.6,    // 7–10
+                11, 0.8     // 11+
+            ];
+
+            map.addLayer({
+                id: 'assoc-points',
+                type: 'circle',
+                source: 'associations',
+                paint: {
+                    'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
+                    'circle-color': '#FDD835',
+                    'circle-opacity': PARTIES_OPACITY,
+                    'circle-stroke-width': [
+                        'case',
+                        ['boolean', ['feature-state', 'selected'], false], 10,
+                        ['boolean', ['feature-state', 'hover'], false], 10,
+                        0
+                    ],
+                    'circle-stroke-color': '#ffffff',
+                    'circle-stroke-opacity': [
+                        'case',
+                        ['boolean', ['feature-state', 'selected'], false], 0.3,
+                        ['boolean', ['feature-state', 'hover'], false], 0.3,
+                        0
+                    ]
+                }
+            });
+
+            setupInteractions();
+
+            // Signal parent iframe when map has fully rendered
+            if (window.self !== window.top) {
+                map.once('idle', () => window.parent.postMessage({ type: 'map-ready' }, '*'));
+            }
+        })
+        .catch(err => console.error('Failed to load GeoJSON:', err));
+});
+
+function setHover(id, state) {
+    map.setFeatureState({ source: 'associations', id }, { hover: state });
 }
 
-map.on('load', function() {
-    // Clone the block_associations layer for the white outline
-    const layers = map.getStyle().layers;
-    const blockAssocLayer = layers.find(l => l.id === 'block_associations');
-    const firstLabelLayerId = getFirstLabelLayerId(map);
+function setupInteractions() {
+    const layers = ['assoc-points'];
 
-    if (blockAssocLayer && firstLabelLayerId) {
-        // Move the main block_associations layer before label layers
-        map.moveLayer('block_associations', firstLabelLayerId);
+    layers.forEach(layer => {
+        map.on('mousemove', layer, e => {
+            map.getCanvas().style.cursor = 'pointer';
+            const feature = e.features[0];
 
-        // Add white outline layer (drawn first, so it appears behind)
-        // Insert before the main block_associations layer
-        map.addLayer({
-            id: 'block_associations_outline',
-            type: 'line',
-            source: blockAssocLayer.source,
-            'source-layer': blockAssocLayer['source-layer'],
-            layout: {
-                'line-cap': 'butt',
-                'line-join': 'miter'
-            },
-            paint: {
-                'line-color': '#FFFFFF',
-                'line-width': 0,
-                'line-opacity': 0
+            if (hoveredFeatureId !== null && hoveredFeatureId !== feature.id) {
+                setHover(hoveredFeatureId, false);
             }
-        }, 'block_associations'); // Insert before the main layer
-    } else if (blockAssocLayer) {
-        // Fallback if no label layer found
-        map.addLayer({
-            id: 'block_associations_outline',
-            type: 'line',
-            source: blockAssocLayer.source,
-            'source-layer': blockAssocLayer['source-layer'],
-            layout: {
-                'line-cap': 'butt',
-                'line-join': 'miter'
-            },
-            paint: {
-                'line-color': '#FFFFFF',
-                'line-width': 0,
-                'line-opacity': 0
+            hoveredFeatureId = feature.id;
+            setHover(hoveredFeatureId, true);
+
+            tooltip.textContent = feature.properties.event_location || 'Block Party Location';
+            tooltip.style.left = e.point.x + 15 + 'px';
+            tooltip.style.top = e.point.y + 15 + 'px';
+            tooltip.classList.add('visible');
+        });
+
+        map.on('mouseleave', layer, () => {
+            map.getCanvas().style.cursor = '';
+            tooltip.classList.remove('visible');
+            if (hoveredFeatureId !== null) {
+                setHover(hoveredFeatureId, false);
+                hoveredFeatureId = null;
             }
-        }, 'block_associations');
+        });
+
+        map.on('click', layer, e => {
+            const feat = e.features[0];
+            if (selectedFeatureId !== null) {
+                map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
+            }
+            selectedFeatureId = feat.id;
+            map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: true });
+            showInfo(feat.properties);
+            map.flyTo({ center: feat.geometry.coordinates, zoom: 15, duration: 600 });
+        });
+    });
+
+    // Click on empty area closes panel
+    map.on('click', e => {
+        const features = map.queryRenderedFeatures(e.point, { layers });
+        if (features.length === 0) closePanelBA();
+    });
+}
+
+function showInfo(props) {
+    document.getElementById('assoc-name').textContent = props.event_location || 'Block Party Location';
+    document.getElementById('assoc-status').innerHTML = '';
+
+    document.getElementById('assoc-location').textContent =
+        `${props.event_borough || ''}${props.community_board ? ' · CB ' + props.community_board : ''}`;
+
+    document.getElementById('assoc-total').textContent = props.total_block_parties
+        ? `${props.total_block_parties} block parties`
+        : '—';
+
+    // Event names with years
+    let namesWithYears = props.event_names_with_years || [];
+    if (typeof namesWithYears === 'string') { try { namesWithYears = JSON.parse(namesWithYears); } catch(e) { namesWithYears = []; } }
+    // Fallback to flat names array if enriched data not present
+    if (namesWithYears.length === 0) {
+        let allNames = props.all_event_names || [];
+        if (typeof allNames === 'string') { try { allNames = JSON.parse(allNames); } catch(e) { allNames = []; } }
+        namesWithYears = allNames.map(n => ({ name: n, years: [] }));
+    }
+    const nameSection = document.getElementById('assoc-names-section');
+    if (namesWithYears.length > 0) {
+        document.getElementById('assoc-other-names').innerHTML =
+            namesWithYears.map(item => {
+                const name = typeof item === 'string' ? item : item.name;
+                const years = (typeof item === 'object' && item.years && item.years.length) ? item.years : [];
+                const yearTag = years.length ? ` <span style="color:#999;font-size:12px">(${years.join(', ')})</span>` : '';
+                return `<div>${name}${yearTag}</div>`;
+            }).join('');
+        nameSection.style.display = '';
+    } else {
+        nameSection.style.display = 'none';
     }
 
-    // Set up initial paint properties with varying colors based on ID
-    map.setPaintProperty('block_associations', 'line-color', [
-        'step',
-        ['%', ['to-number', ['get', 'Event.ID']], 10],
-        '#4CAF50',  // Green (ID % 10 = 0)
-        1, '#2196F3',  // Blue (ID % 10 = 1)
-        2, '#9C27B0',  // Purple (ID % 10 = 2)
-        3, '#FF9800',  // Orange (ID % 10 = 3)
-        4, '#F44336',  // Red (ID % 10 = 4)
-        5, '#00BCD4',  // Cyan (ID % 10 = 5)
-        6, '#8BC34A',  // Light Green (ID % 10 = 6)
-        7, '#FFC107',  // Yellow (ID % 10 = 7)
-        8, '#E91E63',  // Pink (ID % 10 = 8)
-        9, '#673AB7'   // Deep Purple (ID % 10 = 9)
-    ]);
-    map.setPaintProperty('block_associations', 'line-width', 16);
-    map.setPaintProperty('block_associations', 'line-opacity', 0.8);
+    // Year chips
+    const yearsEl = document.getElementById('assoc-years');
+    let activeYears = props.years_active || [];
+    if (typeof activeYears === 'string') { try { activeYears = JSON.parse(activeYears); } catch(e) { activeYears = []; } }
+    const ALL_YRS = [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+    yearsEl.innerHTML = ALL_YRS.map(y =>
+        `<span class="year-chip ${activeYears.includes(y) ? 'active' : 'inactive'}">${y}</span>`
+    ).join('');
 
-    // Set layout properties for cleaner rectangular edges
-    map.setLayoutProperty('block_associations', 'line-cap', 'butt');
-    map.setLayoutProperty('block_associations', 'line-join', 'miter');
+    document.getElementById('info-panel').classList.add('active');
+    if (window.innerWidth <= 768) {
+        document.querySelector('.search-box').style.display = 'none';
+    }
+}
 
-    map.once('idle', function() {
-        loadFeatures();
+// Search
+const searchInput = document.getElementById('street-search');
+const searchResults = document.getElementById('search-results');
+
+function updateMapDots(features) {
+    const src = map.getSource('associations');
+    if (src) src.setData({ type: 'FeatureCollection', features });
+}
+
+searchInput.addEventListener('input', function() {
+    const term = this.value.toLowerCase().trim();
+    if (term.length < 2) {
+        searchResults.innerHTML = '';
+        updateMapDots(allFeatures);
+        return;
+    }
+
+    const results = allFeatures.filter(f => {
+        const loc = (f.properties.event_location || '').toLowerCase();
+        const rawNames = f.properties.all_event_names || [];
+        const names = (Array.isArray(rawNames) ? rawNames.join(' ') : String(rawNames)).toLowerCase();
+        return loc.includes(term) || names.includes(term);
+    });
+
+    // Filter map dots to only show matches
+    updateMapDots(results);
+
+    if (results.length === 0) {
+        searchResults.innerHTML = '<div style="padding:10px;color:#999;font-size:13px;">No results found</div>';
+        return;
+    }
+
+    searchResults.innerHTML = '';
+    results.slice(0, 8).forEach(f => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+        item.innerHTML = `<strong>${f.properties.event_location || 'Block Party Location'}</strong><small>${f.properties.event_borough || ''}</small>`;
+        item.addEventListener('click', () => {
+            showInfo(f.properties);
+            map.flyTo({ center: f.geometry.coordinates, zoom: 16, duration: 800 });
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+            updateMapDots(allFeatures);
+        });
+        searchResults.appendChild(item);
     });
 });
 
-function loadFeatures() {
-    const features = map.querySourceFeatures('composite', {
-        sourceLayer: 'block_associations'
-    });
-
-    if (features && features.length > 0) {
-        allFeatures = features;
-        console.log(`Loaded ${allFeatures.length} features for search`);
-    } else {
-        allFeatures = map.queryRenderedFeatures({ layers: ['block_associations'] });
-        console.log(`Loaded ${allFeatures.length} rendered features for search`);
-    }
-}
-
-// Notification function
+// Geolocation — find nearest association
 function showNotification(message) {
     const notif = document.getElementById('geoNotification');
     notif.textContent = message;
     notif.style.display = 'block';
-    setTimeout(() => {
-        notif.style.display = 'none';
-    }, 3000);
+    setTimeout(() => { notif.style.display = 'none'; }, 3000);
 }
 
-// Find block association at user's location
-function findBlockAssociation(coords) {
-    const point = turf.point(coords);
+geolocateControl.on('geolocate', e => {
+    const userLng = e.coords.longitude;
+    const userLat = e.coords.latitude;
 
-    // Make sure features are loaded
-    if (allFeatures.length === 0) {
-        loadFeatures();
-    }
+    if (allFeatures.length === 0) { showNotification('Data still loading, try again.'); return; }
 
-    // Check if point is within any block association line buffer (0.01 miles ≈ 50 feet)
-    for (const feature of allFeatures) {
-        if (feature.geometry && feature.geometry.coordinates) {
-            try {
-                const buffered = turf.buffer(feature, 0.01, { units: 'miles' });
-                if (turf.booleanPointInPolygon(point, buffered)) {
-                    // Found it! Show info and zoom to it
-                    showNotification('Found your block association!');
-                    selectResult(feature.properties, feature);
-                    return;
-                }
-            } catch (e) {
-                // Skip features that can't be buffered
-                continue;
-            }
-        }
-    }
-
-    // Not found - show message
-    showNotification('No block association found at your location');
-}
-
-// Geolocation event listener
-geolocateControl.on('geolocate', (e) => {
-    const userCoords = [e.coords.longitude, e.coords.latitude];
-    findBlockAssociation(userCoords);
-});
-
-// Hover effect with tooltip
-const tooltip = document.getElementById('hover-tooltip');
-
-map.on('mousemove', 'block_associations', function(e) {
-    if (e.features.length > 0) {
-        const feature = e.features[0];
-        const newHoveredId = feature.properties['Event.ID'];
-
-        // Only update hover if we're not hovering over the selected segment
-        if (hoveredSegmentId !== newHoveredId && selectedSegmentId !== newHoveredId) {
-            hoveredSegmentId = newHoveredId;
-            updateMapColors();
-        }
-
-        // Show tooltip with association name
-        const associationName = extractAssociationName(feature.properties['Event.Name']);
-        tooltip.textContent = associationName;
-        tooltip.style.left = e.originalEvent.pageX + 15 + 'px';
-        tooltip.style.top = e.originalEvent.pageY + 15 + 'px';
-        tooltip.classList.add('visible');
-    }
-    map.getCanvas().style.cursor = 'pointer';
-});
-
-map.on('mouseleave', 'block_associations', function() {
-    map.getCanvas().style.cursor = '';
-    hoveredSegmentId = null;
-    updateMapColors();
-
-    // Hide tooltip
-    tooltip.classList.remove('visible');
-});
-
-// Click handler - improved to be more precise
-map.on('click', function(e) {
-    // Use a smaller bounding box for more precise clicks
-    const bbox = [
-        [e.point.x - 5, e.point.y - 5],
-        [e.point.x + 5, e.point.y + 5]
-    ];
-    
-    const features = map.queryRenderedFeatures(bbox, {
-        layers: ['block_associations']
+    let nearest = null;
+    let minDist = Infinity;
+    allFeatures.forEach(f => {
+        const [lng, lat] = f.geometry.coordinates;
+        const d = Math.pow(lng - userLng, 2) + Math.pow(lat - userLat, 2);
+        if (d < minDist) { minDist = d; nearest = f; }
     });
-    
-    if (features.length > 0) {
-        // Take only the first (topmost) feature
-        const clickedFeature = features[0];
-        const newSelectedId = clickedFeature.properties['Event.ID'];
-        
-        // Only update if it's a different segment
-        if (selectedSegmentId !== newSelectedId) {
-            selectedSegmentId = newSelectedId;
-            hoveredSegmentId = null;
-            updateMapColors();
-            showAssociationInfo(clickedFeature.properties);
-        }
-    } else {
-        // Clicked outside - deselect
-        if (selectedSegmentId !== null) {
-            selectedSegmentId = null;
-            hoveredSegmentId = null;
-            updateMapColors();
-            document.getElementById('info-panel').classList.remove('active');
-        }
+
+    if (nearest) {
+        showNotification('Nearest block association found!');
+        showInfo(nearest.properties);
+        map.flyTo({ center: nearest.geometry.coordinates, zoom: 16, duration: 800 });
     }
 });
-
-function updateMapColors() {
-    // Always use varying colors based on ID
-    map.setPaintProperty('block_associations', 'line-color', [
-        'step',
-        ['%', ['to-number', ['get', 'Event.ID']], 10],
-        '#4CAF50',  // Green (ID % 10 = 0)
-        1, '#2196F3',  // Blue (ID % 10 = 1)
-        2, '#9C27B0',  // Purple (ID % 10 = 2)
-        3, '#FF9800',  // Orange (ID % 10 = 3)
-        4, '#F44336',  // Red (ID % 10 = 4)
-        5, '#00BCD4',  // Cyan (ID % 10 = 5)
-        6, '#8BC34A',  // Light Green (ID % 10 = 6)
-        7, '#FFC107',  // Yellow (ID % 10 = 7)
-        8, '#E91E63',  // Pink (ID % 10 = 8)
-        9, '#673AB7'   // Deep Purple (ID % 10 = 9)
-    ]);
-
-    // Update main layer width - increases on hover/select
-    map.setPaintProperty('block_associations', 'line-width', [
-        'case',
-        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        24,  // Thicker when selected
-        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        24,  // Thicker when hovered
-        16   // Default width
-    ]);
-
-    map.setPaintProperty('block_associations', 'line-opacity', 0.8);
-
-    // Update white outline layer - only visible for selected/hovered
-    // Outline needs to be just slightly wider to create a clean stroke effect
-    map.setPaintProperty('block_associations_outline', 'line-width', [
-        'case',
-        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        30,  // 6px wider (3px stroke on each side)
-        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        30,  // 6px wider (3px stroke on each side)
-        0    // Hidden for non-selected/hovered
-    ]);
-
-    map.setPaintProperty('block_associations_outline', 'line-opacity', [
-        'case',
-        ['==', ['get', 'Event.ID'], selectedSegmentId || -999999],
-        1,
-        ['==', ['get', 'Event.ID'], hoveredSegmentId || -999999],
-        1,
-        0
-    ]);
-}
-
-// Search functionality
-const searchInput = document.getElementById('street-search');
-const searchResults = document.getElementById('search-results');
-
-if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase().trim();
-    
-    if (searchTerm.length < 2) {
-        searchResults.innerHTML = '';
-        return;
-    }
-    
-    if (allFeatures.length === 0) {
-        loadFeatures();
-    }
-    
-    const results = allFeatures.filter(feature => {
-        const location = (feature.properties['Event.Location'] || '').toLowerCase();
-        const name = (feature.properties['Event.Name'] || '').toLowerCase();
-        return location.includes(searchTerm) || name.includes(searchTerm);
-    });
-    
-    const uniqueResults = [];
-    const seen = new Set();
-    
-    results.forEach(feature => {
-        const location = feature.properties['Event.Location'];
-        if (location && !seen.has(location)) {
-            seen.add(location);
-            uniqueResults.push(feature);
-        }
-    });
-    
-    displaySearchResults(uniqueResults.slice(0, 8));
-    });
-}
-
-function displaySearchResults(results) {
-    if (results.length === 0) {
-        searchResults.innerHTML = '<div style="padding: 10px; color: #999; font-size: 13px;">No results found</div>';
-        return;
-    }
-    
-    searchResults.innerHTML = '';
-    
-    results.forEach(feature => {
-        const props = feature.properties;
-        const resultItem = document.createElement('div');
-        resultItem.className = 'result-item';
-        
-        const strong = document.createElement('strong');
-        strong.textContent = extractAssociationName(props['Event.Name']);
-        
-        const small = document.createElement('small');
-        small.textContent = props['Event.Location'];
-        
-        resultItem.appendChild(strong);
-        resultItem.appendChild(small);
-        
-        // Store the actual feature object, not JSON
-        resultItem.addEventListener('click', function() {
-            selectResult(props, feature);
-        });
-        
-        searchResults.appendChild(resultItem);
-    });
-}
-
-function selectResult(props, feature) {
-    selectedSegmentId = props['Event.ID'];
-    hoveredSegmentId = null;
-    updateMapColors();
-    showAssociationInfo(props);
-    if (searchInput) searchInput.value = '';
-    if (searchResults) searchResults.innerHTML = '';
-    
-    // Use the passed feature, or find it if not provided
-    if (!feature) {
-        feature = allFeatures.find(f => f.properties['Event.ID'] === props['Event.ID']);
-    }
-    
-    if (feature && feature.geometry) {
-        // Calculate bounds of the feature
-        const coordinates = feature.geometry.coordinates;
-        const bounds = new mapboxgl.LngLatBounds();
-        
-        if (feature.geometry.type === 'LineString') {
-            coordinates.forEach(coord => bounds.extend(coord));
-        } else if (feature.geometry.type === 'MultiLineString') {
-            coordinates.forEach(line => {
-                line.forEach(coord => bounds.extend(coord));
-            });
-        }
-        
-        // Fly to the bounds with padding
-        map.fitBounds(bounds, {
-            padding: { top: 100, bottom: 100, left: 400, right: 400 },
-            duration: 1000,
-            maxZoom: 16
-        });
-    }
-}
-
-function extractAssociationName(eventName) {
-    if (!eventName) return 'Block Association';
-    
-    let name = eventName
-        .replace(/\d{4}/g, '')
-        .trim();
-    
-    const assocIndex = name.toLowerCase().indexOf('association');
-    if (assocIndex !== -1) {
-        name = name.substring(0, assocIndex + 11);
-    }
-    
-    name = name
-        .replace(/\bAve\b\.?/gi, 'Avenue')
-        .replace(/\bSt\b\.?/gi, 'Street')
-        .replace(/\bBlvd\b\.?/gi, 'Boulevard')
-        .replace(/\bRd\b\.?/gi, 'Road')
-        .replace(/\bDr\b\.?/gi, 'Drive')
-        .replace(/\bCt\b\.?/gi, 'Court')
-        .replace(/\bPl\b\.?/gi, 'Place')
-        .replace(/\bLn\b\.?/gi, 'Lane')
-        .replace(/\bPkwy\b\.?/gi, 'Parkway');
-    
-    name = name.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-    
-    return name.trim();
-}
-
-function showAssociationInfo(props) {
-    const panel = document.getElementById('info-panel');
-    const associationName = extractAssociationName(props['Event.Name']);
-
-    document.getElementById('association-name').textContent = associationName;
-    document.getElementById('street-location').textContent = props['Event.Location'] || 'Location not available';
-
-    document.getElementById('email').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    document.getElementById('phone').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-    document.getElementById('website').innerHTML = '<span class="placeholder-text">Data Unavailable</span>';
-
-    panel.classList.add('active');
-}
 
 // Close panel
-document.getElementById('close-panel').addEventListener('click', function() {
+function closePanelBA() {
     document.getElementById('info-panel').classList.remove('active');
-    selectedSegmentId = null;
-    hoveredSegmentId = null;
-    updateMapColors();
-});
+    if (selectedFeatureId !== null) {
+        map.setFeatureState({ source: 'associations', id: selectedFeatureId }, { selected: false });
+        selectedFeatureId = null;
+    }
+    if (window.innerWidth <= 768) {
+        document.querySelector('.search-box').style.display = '';
+    }
+}
+document.getElementById('close-panel').addEventListener('click', closePanelBA);
 
-// About modal handlers
-document.getElementById('about-btn').addEventListener('click', function() {
+// About modal
+document.getElementById('about-btn').addEventListener('click', () => {
     document.getElementById('about-modal').classList.add('active');
 });
-
-document.getElementById('close-about').addEventListener('click', function() {
+document.getElementById('close-about').addEventListener('click', () => {
     document.getElementById('about-modal').classList.remove('active');
 });
-
 document.getElementById('about-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        this.classList.remove('active');
-    }
+    if (e.target === this) this.classList.remove('active');
 });
 
-// Add association button handlers
-document.getElementById('add-association-btn').addEventListener('click', function() {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog', '_blank');
-});
-
-document.getElementById('add-association-btn-modal').addEventListener('click', function() {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog', '_blank');
-});
+// Add association button (about modal)
+const addAssocUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScUgQHcRto6JgRIyilIBVjW39iooxm5cWPvUTOeOH8fTCKDwg/viewform?usp=dialog';
+document.getElementById('add-association-btn-modal').addEventListener('click', () => window.open(addAssocUrl, '_blank'));
 
 </script>
 

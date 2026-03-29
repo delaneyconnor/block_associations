@@ -7,13 +7,14 @@
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
         }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
@@ -30,10 +31,20 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide header and filter panel when embedded */
-        body.embedded .header,
-        body.embedded .filter-panel {
+        /* Hide header when embedded */
+        body.embedded .header {
             display: none;
+        }
+
+        /* Embedded mode: left-side panel, full height */
+        body.embedded .filter-panel {
+            top: 0;
+            max-height: 100vh;
+        }
+
+        body.embedded .info-panel {
+            top: 20px;
+            max-height: calc(100vh - 40px);
         }
 
         /* Hide map controls when embedded */
@@ -86,7 +97,7 @@
 
         .search-input:focus {
             outline: none;
-            border-color: #7DBBBB;
+            border-color: #333333;
         }
 
         .category-filters {
@@ -125,40 +136,34 @@
         }
 
         /* Category-specific colors when active */
-        .filter-btn[data-category="all"].active {
-            background: black;
-            border-color: black;
-        }
-        .filter-btn[data-category="Gardens"].active {
-            background: #4CAF50;
-        }
-        .filter-btn[data-category="Credit Unions"].active {
-            background: #2196F3;
-        }
-        .filter-btn[data-category="CLTs"].active {
-            background: #9C27B0;
-        }
-        .filter-btn[data-category="Food"].active {
-            background: #FF9800;
-        }
-        .filter-btn[data-category="Housing"].active {
-            background: #F44336;
-        }
-        .filter-btn[data-category="Worker"].active {
-            background: #00BCD4;
-        }
-        .filter-btn[data-category="CSAs"].active {
-            background: #8BC34A;
-        }
-        .filter-btn[data-category="Energy"].active {
-            background: #FFC107;
-        }
-        .filter-btn[data-category="Community Fridges"].active {
-            background: #E91E63;
-        }
-        .filter-btn[data-category="Mesh NYC Nodes"].active {
-            background: #808080;
-        }
+        .filter-btn[data-category="all"].active          { background: #212121; border-color: #212121; }
+        /* Community Resources */
+        .filter-btn[data-category="Gardens"].active       { background: #2E7D32; }
+        .filter-btn[data-category="Credit Unions"].active { background: #039BE5; }
+        .filter-btn[data-category="CLTs"].active          { background: #5E35B1; }
+        .filter-btn[data-category="Food"].active          { background: #FF9800; }
+        .filter-btn[data-category="Housing"].active       { background: #E53935; }
+        .filter-btn[data-category="Worker"].active        { background: #00897B; }
+        .filter-btn[data-category="CSAs"].active          { background: #C0CA33; color: #222; }
+        .filter-btn[data-category="Energy"].active        { background: #FDD835; color: #222; }
+        .filter-btn[data-category="Community Fridges"].active { background: #D81B60; }
+        .filter-btn[data-category="Mesh NYC Nodes"].active { background: #607D8B; }
+        /* CB3 Services */
+        .filter-btn[data-category="Health Care"].active       { background: #FF7043; }
+        .filter-btn[data-category="Police"].active            { background: #0D47A1; }
+        .filter-btn[data-category="Fire Department"].active   { background: #FF6D00; }
+        .filter-btn[data-category="Library"].active           { background: #8E24AA; }
+        .filter-btn[data-category="Emergency Food"].active    { background: #26C6DA; color: #222; }
+        .filter-btn[data-category="cb3-Community"].active     { background: #9E9E9E; color: #222; }
+        .filter-btn[data-category="Single Stop"].active       { background: #1B5E20; }
+        .filter-btn[data-category="Senior Center"].active     { background: #F9A825; color: #222; }
+        .filter-btn[data-category="Employment"].active        { background: #6D4C41; }
+        .filter-btn[data-category="Child Care"].active        { background: #FF8A65; color: #222; }
+        .filter-btn[data-category="Homeless Prevention"].active { background: #37474F; }
+        .filter-btn[data-category="Park"].active              { background: #33691E; }
+        .filter-btn[data-category="Greenmarket"].active       { background: #8BC34A; color: #222; }
+        .filter-btn[data-category="School"].active            { background: #311B92; }
+        .filter-btn[data-category="Religious Institution"].active { background: #AD1457; }
 
         .search-results {
             max-height: 300px;
@@ -175,8 +180,8 @@
         }
 
         .result-item:hover {
-            border-color: #7DBBBB;
-            background: #f0f7f7;
+            border-color: #333333;
+            background: #f5f5f5;
         }
 
         .result-item strong {
@@ -194,7 +199,7 @@
         .result-category {
             display: inline-block;
             padding: 2px 8px;
-            background: #f0f7f7;
+            background: #f5f5f5;
             border-radius: 4px;
             font-size: 11px;
             color: #666;
@@ -234,7 +239,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
             width: 350px;
-            max-height: calc(100vh - 140px);
+            max-height: calc(100vh - 200px);
             overflow-y: auto;
             display: none;
         }
@@ -244,7 +249,7 @@
         }
 
         .info-panel h2 {
-            margin: 0 0 20px 0;
+            margin: 0 0 12px 0;
             font-size: 20px;
             color: black;
             padding-right: 30px;
@@ -270,16 +275,16 @@
         }
 
         .info-section {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .info-label {
-            font-size: 14px;
+            font-size: 11px;
             text-transform: uppercase;
             color: #999;
             font-weight: 600;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .info-value {
@@ -289,7 +294,7 @@
         }
 
         .info-value a {
-            color: #7DBBBB;
+            color: #333333;
             text-decoration: none;
         }
 
@@ -320,8 +325,8 @@
         }
 
         .about-btn:hover {
-            background: #f0f7f7;
-            border-color: #7DBBBB;
+            background: #f5f5f5;
+            border-color: #333333;
             transform: scale(1.05);
         }
 
@@ -348,8 +353,8 @@
         }
 
         .home-btn:hover {
-            background: #f0f7f7;
-            border-color: #7DBBBB;
+            background: #f5f5f5;
+            border-color: #333333;
             transform: scale(1.05);
         }
 
@@ -421,6 +426,10 @@
                 font-size: 25px;
             }
 
+            .header p {
+                display: none;
+            }
+
             .filter-panel {
                 position: static;
                 width: 100%;
@@ -470,6 +479,25 @@
         <button class="filter-btn" data-category="Community Fridges">Community Fridges</button>
         <button class="filter-btn" data-category="Mesh NYC Nodes">Mesh NYC Nodes</button>
     </div>
+
+    <div style="margin-top:15px;padding-top:15px;border-top:1px solid #e0e0e0;">
+        <div class="category-label">CB3 Community Services</div>
+        <button class="filter-btn" data-category="Health Care">Health Care</button>
+        <button class="filter-btn" data-category="Police">Police</button>
+        <button class="filter-btn" data-category="Fire Department">Fire Dept</button>
+        <button class="filter-btn" data-category="Library">Library</button>
+        <button class="filter-btn" data-category="Emergency Food">Emergency Food</button>
+        <button class="filter-btn" data-category="cb3-Community">Community</button>
+        <button class="filter-btn" data-category="Single Stop">Single Stop</button>
+        <button class="filter-btn" data-category="Senior Center">Senior Center</button>
+        <button class="filter-btn" data-category="Park">Parks</button>
+        <button class="filter-btn" data-category="Greenmarket">Greenmarkets</button>
+        <button class="filter-btn" data-category="Employment">Employment</button>
+        <button class="filter-btn" data-category="Child Care">Child Care</button>
+        <button class="filter-btn" data-category="Homeless Prevention">Homeless Prevention</button>
+        <button class="filter-btn" data-category="School">Schools</button>
+        <button class="filter-btn" data-category="Religious Institution">Religious Institution</button>
+    </div>
 </div>
 
 <!-- Hover Tooltip -->
@@ -498,6 +526,18 @@
     <div class="info-section">
         <div class="info-label">Website</div>
         <div class="info-value" id="resource-website"></div>
+    </div>
+    <div class="info-section" id="info-phone-section" style="display:none">
+        <div class="info-label">Phone</div>
+        <div class="info-value" id="resource-phone"></div>
+    </div>
+    <div class="info-section" id="info-hours-section" style="display:none">
+        <div class="info-label">Hours</div>
+        <div class="info-value" id="resource-hours"></div>
+    </div>
+    <div class="info-section" id="info-notes-section" style="display:none">
+        <div class="info-label">Contact</div>
+        <div class="info-value" id="resource-notes"></div>
     </div>
 </div>
 
@@ -546,8 +586,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGVsYW5leWNvbm5vciIsImEiOiJjbTRnM2Q1ZGkxZzhuM
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmiuzxumn006c01qn5xjk2trz',
-    center: [-73.9351, 40.6872],
-    zoom: 12
+    center: [-73.9442, 40.6782],
+    zoom: 11
 });
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
@@ -560,16 +600,16 @@ let communityResourcesSourceLayer = null; // Store the source layer name
 
 // Category colors
 const categoryColors = {
-    'Gardens': '#4CAF50',
-    'Credit Unions': '#2196F3',
-    'CLTs': '#9C27B0',
-    'Food': '#FF9800',
-    'Housing': '#F44336',
-    'Worker': '#00BCD4',
-    'CSAs': '#8BC34A',
-    'Energy': '#FFC107',
-    'Community Fridges': '#E91E63',
-    'Mesh NYC Nodes': '#808080'
+    'Gardens':          '#2E7D32',
+    'Credit Unions':    '#039BE5',
+    'CLTs':             '#5E35B1',
+    'Food':             '#FF9800',
+    'Housing':          '#E53935',
+    'Worker':           '#00897B',
+    'CSAs':             '#C0CA33',
+    'Energy':           '#FDD835',
+    'Community Fridges':'#D81B60',
+    'Mesh NYC Nodes':   '#607D8B'
 };
 
 map.on('load', function() {
@@ -597,50 +637,50 @@ map.on('load', function() {
     console.log('Source layer:', communityResourcesSourceLayer);
 
     // Update the layer's paint properties to match our color scheme
-    map.setPaintProperty(communityResourcesLayer, 'circle-radius', [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        14, // Size when selected
-        ['boolean', ['feature-state', 'hover'], false],
-        14, // Size when hovering
-        8   // Default size
-    ]);
+    map.setPaintProperty(communityResourcesLayer, 'circle-radius', ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10]);
 
     map.setPaintProperty(communityResourcesLayer, 'circle-color', [
-        'match',
-        ['get', 'Sector'],
-        'Gardens', categoryColors['Gardens'],
-        'Credit Unions', categoryColors['Credit Unions'],
-        'CLTs', categoryColors['CLTs'],
-        'Food', categoryColors['Food'],
-        'Housing', categoryColors['Housing'],
-        'Worker', categoryColors['Worker'],
-        'CSAs', categoryColors['CSAs'],
-        'Energy', categoryColors['Energy'],
-        'Community Fridges', categoryColors['Community Fridges'],
-        'Mesh NYC Nodes', categoryColors['Mesh NYC Nodes'],
-        '#666666'
+        'case',
+        ['boolean', ['feature-state', 'selected'], false], '#FFFFFF',
+        [
+            'match',
+            ['get', 'Sector'],
+            'Gardens', categoryColors['Gardens'],
+            'Credit Unions', categoryColors['Credit Unions'],
+            'CLTs', categoryColors['CLTs'],
+            'Food', categoryColors['Food'],
+            'Housing', categoryColors['Housing'],
+            'Worker', categoryColors['Worker'],
+            'CSAs', categoryColors['CSAs'],
+            'Energy', categoryColors['Energy'],
+            'Community Fridges', categoryColors['Community Fridges'],
+            'Mesh NYC Nodes', categoryColors['Mesh NYC Nodes'],
+            '#666666'
+        ]
     ]);
 
     map.setPaintProperty(communityResourcesLayer, 'circle-opacity', 0.8);
 
-    // Add stroke for selected and hovered points
     map.setPaintProperty(communityResourcesLayer, 'circle-stroke-width', [
         'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        3,  // Thick stroke for selected
-        ['boolean', ['feature-state', 'hover'], false],
-        3,  // Thick stroke for hovered
-        0   // No stroke for others
+        ['boolean', ['feature-state', 'selected'], false], 3,
+        ['boolean', ['feature-state', 'hover'], false], 2,
+        1.5
     ]);
 
-    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', [
+    map.setPaintProperty(communityResourcesLayer, 'circle-opacity', 0.8);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-width', [
         'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        '#FFFFFF',  // White outline for selected
-        ['boolean', ['feature-state', 'hover'], false],
-        '#FFFFFF',  // White outline for hovered
-        'transparent'
+        ['boolean', ['feature-state', 'selected'], false], 10,
+        ['boolean', ['feature-state', 'hover'], false], 10,
+        0
+    ]);
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-color', '#FFFFFF');
+    map.setPaintProperty(communityResourcesLayer, 'circle-stroke-opacity', [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false], 0.3,
+        ['boolean', ['feature-state', 'hover'], false], 0.3,
+        0
     ]);
 
     // Set layer order - Mesh NYC Nodes on bottom (lower number = bottom layer)
@@ -823,69 +863,271 @@ document.getElementById('close-panel').addEventListener('click', function() {
     selectedPointId = null;
 });
 
-// Category filter - wait for map to be ready
-map.on('idle', function setupFilters() {
-    if (!communityResourcesLayer) return;
+// CB3 category set for filter isolation
+const CB3_CATEGORIES = new Set([
+    'Health Care','Police','Fire Department','Library','Emergency Food',
+    'cb3-Community','Single Stop','Senior Center','Park','Greenmarket',
+    'Employment','Child Care','Homeless Prevention','School','Religious Institution'
+]);
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const category = this.dataset.category;
+// Sync CB3 layer visibility with active filter state
+function syncCB3Gardens() {
+    if (!map.getLayer('cb3-points')) return;
+    const activeCB3 = Array.from(document.querySelectorAll(
+        '[data-category="Health Care"].active, [data-category="Police"].active, [data-category="Fire Department"].active, [data-category="Library"].active, [data-category="Emergency Food"].active, [data-category="cb3-Community"].active, [data-category="Single Stop"].active, [data-category="Senior Center"].active, [data-category="Park"].active, [data-category="Greenmarket"].active, [data-category="Employment"].active, [data-category="Child Care"].active, [data-category="Homeless Prevention"].active, [data-category="School"].active, [data-category="Religious Institution"].active'
+    )).map(b => b.dataset.category === 'cb3-Community' ? 'Community' : b.dataset.category);
+    if (selectedCategories.includes('Gardens')) activeCB3.push('Gardens');
+    if (activeCB3.length === 0) {
+        if (selectedCategories.length > 0) {
+            // Tileset-only filter active — hide all CB3 points
+            map.setFilter('cb3-points', ['==', ['get', 'category'], '']);
+        } else {
+            map.setFilter('cb3-points', null);
+        }
+    } else {
+        map.setFilter('cb3-points', ['in', ['get', 'category'], ['literal', activeCB3]]);
+    }
+}
 
-            // Handle "All" button
-            if (category === 'all') {
-                selectedCategories = [];
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                map.setFilter(communityResourcesLayer, null);
-                console.log('Filter removed - showing all');
-                return;
+// Category filter - attach handlers directly (DOM is ready when inline script runs)
+document.querySelectorAll('.filter-panel .filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const category = this.dataset.category;
+        const isCB3 = CB3_CATEGORIES.has(category);
+
+        // Handle "All" button
+        if (category === 'all') {
+            selectedCategories = [];
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            if (communityResourcesLayer) map.setFilter(communityResourcesLayer, null);
+            syncCB3Gardens();
+            return;
+        }
+
+        if (isCB3) {
+            // CB3 click: clear tileset selections, toggle this CB3 button
+            selectedCategories = [];
+            document.querySelectorAll('.category-filters .filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
+            this.classList.toggle('active');
+
+            // Check if any CB3 button is still active after toggle
+            const anyCB3Active = Array.from(document.querySelectorAll('.filter-panel .filter-btn.active'))
+                .some(b => CB3_CATEGORIES.has(b.dataset.category));
+
+            if (communityResourcesLayer) {
+                if (anyCB3Active) {
+                    map.setFilter(communityResourcesLayer, ['==', ['get', 'Sector'], '']);
+                } else {
+                    map.setFilter(communityResourcesLayer, null);
+                    document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+                }
             }
+        } else {
+            // Tileset click: clear CB3 button active states
+            document.querySelectorAll('.filter-panel .filter-btn').forEach(b => {
+                if (CB3_CATEGORIES.has(b.dataset.category)) b.classList.remove('active');
+            });
 
-            // Toggle category selection
+            // Toggle this tileset category
             const index = selectedCategories.indexOf(category);
             if (index > -1) {
-                // Category is already selected, remove it
                 selectedCategories.splice(index, 1);
                 this.classList.remove('active');
             } else {
-                // Add category to selection
                 selectedCategories.push(category);
                 this.classList.add('active');
-                // Remove "All" active state when selecting specific categories
                 document.querySelector('.filter-btn[data-category="all"]').classList.remove('active');
             }
 
-            console.log('Selected categories:', selectedCategories);
-
-            // Apply filter
-            if (selectedCategories.length === 0) {
-                // If no categories selected, show all
-                map.setFilter(communityResourcesLayer, null);
-                document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
-                console.log('No categories selected - showing all');
-            } else if (selectedCategories.length === 1) {
-                // Single category filter
-                const filter = ['==', ['get', 'Sector'], selectedCategories[0]];
-                map.setFilter(communityResourcesLayer, filter);
-                console.log('Filter applied:', filter);
-            } else {
-                // Multiple categories filter using 'in' expression
-                const filter = ['in', ['get', 'Sector'], ['literal', selectedCategories]];
-                map.setFilter(communityResourcesLayer, filter);
-                console.log('Filter applied for multiple categories:', filter);
+            if (communityResourcesLayer) {
+                if (selectedCategories.length === 0) {
+                    map.setFilter(communityResourcesLayer, null);
+                    document.querySelector('.filter-btn[data-category="all"]').classList.add('active');
+                } else if (selectedCategories.length === 1) {
+                    map.setFilter(communityResourcesLayer, ['==', ['get', 'Sector'], selectedCategories[0]]);
+                } else {
+                    map.setFilter(communityResourcesLayer, ['in', ['get', 'Sector'], ['literal', selectedCategories]]);
+                }
             }
+        }
 
-            // Debug: check how many features are visible after filter
-            setTimeout(() => {
-                const visibleFeatures = map.queryRenderedFeatures({ layers: [communityResourcesLayer] });
-                console.log(`Visible features after filter: ${visibleFeatures.length}`);
-            }, 100);
-        });
+        syncCB3Gardens();
     });
-
-    // Remove this listener after setup
-    map.off('idle', setupFilters);
 });
+
+// ── CB3 Resources Layer ──────────────────────────────────────────────
+const CB3_COLORS = {
+    'Health Care':        '#FF7043',
+    'Police':             '#0D47A1',
+    'Fire Department':    '#FF6D00',
+    'Library':            '#8E24AA',
+    'Emergency Food':     '#26C6DA',
+    'Community':          '#9E9E9E',
+    'Single Stop':        '#1B5E20',
+    'Senior Center':      '#F9A825',
+    'Gardens':            '#2E7D32',
+    'Employment':         '#6D4C41',
+    'Child Care':         '#FF8A65',
+    'Homeless Prevention':'#37474F',
+    'Park':               '#33691E',
+    'Greenmarket':        '#8BC34A',
+    'School':             '#311B92',
+    'Religious Institution':  '#AD1457'
+};
+
+const CB3_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HoUy145l0nZn_o6c-n34S7G83D0IzBDYBpnq8zzVgFtrfA8M0-Ys26uTDYCCgW_7eZFZh0CuuEZQ/pub?gid=953239753&single=true&output=csv';
+
+function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    return lines.slice(1).map(line => {
+        const values = [];
+        let cur = '', inQ = false;
+        for (let i = 0; i < line.length; i++) {
+            if (line[i] === '"') { inQ = !inQ; }
+            else if (line[i] === ',' && !inQ) { values.push(cur); cur = ''; }
+            else { cur += line[i]; }
+        }
+        values.push(cur);
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (values[i] || '').trim());
+        obj.lat = parseFloat(obj.lat);
+        obj.lng = parseFloat(obj.lng);
+        return obj;
+    }).filter(r => !isNaN(r.lat) && !isNaN(r.lng));
+}
+
+function buildCB3GeoJSON(resources) {
+    return {
+        type: 'FeatureCollection',
+        features: resources.map((r, i) => ({
+            type: 'Feature',
+            id: 5000 + i,
+            geometry: { type: 'Point', coordinates: [r.lng, r.lat] },
+            properties: {
+                ...r,
+                color: CB3_COLORS[r.category] || '#999',
+                filterCategory: r.category === 'Community' ? 'cb3-Community' : r.category
+            }
+        }))
+    };
+}
+
+// CB3 selected point tracking
+let cb3SelectedId = null;
+let cb3MapReady = false;
+let cb3DataReady = false;
+let cb3Resources = [];
+
+function initCB3Layer() {
+    if (!cb3MapReady || !cb3DataReady) return;
+    const geojson = buildCB3GeoJSON(cb3Resources);
+    map.addSource('cb3', { type: 'geojson', data: geojson });
+    map.addLayer({
+        id: 'cb3-points',
+        type: 'circle',
+        source: 'cb3',
+        paint: {
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 12, 6, 15, 10],
+            'circle-color': ['get', 'color'],
+            'circle-opacity': 0.8,
+            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 10, ['boolean', ['feature-state', 'hover'], false], 10, 0],
+            'circle-stroke-color': '#FFFFFF',
+            'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.3, ['boolean', ['feature-state', 'hover'], false], 0.3, 0]
+        }
+    });
+}
+
+map.on('load', function() {
+    cb3MapReady = true;
+    initCB3Layer();
+    // Signal parent iframe when map has fully rendered
+    if (window.self !== window.top) {
+        map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
+    }
+});
+
+fetch(CB3_CSV_URL)
+    .then(r => r.text())
+    .then(text => {
+        cb3Resources = parseCSV(text);
+        cb3DataReady = true;
+        initCB3Layer();
+    })
+    .catch(err => console.error('Failed to load CB3 data:', err));
+
+
+let cb3HoveredId = null;
+
+map.on('mousemove', 'cb3-points', function(e) {
+    map.getCanvas().style.cursor = 'pointer';
+    if (e.features.length > 0) {
+        const f = e.features[0];
+        if (cb3HoveredId !== null && cb3HoveredId !== f.id) {
+            map.setFeatureState({ source: 'cb3', id: cb3HoveredId }, { hover: false });
+        }
+        cb3HoveredId = f.id;
+        map.setFeatureState({ source: 'cb3', id: cb3HoveredId }, { hover: true });
+        tooltip.textContent = f.properties.name;
+        tooltip.style.left = (e.point.x + 15) + 'px';
+        tooltip.style.top  = (e.point.y + 15) + 'px';
+        tooltip.classList.add('visible');
+    }
+});
+
+map.on('mouseleave', 'cb3-points', function() {
+    map.getCanvas().style.cursor = '';
+    tooltip.classList.remove('visible');
+    if (cb3HoveredId !== null) {
+        map.setFeatureState({ source: 'cb3', id: cb3HoveredId }, { hover: false });
+        cb3HoveredId = null;
+    }
+});
+
+map.on('click', 'cb3-points', function(e) {
+    if (!e.features.length) return;
+    const f = e.features[0];
+    const p = f.properties;
+
+    // Clear existing selections
+    if (cb3SelectedId !== null) map.setFeatureState({ source: 'cb3', id: cb3SelectedId }, { selected: false });
+    if (selectedPointId !== null && communityResourcesSourceLayer) {
+        map.setFeatureState({ source: 'composite', sourceLayer: communityResourcesSourceLayer, id: selectedPointId }, { selected: false });
+        selectedPointId = null;
+    }
+    cb3SelectedId = f.id;
+    map.setFeatureState({ source: 'cb3', id: cb3SelectedId }, { selected: true });
+
+    document.getElementById('resource-name').textContent = p.name;
+    document.getElementById('resource-category').textContent = p.category;
+    document.getElementById('resource-description').textContent = '';
+    const websiteEl = document.getElementById('resource-website');
+    if (p.website) {
+        websiteEl.innerHTML = '<a href="' + p.website + '" target="_blank" rel="noopener">' + p.website + '</a>';
+    } else {
+        websiteEl.textContent = '';
+    }
+
+    const phoneSection = document.getElementById('info-phone-section');
+    const hoursSection = document.getElementById('info-hours-section');
+    if (p.phone) { document.getElementById('resource-phone').textContent = p.phone; phoneSection.style.display = 'block'; }
+    else { phoneSection.style.display = 'none'; }
+    if (p.hours) { document.getElementById('resource-hours').textContent = p.hours; hoursSection.style.display = 'block'; }
+    else { hoursSection.style.display = 'none'; }
+    const notesSection = document.getElementById('info-notes-section');
+    if (p.notes) { document.getElementById('resource-notes').textContent = p.notes; notesSection.style.display = 'block'; }
+    else { notesSection.style.display = 'none'; }
+
+    document.getElementById('resource-address').textContent = p.address;
+    tooltip.classList.remove('visible');
+    document.getElementById('info-panel').classList.add('active');
+
+    map.flyTo({ center: e.lngLat, zoom: Math.max(map.getZoom(), 14), duration: 800 });
+});
+
+// ── End CB3 ──────────────────────────────────────────────────────────
 
 // About modal handlers
 document.getElementById('about-btn').addEventListener('click', function() {

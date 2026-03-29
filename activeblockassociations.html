@@ -876,7 +876,6 @@
             map.setFilter('cd-fill',   ['==', ['get', 'BoroCD'], boroCd]);
             map.setFilter('cd-border', ['==', ['get', 'BoroCD'], boroCd]);
         }
-
         function showPanel(props) {
             document.getElementById('panel-name').textContent = bestDisplayName(props);
             document.getElementById('panel-body').innerHTML = createPopupHTML(props);
@@ -1102,6 +1101,7 @@
                 }
             });
         });
+
 
         // Mobile: tap filter panel header to expand/collapse
         document.getElementById('filter-toggle').addEventListener('click', function() {

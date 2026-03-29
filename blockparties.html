@@ -7,13 +7,14 @@
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
         }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
@@ -94,7 +95,7 @@
 
         .filter-select:focus {
             outline: none;
-            border-color: #e53935;
+            border-color: #222222;
         }
 
         .stats-box {
@@ -118,7 +119,7 @@
         .stat-value {
             font-size: 18px;
             font-weight: 700;
-            color: #e53935;
+            color: #222222;
         }
 
         /* Popup styling */
@@ -133,53 +134,45 @@
         }
 
         .popup-header {
-            background: #e53935;
-            color: white;
-            padding: 12px 15px;
+            background: white;
+            color: #111;
+            padding: 20px 20px 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .popup-header h3 {
             margin: 0;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
+            color: black;
+            padding-right: 20px;
         }
 
         .popup-body {
-            padding: 15px;
+            padding: 20px;
         }
 
-        .popup-detail {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            font-size: 13px;
+        .info-section {
+            margin-bottom: 16px;
         }
 
-        .popup-detail:last-child {
+        .info-section:last-child {
             margin-bottom: 0;
         }
 
-        .popup-detail i {
-            width: 20px;
-            color: #e53935;
-            margin-right: 10px;
-            margin-top: 2px;
-        }
-
-        .popup-detail span {
-            color: #333;
-            line-height: 1.4;
-        }
-
-        .popup-badge {
-            display: inline-block;
-            background: #ffebee;
-            color: #c62828;
-            padding: 4px 10px;
-            border-radius: 12px;
+        .info-label {
             font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
             font-weight: 600;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
         }
 
         /* Home button */
@@ -205,8 +198,8 @@
         }
 
         .home-btn:hover {
-            background: #fff5f5;
-            border-color: #e53935;
+            background: #f5f5f5;
+            border-color: #222222;
             transform: scale(1.05);
         }
 
@@ -237,8 +230,8 @@
         }
 
         .about-btn:hover {
-            background: #fff5f5;
-            border-color: #e53935;
+            background: #f5f5f5;
+            border-color: #222222;
             transform: scale(1.05);
         }
 
@@ -318,21 +311,21 @@
         /* Hover tooltip */
         .hover-tooltip {
             position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: #ffffff;
+            color: #000000;
             padding: 8px 12px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
             pointer-events: none;
-            z-index: 10;
+            z-index: 1000;
             white-space: nowrap;
-            max-width: 250px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transform: translate(-50%, -100%);
-            margin-top: -10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #000000;
         }
+        .hover-tooltip.visible { opacity: 1; }
 
         @media (max-width: 768px) {
             .filter-panel {
@@ -342,6 +335,10 @@
 
             .header h1 {
                 font-size: 24px;
+            }
+
+            .header p {
+                display: none;
             }
 
             .legend {
@@ -463,6 +460,34 @@
         let allFeatures = [];
         let markers = [];
         let currentSeason = 'upcoming';
+        let selectedMarkerEl = null;
+
+        function markerSizeForZoom(zoom) {
+            if (zoom <= 9) return 6;
+            if (zoom >= 15) return 20;
+            return 6 + (zoom - 9) * (14 / 6);
+        }
+
+        function updateMarkerSizes() {
+            const size = Math.round(markerSizeForZoom(map.getZoom()));
+            markers.forEach(m => {
+                const el = m.getElement();
+                el.style.width = size + 'px';
+                el.style.height = size + 'px';
+            });
+        }
+
+        map.on('zoom', updateMarkerSizes);
+
+        function selectMarker(el) {
+            if (selectedMarkerEl) resetMarker(selectedMarkerEl);
+            selectedMarkerEl = el;
+            el.style.boxShadow = '0 0 0 10px rgba(255,255,255,0.3)';
+        }
+
+        function resetMarker(el) {
+            el.style.boxShadow = 'none';
+        }
 
         // NYC Open Data API for upcoming events
         const NYC_UPCOMING_URL = 'https://data.cityofnewyork.us/resource/tvpp-9vvx.json';
@@ -473,6 +498,9 @@
             closeOnClick: true,
             maxWidth: '320px'
         });
+        popup.on('close', () => {
+            if (selectedMarkerEl) { resetMarker(selectedMarkerEl); selectedMarkerEl = null; }
+        });
 
         // Format popup content (click - full details)
         function createPopupHTML(properties) {
@@ -481,29 +509,27 @@
                     <h3>${properties.event_name || 'Block Party'}</h3>
                 </div>
                 <div class="popup-body">
-                    <div class="popup-detail">
-                        <i class="fas fa-play-circle"></i>
-                        <span><strong>Start:</strong> ${properties.start_formatted || 'Date TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Start</div>
+                        <div class="info-value">${properties.start_formatted || 'Date TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-stop-circle"></i>
-                        <span><strong>End:</strong> ${properties.end_formatted || 'Date TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">End</div>
+                        <div class="info-value">${properties.end_formatted || 'Date TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${properties.event_location || 'Location TBD'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Location</div>
+                        <div class="info-value">${properties.event_location || 'Location TBD'}</div>
                     </div>
-                    <div class="popup-detail">
-                        <i class="fas fa-building"></i>
-                        <span>${properties.event_borough || 'NYC'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Borough</div>
+                        <div class="info-value">${properties.event_borough || 'NYC'}</div>
                     </div>
                     ${properties.street_closure_type && properties.street_closure_type !== 'N/A' ? `
-                    <div class="popup-detail">
-                        <i class="fas fa-road"></i>
-                        <span>${properties.street_closure_type}</span>
-                    </div>
-                    ` : ''}
-                    <span class="popup-badge">${properties.event_type || 'Block Party'}</span>
+                    <div class="info-section">
+                        <div class="info-label">Closure Type</div>
+                        <div class="info-value">${properties.street_closure_type}</div>
+                    </div>` : ''}
                 </div>
             `;
         }
@@ -511,39 +537,33 @@
         // Create hover tooltip element
         const hoverTooltip = document.createElement('div');
         hoverTooltip.className = 'hover-tooltip';
-        hoverTooltip.style.display = 'none';
         document.body.appendChild(hoverTooltip);
 
         // Create marker element with hover effects
         function createMarkerElement() {
             const el = document.createElement('div');
-            el.style.width = '16px';
-            el.style.height = '16px';
+            const size = Math.round(markerSizeForZoom(map.getZoom())) + 'px';
+            el.style.width = size;
+            el.style.height = size;
             el.style.borderRadius = '50%';
-            el.style.backgroundColor = '#e53935';
+            el.style.backgroundColor = '#222222';
             el.style.opacity = '0.8';
             el.style.border = 'none';
-            el.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+            el.style.boxShadow = 'none';
             el.style.cursor = 'pointer';
-            el.style.transition = 'all 0.2s ease';
+            el.style.transition = 'box-shadow 0.15s ease';
 
             // Hover effects
             el.addEventListener('mouseenter', () => {
-                el.style.width = '28px';
-                el.style.height = '28px';
-                el.style.border = '3px solid white';
-                el.style.opacity = '1';
-                el.style.marginLeft = '-6px';
-                el.style.marginTop = '-6px';
+                if (el !== selectedMarkerEl) {
+                    el.style.boxShadow = '0 0 0 8px rgba(255,255,255,0.3)';
+                }
             });
 
             el.addEventListener('mouseleave', () => {
-                el.style.width = '16px';
-                el.style.height = '16px';
-                el.style.border = 'none';
-                el.style.opacity = '0.8';
-                el.style.marginLeft = '0';
-                el.style.marginTop = '0';
+                if (el !== selectedMarkerEl) {
+                    el.style.boxShadow = 'none';
+                }
             });
 
             return el;
@@ -553,6 +573,7 @@
         function clearMarkers() {
             markers.forEach(m => m.remove());
             markers = [];
+            selectedMarkerEl = null;
         }
 
         // Add markers for features
@@ -572,9 +593,9 @@
                 // Hover - show event name tooltip
                 el.addEventListener('mouseenter', (e) => {
                     hoverTooltip.textContent = props.event_name || 'Block Party';
-                    hoverTooltip.style.display = 'block';
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
+                    hoverTooltip.style.left = e.pageX + 15 + 'px';
+                    hoverTooltip.style.top = e.pageY + 15 + 'px';
+                    hoverTooltip.classList.add('visible');
                 });
 
                 el.addEventListener('mousemove', (e) => {
@@ -583,16 +604,18 @@
                 });
 
                 el.addEventListener('mouseleave', () => {
-                    hoverTooltip.style.display = 'none';
+                    hoverTooltip.classList.remove('visible');
                 });
 
                 // Click - show full details popup
                 el.addEventListener('click', () => {
-                    hoverTooltip.style.display = 'none';
+                    hoverTooltip.classList.remove('visible');
+                    selectMarker(el);
                     popup
                         .setLngLat(coords)
                         .setHTML(createPopupHTML(props))
                         .addTo(map);
+                    map.flyTo({ center: coords, zoom: 15, duration: 600 });
                 });
 
                 markers.push(marker);
@@ -751,14 +774,6 @@
             const boroughFilter = document.getElementById('borough-filter').value;
             filterByBorough(boroughFilter);
 
-            // Fit map to show all points
-            if (allFeatures.length > 0) {
-                const bounds = new mapboxgl.LngLatBounds();
-                allFeatures.forEach(f => {
-                    bounds.extend(f.geometry.coordinates);
-                });
-                map.fitBounds(bounds, { padding: 50 });
-            }
         }
 
         // Season filter handler
@@ -783,6 +798,10 @@
         // Load data when map is ready
         map.on('load', function() {
             loadData('upcoming');
+            // Signal parent iframe when map tiles are rendered
+            if (window.self !== window.top) {
+                map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
+            }
         });
 
         // About modal handlers

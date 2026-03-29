@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Central Brooklyn Resources</title>
+    <title>Community Activity Maps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -16,7 +17,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: 'IBM Plex Mono', monospace;
             background: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -52,32 +53,17 @@
             line-height: 1.6;
         }
 
-        /* Three Column Layout */
+        /* Map grid */
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 40px;
         }
 
-        .column {
-            min-width: 0;
-            background: white;
-            padding: 30px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #000000;
-        }
-
         /* Link boxes */
         .link-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: contents;
         }
 
         .link-box {
@@ -100,7 +86,7 @@
 
         .link-box-preview {
             width: 100%;
-            height: 80px;
+            height: 220px;
             position: relative;
             overflow: hidden;
         }
@@ -114,6 +100,22 @@
             height: 100%;
             border: none;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .link-box-preview iframe.ready {
+            opacity: 1;
+        }
+
+        .link-box-preview::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #1a1a1a;
+            z-index: 0;
         }
 
         .link-box-content {
@@ -235,37 +237,15 @@
             opacity: 0.7;
         }
 
-        @media (max-width: 968px) {
+        @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .column {
-                padding: 30px;
-            }
-
-            .section-title {
-                font-size: 22px;
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .column {
-                padding: 20px;
-            }
-
-            .link-grid {
-                gap: 12px;
-            }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 18px; }
         }
 
         @media (max-width: 480px) {
@@ -290,87 +270,55 @@
 <body>
     <div class="container">
         <div class="hero">
-            <h1>Central Brooklyn Resources</h1>
+            <h1>Community Activity Maps</h1>
         </div>
 
         <div class="main-content">
-            <!-- Column 1: Community History -->
-            <div class="column">
-                <h2 class="section-title">Community History</h2>
-                <div class="link-grid">
-                    <a href="#" class="link-box" data-section="bedstuy-history">
-                        <div class="link-box-preview placeholder"></div>
-                        <div class="link-box-content">
-                            <h3>Bedford-Stuyvesant History</h3>
-                            <p>Explore the rich history of Bed-Stuy</p>
-                        </div>
-                    </a>
+            <a href="activeblockassociations.html" class="link-box">
+                <div class="link-box-preview">
+                    <iframe src="activeblockassociations.html?preview=true" title="Active Block Associations Preview"></iframe>
                 </div>
-            </div>
-
-            <!-- Column 2: Block Associations -->
-            <div class="column">
-                <h2 class="section-title">Block Associations</h2>
-                <div class="link-grid">
-                    <a href="activeblockassociations.html" class="link-box">
-                        <div class="link-box-preview">
-                            <iframe src="activeblockassociations.html" title="Active Block Associations Map Preview"></iframe>
-                        </div>
-                        <div class="link-box-content">
-                            <h3>Active Block Associations</h3>
-                            <p>Find block associations that host block parties</p>
-                        </div>
-                    </a>
-                    <a href="#" class="link-box" data-section="grow-association">
-                        <div class="link-box-preview placeholder"></div>
-                        <div class="link-box-content">
-                            <h3>Grow Your Block Association</h3>
-                            <p>Tips for strengthening your community</p>
-                        </div>
-                    </a>
-                    <a href="#" class="link-box" data-section="bswa">
-                        <div class="link-box-preview placeholder"></div>
-                        <div class="link-box-content">
-                            <h3>Bed-Stuy Works Alliance</h3>
-                            <p>Building economic justice together</p>
-                        </div>
-                    </a>
+                <div class="link-box-content">
+                    <h3>Find Your Block Association</h3>
+                    <p>Active block associations that have hosted block parties across NYC</p>
                 </div>
-            </div>
-
-            <!-- Column 3: Community Resources -->
-            <div class="column">
-                <h2 class="section-title">Community Resources</h2>
-                <div class="link-grid">
-                    <a href="blockassociations.html" class="link-box">
-                        <div class="link-box-preview">
-                            <iframe src="blockassociations.html" title="Block Associations Map Preview"></iframe>
-                        </div>
-                        <div class="link-box-content">
-                            <h3>Block Association Map</h3>
-                            <p>Connect with your local block association</p>
-                        </div>
-                    </a>
-                    <a href="blockparties.html" class="link-box">
-                        <div class="link-box-preview">
-                            <iframe src="blockparties.html" title="Block Parties Map Preview"></iframe>
-                        </div>
-                        <div class="link-box-content">
-                            <h3>Block Parties Map</h3>
-                            <p>Discover block parties in NYC</p>
-                        </div>
-                    </a>
-                    <a href="communityresources.html" class="link-box">
-                        <div class="link-box-preview">
-                            <iframe src="communityresources.html" title="Community Resources Map Preview"></iframe>
-                        </div>
-                        <div class="link-box-content">
-                            <h3>Community Resources Map</h3>
-                            <p>Locate solidarity economy resources</p>
-                        </div>
-                    </a>
+            </a>
+            <a href="blockassociations.html" class="link-box">
+                <div class="link-box-preview">
+                    <iframe src="blockassociations.html" title="Block Activity Preview"></iframe>
                 </div>
-            </div>
+                <div class="link-box-content">
+                    <h3>Block Activity</h3>
+                    <p>Explore where block associations exist across NYC, how active they are, and how activity has changed over time</p>
+                </div>
+            </a>
+            <a href="blockparties.html" class="link-box">
+                <div class="link-box-preview">
+                    <iframe src="blockparties.html" title="Block Parties Map Preview"></iframe>
+                </div>
+                <div class="link-box-content">
+                    <h3>Block Parties Map</h3>
+                    <p>Discover block parties across New York City</p>
+                </div>
+            </a>
+            <a href="communityresources.html" class="link-box">
+                <div class="link-box-preview">
+                    <iframe src="communityresources.html" title="Community Resources Map Preview"></iframe>
+                </div>
+                <div class="link-box-content">
+                    <h3>Community Resources Map</h3>
+                    <p>Locate solidarity economy resources in Central Brooklyn</p>
+                </div>
+            </a>
+            <a href="insights.html" class="link-box">
+                <div class="link-box-preview placeholder" style="background: #1a1a1a; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #888; letter-spacing: 0.05em;">DATA INSIGHTS</span>
+                </div>
+                <div class="link-box-content">
+                    <h3>Block Association Insights</h3>
+                    <p>Charts and analysis: activity over time, COVID recovery, longevity, and more</p>
+                </div>
+            </a>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
@@ -391,16 +339,22 @@
     </div>
 
     <script>
-        // Link box handlers (placeholder for future pages)
-        document.querySelectorAll('.link-box[data-section]').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const section = this.getAttribute('data-section');
-                console.log('Section clicked:', section);
-                // TODO: Navigate to dedicated page when created
-                alert('Coming soon: ' + this.querySelector('h3').textContent);
-            });
+        // Fade in map previews when they signal they've finished rendering
+        const iframes = document.querySelectorAll('.link-box-preview iframe');
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'map-ready') {
+                iframes.forEach(function(iframe) {
+                    if (iframe.contentWindow === e.source) {
+                        iframe.classList.add('ready');
+                    }
+                });
+            }
         });
+
+        // Fallback: show iframes after 8 seconds regardless
+        setTimeout(function() {
+            iframes.forEach(function(iframe) { iframe.classList.add('ready'); });
+        }, 8000);
 
         // About modal handlers
         document.getElementById('about-link').addEventListener('click', function(e) {
