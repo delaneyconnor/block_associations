@@ -569,10 +569,6 @@
                     data-desc="An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.">Plaza Event</button>
                 <button class="filter-btn" data-type="Parade"
                     data-desc="A public procession along a street route typically requiring a full street closure for the duration of the event.">Parade</button>
-                <button class="filter-btn" data-type="Athletic Race / Tour"
-                    data-desc="A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.">Athletic Race / Tour</button>
-                <button class="filter-btn" data-type="Production Event"
-                    data-desc="Activities without branding on a sidewalk or curb lane, including pick-up, drop-off, setup or breakdown of events. Applications must be submitted 10 days in advance.">Production Event</button>
                 <button class="filter-btn" data-type="Special Event"
                     data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
             </div>
@@ -584,9 +580,9 @@
             <input type="range" id="date-slider" class="date-slider" min="0" max="4" value="4" step="1">
             <div class="slider-labels">
                 <span data-val="0">Tomorrow</span>
-                <span data-val="1">Weekend</span>
+                <span data-val="1">This<br>Weekend</span>
                 <span data-val="2">Next<br>Weekend</span>
-                <span data-val="3">Month</span>
+                <span data-val="3">This<br>Month</span>
                 <span data-val="4" class="active">All</span>
             </div>
         </div>
@@ -705,8 +701,6 @@
             'Street Event':         '#5E35B1',
             'Plaza Event':          '#039BE5',
             'Parade':               '#E53935',
-            'Athletic Race / Tour': '#FF7043',
-            'Production Event':     '#37474F',
             'Special Event':        '#FDD835',
         };
 
@@ -717,11 +711,9 @@
             'Farmers Market':       'A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.',
             'Health Fair':          'A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.',
             'Plaza Event':          'An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.',
-            'Production Event':     'Activities without branding on a sidewalk or curb lane, including pick-up, drop-off, setup or breakdown of events. Applications must be submitted 10 days in advance.',
             'Religious Event':      'An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.',
             'Street Event':         'An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.',
             'Parade':               'A public procession along a street route typically requiring a full street closure for the duration of the event.',
-            'Athletic Race / Tour': 'A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.',
             'Special Event':        'A permitted street activity not covered by a specific permit category.',
         };
 
