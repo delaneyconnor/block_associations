@@ -396,6 +396,15 @@
             </select>
         </div>
 
+        <div class="filter-group" id="date-filter-group" style="display:none;">
+            <label>Date Range</label>
+            <div style="display:flex; gap:6px; align-items:center;">
+                <input type="date" id="date-from" class="filter-select" style="flex:1; padding:8px 6px;">
+                <span style="color:#999; font-size:12px;">–</span>
+                <input type="date" id="date-to" class="filter-select" style="flex:1; padding:8px 6px;">
+            </div>
+        </div>
+
         <div class="filter-group">
             <label for="borough-filter">Borough</label>
             <select id="borough-filter" class="filter-select">
@@ -546,7 +555,7 @@
             el.style.width = size;
             el.style.height = size;
             el.style.borderRadius = '50%';
-            el.style.backgroundColor = '#222222';
+            el.style.backgroundColor = '#607D8B';
             el.style.opacity = '0.8';
             el.style.border = 'none';
             el.style.boxShadow = 'none';
@@ -624,16 +633,32 @@
             document.getElementById('event-count').textContent = features.length;
         }
 
-        // Filter features by borough
+        // Filter features by borough and optional date range
+        function applyFilters() {
+            const borough = document.getElementById('borough-filter').value;
+            const fromVal = document.getElementById('date-from').value;
+            const toVal   = document.getElementById('date-to').value;
+            const fromDate = fromVal ? new Date(fromVal) : null;
+            const toDate   = toVal   ? new Date(toVal + 'T23:59:59') : null;
+
+            const filtered = allFeatures.filter(f => {
+                if (borough !== 'all' && f.properties.event_borough !== borough) return false;
+                if (fromDate || toDate) {
+                    const start = f.properties.start_date ? new Date(f.properties.start_date) : null;
+                    if (start) {
+                        if (fromDate && start < fromDate) return false;
+                        if (toDate   && start > toDate)   return false;
+                    }
+                }
+                return true;
+            });
+            addMarkers(filtered);
+        }
+
+        // Keep old name as alias for year-view path
         function filterByBorough(borough) {
-            if (borough === 'all') {
-                addMarkers(allFeatures);
-            } else {
-                const filtered = allFeatures.filter(f =>
-                    f.properties.event_borough === borough
-                );
-                addMarkers(filtered);
-            }
+            document.getElementById('borough-filter').value = borough;
+            applyFilters();
         }
 
         // Convert NYC Open Data record to GeoJSON feature
@@ -805,18 +830,30 @@
                 allFeatures = await loadYearData(currentSeason);
             }
 
-            // Apply current borough filter
-            const boroughFilter = document.getElementById('borough-filter').value;
-            filterByBorough(boroughFilter);
+            applyFilters();
 
+        }
+
+        function setDateDefaults() {
+            const today = new Date();
+            const threeMonths = new Date(today);
+            threeMonths.setMonth(threeMonths.getMonth() + 3);
+            document.getElementById('date-from').value = today.toISOString().slice(0, 10);
+            document.getElementById('date-to').value   = threeMonths.toISOString().slice(0, 10);
         }
 
         // Season filter handler
         document.getElementById('season-filter').addEventListener('change', function(e) {
             const season = e.target.value;
+            const dateGroup = document.getElementById('date-filter-group');
+            if (season === 'upcoming') {
+                dateGroup.style.display = '';
+                setDateDefaults();
+            } else {
+                dateGroup.style.display = 'none';
+            }
             loadData(season);
 
-            // Update header subtitle
             const subtitle = document.querySelector('.header p');
             if (season === 'upcoming') {
                 subtitle.textContent = 'Upcoming Events - Permitted street closures across New York City';
@@ -825,13 +862,15 @@
             }
         });
 
-        // Borough filter handler
-        document.getElementById('borough-filter').addEventListener('change', function(e) {
-            filterByBorough(e.target.value);
-        });
+        // Borough and date filter handlers
+        document.getElementById('borough-filter').addEventListener('change', applyFilters);
+        document.getElementById('date-from').addEventListener('change', applyFilters);
+        document.getElementById('date-to').addEventListener('change', applyFilters);
 
         // Load data when map is ready
         map.on('load', function() {
+            document.getElementById('date-filter-group').style.display = '';
+            setDateDefaults();
             loadData('upcoming');
             // Signal parent iframe when map tiles are rendered
             if (window.self !== window.top) {
