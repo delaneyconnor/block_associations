@@ -759,14 +759,13 @@
         document.body.appendChild(hoverTooltip);
 
         // Create marker element with hover effects
-        function createMarkerElement() {
+        function createMarkerElement(type) {
             const el = document.createElement('div');
             const size = Math.round(markerSizeForZoom(map.getZoom())) + 'px';
             el.style.width = size;
             el.style.height = size;
             el.style.borderRadius = '50%';
-            const activeBtn = document.querySelector('.filter-btn.active[data-type]');
-            el.style.backgroundColor = activeBtn ? (EVENT_COLORS[activeBtn.dataset.type] || '#607D8B') : '#607D8B';
+            el.style.backgroundColor = EVENT_COLORS[type] || '#607D8B';
             el.style.opacity = '0.8';
             el.style.border = 'none';
             el.style.boxShadow = 'none';
@@ -814,7 +813,7 @@
                 const coords = feature.geometry.coordinates;
                 const props = feature.properties;
 
-                const el = createMarkerElement();
+                const el = createMarkerElement(props.event_type);
 
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(coords)
@@ -1044,12 +1043,23 @@
         async function loadUpcomingData() {
             try {
                 const today = new Date().toISOString().slice(0, 10);
-                const activeBtn = document.querySelector('.filter-btn.active[data-type]');
-                const eventType = activeBtn ? activeBtn.dataset.type : 'Block Party';
+                const activeBtns = document.querySelectorAll('.filter-btn.active[data-type]');
+                const selectedTypes = Array.from(activeBtns).map(b => b.dataset.type);
+                let typeFilter;
+                if (selectedTypes.length === 0) {
+                    typeFilter = '';
+                } else if (selectedTypes.length === 1) {
+                    typeFilter = `event_type = '${selectedTypes[0]}'`;
+                } else {
+                    typeFilter = `event_type in (${selectedTypes.map(t => `'${t}'`).join(',')})`;
+                }
+                const whereClause = typeFilter
+                    ? `${typeFilter} AND start_date_time >= '${today}T00:00:00.000'`
+                    : `start_date_time >= '${today}T00:00:00.000'`;
                 const params = new URLSearchParams({
                     '$limit': '500',
                     '$order': 'start_date_time ASC',
-                    '$where': `event_type = '${eventType}' AND start_date_time >= '${today}T00:00:00.000'`
+                    '$where': whereClause
                 });
 
                 const response = await fetch(`${NYC_UPCOMING_URL}?${params}`);
@@ -1120,8 +1130,7 @@
         // Type filter buttons
         document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                btn.classList.toggle('active');
                 loadData('upcoming');
             });
             btn.addEventListener('mouseenter', (e) => {
