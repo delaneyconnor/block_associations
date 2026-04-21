@@ -728,13 +728,36 @@
             }
         }
 
+        // Geocode an NYC street location using NYC Planning GeoSearch API
+        async function geocodeLocation(location) {
+            try {
+                // Parse "STREET between CROSS1 and CROSS2" → "STREET and CROSS1, New York, NY"
+                const match = location.match(/^(.+?)\s+between\s+(.+?)\s+and\s+.+$/i);
+                const query = match
+                    ? `${match[1].trim()} and ${match[2].trim()}, New York, NY`
+                    : `${location}, New York, NY`;
+
+                const url = `https://geosearch.planninglabs.nyc/v2/search?text=${encodeURIComponent(query)}&size=1`;
+                const res = await fetch(url);
+                if (!res.ok) return null;
+                const data = await res.json();
+                if (data.features && data.features.length > 0) {
+                    return data.features[0].geometry.coordinates; // [lng, lat]
+                }
+                return null;
+            } catch (e) {
+                return null;
+            }
+        }
+
         // Load upcoming events from NYC Open Data API
         async function loadUpcomingData() {
             try {
+                const today = new Date().toISOString().slice(0, 10);
                 const params = new URLSearchParams({
-                    '$limit': '1000',
+                    '$limit': '500',
                     '$order': 'start_date_time ASC',
-                    '$where': "event_location like '%between%'"
+                    '$where': `event_location like '%between%' AND start_date_time >= '${today}T00:00:00.000'`
                 });
 
                 const response = await fetch(`${NYC_UPCOMING_URL}?${params}`);
@@ -744,10 +767,22 @@
 
                 const events = await response.json();
 
-                // Convert to GeoJSON features, filter out those without coordinates
-                const features = events
-                    .map(convertToFeature)
-                    .filter(f => f.geometry !== null);
+                // Batch geocode in groups of 15 (GeoSearch is free but be polite)
+                const features = [];
+                const batchSize = 15;
+                for (let i = 0; i < events.length; i += batchSize) {
+                    const batch = events.slice(i, i + batchSize);
+                    const results = await Promise.all(
+                        batch.map(async (event) => {
+                            const coords = await geocodeLocation(event.event_location || '');
+                            const feature = convertToFeature(event);
+                            if (coords) feature.geometry = { type: 'Point', coordinates: coords };
+                            return feature;
+                        })
+                    );
+                    features.push(...results.filter(f => f.geometry !== null));
+                    document.getElementById('event-count').textContent = `loading... ${features.length}`;
+                }
 
                 return features;
             } catch (error) {
