@@ -150,6 +150,8 @@
 
         .popup-body {
             padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
         }
 
         .info-section {
@@ -327,6 +329,48 @@
         }
         .hover-tooltip.visible { opacity: 1; }
 
+        /* Event type filter buttons */
+        .filter-btn {
+            display: inline-block;
+            padding: 6px 10px;
+            margin: 3px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            color: black;
+        }
+        .filter-btn:hover { opacity: 0.8; }
+        .filter-btn.active { color: white; border-color: transparent; }
+        .filter-btn[data-type="Block Party"].active          { background: #607D8B; }
+        .filter-btn[data-type="Single Block Festival"].active { background: #FF9800; }
+        .filter-btn[data-type="Health Fair"].active          { background: #00897B; }
+        .filter-btn[data-type="Clean-Up"].active             { background: #2E7D32; }
+        .filter-btn[data-type="Farmers Market"].active       { background: #8BC34A; color: #222; }
+        .filter-btn[data-type="Religious Event"].active      { background: #AD1457; }
+        .filter-btn[data-type="Street Event"].active         { background: #5E35B1; }
+        .filter-btn[data-type="Plaza Event"].active          { background: #039BE5; }
+        .filter-btn[data-type="Parade"].active               { background: #E53935; }
+        .filter-btn[data-type="Athletic Race / Tour"].active { background: #FF7043; }
+        .filter-btn[data-type="Production Event"].active     { background: #37474F; }
+        .filter-btn[data-type="Special Event"].active        { background: #FDD835; color: #222; }
+
+        /* Hover description below buttons */
+        .type-desc {
+            font-size: 10px;
+            color: #555;
+            line-height: 1.5;
+            margin-top: 8px;
+            padding: 7px 9px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            display: none;
+        }
+        .type-desc.visible { display: block; }
+
         /* Permit info section in popup */
         .permit-info {
             margin-top: 16px;
@@ -464,21 +508,34 @@
         </div>
 
         <div class="filter-group" id="type-filter-group" style="display:none;">
-            <label for="type-filter">Event Type</label>
-            <select id="type-filter" class="filter-select">
-                <option value="Block Party">Block Party</option>
-                <option value="Single Block Festival">Single Block Festival</option>
-                <option value="Health Fair">Health Fair</option>
-                <option value="Clean-Up">Clean-Up</option>
-                <option value="Farmers Market">Farmers Market</option>
-                <option value="Religious Event">Religious Event</option>
-                <option value="Street Event">Street Event</option>
-                <option value="Plaza Event">Plaza Event</option>
-                <option value="Parade">Parade</option>
-                <option value="Athletic Race / Tour">Athletic Race / Tour</option>
-                <option value="Production Event">Production Event</option>
-                <option value="Special Event">Special Event</option>
-            </select>
+            <label>Event Type</label>
+            <div>
+                <button class="filter-btn active" data-type="Block Party"
+                    data-desc="A community sponsored event with no sale of goods or services requiring the closure of a single block for a single day. Applications must be submitted 60 days in advance.">Block Party</button>
+                <button class="filter-btn" data-type="Single Block Festival"
+                    data-desc="Nonprofit sponsored community festival with vendors requiring closing one block for one day. Applications must be submitted 90 days in advance.">Single Block Festival</button>
+                <button class="filter-btn" data-type="Health Fair"
+                    data-desc="A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.">Health Fair</button>
+                <button class="filter-btn" data-type="Clean-Up"
+                    data-desc="A limited, 4-hour street closure event held for the purpose of neighborhood improvement or beautification. Applications must be submitted 60 days in advance.">Clean-Up</button>
+                <button class="filter-btn" data-type="Farmers Market"
+                    data-desc="A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.">Farmers Market</button>
+                <button class="filter-btn" data-type="Religious Event"
+                    data-desc="An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.">Religious Event</button>
+                <button class="filter-btn" data-type="Street Event"
+                    data-desc="An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.">Street Event</button>
+                <button class="filter-btn" data-type="Plaza Event"
+                    data-desc="An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.">Plaza Event</button>
+                <button class="filter-btn" data-type="Parade"
+                    data-desc="A public procession along a street route typically requiring a full street closure for the duration of the event.">Parade</button>
+                <button class="filter-btn" data-type="Athletic Race / Tour"
+                    data-desc="A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.">Athletic Race / Tour</button>
+                <button class="filter-btn" data-type="Production Event"
+                    data-desc="Activities without branding on a sidewalk or curb lane, including pick-up, drop-off, setup or breakdown of events. Applications must be submitted 10 days in advance.">Production Event</button>
+                <button class="filter-btn" data-type="Special Event"
+                    data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
+            </div>
+            <div class="type-desc" id="type-desc"></div>
         </div>
 
         <div class="filter-group" id="date-filter-group" style="display:none;">
@@ -591,17 +648,33 @@
 
         const PERMIT_TYPES_URL = 'https://www.nyc.gov/site/cecm/permitting/permit-types.page';
 
+        const EVENT_COLORS = {
+            'Block Party':          '#607D8B',
+            'Single Block Festival':'#FF9800',
+            'Health Fair':          '#00897B',
+            'Clean-Up':             '#2E7D32',
+            'Farmers Market':       '#8BC34A',
+            'Religious Event':      '#AD1457',
+            'Street Event':         '#5E35B1',
+            'Plaza Event':          '#039BE5',
+            'Parade':               '#E53935',
+            'Athletic Race / Tour': '#FF7043',
+            'Production Event':     '#37474F',
+            'Special Event':        '#FDD835',
+        };
+
         const TYPE_INFO = {
-            'Block Party':          'A community sponsored event requiring the closure of a single block for a single day. No sales of goods or services permitted.',
-            'Single Block Festival': 'A nonprofit sponsored community festival with vendors requiring closing one block for one day.',
-            'Clean-Up':             'A limited, 4-hour street closure event held for the purpose of neighborhood improvement and beautification.',
-            'Farmers Market':       'A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products.',
-            'Health Fair':          'A community sponsored event where health vendors provide in-kind services, requiring closing one block or a portion of a street for one day.',
-            'Religious Event':      'An act of public worship serving a benefit to the community for a single day.',
-            'Street Event':         'An activity held on a public street, curb lane, or sidewalk that interferes with or obstructs use by pedestrians or vehicles.',
-            'Plaza Event':          'An activity held within a pedestrian plaza that interferes with or obstructs regular use of the plaza.',
-            'Production Event':     'Activities without branding that occur on a sidewalk or curb lane, including pick-up, drop-off, setup, or breakdown of events.',
-            'Parade':               'A public procession along a street route, typically requiring a full street closure for the duration of the event.',
+            'Block Party':          'A community sponsored event with no sale of goods or services requiring the closure of a single block for a single day. Applications must be submitted 60 days in advance.',
+            'Single Block Festival':'Nonprofit sponsored community festival with vendors requiring closing one block for one day. Applications must be submitted 90 days in advance.',
+            'Clean-Up':             'A limited, 4-hour street closure event held for the purpose of neighborhood improvement or beautification. Applications must be submitted 60 days in advance.',
+            'Farmers Market':       'A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.',
+            'Health Fair':          'A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.',
+            'Plaza Event':          'An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.',
+            'Production Event':     'Activities without branding on a sidewalk or curb lane, including pick-up, drop-off, setup or breakdown of events. Applications must be submitted 10 days in advance.',
+            'Religious Event':      'An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.',
+            'Single Block Festival':'Nonprofit sponsored community festival with vendors requiring closing one block for one day. Applications must be submitted 90 days in advance.',
+            'Street Event':         'An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.',
+            'Parade':               'A public procession along a street route typically requiring a full street closure for the duration of the event.',
             'Athletic Race / Tour': 'A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.',
             'Special Event':        'A permitted street activity not covered by a specific permit category.',
         };
@@ -664,7 +737,8 @@
             el.style.width = size;
             el.style.height = size;
             el.style.borderRadius = '50%';
-            el.style.backgroundColor = '#607D8B';
+            const activeBtn = document.querySelector('.filter-btn.active[data-type]');
+            el.style.backgroundColor = activeBtn ? (EVENT_COLORS[activeBtn.dataset.type] || '#607D8B') : '#607D8B';
             el.style.opacity = '0.8';
             el.style.border = 'none';
             el.style.boxShadow = 'none';
@@ -936,7 +1010,8 @@
         async function loadUpcomingData() {
             try {
                 const today = new Date().toISOString().slice(0, 10);
-                const eventType = document.getElementById('type-filter').value;
+                const activeBtn = document.querySelector('.filter-btn.active[data-type]');
+                const eventType = activeBtn ? activeBtn.dataset.type : 'Block Party';
                 const params = new URLSearchParams({
                     '$limit': '500',
                     '$order': 'start_date_time ASC',
@@ -1007,7 +1082,22 @@
         });
 
         document.getElementById('borough-filter').addEventListener('change', applyFilters);
-        document.getElementById('type-filter').addEventListener('change', () => loadData('upcoming'));
+
+        // Type filter buttons
+        document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn[data-type]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                loadData('upcoming');
+            });
+            btn.addEventListener('mouseenter', () => {
+                const desc = document.getElementById('type-desc');
+                if (btn.dataset.desc) { desc.textContent = btn.dataset.desc; desc.classList.add('visible'); }
+            });
+            btn.addEventListener('mouseleave', () => {
+                document.getElementById('type-desc').classList.remove('visible');
+            });
+        });
 
         const slider = document.getElementById('date-slider');
         slider.addEventListener('input', function() {
