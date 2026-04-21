@@ -150,8 +150,49 @@
 
         .popup-body {
             padding: 20px;
-            max-height: 60vh;
+        }
+
+        /* Right-side info panel (matches activeblockassociations style) */
+        .info-panel {
+            position: absolute;
+            top: 120px;
+            right: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1;
+            width: 350px;
+            max-height: calc(100vh - 160px);
             overflow-y: auto;
+            display: none;
+        }
+        .info-panel.active { display: block; }
+        .info-panel .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+            padding: 0;
+        }
+        .info-panel .close-btn:hover { color: black; }
+
+        /* On mobile, panel slides up from bottom */
+        @media (max-width: 768px) {
+            .info-panel {
+                bottom: 0;
+                top: auto;
+                right: 0;
+                left: 0;
+                width: 100%;
+                max-height: 50vh;
+                border-radius: 16px 16px 0 0;
+            }
         }
 
         .info-section {
@@ -582,6 +623,12 @@
         </div>
     </div>
 
+    <!-- Info Panel -->
+    <div class="info-panel" id="info-panel">
+        <button class="close-btn" id="close-panel">×</button>
+        <div id="panel-body"></div>
+    </div>
+
     <!-- Mapbox GL JS -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
@@ -757,10 +804,19 @@
             selectedMarkerEl = null;
         }
 
+        function showPanel(props) {
+            document.getElementById('panel-body').innerHTML = createPopupHTML(props);
+            document.getElementById('info-panel').classList.add('active');
+        }
+
+        function closePanel() {
+            document.getElementById('info-panel').classList.remove('active');
+            if (selectedMarkerEl) { resetMarker(selectedMarkerEl); selectedMarkerEl = null; }
+        }
+
         // Add markers for features
         function addMarkers(features) {
             clearMarkers();
-            let currentOpenPopup = null;
 
             features.forEach(feature => {
                 const coords = feature.geometry.coordinates;
@@ -768,29 +824,10 @@
 
                 const el = createMarkerElement();
 
-                // Per-marker popup — avoids closeOnClick conflict with global popup
-                const markerPopup = new mapboxgl.Popup({
-                    closeButton: true,
-                    maxWidth: '320px'
-                }).setHTML(createPopupHTML(props));
-
-                markerPopup.on('open', () => {
-                    if (currentOpenPopup && currentOpenPopup !== markerPopup) {
-                        currentOpenPopup.remove();
-                    }
-                    currentOpenPopup = markerPopup;
-                });
-                markerPopup.on('close', () => {
-                    if (currentOpenPopup === markerPopup) currentOpenPopup = null;
-                    if (selectedMarkerEl === el) { resetMarker(el); selectedMarkerEl = null; }
-                });
-
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(coords)
-                    .setPopup(markerPopup)
                     .addTo(map);
 
-                // Hover — event name near cursor
                 el.addEventListener('mouseenter', (e) => {
                     hoverTooltip.style.whiteSpace = 'nowrap';
                     hoverTooltip.style.maxWidth = '';
@@ -807,10 +844,11 @@
                     hoverTooltip.classList.remove('visible');
                 });
 
-                // Click — select + fly (popup opened by setPopup)
-                el.addEventListener('click', () => {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     hoverTooltip.classList.remove('visible');
                     selectMarker(el);
+                    showPanel(props);
                     map.flyTo({ center: coords, zoom: 15, duration: 600 });
                 });
 
@@ -1138,6 +1176,9 @@
                 map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
             }
         });
+
+        document.getElementById('close-panel').addEventListener('click', closePanel);
+        map.on('click', closePanel);
 
         // About modal handlers
         document.getElementById('about-btn').addEventListener('click', function() {
