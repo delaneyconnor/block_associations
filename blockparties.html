@@ -63,7 +63,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
-            width: 280px;
+            width: 310px;
         }
 
         .filter-panel h3 {
@@ -480,7 +480,7 @@
 
     <!-- Filter Panel -->
     <div class="filter-panel">
-        <h3>Filter Block Parties</h3>
+        <h3>Filter Street Events</h3>
 
         <div class="filter-group">
             <label for="season-filter">Year</label>
@@ -672,22 +672,11 @@
             'Plaza Event':          'An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.',
             'Production Event':     'Activities without branding on a sidewalk or curb lane, including pick-up, drop-off, setup or breakdown of events. Applications must be submitted 10 days in advance.',
             'Religious Event':      'An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.',
-            'Single Block Festival':'Nonprofit sponsored community festival with vendors requiring closing one block for one day. Applications must be submitted 90 days in advance.',
             'Street Event':         'An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.',
             'Parade':               'A public procession along a street route typically requiring a full street closure for the duration of the event.',
             'Athletic Race / Tour': 'A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.',
             'Special Event':        'A permitted street activity not covered by a specific permit category.',
         };
-
-        // Create popup
-        const popup = new mapboxgl.Popup({
-            closeButton: true,
-            closeOnClick: true,
-            maxWidth: '320px'
-        });
-        popup.on('close', () => {
-            if (selectedMarkerEl) { resetMarker(selectedMarkerEl); selectedMarkerEl = null; }
-        });
 
         function field(label, value) {
             if (!value || value === 'N/A') return '';
@@ -771,6 +760,7 @@
         // Add markers for features
         function addMarkers(features) {
             clearMarkers();
+            let currentOpenPopup = null;
 
             features.forEach(feature => {
                 const coords = feature.geometry.coordinates;
@@ -778,35 +768,49 @@
 
                 const el = createMarkerElement();
 
+                // Per-marker popup — avoids closeOnClick conflict with global popup
+                const markerPopup = new mapboxgl.Popup({
+                    closeButton: true,
+                    maxWidth: '320px'
+                }).setHTML(createPopupHTML(props));
+
+                markerPopup.on('open', () => {
+                    if (currentOpenPopup && currentOpenPopup !== markerPopup) {
+                        currentOpenPopup.remove();
+                    }
+                    currentOpenPopup = markerPopup;
+                });
+                markerPopup.on('close', () => {
+                    if (currentOpenPopup === markerPopup) currentOpenPopup = null;
+                    if (selectedMarkerEl === el) { resetMarker(el); selectedMarkerEl = null; }
+                });
+
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat(coords)
+                    .setPopup(markerPopup)
                     .addTo(map);
 
-                // Hover - show event name tooltip
+                // Hover — event name near cursor
                 el.addEventListener('mouseenter', (e) => {
-                    hoverTooltip.textContent = props.event_name || 'Block Party';
+                    hoverTooltip.style.whiteSpace = 'nowrap';
+                    hoverTooltip.style.maxWidth = '';
+                    hoverTooltip.textContent = props.event_name || 'Event';
                     hoverTooltip.style.left = e.pageX + 15 + 'px';
-                    hoverTooltip.style.top = e.pageY + 15 + 'px';
+                    hoverTooltip.style.top  = e.pageY + 15 + 'px';
                     hoverTooltip.classList.add('visible');
                 });
-
                 el.addEventListener('mousemove', (e) => {
-                    hoverTooltip.style.left = e.pageX + 'px';
-                    hoverTooltip.style.top = e.pageY + 'px';
+                    hoverTooltip.style.left = e.pageX + 15 + 'px';
+                    hoverTooltip.style.top  = e.pageY + 15 + 'px';
                 });
-
                 el.addEventListener('mouseleave', () => {
                     hoverTooltip.classList.remove('visible');
                 });
 
-                // Click - show full details popup
+                // Click — select + fly (popup opened by setPopup)
                 el.addEventListener('click', () => {
                     hoverTooltip.classList.remove('visible');
                     selectMarker(el);
-                    popup
-                        .setLngLat(coords)
-                        .setHTML(createPopupHTML(props))
-                        .addTo(map);
                     map.flyTo({ center: coords, zoom: 15, duration: 600 });
                 });
 
@@ -1090,12 +1094,23 @@
                 btn.classList.add('active');
                 loadData('upcoming');
             });
-            btn.addEventListener('mouseenter', () => {
-                const desc = document.getElementById('type-desc');
-                if (btn.dataset.desc) { desc.textContent = btn.dataset.desc; desc.classList.add('visible'); }
+            btn.addEventListener('mouseenter', (e) => {
+                if (!btn.dataset.desc) return;
+                hoverTooltip.textContent = btn.dataset.desc;
+                hoverTooltip.style.whiteSpace = 'normal';
+                hoverTooltip.style.maxWidth = '240px';
+                hoverTooltip.style.left = e.pageX + 15 + 'px';
+                hoverTooltip.style.top  = e.pageY + 15 + 'px';
+                hoverTooltip.classList.add('visible');
+            });
+            btn.addEventListener('mousemove', (e) => {
+                hoverTooltip.style.left = e.pageX + 15 + 'px';
+                hoverTooltip.style.top  = e.pageY + 15 + 'px';
             });
             btn.addEventListener('mouseleave', () => {
-                document.getElementById('type-desc').classList.remove('visible');
+                hoverTooltip.classList.remove('visible');
+                hoverTooltip.style.whiteSpace = 'nowrap';
+                hoverTooltip.style.maxWidth = '';
             });
         });
 
