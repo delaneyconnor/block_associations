@@ -374,7 +374,7 @@
         .filter-btn {
             display: inline-block;
             padding: 6px 10px;
-            margin: 3px;
+            margin: 2px;
             border: 2px solid #e0e0e0;
             border-radius: 6px;
             font-size: 11px;
@@ -386,13 +386,13 @@
         }
         .filter-btn:hover { opacity: 0.8; }
         .filter-btn.active { color: white; border-color: transparent; }
-        .filter-btn[data-type="Block Party"].active          { background: #607D8B; }
+        .filter-btn[data-type="Block Party"].active          { background: #5E35B1; }
         .filter-btn[data-type="Single Block Festival"].active { background: #FF9800; }
         .filter-btn[data-type="Health Fair"].active          { background: #00897B; }
         .filter-btn[data-type="Clean-Up"].active             { background: #2E7D32; }
         .filter-btn[data-type="Farmers Market"].active       { background: #8BC34A; color: #222; }
         .filter-btn[data-type="Religious Event"].active      { background: #AD1457; }
-        .filter-btn[data-type="Street Event"].active         { background: #5E35B1; }
+        .filter-btn[data-type="Street Event"].active         { background: #607D8B; }
         .filter-btn[data-type="Plaza Event"].active          { background: #039BE5; }
         .filter-btn[data-type="Parade"].active               { background: #E53935; }
         .filter-btn[data-type="Athletic Race / Tour"].active { background: #FF7043; }
@@ -559,14 +559,14 @@
                     data-desc="A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.">Health Fair</button>
                 <button class="filter-btn" data-type="Clean-Up"
                     data-desc="A limited, 4-hour street closure event held for the purpose of neighborhood improvement or beautification. Applications must be submitted 60 days in advance.">Clean-Up</button>
+                <button class="filter-btn" data-type="Street Event"
+                    data-desc="An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.">Street Event</button>
                 <button class="filter-btn" data-type="Special Event"
                     data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
                 <button class="filter-btn" data-type="Farmers Market"
                     data-desc="A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.">Farmers Market</button>
                 <button class="filter-btn" data-type="Religious Event"
                     data-desc="An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.">Religious Event</button>
-                <button class="filter-btn" data-type="Street Event"
-                    data-desc="An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.">Street Event</button>
                 <button class="filter-btn" data-type="Plaza Event"
                     data-desc="An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.">Plaza Event</button>
                 <button class="filter-btn" data-type="Parade"
@@ -697,13 +697,13 @@
         const PERMIT_TYPES_URL = 'https://www.nyc.gov/site/cecm/permitting/permit-types.page';
 
         const EVENT_COLORS = {
-            'Block Party':          '#607D8B',
+            'Block Party':          '#5E35B1',
             'Single Block Festival':'#FF9800',
             'Health Fair':          '#00897B',
             'Clean-Up':             '#2E7D32',
             'Farmers Market':       '#8BC34A',
             'Religious Event':      '#AD1457',
-            'Street Event':         '#5E35B1',
+            'Street Event':         '#607D8B',
             'Plaza Event':          '#039BE5',
             'Parade':               '#E53935',
             'Special Event':        '#FDD835',
