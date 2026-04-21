@@ -907,16 +907,19 @@
             }
         }
 
-        // Geocode an NYC street location using NYC Planning GeoSearch API
-        async function geocodeLocation(location) {
+        // Geocode an NYC street location using the Mapbox Geocoding API
+        async function geocodeLocation(location, borough) {
             try {
-                // Parse "STREET between CROSS1 and CROSS2" → "STREET and CROSS1, New York, NY"
                 const match = location.match(/^(.+?)\s+between\s+(.+?)\s+and\s+.+$/i);
-                const query = match
-                    ? `${match[1].trim()} and ${match[2].trim()}, New York, NY`
-                    : `${location}, New York, NY`;
+                const street = match
+                    ? `${match[1].trim()} and ${match[2].trim()}`
+                    : location;
+                const place = borough ? `${borough}, New York` : 'New York City';
+                // Normalize internal whitespace (some locations have extra spaces)
+                const query = `${street}, ${place}`.replace(/\s+/g, ' ');
 
-                const url = `https://geosearch.planninglabs.nyc/v2/search?text=${encodeURIComponent(query)}&size=1`;
+                const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`
+                    + `?access_token=${mapboxgl.accessToken}&bbox=-74.26,40.47,-73.70,40.92&limit=1`;
                 const res = await fetch(url);
                 if (!res.ok) return null;
                 const data = await res.json();
@@ -954,7 +957,7 @@
                     const batch = events.slice(i, i + batchSize);
                     const results = await Promise.all(
                         batch.map(async (event) => {
-                            const coords = await geocodeLocation(event.event_location || '');
+                            const coords = await geocodeLocation(event.event_location || '', event.event_borough || '');
                             const feature = convertToFeature(event);
                             if (coords) feature.geometry = { type: 'Point', coordinates: coords };
                             return feature;
