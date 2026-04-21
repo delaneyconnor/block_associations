@@ -327,6 +327,27 @@
         }
         .hover-tooltip.visible { opacity: 1; }
 
+        /* Permit info section in popup */
+        .permit-info {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .permit-info-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+            margin: 6px 0 10px;
+        }
+        .permit-info-link {
+            font-size: 11px;
+            color: #607D8B;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .permit-info-link:hover { text-decoration: underline; }
+
         /* Date slider */
         .date-slider {
             width: 100%;
@@ -447,11 +468,15 @@
             <select id="type-filter" class="filter-select">
                 <option value="Block Party">Block Party</option>
                 <option value="Single Block Festival">Single Block Festival</option>
-                <option value="Parade">Parade</option>
                 <option value="Health Fair">Health Fair</option>
                 <option value="Clean-Up">Clean-Up</option>
                 <option value="Farmers Market">Farmers Market</option>
                 <option value="Religious Event">Religious Event</option>
+                <option value="Street Event">Street Event</option>
+                <option value="Plaza Event">Plaza Event</option>
+                <option value="Parade">Parade</option>
+                <option value="Athletic Race / Tour">Athletic Race / Tour</option>
+                <option value="Production Event">Production Event</option>
                 <option value="Special Event">Special Event</option>
             </select>
         </div>
@@ -564,6 +589,23 @@
         // NYC Open Data API for upcoming events
         const NYC_UPCOMING_URL = 'https://data.cityofnewyork.us/resource/tvpp-9vvx.json';
 
+        const PERMIT_TYPES_URL = 'https://www.nyc.gov/site/cecm/permitting/permit-types.page';
+
+        const TYPE_INFO = {
+            'Block Party':          'A community sponsored event requiring the closure of a single block for a single day. No sales of goods or services permitted.',
+            'Single Block Festival': 'A nonprofit sponsored community festival with vendors requiring closing one block for one day.',
+            'Clean-Up':             'A limited, 4-hour street closure event held for the purpose of neighborhood improvement and beautification.',
+            'Farmers Market':       'A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products.',
+            'Health Fair':          'A community sponsored event where health vendors provide in-kind services, requiring closing one block or a portion of a street for one day.',
+            'Religious Event':      'An act of public worship serving a benefit to the community for a single day.',
+            'Street Event':         'An activity held on a public street, curb lane, or sidewalk that interferes with or obstructs use by pedestrians or vehicles.',
+            'Plaza Event':          'An activity held within a pedestrian plaza that interferes with or obstructs regular use of the plaza.',
+            'Production Event':     'Activities without branding that occur on a sidewalk or curb lane, including pick-up, drop-off, setup, or breakdown of events.',
+            'Parade':               'A public procession along a street route, typically requiring a full street closure for the duration of the event.',
+            'Athletic Race / Tour': 'A permitted athletic event such as a road race or cycling tour requiring temporary street closures along a defined route.',
+            'Special Event':        'A permitted street activity not covered by a specific permit category.',
+        };
+
         // Create popup
         const popup = new mapboxgl.Popup({
             closeButton: true,
@@ -583,6 +625,14 @@
         }
 
         function createPopupHTML(p) {
+            const desc = TYPE_INFO[p.event_type];
+            const infoSection = desc ? `
+                <div class="permit-info">
+                    <div class="info-label">About This Permit</div>
+                    <div class="permit-info-desc">${desc}</div>
+                    <a href="${PERMIT_TYPES_URL}" target="_blank" class="permit-info-link">NYC Permit Types ↗</a>
+                </div>` : '';
+
             return `
                 <div class="popup-header">
                     <h3>${p.event_name || 'Block Party'}</h3>
@@ -597,6 +647,7 @@
                     ${field('Closure Type', p.street_closure_type)}
                     ${field('Community Board', p.community_board ? p.community_board.replace(/,\s*$/, '') : '')}
                     ${field('Police Precinct', p.police_precinct ? p.police_precinct.replace(/,\s*$/, '') : '')}
+                    ${infoSection}
                 </div>
             `;
         }
