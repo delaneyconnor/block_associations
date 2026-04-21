@@ -587,9 +587,11 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmiuzxumn006c01qn5xjk2trz',
     center: [-73.9442, 40.6782],
-    zoom: 11
+    zoom: 11,
+    attributionControl: false
 });
 
+map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 let allFeatures = [];

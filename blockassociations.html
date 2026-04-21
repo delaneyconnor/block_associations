@@ -594,9 +594,11 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
     center: [-73.9442, 40.6782],
-    zoom: 11
+    zoom: 11,
+    attributionControl: false
 });
 
+map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 const geolocateControl = new mapboxgl.GeolocateControl({

@@ -641,8 +641,11 @@
             container: 'map',
             style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
             center: [-73.9442, 40.6782], // Centered on Brooklyn
-            zoom: 11
+            zoom: 11,
+            attributionControl: false
         });
+
+        map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
 
         // Add navigation controls
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
@@ -872,23 +875,29 @@
             const layerId = sourceId + '-line';
             const hitLayerId = sourceId + '-hit';
 
+            // Geocode each segment independently — keep pairs separate so we get a
+            // MultiLineString instead of one connected LineString (which would draw
+            // false lines between non-adjacent streets).
             const rawSegments = (props.event_location || '').split(/,\s*/);
-            const coordPromises = [];
-            for (const seg of rawSegments) {
+            const segmentPromises = rawSegments.map(seg => {
                 const m = seg.trim().match(/^(.+?)\s+between\s+(.+?)\s+and\s+(.+)$/i);
                 if (m) {
                     const [, street, cross1, cross2] = m;
-                    coordPromises.push(geocodeIntersection(street, cross1, borough));
-                    coordPromises.push(geocodeIntersection(street, cross2, borough));
-                } else {
-                    coordPromises.push(geocodeLocation(seg.trim(), borough));
+                    return Promise.all([
+                        geocodeIntersection(street, cross1, borough),
+                        geocodeIntersection(street, cross2, borough)
+                    ]);
                 }
-            }
+                return geocodeLocation(seg.trim(), borough).then(c => [c, null]);
+            });
 
-            const resolved = await Promise.all(coordPromises);
-            const coords = resolved.filter(Boolean);
+            const resolvedSegments = await Promise.all(segmentPromises);
+            // Each segment needs at least 2 valid points to draw a line
+            const lineSegments = resolvedSegments
+                .map(pair => pair.filter(Boolean))
+                .filter(pair => pair.length >= 2);
 
-            if (coords.length < 2) {
+            if (lineSegments.length === 0) {
                 if (feature.geometry) {
                     const el = createMarkerElement('Parade');
                     const fc = feature.geometry.coordinates;
@@ -903,7 +912,11 @@
 
             map.addSource(sourceId, {
                 type: 'geojson',
-                data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords }, properties: {} }
+                data: {
+                    type: 'Feature',
+                    geometry: { type: 'MultiLineString', coordinates: lineSegments },
+                    properties: {}
+                }
             });
             map.addLayer({
                 id: layerId,
@@ -920,12 +933,13 @@
                 paint: { 'line-color': color, 'line-width': 20, 'line-opacity': 0 }
             });
 
+            const midpoint = lineSegments[Math.floor(lineSegments.length / 2)][0];
+
             map.on('click', hitLayerId, () => {
                 _skipNextClose = true;
                 hoverTooltip.classList.remove('visible');
                 showPanel(props);
-                const mid = coords[Math.floor(coords.length / 2)];
-                map.flyTo({ center: mid, zoom: 14, duration: 600 });
+                map.flyTo({ center: midpoint, zoom: 14, duration: 600 });
             });
 
             map.on('mousemove', hitLayerId, (e) => {
