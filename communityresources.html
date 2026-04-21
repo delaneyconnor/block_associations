@@ -413,8 +413,8 @@
         }
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
+        .mapboxgl-ctrl-bottom-right {
+            bottom: 80px !important;
         }
 
         @media (max-width: 768px) {
@@ -590,7 +590,7 @@ const map = new mapboxgl.Map({
     zoom: 11
 });
 
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 let allFeatures = [];
 let selectedCategories = []; // Store multiple selected categories

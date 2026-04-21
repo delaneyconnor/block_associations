@@ -399,7 +399,7 @@
         .mapboxgl-ctrl-logo { display: none !important; }
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left { bottom: 80px !important; }
+        .mapboxgl-ctrl-bottom-right { bottom: 80px !important; }
 
         /* Geolocation dot styling */
         .mapboxgl-user-location-dot {
@@ -597,14 +597,14 @@ const map = new mapboxgl.Map({
     zoom: 11
 });
 
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 const geolocateControl = new mapboxgl.GeolocateControl({
     positionOptions: { enableHighAccuracy: true },
     trackUserLocation: true,
     showUserHeading: false
 });
-map.addControl(geolocateControl, 'bottom-left');
+map.addControl(geolocateControl, 'bottom-right');
 
 let allFeatures = [];
 let hoveredFeatureId = null;

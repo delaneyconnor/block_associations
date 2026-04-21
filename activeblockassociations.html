@@ -458,8 +458,8 @@
 
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
+        .mapboxgl-ctrl-bottom-right {
+            bottom: 80px !important;
         }
 
         /* Hover tooltip */
@@ -640,13 +640,13 @@
         map.setPadding({ left: 320, top: 0, right: 0, bottom: 0 });
 
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
         // Add geolocation control
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: { enableHighAccuracy: true },
             trackUserLocation: true
-        }), 'bottom-left');
+        }), 'bottom-right');
 
         // Store all features for filtering
         let allFeatures = [];
