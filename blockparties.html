@@ -498,6 +498,20 @@
                 right: 10px;
                 left: 10px;
             }
+
+            .filter-panel h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+                user-select: none;
+            }
+            .filter-panel h3::after { content: '▾'; font-size: 16px; color: #999; }
+            .filter-panel.open h3 { margin-bottom: 12px; }
+            .filter-panel.open h3::after { content: '▴'; }
+            .filter-body { display: none; }
+            .filter-panel.open .filter-body { display: block; }
         }
     </style>
 </head>
@@ -520,9 +534,10 @@
     <div id="map"></div>
 
     <!-- Filter Panel -->
-    <div class="filter-panel">
-        <h3>Filter Street Events</h3>
+    <div class="filter-panel" id="filter-panel">
+        <h3 id="filter-toggle">Filter Street Events</h3>
 
+        <div class="filter-body">
         <div class="filter-group">
             <label for="season-filter">Year</label>
             <select id="season-filter" class="filter-select">
@@ -605,6 +620,7 @@
                 <span class="stat-value" id="event-count">0</span>
             </div>
         </div>
+        </div><!-- /.filter-body -->
     </div>
 
     <!-- About Modal -->
@@ -1319,6 +1335,11 @@
             if (window.self !== window.top) {
                 map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
             }
+        });
+
+        // Mobile: tap header to expand/collapse filter panel
+        document.getElementById('filter-toggle').addEventListener('click', function() {
+            document.getElementById('filter-panel').classList.toggle('open');
         });
 
         document.getElementById('close-panel').addEventListener('click', closePanel);
