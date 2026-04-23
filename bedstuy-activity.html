@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Bed-Stuy Block Association Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+}
+.chart-wrap {
+    width: 100%;
+    max-width: 720px;
+}
+.title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+.sub {
+    font-size: 11px;
+    font-weight: 300;
+    color: #999;
+    margin-bottom: 32px;
+}
+svg { display: block; width: 100%; overflow: visible; }
+</style>
+</head>
+<body>
+<div class="chart-wrap">
+    <div class="title">Block association activity in Bed-Stuy (Brooklyn CB3)</div>
+    <div class="sub">Associations filing at least one block party permit per year &nbsp;·&nbsp; 2008–2025</div>
+    <svg id="chart" viewBox="0 0 680 200"></svg>
+</div>
+
+<script>
+const data = [
+    [2008,90],[2009,127],[2010,130],[2011,132],[2012,121],
+    [2013,124],[2014,116],[2015,123],[2016,115],[2017,100],
+    [2018,123],[2019,122],[2020,19],[2021,87],[2022,84],
+    [2023,107],[2024,118],[2025,111]
+];
+
+const W = 680, H = 200;
+const pl = 36, pr = 12, pt = 10, pb = 28;
+const chartW = W - pl - pr;
+const chartH = H - pt - pb;
+
+const maxVal = 140;
+const n = data.length;
+const barW = chartW / n;
+const gap = barW * 0.18;
+
+const svg = document.getElementById('chart');
+
+// Grid lines + y labels
+[0, 50, 100, 132].forEach(v => {
+    const y = pt + chartH - (v / maxVal) * chartH;
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', pl); line.setAttribute('x2', pl + chartW);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', v === 0 ? '#d0d0d0' : '#efefef');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+
+    if (v > 0) {
+        const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', pl - 6); t.setAttribute('y', y + 4);
+        t.setAttribute('text-anchor','end');
+        t.setAttribute('font-size','9');
+        t.setAttribute('fill','#bbb');
+        t.setAttribute('font-family',"'IBM Plex Mono', monospace");
+        t.textContent = v;
+        svg.appendChild(t);
+    }
+});
+
+// Bars
+data.forEach(([year, val], i) => {
+    const x = pl + i * barW + gap / 2;
+    const bw = barW - gap;
+    const bh = (val / maxVal) * chartH;
+    const y = pt + chartH - bh;
+
+    const is2020 = year === 2020;
+    const fill = is2020 ? '#c0c0c0' : '#1a1a1a';
+
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', bw); rect.setAttribute('height', bh);
+    rect.setAttribute('fill', fill);
+    rect.setAttribute('rx', '1.5');
+    svg.appendChild(rect);
+
+    // x-axis labels — every 2 years
+    if (i % 2 === 0 || year === 2025) {
+        const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', x + bw / 2);
+        t.setAttribute('y', pt + chartH + 16);
+        t.setAttribute('text-anchor','middle');
+        t.setAttribute('font-size','9');
+        t.setAttribute('fill','#aaa');
+        t.setAttribute('font-family',"'IBM Plex Mono', monospace");
+        t.textContent = year;
+        svg.appendChild(t);
+    }
+});
+
+// 2020 annotation
+const x2020 = pl + 12 * barW + (barW - gap) / 2 + gap / 2;
+const annLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+annLine.setAttribute('x1', x2020); annLine.setAttribute('x2', x2020);
+annLine.setAttribute('y1', pt); annLine.setAttribute('y2', pt + chartH - (19/maxVal)*chartH - 4);
+annLine.setAttribute('stroke','#bbb'); annLine.setAttribute('stroke-width','1');
+annLine.setAttribute('stroke-dasharray','3,3');
+svg.appendChild(annLine);
+
+const annText = document.createElementNS('http://www.w3.org/2000/svg','text');
+annText.setAttribute('x', x2020 + 4); annText.setAttribute('y', pt + 10);
+annText.setAttribute('font-size','9'); annText.setAttribute('fill','#aaa');
+annText.setAttribute('font-family',"'IBM Plex Mono', monospace");
+annText.textContent = 'COVID-19';
+svg.appendChild(annText);
+</script>
+</body>
+</html>
