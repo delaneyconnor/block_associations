@@ -413,8 +413,8 @@
         }
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
+        .mapboxgl-ctrl-bottom-right {
+            bottom: 80px !important;
         }
 
         @media (max-width: 768px) {
@@ -445,7 +445,7 @@
                 left: 10px;
                 right: 10px;
                 width: calc(100% - 20px);
-                max-height: 40vh;
+                max-height: 35vh;
             }
 
             .about-btn, .home-btn {
@@ -587,10 +587,12 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmiuzxumn006c01qn5xjk2trz',
     center: [-73.9442, 40.6782],
-    zoom: 11
+    zoom: 11,
+    attributionControl: false
 });
 
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 let allFeatures = [];
 let selectedCategories = []; // Store multiple selected categories

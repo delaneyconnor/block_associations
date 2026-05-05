@@ -458,8 +458,8 @@
 
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
+        .mapboxgl-ctrl-bottom-right {
+            bottom: 80px !important;
         }
 
         /* Hover tooltip */
@@ -517,7 +517,7 @@
                 left: 0;
                 width: 100%;
                 border-radius: 16px 16px 0 0;
-                max-height: 40vh;
+                max-height: 35vh;
                 z-index: 10;
             }
 
@@ -632,21 +632,24 @@
             container: 'map',
             style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
             center: [-73.9442, 40.6782], // Centered on Brooklyn
-            zoom: 11
+            zoom: 11,
+            attributionControl: false
         });
+
+        map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
 
         // Offset camera so Brooklyn is centered in the visible area
         // (filter panel covers ~320px on the left side)
         map.setPadding({ left: 320, top: 0, right: 0, bottom: 0 });
 
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
         // Add geolocation control
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: { enableHighAccuracy: true },
             trackUserLocation: true
-        }), 'bottom-left');
+        }), 'bottom-right');
 
         // Store all features for filtering
         let allFeatures = [];

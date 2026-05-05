@@ -399,7 +399,7 @@
         .mapboxgl-ctrl-logo { display: none !important; }
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left { bottom: 80px !important; }
+        .mapboxgl-ctrl-bottom-right { bottom: 80px !important; }
 
         /* Geolocation dot styling */
         .mapboxgl-user-location-dot {
@@ -457,7 +457,7 @@
                 right: 10px;
                 width: calc(100% - 20px);
                 border-radius: 12px;
-                max-height: 40vh;
+                max-height: 35vh;
                 padding: 20px;
                 transform: translateY(calc(100% + 10px));
                 transition: transform 0.3s ease-out;
@@ -594,17 +594,19 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
     center: [-73.9442, 40.6782],
-    zoom: 11
+    zoom: 11,
+    attributionControl: false
 });
 
-map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 const geolocateControl = new mapboxgl.GeolocateControl({
     positionOptions: { enableHighAccuracy: true },
     trackUserLocation: true,
     showUserHeading: false
 });
-map.addControl(geolocateControl, 'bottom-left');
+map.addControl(geolocateControl, 'bottom-right');
 
 let allFeatures = [];
 let hoveredFeatureId = null;

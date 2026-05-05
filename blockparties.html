@@ -63,7 +63,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
-            width: 330px;
+            width: 340px;
         }
 
         .filter-panel h3 {
@@ -136,7 +136,7 @@
         .popup-header {
             background: white;
             color: #111;
-            padding: 20px 20px 12px 20px;
+            padding: 0 0 12px 0;
             border-bottom: 1px solid #e0e0e0;
         }
 
@@ -145,11 +145,11 @@
             font-size: 20px;
             font-weight: 700;
             color: black;
-            padding-right: 20px;
+            padding-right: 24px;
         }
 
         .popup-body {
-            padding: 20px;
+            padding: 12px 0 0 0;
         }
 
         /* Right-side info panel (matches activeblockassociations style) */
@@ -158,11 +158,11 @@
             top: 120px;
             right: 20px;
             background: white;
-            padding: 25px;
+            padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1;
-            width: 350px;
+            width: 340px;
             max-height: calc(100vh - 160px);
             overflow-y: auto;
             display: none;
@@ -170,8 +170,8 @@
         .info-panel.active { display: block; }
         .info-panel .close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
             font-size: 24px;
@@ -190,7 +190,7 @@
                 right: 0;
                 left: 0;
                 width: 100%;
-                max-height: 50vh;
+                max-height: 35vh;
                 border-radius: 16px 16px 0 0;
             }
         }
@@ -347,8 +347,8 @@
         }
 
         /* Mapbox Navigation Controls */
-        .mapboxgl-ctrl-bottom-left {
-            bottom: 90px !important;
+        .mapboxgl-ctrl-bottom-right {
+            bottom: 80px !important;
         }
 
         /* Hover tooltip */
@@ -374,7 +374,7 @@
         .filter-btn {
             display: inline-block;
             padding: 6px 10px;
-            margin: 3px;
+            margin: 2px;
             border: 2px solid #e0e0e0;
             border-radius: 6px;
             font-size: 11px;
@@ -386,13 +386,13 @@
         }
         .filter-btn:hover { opacity: 0.8; }
         .filter-btn.active { color: white; border-color: transparent; }
-        .filter-btn[data-type="Block Party"].active          { background: #607D8B; }
+        .filter-btn[data-type="Block Party"].active          { background: #5E35B1; }
         .filter-btn[data-type="Single Block Festival"].active { background: #FF9800; }
         .filter-btn[data-type="Health Fair"].active          { background: #00897B; }
         .filter-btn[data-type="Clean-Up"].active             { background: #2E7D32; }
         .filter-btn[data-type="Farmers Market"].active       { background: #8BC34A; color: #222; }
         .filter-btn[data-type="Religious Event"].active      { background: #AD1457; }
-        .filter-btn[data-type="Street Event"].active         { background: #5E35B1; }
+        .filter-btn[data-type="Street Event"].active         { background: #607D8B; }
         .filter-btn[data-type="Plaza Event"].active          { background: #039BE5; }
         .filter-btn[data-type="Parade"].active               { background: #E53935; }
         .filter-btn[data-type="Athletic Race / Tour"].active { background: #FF7043; }
@@ -498,6 +498,20 @@
                 right: 10px;
                 left: 10px;
             }
+
+            .filter-panel h3 {
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0;
+                user-select: none;
+            }
+            .filter-panel h3::after { content: '▾'; font-size: 16px; color: #999; }
+            .filter-panel.open h3 { margin-bottom: 12px; }
+            .filter-panel.open h3::after { content: '▴'; }
+            .filter-body { display: none; }
+            .filter-panel.open .filter-body { display: block; }
         }
     </style>
 </head>
@@ -520,9 +534,10 @@
     <div id="map"></div>
 
     <!-- Filter Panel -->
-    <div class="filter-panel">
-        <h3>Filter Street Events</h3>
+    <div class="filter-panel" id="filter-panel">
+        <h3 id="filter-toggle">Filter Street Events</h3>
 
+        <div class="filter-body">
         <div class="filter-group">
             <label for="season-filter">Year</label>
             <select id="season-filter" class="filter-select">
@@ -559,18 +574,18 @@
                     data-desc="A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.">Health Fair</button>
                 <button class="filter-btn" data-type="Clean-Up"
                     data-desc="A limited, 4-hour street closure event held for the purpose of neighborhood improvement or beautification. Applications must be submitted 60 days in advance.">Clean-Up</button>
-                <button class="filter-btn" data-type="Farmers Market"
-                    data-desc="A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.">Farmers Market</button>
-                <button class="filter-btn" data-type="Religious Event"
-                    data-desc="An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.">Religious Event</button>
                 <button class="filter-btn" data-type="Street Event"
                     data-desc="An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.">Street Event</button>
+                <button class="filter-btn" data-type="Special Event"
+                    data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
                 <button class="filter-btn" data-type="Plaza Event"
                     data-desc="An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.">Plaza Event</button>
                 <button class="filter-btn" data-type="Parade"
                     data-desc="A public procession along a street route typically requiring a full street closure for the duration of the event.">Parade</button>
-                <button class="filter-btn" data-type="Special Event"
-                    data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
+                <button class="filter-btn" data-type="Farmers Market"
+                    data-desc="A nonprofit sponsored open air market on a sidewalk for the sale of local farm fresh products. Applications must be submitted 60 days in advance.">Farmers Market</button>
+                <button class="filter-btn" data-type="Religious Event"
+                    data-desc="An act of public worship serving a benefit to the community for a single day. Applications must be submitted 60 days in advance.">Religious Event</button>
             </div>
             <div class="type-desc" id="type-desc"></div>
         </div>
@@ -605,6 +620,7 @@
                 <span class="stat-value" id="event-count">0</span>
             </div>
         </div>
+        </div><!-- /.filter-body -->
     </div>
 
     <!-- About Modal -->
@@ -641,23 +657,28 @@
             container: 'map',
             style: 'mapbox://styles/delaneyconnor/cmie08kl4000901s32neo2nsz',
             center: [-73.9442, 40.6782], // Centered on Brooklyn
-            zoom: 11
+            zoom: 11,
+            attributionControl: false
         });
 
+        map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+
         // Add navigation controls
-        map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
         // Add geolocation control
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: { enableHighAccuracy: true },
             trackUserLocation: true
-        }), 'bottom-left');
+        }), 'bottom-right');
 
         // Store all features for filtering
         let allFeatures = [];
         let markers = [];
         let currentSeason = 'upcoming';
         let selectedMarkerEl = null;
+        let paradeRoutes = [];
+        let _skipNextClose = false;
 
         function markerSizeForZoom(zoom) {
             if (zoom <= 9) return 6;
@@ -692,13 +713,13 @@
         const PERMIT_TYPES_URL = 'https://www.nyc.gov/site/cecm/permitting/permit-types.page';
 
         const EVENT_COLORS = {
-            'Block Party':          '#607D8B',
+            'Block Party':          '#5E35B1',
             'Single Block Festival':'#FF9800',
             'Health Fair':          '#00897B',
             'Clean-Up':             '#2E7D32',
             'Farmers Market':       '#8BC34A',
             'Religious Event':      '#AD1457',
-            'Street Event':         '#5E35B1',
+            'Street Event':         '#607D8B',
             'Plaza Event':          '#039BE5',
             'Parade':               '#E53935',
             'Special Event':        '#FDD835',
@@ -793,6 +814,7 @@
             markers.forEach(m => m.remove());
             markers = [];
             selectedMarkerEl = null;
+            clearParadeRoutes();
         }
 
         function showPanel(props) {
@@ -805,6 +827,152 @@
             if (selectedMarkerEl) { resetMarker(selectedMarkerEl); selectedMarkerEl = null; }
         }
 
+        function formatTooltipDate(startDate) {
+            if (!startDate) return '';
+            try {
+                const parts = startDate.split('T')[0].split('-').map(Number);
+                const d = new Date(parts[0], parts[1] - 1, parts[2]);
+                return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            } catch (e) { return ''; }
+        }
+
+        function setTooltipContent(name, startDate) {
+            hoverTooltip.innerHTML = '';
+            const nameEl = document.createElement('strong');
+            nameEl.textContent = name || 'Event';
+            hoverTooltip.appendChild(nameEl);
+            const dateStr = formatTooltipDate(startDate);
+            if (dateStr) {
+                hoverTooltip.appendChild(document.createElement('br'));
+                const d = document.createElement('span');
+                d.style.cssText = 'font-size:11px;color:#555;display:block;margin-top:2px;';
+                d.textContent = dateStr;
+                hoverTooltip.appendChild(d);
+            }
+            hoverTooltip.style.whiteSpace = 'normal';
+            hoverTooltip.style.maxWidth = '200px';
+        }
+
+        function clearParadeRoutes() {
+            paradeRoutes.forEach(({ sourceId, layerId, hitLayerId }) => {
+                if (map.getLayer(hitLayerId)) map.removeLayer(hitLayerId);
+                if (map.getLayer(layerId)) map.removeLayer(layerId);
+                if (map.getSource(sourceId)) map.removeSource(sourceId);
+            });
+            paradeRoutes = [];
+        }
+
+        function wireMarker(el, props, coords) {
+            el.addEventListener('mouseenter', (e) => {
+                setTooltipContent(props.event_name, props.start_date);
+                hoverTooltip.style.left = e.pageX + 15 + 'px';
+                hoverTooltip.style.top  = e.pageY + 15 + 'px';
+                hoverTooltip.classList.add('visible');
+            });
+            el.addEventListener('mousemove', (e) => {
+                hoverTooltip.style.left = e.pageX + 15 + 'px';
+                hoverTooltip.style.top  = e.pageY + 15 + 'px';
+            });
+            el.addEventListener('mouseleave', () => hoverTooltip.classList.remove('visible'));
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hoverTooltip.classList.remove('visible');
+                selectMarker(el);
+                showPanel(props);
+                map.flyTo({ center: coords, zoom: 15, duration: 600 });
+            });
+        }
+
+        async function addParadeRoute(feature) {
+            const props = feature.properties;
+            const borough = props.event_borough || '';
+            const color = EVENT_COLORS['Parade'];
+            const sourceId = `parade-${props.event_id || Math.random().toString(36).slice(2)}`;
+            const layerId = sourceId + '-line';
+            const hitLayerId = sourceId + '-hit';
+
+            // Geocode each segment independently — keep pairs separate so we get a
+            // MultiLineString instead of one connected LineString (which would draw
+            // false lines between non-adjacent streets).
+            const rawSegments = (props.event_location || '').split(/,\s*/);
+            const segmentPromises = rawSegments.map(seg => {
+                const m = seg.trim().match(/^(.+?)\s+between\s+(.+?)\s+and\s+(.+)$/i);
+                if (m) {
+                    const [, street, cross1, cross2] = m;
+                    return Promise.all([
+                        geocodeIntersection(street, cross1, borough),
+                        geocodeIntersection(street, cross2, borough)
+                    ]);
+                }
+                return geocodeLocation(seg.trim(), borough).then(c => [c, null]);
+            });
+
+            const resolvedSegments = await Promise.all(segmentPromises);
+            // Each segment needs at least 2 valid points to draw a line
+            const lineSegments = resolvedSegments
+                .map(pair => pair.filter(Boolean))
+                .filter(pair => pair.length >= 2);
+
+            if (lineSegments.length === 0) {
+                if (feature.geometry) {
+                    const el = createMarkerElement('Parade');
+                    const fc = feature.geometry.coordinates;
+                    const marker = new mapboxgl.Marker(el).setLngLat(fc).addTo(map);
+                    wireMarker(el, props, fc);
+                    markers.push(marker);
+                }
+                return;
+            }
+
+            paradeRoutes.push({ sourceId, layerId, hitLayerId });
+
+            map.addSource(sourceId, {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: { type: 'MultiLineString', coordinates: lineSegments },
+                    properties: {}
+                }
+            });
+            map.addLayer({
+                id: layerId,
+                type: 'line',
+                source: sourceId,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: { 'line-color': color, 'line-width': 5, 'line-opacity': 0.85 }
+            });
+            map.addLayer({
+                id: hitLayerId,
+                type: 'line',
+                source: sourceId,
+                layout: { 'line-cap': 'round', 'line-join': 'round' },
+                paint: { 'line-color': color, 'line-width': 20, 'line-opacity': 0 }
+            });
+
+            const midpoint = lineSegments[Math.floor(lineSegments.length / 2)][0];
+
+            map.on('click', hitLayerId, () => {
+                _skipNextClose = true;
+                hoverTooltip.classList.remove('visible');
+                showPanel(props);
+                map.flyTo({ center: midpoint, zoom: 14, duration: 600 });
+            });
+
+            map.on('mousemove', hitLayerId, (e) => {
+                map.getCanvas().style.cursor = 'pointer';
+                setTooltipContent(props.event_name, props.start_date);
+                const rect = map.getCanvas().getBoundingClientRect();
+                hoverTooltip.style.left = (rect.left + e.point.x + 15) + 'px';
+                hoverTooltip.style.top  = (rect.top  + e.point.y + 15) + 'px';
+                hoverTooltip.classList.add('visible');
+            });
+
+            map.on('mouseleave', hitLayerId, () => {
+                map.getCanvas().style.cursor = '';
+                hoverTooltip.classList.remove('visible');
+            });
+        }
+
         // Add markers for features
         function addMarkers(features) {
             clearMarkers();
@@ -813,36 +981,14 @@
                 const coords = feature.geometry.coordinates;
                 const props = feature.properties;
 
+                if (props.event_type === 'Parade') {
+                    addParadeRoute(feature);
+                    return;
+                }
+
                 const el = createMarkerElement(props.event_type);
-
-                const marker = new mapboxgl.Marker(el)
-                    .setLngLat(coords)
-                    .addTo(map);
-
-                el.addEventListener('mouseenter', (e) => {
-                    hoverTooltip.style.whiteSpace = 'nowrap';
-                    hoverTooltip.style.maxWidth = '';
-                    hoverTooltip.textContent = props.event_name || 'Event';
-                    hoverTooltip.style.left = e.pageX + 15 + 'px';
-                    hoverTooltip.style.top  = e.pageY + 15 + 'px';
-                    hoverTooltip.classList.add('visible');
-                });
-                el.addEventListener('mousemove', (e) => {
-                    hoverTooltip.style.left = e.pageX + 15 + 'px';
-                    hoverTooltip.style.top  = e.pageY + 15 + 'px';
-                });
-                el.addEventListener('mouseleave', () => {
-                    hoverTooltip.classList.remove('visible');
-                });
-
-                el.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    hoverTooltip.classList.remove('visible');
-                    selectMarker(el);
-                    showPanel(props);
-                    map.flyTo({ center: coords, zoom: 15, duration: 600 });
-                });
-
+                const marker = new mapboxgl.Marker(el).setLngLat(coords).addTo(map);
+                wireMarker(el, props, coords);
                 markers.push(marker);
             });
 
@@ -1039,6 +1185,19 @@
             }
         }
 
+        async function geocodeIntersection(street, cross, borough) {
+            const place = borough ? `${borough}, New York` : 'New York City';
+            const query = `${street.trim()} and ${cross.trim()}, ${place}`.replace(/\s+/g, ' ');
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`
+                + `?access_token=${mapboxgl.accessToken}&bbox=-74.26,40.47,-73.70,40.92&limit=1`;
+            try {
+                const res = await fetch(url);
+                if (!res.ok) return null;
+                const data = await res.json();
+                return data.features?.[0]?.geometry?.coordinates ?? null;
+            } catch (e) { return null; }
+        }
+
         // Load upcoming events from NYC Open Data API
         async function loadUpcomingData() {
             try {
@@ -1178,8 +1337,16 @@
             }
         });
 
+        // Mobile: tap header to expand/collapse filter panel
+        document.getElementById('filter-toggle').addEventListener('click', function() {
+            document.getElementById('filter-panel').classList.toggle('open');
+        });
+
         document.getElementById('close-panel').addEventListener('click', closePanel);
-        map.on('click', closePanel);
+        map.on('click', () => {
+            if (_skipNextClose) { _skipNextClose = false; return; }
+            closePanel();
+        });
 
         // About modal handlers
         document.getElementById('about-btn').addEventListener('click', function() {
