@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BA History — Bed-Stuy Block Association Timeline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #000000;
+  --white:   #ffffff;
+  --grey:    #f2f2f2;
+  --mid:     #999999;
+  --border:  3px solid #000;
+  --font:    'IBM Plex Mono', monospace;
+
+  /* Event-type colours */
+  --c-organizing:    #000000;
+  --c-policy:        #444444;
+  --c-demographic:   #777777;
+  --c-cultural:      #555555;
+  --c-infrastructure:#888888;
+  --c-crisis:        #cc0000;
+  --c-displacement:  #e05500;
+}
+
+html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--white); }
+
+/* ── Top nav bar ───────────────────────────────────────────────── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 52px;
+  border-bottom: 2px solid var(--black);
+  background: var(--white);
+  display: flex; align-items: center;
+  padding: 0 20px;
+  z-index: 900;
+  gap: 16px;
+}
+#topbar a.home {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-decoration: none; color: var(--black);
+  border: 2px solid var(--black); padding: 4px 10px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+#topbar a.home:hover { background: var(--black); color: var(--white); }
+#topbar .title {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.05em; flex: 1;
+}
+#topbar .subtitle { font-size: 10px; color: var(--mid); }
+
+/* ── Era navigation ────────────────────────────────────────────── */
+#era-nav {
+  position: fixed; top: 52px; left: 0; right: 0;
+  height: 38px;
+  border-bottom: 1px solid #ddd;
+  background: var(--white);
+  display: flex; align-items: stretch;
+  overflow-x: auto; overflow-y: hidden;
+  z-index: 890;
+  scrollbar-width: none;
+}
+#era-nav::-webkit-scrollbar { display: none; }
+.era-btn {
+  font-family: var(--font); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  white-space: nowrap; padding: 0 16px;
+  border: none; border-right: 1px solid #eee;
+  background: transparent; cursor: pointer; color: var(--mid);
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.era-btn:hover { background: var(--grey); color: var(--black); }
+.era-btn.active { background: var(--black); color: var(--white); }
+
+/* ── Main layout ───────────────────────────────────────────────── */
+#layout {
+  position: fixed; top: 90px; bottom: 0; left: 0; right: 0;
+  display: flex;
+}
+
+/* ── Timeline panel ────────────────────────────────────────────── */
+#timeline {
+  width: 380px; min-width: 320px;
+  border-right: 2px solid var(--black);
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--white);
+  flex-shrink: 0;
+  scroll-behavior: smooth;
+}
+#timeline::-webkit-scrollbar { width: 4px; }
+#timeline::-webkit-scrollbar-track { background: transparent; }
+#timeline::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+.era-group { }
+.era-header {
+  position: sticky; top: 0;
+  background: var(--black); color: var(--white);
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  z-index: 10;
+  border-bottom: 1px solid #333;
+}
+
+.event-card {
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.12s;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.event-card:hover { background: var(--grey); }
+.event-card.active {
+  background: #000;
+  border-left: 4px solid #000;
+}
+.event-card.active .ev-year,
+.event-card.active .ev-title,
+.event-card.active .ev-sub { color: #fff; }
+.event-card.active .ev-type-dot { border-color: #fff; }
+
+.ev-year-col {
+  min-width: 44px; text-align: right; flex-shrink: 0; padding-top: 2px;
+}
+.ev-year {
+  font-size: 10px; font-weight: 600; color: var(--mid);
+  letter-spacing: 0.03em;
+}
+.ev-body-col { flex: 1; min-width: 0; }
+.ev-title { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 2px; line-height: 1.3; }
+.ev-sub   { font-size: 10px; font-weight: 300; color: var(--mid); line-height: 1.4; }
+.ev-tags  { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+.ev-tag {
+  font-size: 8px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 6px;
+  border: 1px solid currentColor; border-radius: 2px;
+}
+
+/* ── Map panel ─────────────────────────────────────────────────── */
+#map-wrap {
+  flex: 1; position: relative; overflow: hidden;
+}
+#map { width: 100%; height: 100%; }
+
+/* ── Detail card (over map) ────────────────────────────────────── */
+#detail {
+  position: absolute; top: 14px; right: 14px;
+  width: 300px; max-height: calc(100% - 28px);
+  background: var(--white); border: var(--border);
+  border-radius: 8px; overflow: hidden;
+  display: none; flex-direction: column;
+  z-index: 500;
+  box-shadow: 4px 4px 0 var(--black);
+}
+#detail.visible { display: flex; }
+#detail-head {
+  background: var(--black); color: var(--white);
+  padding: 12px 14px; flex-shrink: 0;
+}
+#detail-year {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: #888; margin-bottom: 4px;
+}
+#detail-title { font-size: 13px; font-weight: 600; line-height: 1.3; }
+#detail-sub   { font-size: 10px; font-weight: 300; color: #bbb; margin-top: 3px; line-height: 1.4; }
+#detail-body  { padding: 12px 14px; overflow-y: auto; flex: 1; }
+#detail-body p { font-size: 11px; line-height: 1.65; color: #333; margin-bottom: 8px; }
+#detail-meta  { font-size: 9px; color: var(--mid); border-top: 1px solid #eee; padding-top: 8px; }
+#detail-meta a { color: var(--black); }
+#detail-close {
+  position: absolute; top: 10px; right: 12px;
+  background: none; border: none; color: #888; font-size: 18px;
+  cursor: pointer; line-height: 1; padding: 2px;
+}
+#detail-close:hover { color: #fff; }
+
+/* ── Legend (bottom-left over map) ────────────────────────────── */
+#legend {
+  position: absolute; bottom: 14px; left: 14px;
+  background: rgba(255,255,255,0.95); border: 2px solid var(--black);
+  border-radius: 6px; padding: 10px 12px;
+  z-index: 500; font-size: 9px;
+}
+#legend .leg-title { font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 7px; }
+.leg-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.leg-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.25);
+}
+
+/* ── Count badge ────────────────────────────────────────────────── */
+#count-badge {
+  position: absolute; bottom: 14px; right: 14px;
+  background: var(--black); color: var(--white);
+  font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 6px 10px; border-radius: 4px; z-index: 500;
+}
+
+/* ── Leaflet overrides ─────────────────────────────────────────── */
+.leaflet-popup-content-wrapper {
+  font-family: var(--font); border-radius: 6px;
+  border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--black);
+  padding: 0;
+}
+.leaflet-popup-content { margin: 0; }
+.leaflet-popup-tip-container { display: none; }
+.popup-inner { padding: 10px 12px; }
+.popup-inner strong { font-size: 11px; display: block; margin-bottom: 2px; }
+.popup-inner span { font-size: 10px; color: var(--mid); }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div id="topbar">
+  <a class="home" href="index.html">← Maps</a>
+  <div>
+    <div class="title">BA History &nbsp;·&nbsp; Bed-Stuy</div>
+    <div class="subtitle">Block association organizing from pre-colonial land to present day</div>
+  </div>
+</div>
+
+<!-- Era navigation -->
+<div id="era-nav"></div>
+
+<!-- Main layout -->
+<div id="layout">
+
+  <!-- Timeline panel -->
+  <div id="timeline"></div>
+
+  <!-- Map -->
+  <div id="map-wrap">
+    <div id="map"></div>
+
+    <!-- Detail card -->
+    <div id="detail">
+      <button id="detail-close">×</button>
+      <div id="detail-head">
+        <div id="detail-year"></div>
+        <div id="detail-title"></div>
+        <div id="detail-sub"></div>
+      </div>
+      <div id="detail-body">
+        <p id="detail-body-text"></p>
+        <div id="detail-meta"></div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div id="legend">
+      <div class="leg-title">Event type</div>
+    </div>
+
+    <!-- Count badge -->
+    <div id="count-badge"></div>
+  </div>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────
+fetch('data/ba_timeline.json')
+  .then(r => r.json())
+  .then(events => init(events));
+
+// ── Colour map ────────────────────────────────────────────────────
+const TYPE_COLOR = {
+  'Organizing':    '#000000',
+  'Policy':        '#3a5ea8',
+  'Demographic':   '#888888',
+  'Cultural':      '#7a4e9e',
+  'Infrastructure':'#2a7a4a',
+  'Crisis':        '#cc0000',
+  'Displacement':  '#e05500',
+};
+const TYPE_ORDER = ['Organizing','Policy','Demographic','Cultural','Infrastructure','Crisis','Displacement'];
+
+// ── Era order ─────────────────────────────────────────────────────
+const ERA_ORDER = [
+  'Pre-1890: Preconditions',
+  '1890–1930: The Block Association Form Emerges',
+  '1930–1960: Racial Transition and Interracial Block Associations',
+  '1960–1980: Self-Determination and Flourishing',
+  '1980–2000: Crisis and Defensive Retrenchment',
+  '2000–Present: The Gentrification Era',
+];
+const ERA_SHORT = {
+  'Pre-1890: Preconditions':                                        'Pre-1890',
+  '1890–1930: The Block Association Form Emerges':                  '1890–1930',
+  '1930–1960: Racial Transition and Interracial Block Associations':'1930–1960',
+  '1960–1980: Self-Determination and Flourishing':                  '1960–1980',
+  '1980–2000: Crisis and Defensive Retrenchment':                   '1980–2000',
+  '2000–Present: The Gentrification Era':                           '2000–Present',
+};
+
+function init(events) {
+  // Sort by year (numeric sort)
+  events.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+
+  // ── Map ────────────────────────────────────────────────────────
+  const map = L.map('map', {
+    center: [40.6872, -73.9418],
+    zoom: 14,
+    zoomControl: true,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors, © CARTO',
+    maxZoom: 19,
+  }).addTo(map);
+
+  // ── Markers ────────────────────────────────────────────────────
+  const markers = {};
+
+  function makeIcon(type, active) {
+    const color = TYPE_COLOR[type] || '#000';
+    const size  = active ? 18 : 12;
+    const ring  = active ? 3  : 2;
+    return L.divIcon({
+      className: '',
+      iconSize:  [size, size],
+      iconAnchor:[size/2, size/2],
+      html: `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <circle cx="${size/2}" cy="${size/2}" r="${size/2 - ring/2}"
+          fill="${color}" fill-opacity="${active ? 1 : 0.75}"
+          stroke="white" stroke-width="${ring}"/>
+      </svg>`,
+    });
+  }
+
+  events.forEach(ev => {
+    if (!ev.lat || !ev.lng) return;
+    const m = L.marker([ev.lat, ev.lng], { icon: makeIcon(ev.type, false) })
+      .addTo(map)
+      .bindPopup(`<div class="popup-inner">
+        <strong>${ev.title}</strong>
+        <span>${ev.date || ev.year}</span>
+      </div>`, { autoPan: false });
+
+    m.on('click', () => selectEvent(ev, m));
+    markers[ev.id] = m;
+  });
+
+  // ── Era navigation ─────────────────────────────────────────────
+  const eraNav = document.getElementById('era-nav');
+  ERA_ORDER.forEach(era => {
+    const btn = document.createElement('button');
+    btn.className = 'era-btn';
+    btn.textContent = ERA_SHORT[era];
+    btn.dataset.era = era;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const header = document.querySelector(`.era-header[data-era="${era}"]`);
+      if (header) header.scrollIntoView({ behavior: 'smooth' });
+    });
+    eraNav.appendChild(btn);
+  });
+
+  // ── Timeline ───────────────────────────────────────────────────
+  const timeline = document.getElementById('timeline');
+  const byEra = {};
+  ERA_ORDER.forEach(e => byEra[e] = []);
+  events.forEach(ev => { if (byEra[ev.era]) byEra[ev.era].push(ev); });
+
+  const cardEls = {};
+
+  ERA_ORDER.forEach(era => {
+    const group = document.createElement('div');
+    group.className = 'era-group';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'era-header';
+    hdr.dataset.era = era;
+    hdr.textContent = ERA_SHORT[era] + ' — ' + era.replace(/^[^:]+:\s*/,'');
+    group.appendChild(hdr);
+
+    byEra[era].forEach(ev => {
+      const card = document.createElement('div');
+      card.className = 'event-card';
+      card.innerHTML = `
+        <div class="ev-year-col"><div class="ev-year">${ev.date || ev.year}</div></div>
+        <div class="ev-body-col">
+          <div class="ev-title">${ev.title}</div>
+          <div class="ev-sub">${ev.subtitle || ''}</div>
+          <div class="ev-tags">
+            <span class="ev-tag" style="color:${TYPE_COLOR[ev.type] || '#000'}">${ev.type}</span>
+            ${ev.scope ? `<span class="ev-tag" style="color:#999">${ev.scope}</span>` : ''}
+          </div>
+        </div>`;
+      card.addEventListener('click', () => selectEvent(ev, markers[ev.id]));
+      cardEls[ev.id] = card;
+      group.appendChild(card);
+    });
+
+    timeline.appendChild(group);
+  });
+
+  // ── Legend ─────────────────────────────────────────────────────
+  const legend = document.getElementById('legend');
+  TYPE_ORDER.forEach(type => {
+    const row = document.createElement('div');
+    row.className = 'leg-row';
+    row.innerHTML = `<div class="leg-dot" style="background:${TYPE_COLOR[type]}"></div><span>${type}</span>`;
+    legend.appendChild(row);
+  });
+
+  // ── Count badge ────────────────────────────────────────────────
+  document.getElementById('count-badge').textContent = `${events.length} events · 1600–2026`;
+
+  // ── Active state ───────────────────────────────────────────────
+  let activeId = null;
+
+  function selectEvent(ev, marker) {
+    // Deactivate previous
+    if (activeId !== null && cardEls[activeId]) {
+      cardEls[activeId].classList.remove('active');
+    }
+    if (activeId !== null && markers[activeId]) {
+      markers[activeId].setIcon(makeIcon(
+        events.find(e => e.id === activeId)?.type, false
+      ));
+    }
+
+    activeId = ev.id;
+
+    // Activate card
+    if (cardEls[ev.id]) {
+      cardEls[ev.id].classList.add('active');
+      cardEls[ev.id].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Activate era button
+    document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+    const eraBtn = document.querySelector(`.era-btn[data-era="${ev.era}"]`);
+    if (eraBtn) eraBtn.classList.add('active');
+
+    // Activate marker
+    if (marker) {
+      marker.setIcon(makeIcon(ev.type, true));
+      map.flyTo([ev.lat, ev.lng], Math.max(map.getZoom(), 15), { duration: 0.8 });
+    }
+
+    // Fill detail card
+    document.getElementById('detail-year').textContent = ev.date || ev.year;
+    document.getElementById('detail-title').textContent = ev.title;
+    document.getElementById('detail-sub').textContent = ev.subtitle || '';
+    document.getElementById('detail-body-text').textContent = ev.body || '';
+
+    let meta = '';
+    if (ev.location) meta += `<div>📍 ${ev.location}</div>`;
+    if (ev.citation) meta += `<div style="margin-top:6px">Source: ${ev.citation}</div>`;
+    if (ev.source_url) meta += `<div style="margin-top:4px"><a href="${ev.source_url}" target="_blank">View source →</a></div>`;
+    document.getElementById('detail-meta').innerHTML = meta;
+
+    document.getElementById('detail').classList.add('visible');
+  }
+
+  // Close detail
+  document.getElementById('detail-close').addEventListener('click', () => {
+    document.getElementById('detail').classList.remove('visible');
+    if (activeId !== null) {
+      if (cardEls[activeId]) cardEls[activeId].classList.remove('active');
+      const prevType = events.find(e => e.id === activeId)?.type;
+      if (markers[activeId]) markers[activeId].setIcon(makeIcon(prevType, false));
+    }
+    activeId = null;
+  });
+
+  // Select first event on load
+  if (events.length) selectEvent(events[0], markers[events[0].id]);
+}
+</script>
+</body>
+</html>
