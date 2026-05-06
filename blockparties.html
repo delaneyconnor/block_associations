@@ -538,47 +538,20 @@
         <h3 id="filter-toggle">Filter Street Events</h3>
 
         <div class="filter-body">
-        <div class="filter-group">
-            <label for="season-filter">Year</label>
-            <select id="season-filter" class="filter-select">
-                <option value="upcoming" selected>Upcoming Events</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
-                <option value="2011">2011</option>
-                <option value="2010">2010</option>
-                <option value="2009">2009</option>
-                <option value="2008">2008</option>
-            </select>
-        </div>
-
-        <div class="filter-group" id="type-filter-group" style="display:none;">
+        <div class="filter-group" id="type-filter-group">
             <label>Event Type</label>
             <div>
                 <button class="filter-btn active" data-type="Block Party"
                     data-desc="A community sponsored event with no sale of goods or services requiring the closure of a single block for a single day. Applications must be submitted 60 days in advance.">Block Party</button>
                 <button class="filter-btn" data-type="Single Block Festival"
                     data-desc="Nonprofit sponsored community festival with vendors requiring closing one block for one day. Applications must be submitted 90 days in advance.">Single Block Festival</button>
-                <button class="filter-btn" data-type="Health Fair"
-                    data-desc="A community event where health vendors provide in-kind services with one block closure for one day. Applications must be submitted 30 days in advance.">Health Fair</button>
                 <button class="filter-btn" data-type="Clean-Up"
                     data-desc="A limited, 4-hour street closure event held for the purpose of neighborhood improvement or beautification. Applications must be submitted 60 days in advance.">Clean-Up</button>
                 <button class="filter-btn" data-type="Street Event"
                     data-desc="An activity held on a public street, curb lane or sidewalk that interferes or obstructs use by pedestrians or vehicles. Event size determines the application deadline.">Street Event</button>
                 <button class="filter-btn" data-type="Special Event"
                     data-desc="A permitted street activity not covered by a specific permit category.">Special Event</button>
-                <button class="filter-btn" data-type="Plaza Event"
+                <button class="filter-btn" data-type="Plaza Event" data-extra-type="Plaza Partner Event"
                     data-desc="An activity held within a pedestrian plaza that interferes or obstructs regular use of plazas. Application deadlines vary by plaza level.">Plaza Event</button>
                 <button class="filter-btn" data-type="Parade"
                     data-desc="A public procession along a street route typically requiring a full street closure for the duration of the event.">Parade</button>
@@ -590,28 +563,16 @@
             <div class="type-desc" id="type-desc"></div>
         </div>
 
-        <div class="filter-group" id="date-filter-group" style="display:none;">
+        <div class="filter-group" id="date-filter-group">
             <label>When</label>
             <input type="range" id="date-slider" class="date-slider" min="0" max="4" value="4" step="1">
             <div class="slider-labels">
                 <span data-val="0">Tomorrow</span>
-                <span data-val="1">This<br>Weekend</span>
-                <span data-val="2">Next<br>Weekend</span>
+                <span data-val="1">This<br>Week</span>
+                <span data-val="2">Next<br>Week</span>
                 <span data-val="3">This<br>Month</span>
                 <span data-val="4" class="active">All</span>
             </div>
-        </div>
-
-        <div class="filter-group">
-            <label for="borough-filter">Borough</label>
-            <select id="borough-filter" class="filter-select">
-                <option value="all">All Boroughs</option>
-                <option value="Brooklyn">Brooklyn</option>
-                <option value="Manhattan">Manhattan</option>
-                <option value="Queens">Queens</option>
-                <option value="Bronx">Bronx</option>
-                <option value="Staten Island">Staten Island</option>
-            </select>
         </div>
 
         <div class="stats-box">
@@ -675,7 +636,6 @@
         // Store all features for filtering
         let allFeatures = [];
         let markers = [];
-        let currentSeason = 'upcoming';
         let selectedMarkerEl = null;
         let paradeRoutes = [];
         let _skipNextClose = false;
@@ -997,18 +957,14 @@
                 const to   = new Date(from);  to.setHours(23,59,59);
                 return { from, to };
             }
-            if (val === 1) { // This Weekend
-                const sat = getThisWeekendSat();
-                const from = dow === 0 ? new Date(today) : new Date(sat);
-                const to   = new Date(from);
-                if (dow !== 0) to.setDate(from.getDate() + 1); // include Sun
-                to.setHours(23,59,59);
+            if (val === 1) { // This Week (next 7 days)
+                const from = new Date(today);
+                const to   = new Date(today); to.setDate(today.getDate() + 7); to.setHours(23,59,59);
                 return { from, to };
             }
-            if (val === 2) { // Next Weekend
-                const sat = getThisWeekendSat();
-                const from = new Date(sat); from.setDate(sat.getDate() + 7);
-                const to   = new Date(from); to.setDate(from.getDate() + 1); to.setHours(23,59,59);
+            if (val === 2) { // Next Week (7–14 days from today)
+                const from = new Date(today); from.setDate(today.getDate() + 7);
+                const to   = new Date(today); to.setDate(today.getDate() + 14); to.setHours(23,59,59);
                 return { from, to };
             }
             if (val === 3) { // Next 30 days
@@ -1026,16 +982,10 @@
         }
 
         function applyFilters() {
-            const borough   = document.getElementById('borough-filter').value;
-            const sliderVal = currentSeason === 'upcoming'
-                ? parseInt(document.getElementById('date-slider').value)
-                : null;
-            const { from: fromDate, to: toDate } = sliderVal !== null
-                ? getDateRangeForSlider(sliderVal)
-                : { from: null, to: null };
+            const sliderVal = parseInt(document.getElementById('date-slider').value);
+            const { from: fromDate, to: toDate } = getDateRangeForSlider(sliderVal);
 
             const filtered = allFeatures.filter(f => {
-                if (borough !== 'all' && f.properties.event_borough !== borough) return false;
                 if (fromDate || toDate) {
                     const start = f.properties.start_date ? new Date(f.properties.start_date) : null;
                     if (start) {
@@ -1046,11 +996,6 @@
                 return true;
             });
             addMarkers(filtered);
-        }
-
-        function filterByBorough(borough) {
-            document.getElementById('borough-filter').value = borough;
-            applyFilters();
         }
 
         // Convert NYC Open Data record to GeoJSON feature
@@ -1189,7 +1134,12 @@
             try {
                 const today = new Date().toISOString().slice(0, 10);
                 const activeBtns = document.querySelectorAll('.filter-btn.active[data-type]');
-                const selectedTypes = Array.from(activeBtns).map(b => b.dataset.type);
+                // Collect primary types plus any extra aliases (e.g. Plaza Partner Event for Plaza Event)
+                const selectedTypes = [];
+                activeBtns.forEach(b => {
+                    selectedTypes.push(b.dataset.type);
+                    if (b.dataset.extraType) selectedTypes.push(b.dataset.extraType);
+                });
                 let typeFilter;
                 if (selectedTypes.length === 0) {
                     typeFilter = '';
@@ -1213,9 +1163,10 @@
                 }
 
                 const allEvents = await response.json();
-                // Keep only Block Party permits — the API occasionally returns other
-                // event types (Sport - Youth, etc.) despite the type filter
-                const events = allEvents.filter(e => (e.event_type || '').toLowerCase() === 'block party');
+                // Strip Sport-Youth/Adult and other non-street-event permit types that
+                // the API returns even when filtered (they dominate the dataset).
+                const stripTypes = new Set(['Sport - Youth', 'Sport - Adult', 'Theater Load in and Load Outs', 'Stickball', 'Miscellaneous', 'Stationary Demonstration', 'Open Culture', 'Sidewalk Sale', 'Open Street Partner Event']);
+                const events = allEvents.filter(e => !stripTypes.has(e.event_type || ''));
 
                 // Batch geocode in groups of 15 (GeoSearch is free but be polite)
                 const features = [];
@@ -1241,45 +1192,19 @@
             }
         }
 
-        // Load data based on selected year/season
-        async function loadData(season) {
-            currentSeason = season || '2025';
-
-            // Show loading state
+        // Load upcoming data and apply filters
+        async function loadData() {
             document.getElementById('event-count').textContent = '...';
-
-            if (currentSeason === 'upcoming') {
-                allFeatures = await loadUpcomingData();
-            } else {
-                // Load from pre-geocoded GeoJSON file for the selected year
-                allFeatures = await loadYearData(currentSeason);
-            }
-
+            allFeatures = await loadUpcomingData();
             applyFilters();
-
         }
 
-        // Season filter handler
-        document.getElementById('season-filter').addEventListener('change', function(e) {
-            const season = e.target.value;
-            const isUpcoming = season === 'upcoming';
-            document.getElementById('date-filter-group').style.display = isUpcoming ? '' : 'none';
-            document.getElementById('type-filter-group').style.display = isUpcoming ? '' : 'none';
-            loadData(season);
-
-            const subtitle = document.querySelector('.header p');
-            subtitle.textContent = isUpcoming
-                ? 'Upcoming Events - Permitted street closures across New York City'
-                : `${season} Block Party Season - Permitted events across New York City`;
-        });
-
-        document.getElementById('borough-filter').addEventListener('change', applyFilters);
 
         // Type filter buttons
         document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
             btn.addEventListener('click', () => {
                 btn.classList.toggle('active');
-                loadData('upcoming');
+                loadData();
             });
             btn.addEventListener('mouseenter', (e) => {
                 if (!btn.dataset.desc) return;
@@ -1316,10 +1241,8 @@
 
         // Load data when map is ready
         map.on('load', function() {
-            document.getElementById('date-filter-group').style.display = '';
-            document.getElementById('type-filter-group').style.display = '';
             updateSliderLabels(4);
-            loadData('upcoming');
+            loadData();
             // Signal parent iframe when map tiles are rendered
             if (window.self !== window.top) {
                 map.once('idle', function() { window.parent.postMessage({ type: 'map-ready' }, '*'); });
