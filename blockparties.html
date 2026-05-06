@@ -886,44 +886,30 @@
         async function addParadeRoute(feature) {
             const props = feature.properties;
             const borough = props.event_borough || '';
-            const color = EVENT_COLORS['Parade'];
+
+            // Parade routes span many blocks and produce misleading connecting lines.
+            // Show just a start-point marker instead.
+            let coords = feature.geometry?.coordinates || null;
+            if (!coords) {
+                const firstSeg = (props.event_location || '').split(/,\s*/)[0].trim();
+                const m = firstSeg.match(/^(.+?)\s+between\s+(.+?)\s+and\s+(.+)$/i);
+                if (m) {
+                    coords = await geocodeIntersection(m[1], m[2], borough);
+                }
+                if (!coords) coords = await geocodeLocation(firstSeg, borough);
+            }
+            if (coords) {
+                const el = createMarkerElement('Parade');
+                const marker = new mapboxgl.Marker(el).setLngLat(coords).addTo(map);
+                wireMarker(el, props, coords);
+                markers.push(marker);
+            }
+            return;
+
+            // (route drawing disabled — kept for reference)
             const sourceId = `parade-${props.event_id || Math.random().toString(36).slice(2)}`;
             const layerId = sourceId + '-line';
             const hitLayerId = sourceId + '-hit';
-
-            // Geocode each segment independently — keep pairs separate so we get a
-            // MultiLineString instead of one connected LineString (which would draw
-            // false lines between non-adjacent streets).
-            const rawSegments = (props.event_location || '').split(/,\s*/);
-            const segmentPromises = rawSegments.map(seg => {
-                const m = seg.trim().match(/^(.+?)\s+between\s+(.+?)\s+and\s+(.+)$/i);
-                if (m) {
-                    const [, street, cross1, cross2] = m;
-                    return Promise.all([
-                        geocodeIntersection(street, cross1, borough),
-                        geocodeIntersection(street, cross2, borough)
-                    ]);
-                }
-                return geocodeLocation(seg.trim(), borough).then(c => [c, null]);
-            });
-
-            const resolvedSegments = await Promise.all(segmentPromises);
-            // Each segment needs at least 2 valid points to draw a line
-            const lineSegments = resolvedSegments
-                .map(pair => pair.filter(Boolean))
-                .filter(pair => pair.length >= 2);
-
-            if (lineSegments.length === 0) {
-                if (feature.geometry) {
-                    const el = createMarkerElement('Parade');
-                    const fc = feature.geometry.coordinates;
-                    const marker = new mapboxgl.Marker(el).setLngLat(fc).addTo(map);
-                    wireMarker(el, props, fc);
-                    markers.push(marker);
-                }
-                return;
-            }
-
             paradeRoutes.push({ sourceId, layerId, hitLayerId });
 
             map.addSource(sourceId, {
@@ -1226,7 +1212,10 @@
                     throw new Error('API request failed');
                 }
 
-                const events = await response.json();
+                const allEvents = await response.json();
+                // Keep only Block Party permits — the API occasionally returns other
+                // event types (Sport - Youth, etc.) despite the type filter
+                const events = allEvents.filter(e => (e.event_type || '').toLowerCase() === 'block party');
 
                 // Batch geocode in groups of 15 (GeoSearch is free but be polite)
                 const features = [];
