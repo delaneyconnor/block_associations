@@ -3,7 +3,7 @@ Active Block Associations Geocoder
 
 This script:
 1. Reads and cleans NYC_Block_Associations.csv
-2. Filters for block party events with "association" in the name
+2. Filters for block party events that indicate a block association
 3. Aggregates by LOCATION (not association name) to track all years of block parties
 4. Geocodes using NYC Geoclient Blockface API
 5. Outputs GeoJSON with block party history per location for web mapping
@@ -27,6 +27,21 @@ OUTPUT_GEOJSON = "active_block_associations.geojson"
 
 # Years range for tracking
 ALL_YEARS = list(range(2008, 2026))  # 2008-2025
+
+# Regex to detect block association indicators in event names.
+# Catches: full word, abbreviations (assn/assoc), typos (assaction/assocation),
+# standalone "BA", and acronyms ending in "BA" (PPUABA, LPBA, SOBA, SABA, etc.)
+ASSOC_RE = re.compile(
+    r'\bassociation\b'      # full word
+    r'|\bassoc\.?\b'        # assoc or assoc.
+    r'|\bassn\.?\b'         # assn or assn.
+    r'|\bassocation\b'      # common typo
+    r'|\bassosciation\b'    # another typo
+    r'|\bassaction\b'       # typo seen in data ("ASSACTION")
+    r'|\bba\b'              # standalone BA (e.g. "DEAN STREET BA")
+    r'|\b\w{2,}ba\b',       # acronyms ending in BA (PPUABA, LPBA, SOBA, CSBA, etc.)
+    re.IGNORECASE
+)
 
 
 def clean_street_prefix(street_name):
@@ -280,7 +295,7 @@ def clean_and_aggregate_by_location(input_file):
                 continue
 
             # Track if this location has an association event
-            if 'association' in event_name:
+            if ASSOC_RE.search(event_name):
                 association_locations.add(location_key)
 
             all_block_parties.append((row, location_key))

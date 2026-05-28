@@ -664,10 +664,13 @@
         // "Potion Collective"). Legitimate orgs using those words almost always also have
         // a stronger keyword like 'association' or 'council'.
         const ASSOC_REQUIRED = [
-            'association', 'assoc', 'block club', 'neighbors', 'neighbour', 'neighbor',
+            'association', 'assoc', 'assn', 'block club', 'neighbors', 'neighbour', 'neighbor',
             'tenant', 'residents', 'houses', 'council', 'coalition', 'civic',
             'committee', 'co-op', 'cooperative', 'alliance', 'union'
         ];
+
+        // Regex for BA acronyms (PPUABA, LPBA, SOBA, etc.) — can't be caught by word-boundary keywords alone
+        const BA_ACRONYM_RE = /\bba\b|\b\w{2,}ba\b/i;
 
         // Keywords used to pick the best display name (broader, includes league for civic leagues etc.)
         const ASSOC_KEYWORDS = [
@@ -1072,8 +1075,8 @@
                 allFeatures = (geojson.features || []).filter(f => {
                     let names = f.properties.all_event_names || [];
                     if (typeof names === 'string') { try { names = JSON.parse(names); } catch(e) { names = []; } }
-                    // Only include locations where at least one event name contains a genuine association keyword
-                    return names.some(n => hasKeyword(n, ASSOC_REQUIRED));
+                    // Include if any event name has a keyword OR a BA acronym pattern
+                    return names.some(n => hasKeyword(n, ASSOC_REQUIRED) || BA_ACRONYM_RE.test(n));
                 });
 
                 // Populate community board dropdown
