@@ -111106,11 +111106,8268 @@
           "matched"
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.891214,
+          40.665177
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Wyona Street",
+        "all_event_names": [
+          "Residents of Wyona Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Wyona Street between Dumont Street and Livonia Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "09/13/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.874351,
+          40.675052
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Crystal Street",
+        "all_event_names": [
+          "Residents of Crystal Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Crystal Street between Pitkin Avenue and Glenmore Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "09/13/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.826848,
+          40.685838
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 116th Street",
+        "all_event_names": [
+          "Residents of 116th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "116th Street between Liberty Avenue and 103rd Street",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0164805,
+          40.644267
+        ]
+      },
+      "properties": {
+        "association_name": "55th Street Block Assoc.",
+        "all_event_names": [
+          "55th Street Association",
+          "55th Street Block Assoc."
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "55 STREET between 4 AVENUE and 3 AVENUE",
+        "community_board": "7",
+        "police_precinct": "72",
+        "last_event_date": "10/30/2021 12:00:00 PM",
+        "total_block_parties": 3,
+        "years_active": [
+          2016,
+          2021
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2017,
+          2018,
+          2019,
+          2020,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2016,
+        "last_year": 2021,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.803984,
+          40.774191
+        ]
+      },
+      "properties": {
+        "association_name": "25th Drive Block Association",
+        "all_event_names": [
+          "25th Drive Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "25th Drive between 160th Street and 163d Street",
+        "community_board": "N/A",
+        "police_precinct": "109",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.161423,
+          40.6134675
+        ]
+      },
+      "properties": {
+        "association_name": "Lander Avenue Block Association",
+        "all_event_names": [
+          "Lander Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Lander Avenue between Arlene Street and Richmond Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "122",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.939261,
+          40.671034
+        ]
+      },
+      "properties": {
+        "association_name": "St.Johns Block Association",
+        "all_event_names": [
+          "St.Johns Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "St.Johns Place between Albany Avenue and Kington Street",
+        "community_board": "N/A",
+        "police_precinct": "77",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.753488,
+          40.701824
+        ]
+      },
+      "properties": {
+        "association_name": "202 Street Block Association",
+        "all_event_names": [
+          "202 Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "202nd Street between 113th Avenue and Murdock Blvd.",
+        "community_board": "N/A",
+        "police_precinct": "113",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.093675,
+          40.569776
+        ]
+      },
+      "properties": {
+        "association_name": "Baden Place Block Association",
+        "all_event_names": [
+          "Baden Place Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Baden Place between Greeley Avenue and Miller Field",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/12/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.838417,
+          40.672828
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 97th Street",
+        "all_event_names": [
+          "97th Street Block Party",
+          "97th Street Day Together",
+          "Residents of 97th Street"
+        ],
+        "all_event_names_count": 3,
+        "event_borough": "Queens",
+        "event_location": "97 STREET between 149 AVENUE and PITKIN AVENUE",
+        "community_board": "10",
+        "police_precinct": "106",
+        "last_event_date": "08/15/2009 09:00:00 AM",
+        "total_block_parties": 4,
+        "years_active": [
+          2009,
+          2010,
+          2012,
+          2013
+        ],
+        "years_inactive": [
+          2008,
+          2011,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2013,
+        "years_active_count": 4,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.793696,
+          40.680187
+        ]
+      },
+      "properties": {
+        "association_name": "147 street block association",
+        "all_event_names": [
+          "147 street block association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "117-18 147 STREET between FOCH BLVD and 119 STREET",
+        "community_board": "12",
+        "police_precinct": "113",
+        "last_event_date": "08/27/2016 11:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2016
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2016,
+        "last_year": 2016,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.217679,
+          40.540131
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Claypit Road",
+        "all_event_names": [
+          "Residents of Claypit Road"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Claypit Road between Bloomingdale Road and Veterans Road*",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.167532,
+          40.611688
+        ]
+      },
+      "properties": {
+        "association_name": "Nadal Place Block Party Association",
+        "all_event_names": [
+          "Nadal Place Block Party Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Nadal Place between Commerce Street and Fieldstone Avenue",
+        "community_board": "N/A",
+        "police_precinct": "122",
+        "last_event_date": "09/13/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.938546,
+          40.680857
+        ]
+      },
+      "properties": {
+        "association_name": "Albany Decatur Annual Block Association",
+        "all_event_names": [
+          "Albany Decatur Annual Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Albany Avenue between Decatur and Fulton Streets",
+        "community_board": "N/A",
+        "police_precinct": "79",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.827738,
+          40.685743
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 115th Street",
+        "all_event_names": [
+          "Residents of 115th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "115th Street between 103d Avenue and Liberty Avenue",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.748236,
+          40.729903
+        ]
+      },
+      "properties": {
+        "association_name": "Sawyer Avenue Block Association",
+        "all_event_names": [
+          "Sawyer Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Sawyer Avenue between 216th Street and 218th Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/28/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.857954,
+          40.702882
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 88th Place",
+        "all_event_names": [
+          "Residents of 88th Place"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "88th Place  between  Myrtle Avenue and Forest Park",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.98982699999999,
+          40.6950255
+        ]
+      },
+      "properties": {
+        "association_name": "84TH PRECINCT COMMUNITY COUNCIL BLOCK PARTY",
+        "all_event_names": [
+          "84TH PRECINCT COMMUNITY COUNCIL BLOCK PARTY",
+          "Tastes of Brooklyn"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "JOHNSON STREET between ADAMS STREET and CADMAN PLAZA WEST",
+        "community_board": "2",
+        "police_precinct": "84",
+        "last_event_date": "10/31/2014 12:00:00 PM",
+        "total_block_parties": 3,
+        "years_active": [
+          2012,
+          2014
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2013,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2012,
+        "last_year": 2014,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.818677,
+          40.683251
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 109th Avenue",
+        "all_event_names": [
+          "Residents of 109th Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "123rd Street between 109 Ave and 107 Ave on 123 street",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.839753,
+          40.578961
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Beach 119th Street",
+        "all_event_names": [
+          "Residents of Beach 119th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Beach 119th Street between Neponsit Avenue and Rockaway Beach Blvd",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/28/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.210784,
+          40.548785
+        ]
+      },
+      "properties": {
+        "association_name": "Balsam Place Residents",
+        "all_event_names": [
+          "Balsam Place Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Balsam Place between Gervil Avenue and Rossville Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.018654,
+          40.6455785
+        ]
+      },
+      "properties": {
+        "association_name": "55th Street Residents",
+        "all_event_names": [
+          "55th Street Residents",
+          "Block Party",
+          "block party"
+        ],
+        "all_event_names_count": 3,
+        "event_borough": "Brooklyn",
+        "event_location": "55 STREET between 3 AVENUE and 2 AVENUE",
+        "community_board": "7",
+        "police_precinct": "72",
+        "last_event_date": "09/17/2016 11:00:00 AM",
+        "total_block_parties": 3,
+        "years_active": [
+          2013,
+          2015,
+          2016
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2014,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2013,
+        "last_year": 2016,
+        "years_active_count": 3,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7570975,
+          40.7318435
+        ]
+      },
+      "properties": {
+        "association_name": "Hollis Hills Civic Association",
+        "all_event_names": [
+          "Hollis Hills Civic Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "82nd Avenue  between 212th Street and 214th Street.*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/08/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.984842,
+          40.645106999999996
+        ]
+      },
+      "properties": {
+        "association_name": "Chester Minna Association",
+        "all_event_names": [
+          "Chester Minna Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Chester Avenue between Fort Hamilton Parkway and 12th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "66",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.839605,
+          40.781692
+        ]
+      },
+      "properties": {
+        "association_name": "129 Street Block Association",
+        "all_event_names": [
+          "129 Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "129th Street between 20th Avenue and 22nd Avenue",
+        "community_board": "N/A",
+        "police_precinct": "109",
+        "last_event_date": "08/31/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.892578,
+          40.677901
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Miller Avenue Block Party",
+        "all_event_names": [
+          "Residents of Miller Avenue Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Miller Avenue between Arlington Street and Fulton Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/10/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.850164,
+          40.834356
+        ]
+      },
+      "properties": {
+        "association_name": "Glebe Avenue Block Association",
+        "all_event_names": [
+          "Glebe Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Glebe Avenue between Westchester Avenue and Doris Avenue",
+        "community_board": "N/A",
+        "police_precinct": "45",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.843786,
+          40.787973
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 124th Street",
+        "all_event_names": [
+          "Residents of 124th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "124th Street between 109th Avenue and 11th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.010446,
+          40.641535
+        ]
+      },
+      "properties": {
+        "association_name": "6th Avenue Residents",
+        "all_event_names": [
+          "6th Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "6th Avenue between 53d Street and 54th Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.964813,
+          40.753314
+        ]
+      },
+      "properties": {
+        "association_name": "Beekman Place Association Holiday Caroling Party",
+        "all_event_names": [
+          "Beekman Place Association Holiday Caroling Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Manhattan",
+        "event_location": "EAST 50TH STREET between BEEKMAN PLACE and FDR DRIVE",
+        "community_board": "6",
+        "police_precinct": "17",
+        "last_event_date": "12/14/2025 05:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "first_year": 2025,
+        "last_year": 2025,
+        "years_active_count": 1,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0192265,
+          40.645021
+        ]
+      },
+      "properties": {
+        "association_name": "546th Street Residents",
+        "all_event_names": [
+          "546th Street Residents",
+          "56th Street Residents"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "56th Street between 2nd Avenue and 3rd Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "09/13/2008 12:00:00 AM",
+        "total_block_parties": 3,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.910886,
+          40.685368
+        ]
+      },
+      "properties": {
+        "association_name": "Decatur St. Prayer Band Association",
+        "all_event_names": [
+          "Decatur St. Prayer Band Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Decatur Street between Broadway Avenue and Bushwick Avenue",
+        "community_board": "N/A",
+        "police_precinct": "83",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.156707,
+          40.558673
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Doane Avenue",
+        "all_event_names": [
+          "Residents of Doane Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Doane Avenue between Barlow Avenue and Gurly Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.153214,
+          40.615896
+        ]
+      },
+      "properties": {
+        "association_name": "Willow Road West Block Association",
+        "all_event_names": [
+          "Willow Road West Block Association",
+          "willow rd west block party"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Staten Island",
+        "event_location": "WILLOW RD WEST between WEST CASWELL AVE and SUMMER AVE",
+        "community_board": "1",
+        "police_precinct": "120",
+        "last_event_date": "07/22/2023 01:30:00 PM",
+        "total_block_parties": 2,
+        "years_active": [
+          2008,
+          2023
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2023,
+        "years_active_count": 2,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.134238,
+          40.554343
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Kelvin Avenue",
+        "all_event_names": [
+          "Residents of Kelvin Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Kelvin Avenue between Hylan Boulevard and Durant Avenue.*",
+        "community_board": "N/A",
+        "police_precinct": "122",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.930634,
+          40.598973
+        ]
+      },
+      "properties": {
+        "association_name": "Stuart Street Block Assoc.",
+        "all_event_names": [
+          "Stuart Street Block Assoc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Stuart Street  between  Whitney Avenue and Avenue A.*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/12/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.810807,
+          40.687921
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 107th Avenue",
+        "all_event_names": [
+          "Residents of 107th Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "107th  Avenue  between 3rd Street and 134th Street.*",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "05/31/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.936437,
+          40.612069
+        ]
+      },
+      "properties": {
+        "association_name": "34th Street Block Residents",
+        "all_event_names": [
+          "34th Street Block Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "East 34th Street between Filmore Avenue and Avenue R",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/16/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.937739,
+          40.629914
+        ]
+      },
+      "properties": {
+        "association_name": "East 40th Street Block Association Block Party",
+        "all_event_names": [
+          "Block Party",
+          "East 40 Street",
+          "East 40th Street Block Assoc.",
+          "East 40th Street Block Association Block Party"
+        ],
+        "all_event_names_count": 4,
+        "event_borough": "Brooklyn",
+        "event_location": "EAST   40 STREET between AVENUE H and AVENUE I",
+        "community_board": "18",
+        "police_precinct": "63",
+        "last_event_date": "08/23/2025 12:00:00 PM",
+        "total_block_parties": 7,
+        "years_active": [
+          2009,
+          2010,
+          2011,
+          2019,
+          2023,
+          2024,
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2020,
+          2021,
+          2022
+        ],
+        "first_year": 2009,
+        "last_year": 2025,
+        "years_active_count": 7,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.180564,
+          40.554658
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Woehrle Avenue",
+        "all_event_names": [
+          "Residents of Woehrle Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Woehrle Avenue between Lorring Avenue and Waring Avenue",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.805458,
+          40.756473
+        ]
+      },
+      "properties": {
+        "association_name": "International Block Party Assoc.",
+        "all_event_names": [
+          "International Block Party Assoc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "161st Street between 43rd and 45th  Avenues*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9294525,
+          40.684900999999996
+        ]
+      },
+      "properties": {
+        "association_name": "Hancock Street Community Bloc Association",
+        "all_event_names": [
+          "Hancock Street Community Bloc Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "HANCOCK STREET between STUYVESANT AVENUE and PATCHEN AVENUE",
+        "community_board": "3",
+        "police_precinct": "81",
+        "last_event_date": "07/22/2012 10:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2012
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2012,
+        "last_year": 2012,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.952828,
+          40.708973
+        ]
+      },
+      "properties": {
+        "association_name": "Dominica Assoc.",
+        "all_event_names": [
+          "Dominica Assoc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Hooper Street between South 3rd and South 4th Streets",
+        "community_board": "N/A",
+        "police_precinct": "90",
+        "last_event_date": "08/10/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0067825,
+          40.7251095
+        ]
+      },
+      "properties": {
+        "association_name": "Tribute to Guy Warren/Ghanaba",
+        "all_event_names": [
+          "Tribute to Guy Warren/Ghanaba"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Manhattan",
+        "event_location": "DOMINICK STREET between HUDSON STREET and VARICK STREET",
+        "community_board": "2",
+        "police_precinct": "1",
+        "last_event_date": "06/21/2009 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2009
+        ],
+        "years_inactive": [
+          2008,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2009,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.017053,
+          40.6437095
+        ]
+      },
+      "properties": {
+        "association_name": "56 th st residents",
+        "all_event_names": [
+          "56 th st residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "56 STREET between 3 AVENUE and 4 AVENUE",
+        "community_board": "7",
+        "police_precinct": "72",
+        "last_event_date": "10/31/2015 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2015
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2015,
+        "last_year": 2015,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7556,
+          40.681712
+        ]
+      },
+      "properties": {
+        "association_name": "Grayson Street Block Association",
+        "all_event_names": [
+          "Grayson Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Grayson Street between Williamson Avenue and Nashville Avenue",
+        "community_board": "N/A",
+        "police_precinct": "113",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.88399,
+          40.669441
+        ]
+      },
+      "properties": {
+        "association_name": "Residents ofAshford Street",
+        "all_event_names": [
+          "Residents ofAshford Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Ashford Street between Blake Avenue and Dumont Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.90625800000001,
+          40.6597555
+        ]
+      },
+      "properties": {
+        "association_name": "Tilden House Tenants Association",
+        "all_event_names": [
+          "Tilden House Tenants Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Newport Street between Rockaway Avenue and Mother Gaston Boulevard",
+        "community_board": "N/A",
+        "police_precinct": "73",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.933977,
+          40.692624
+        ]
+      },
+      "properties": {
+        "association_name": "Kosciosko Street Block Association Togetherness",
+        "all_event_names": [
+          "Kosciosko Street Block Association Togetherness"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Kosciusko Street between Lewis and Stuyvestant Avenue",
+        "community_board": "N/A",
+        "police_precinct": "81",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.870947,
+          40.690502
+        ]
+      },
+      "properties": {
+        "association_name": "Concerned Residents of Lincoln Avenue",
+        "all_event_names": [
+          "Concerned Residents of Lincoln Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Lincoln Avenue  between  Janaica Avenue and Atna Street.",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9582765,
+          40.629177
+        ]
+      },
+      "properties": {
+        "association_name": "855 Tenants Association Block Party",
+        "all_event_names": [
+          "855 Tenants Association Block Party",
+          "Block Party"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "EAST   19 STREET between AVENUE H and AVENUE I",
+        "community_board": "14",
+        "police_precinct": "70",
+        "last_event_date": "09/15/2012 09:00:00 AM",
+        "total_block_parties": 6,
+        "years_active": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2024,
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023
+        ],
+        "first_year": 2011,
+        "last_year": 2025,
+        "years_active_count": 6,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.913891,
+          40.68708
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Halsey Street",
+        "all_event_names": [
+          "Residents of Halsey Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Halsey Street between Broadway Avenue and Bushwick Avenue",
+        "community_board": "N/A",
+        "police_precinct": "83",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.021001,
+          40.645173
+        ]
+      },
+      "properties": {
+        "association_name": "57th Street Residents",
+        "all_event_names": [
+          "57th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "57th Street between 2nd Avenue and 3d Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.924784,
+          40.677103
+        ]
+      },
+      "properties": {
+        "association_name": "Buffalo Block Association",
+        "all_event_names": [
+          "Buffalo Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Buffalo Avenue  between  Atlantic Avenue and Pacific Avenue.",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.880224,
+          40.664856
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Hegeman Avenue",
+        "all_event_names": [
+          "Residents of Hegeman Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Hegeman Avenue between Cleveland Avenue and Elton Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/28/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.822974,
+          40.83718
+        ]
+      },
+      "properties": {
+        "association_name": "Ellsworth Ave Block Association",
+        "all_event_names": [
+          "Ellsworth Ave Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Ellsworth Avenue between Baisley Avenue and Fairmont Avenue",
+        "community_board": "N/A",
+        "police_precinct": "45",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.869445,
+          40.673145
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Crescent Street",
+        "all_event_names": [
+          "Residents of Crescent Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Cescent Street between Sutter Avenue and Bellmont",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.752192,
+          40.715792
+        ]
+      },
+      "properties": {
+        "association_name": "209th Street Block Association",
+        "all_event_names": [
+          "209th Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "209th Street between 93d Avenue and 94th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.91892100000001,
+          40.709274
+        ]
+      },
+      "properties": {
+        "association_name": "UNRA Block Association",
+        "all_event_names": [
+          "Starr Street Block Party",
+          "UNRA Block Association"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Queens",
+        "event_location": "STARR STREET between CYPRESS AVENUE and ONDERDONK AVENUE",
+        "community_board": "4, 5",
+        "police_precinct": "104, 83",
+        "last_event_date": "07/25/2009 08:00:00 AM",
+        "total_block_parties": 2,
+        "years_active": [
+          2008,
+          2009
+        ],
+        "years_inactive": [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2009,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.886897,
+          40.753538
+        ]
+      },
+      "properties": {
+        "association_name": "Towers Co-Op Garden Committee",
+        "all_event_names": [
+          "Towers Co-Op Garden Committee"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "34th  Avenue  between  80th Street and 81st Street.   (SIDEWALK  ONLY).",
+        "community_board": "N/A",
+        "police_precinct": "115",
+        "last_event_date": "05/10/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.971337,
+          40.797816
+        ]
+      },
+      "properties": {
+        "association_name": "100th Street Block Association Block Party",
+        "all_event_names": [
+          "100th Street Block Association Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Manhattan",
+        "event_location": "100th Street between Riverside Drive and West End Avenue",
+        "community_board": "N/A",
+        "police_precinct": "24",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.132289,
+          40.62033
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Wardwell Avenue Block Party",
+        "all_event_names": [
+          "Residents of Wardwell Avenue Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Wardwell Ave between Maine Ave and Maine Blvd",
+        "community_board": "N/A",
+        "police_precinct": "120",
+        "last_event_date": "09/20/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.208756,
+          40.537741
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Sheldon Avenue",
+        "all_event_names": [
+          "Residents of Sheldon Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Sheldon Avenue between Lenevar Avenue and McGuire Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.850891,
+          40.714736
+        ]
+      },
+      "properties": {
+        "association_name": "Home School Assoc. (Our Lady of Mercy School)",
+        "all_event_names": [
+          "Home School Assoc. (Our Lady of Mercy School)"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Juno Street  between  70th Avenue and 71st Avenue.*  (FAMILY DAY)",
+        "community_board": "N/A",
+        "police_precinct": "112",
+        "last_event_date": "06/08/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.8829535,
+          40.8812295
+        ]
+      },
+      "properties": {
+        "association_name": "Downtown Visiting Neighbors (BFVN)- Jerome Avenue Festival",
+        "all_event_names": [
+          "Downtown Visiting Neighbors (BFVN)- Jerome Avenue Festival",
+          "JEROME GUNHILL BID JEROME AVENUE FESTIVAL"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Bronx",
+        "event_location": "JEROME AVENUE between MOSHOLU PARKWAY and GUN HILL ROAD",
+        "community_board": "7",
+        "police_precinct": "52",
+        "last_event_date": "09/26/2009 11:00:00 AM",
+        "total_block_parties": 2,
+        "years_active": [
+          2009,
+          2010
+        ],
+        "years_inactive": [
+          2008,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2010,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.888803,
+          40.833738
+        ]
+      },
+      "properties": {
+        "association_name": "Union Grove Baptist Church",
+        "all_event_names": [
+          "Union Grove Baptist Church"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "172nd between Jennings Street and Hoe Avenue",
+        "community_board": "N/A",
+        "police_precinct": "42",
+        "last_event_date": "08/16/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.958003,
+          40.710864
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of South 3rd Street Block Party",
+        "all_event_names": [
+          "Residents of South 3rd Street Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "SOUTH    3 STREET between HAVEMEYER STREET and MARCY AVENUE",
+        "community_board": "1",
+        "police_precinct": "90",
+        "last_event_date": "08/15/2009 09:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2009
+        ],
+        "years_inactive": [
+          2008,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2009,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.828957,
+          40.789681
+        ]
+      },
+      "properties": {
+        "association_name": "Malba Residents Block party",
+        "all_event_names": [
+          "Malba Residents Block party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "BOULEVARD between MALBA DRIVE and CENTER DRIVE",
+        "community_board": "7",
+        "police_precinct": "109",
+        "last_event_date": "09/10/2023 09:30:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2023
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2024,
+          2025
+        ],
+        "first_year": 2023,
+        "last_year": 2023,
+        "years_active_count": 1,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.160105,
+          40.55154
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Katan Avenue",
+        "all_event_names": [
+          "Residents of Katan Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Katan Avenue between Armstrong Avenue and Courtelyou Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "122",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.83316350000001,
+          40.888958
+        ]
+      },
+      "properties": {
+        "association_name": "Harper Avenue Block Association Block Party",
+        "all_event_names": [
+          "Family Day",
+          "HARPER AVENUE BLOCK ASSOCIATION PARTY",
+          "Harper Avenue Block Association",
+          "Harper Avenue Block Association Block Party"
+        ],
+        "all_event_names_count": 4,
+        "event_borough": "Bronx",
+        "event_location": "HARPER AVENUE between EAST  233 STREET and GARRETT PLACE",
+        "community_board": "12",
+        "police_precinct": "47",
+        "last_event_date": "08/21/2010 09:00:00 AM",
+        "total_block_parties": 8,
+        "years_active": [
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2010,
+        "last_year": 2017,
+        "years_active_count": 8,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.922951,
+          40.6911
+        ]
+      },
+      "properties": {
+        "association_name": "Goodwin Place Block Association",
+        "all_event_names": [
+          "Goodwin Place Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Goodwin Place between Grove Street and Greene Street",
+        "community_board": "N/A",
+        "police_precinct": "83",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.845971,
+          40.673942
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Sitka Street",
+        "all_event_names": [
+          "Residents of Sitka Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Sitka Street between Desarc Road and Gold*",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.954467,
+          40.691018
+        ]
+      },
+      "properties": {
+        "association_name": "Spencer Street Block Association",
+        "all_event_names": [
+          "Spencer Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Spencer Street between Dekalb Avenue and Willoughby Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.836318,
+          40.674903
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Peconic Street",
+        "all_event_names": [
+          "Residents of Peconic Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Peconic Street between Centreville Street and 133d Street",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.821004,
+          40.792743
+        ]
+      },
+      "properties": {
+        "association_name": "8th Avenue Block Party Association",
+        "all_event_names": [
+          "8th Avenue Block Party Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "8th Avenue between 147th Street and Whitestone Expressway SR",
+        "community_board": "N/A",
+        "police_precinct": "109",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.838157,
+          40.686497
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 105th Street",
+        "all_event_names": [
+          "Residents of 105th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "105th Street between 101 Avenue and 103 Avneue",
+        "community_board": "N/A",
+        "police_precinct": "102",
+        "last_event_date": "10/25/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.908466,
+          40.777961
+        ]
+      },
+      "properties": {
+        "association_name": "Astoria Restoration Assoc.  (FLEA MARKET)",
+        "all_event_names": [
+          "Astoria Restoration Assoc.  (FLEA MARKET)"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "31st Street between  21st Avenue and Ditmas Blvd.  (ASTORIA SPRING FESTIVAL/FLEA MARKET)",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "05/18/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.807844,
+          40.733833
+        ]
+      },
+      "properties": {
+        "association_name": "Electchester Street Fair Committee",
+        "all_event_names": [
+          "Electchester Street Fair Committee"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "161st  Street  between  160th Street and 162nd Street.*",
+        "community_board": "N/A",
+        "police_precinct": "107",
+        "last_event_date": "06/08/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.928573,
+          40.680498
+        ]
+      },
+      "properties": {
+        "association_name": "Chauncey Street Block Association",
+        "all_event_names": [
+          "Chauncey Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Chauncey Street between Avenue and Malcolm X Blvd",
+        "community_board": "N/A",
+        "police_precinct": "81",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.009089,
+          40.649822
+        ]
+      },
+      "properties": {
+        "association_name": "44th Street Residents",
+        "all_event_names": [
+          "44th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "44th Street between 3d Avenue and 4th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.924056,
+          40.591874
+        ]
+      },
+      "properties": {
+        "association_name": "Gotham Avenue Residents",
+        "all_event_names": [
+          "Gotham Ave  Block Party",
+          "Gotham Avenue Residents"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "79 GOTHAM AVENUE between GERRITSEN AVENUE and FANE COURT",
+        "community_board": "15, 18",
+        "police_precinct": "61, 63",
+        "last_event_date": "08/09/2025 01:00:00 PM",
+        "total_block_parties": 2,
+        "years_active": [
+          2008,
+          2025
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "first_year": 2008,
+        "last_year": 2025,
+        "years_active_count": 2,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.777195,
+          40.754396
+        ]
+      },
+      "properties": {
+        "association_name": "204th street Neighbors",
+        "all_event_names": [
+          "204th street Neighbors"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "204 STREET between 47TH RD and 47TH AVE",
+        "community_board": "11",
+        "police_precinct": "111",
+        "last_event_date": "08/03/2024 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2024
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2025
+        ],
+        "first_year": 2024,
+        "last_year": 2024,
+        "years_active_count": 1,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.789238,
+          40.7772715
+        ]
+      },
+      "properties": {
+        "association_name": "23 avenue blosk assoc.",
+        "all_event_names": [
+          "23 avenue blosk assoc.",
+          "23rd Ave Block Party"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Queens",
+        "event_location": "23 AVENUE between 202 STREET and 205 STREET",
+        "community_board": "7",
+        "police_precinct": "109",
+        "last_event_date": "08/22/2009 08:00:00 AM",
+        "total_block_parties": 2,
+        "years_active": [
+          2009,
+          2010
+        ],
+        "years_inactive": [
+          2008,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2010,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.12818,
+          40.568636
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Shadow Lane",
+        "all_event_names": [
+          "Residents of Shadow Lane"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Shadow Lane between Ambers Street and East Broadway*",
+        "community_board": "N/A",
+        "police_precinct": "122",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.16560799999999,
+          40.5588805
+        ]
+      },
+      "properties": {
+        "association_name": "Ridgewood Residents Block Party",
+        "all_event_names": [
+          "Ridgewood Residents Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "RIDGEWOOD AVENUE between ARTHUR KILL ROAD and BARLOW AVENUE",
+        "community_board": "3",
+        "police_precinct": "122",
+        "last_event_date": "07/25/2009 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2009
+        ],
+        "years_inactive": [
+          2008,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2009,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.779535,
+          40.760711
+        ]
+      },
+      "properties": {
+        "association_name": "205th Street Neighbors",
+        "all_event_names": [
+          "205th Street Neighbors"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "205th Street between 42nd Avenue and Long Island Rail Road",
+        "community_board": "N/A",
+        "police_precinct": "111",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9809335,
+          40.761745
+        ]
+      },
+      "properties": {
+        "association_name": "MIDTOWN NORTH COMMUNITY COUNCIL BIRTHDAY BLOCK PARTY",
+        "all_event_names": [
+          "HOLY INNOCENTS CHURCH  RESTORATION BLOCK PARTY",
+          "MIDTOWN NORTH COMMUNITY COUNCIL BIRTHDAY BLOCK PARTY",
+          "NATIONAL ETHNIC COALITION OF ORG.  BLOCK PARTY"
+        ],
+        "all_event_names_count": 3,
+        "event_borough": "Manhattan",
+        "event_location": "WEST   52 STREET between 7 AVENUE and 6 AVENUE",
+        "community_board": "5",
+        "police_precinct": "18",
+        "last_event_date": "09/14/2014 11:00:00 AM",
+        "total_block_parties": 10,
+        "years_active": [
+          2013,
+          2014,
+          2015,
+          2016
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2013,
+        "last_year": 2016,
+        "years_active_count": 4,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.907125,
+          40.68323
+        ]
+      },
+      "properties": {
+        "association_name": "Granite Block Association",
+        "all_event_names": [
+          "Granite Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Granite Street between Bushwick Avenue and Broadway Avenue",
+        "community_board": "N/A",
+        "police_precinct": "83",
+        "last_event_date": "08/24/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.91926000000001,
+          40.646682999999996
+        ]
+      },
+      "properties": {
+        "association_name": "Ditmas Square BA Block Party",
+        "all_event_names": [
+          "Block Clean Up",
+          "Block party",
+          "Ditmas Square BA Block Party"
+        ],
+        "all_event_names_count": 3,
+        "event_borough": "Brooklyn",
+        "event_location": "COVENTRY ROAD between BRANTON STREET and EAST   86 STREET",
+        "community_board": "17",
+        "police_precinct": "67",
+        "last_event_date": "08/21/2010 08:00:00 AM",
+        "total_block_parties": 3,
+        "years_active": [
+          2010,
+          2014
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2011,
+          2012,
+          2013,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2010,
+        "last_year": 2014,
+        "years_active_count": 2,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.820221,
+          40.791298
+        ]
+      },
+      "properties": {
+        "association_name": "10th Avenue Block Association",
+        "all_event_names": [
+          "10th Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "10th Avenue between Whitestone Expressway Service Road and 147th Street",
+        "community_board": "N/A",
+        "police_precinct": "109",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.879207,
+          40.663491
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Elton Street",
+        "all_event_names": [
+          "Residents of Elton Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Elton Street between  Linden Blvd and Hegeman Street.",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/12/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.014324,
+          40.64479
+        ]
+      },
+      "properties": {
+        "association_name": "53rd Street Residents",
+        "all_event_names": [
+          "53rd Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "53rd Street between 3rd and 4th Avenues",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/16/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.873266,
+          40.840222
+        ]
+      },
+      "properties": {
+        "association_name": "Civic Alert Corps of Subsidiary D.Y.D. Home Inc.",
+        "all_event_names": [
+          "Civic Alert Corps of Subsidiary D.Y.D. Home Inc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Lenanon St. between Morris Park Ave. and Bronx Park",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/31/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.016882,
+          40.645427
+        ]
+      },
+      "properties": {
+        "association_name": "54th Street Residents Block Party",
+        "all_event_names": [
+          "54th Street Residents Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "54th between 2nd and 3rd Avenues",
+        "community_board": "N/A",
+        "police_precinct": "72",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9997965,
+          40.6569875
+        ]
+      },
+      "properties": {
+        "association_name": "30th Street Residents",
+        "all_event_names": [
+          "30th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "30th Street between 4th Ave and 5th Ave",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.922186,
+          40.815222
+        ]
+      },
+      "properties": {
+        "association_name": "Tenant Patrol Appreciation Day",
+        "all_event_names": [
+          "Tenant Patrol Appreciation Day"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "145th Street between 3d Avenue and College Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.069148,
+          40.618187
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Lynhurst Avenue Block Party",
+        "all_event_names": [
+          "Residents of Lynhurst Avenue Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Lynhurst Ave between Anderson Avenue and Bay Street",
+        "community_board": "N/A",
+        "police_precinct": "120",
+        "last_event_date": "10/25/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.913997,
+          40.663393
+        ]
+      },
+      "properties": {
+        "association_name": "Dumont Strauss Herzl Block Association",
+        "all_event_names": [
+          "Dumont Strauss Herzl Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Dumont Ave.  between Herzl and Strauss Streets",
+        "community_board": "N/A",
+        "police_precinct": "73",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.928684,
+          40.665086
+        ]
+      },
+      "properties": {
+        "association_name": "800 Block Association",
+        "all_event_names": [
+          "800 Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Crown Street between Litica and Rochester",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/24/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.821167,
+          40.7888005
+        ]
+      },
+      "properties": {
+        "association_name": "13 Avenue Block Association",
+        "all_event_names": [
+          "13 Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "13th Avenue between 145th Place and 146th Place",
+        "community_board": "N/A",
+        "police_precinct": "109",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.006242,
+          40.649023
+        ]
+      },
+      "properties": {
+        "association_name": "43rd Street Residents",
+        "all_event_names": [
+          "43rd Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "43rd Street between 4th and 5th Avenues",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.936078,
+          40.675334
+        ]
+      },
+      "properties": {
+        "association_name": "Albany House Tenants Association",
+        "all_event_names": [
+          "Albany House Tenants Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Troy Avenue between Bergen Street and Prospect Avenue",
+        "community_board": "N/A",
+        "police_precinct": "77",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9860205,
+          40.7547755
+        ]
+      },
+      "properties": {
+        "association_name": "MIDTOWN SOUTH COMMUNITY COUNCIL BLOCK PARTY",
+        "all_event_names": [
+          "AMERICAN DIABETES BLOCK PARTY",
+          "MIDTOWN SOUTH COMMUNITY BLOCK PARTY",
+          "MIDTOWN SOUTH COMMUNITY COUNCIL BLOCK PARTY"
+        ],
+        "all_event_names_count": 3,
+        "event_borough": "Manhattan",
+        "event_location": "WEST   41 STREET between 6 AVENUE and 7 AVENUE",
+        "community_board": "5",
+        "police_precinct": "14",
+        "last_event_date": "11/16/2013 11:00:00 AM",
+        "total_block_parties": 5,
+        "years_active": [
+          2013,
+          2014,
+          2015,
+          2016,
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "first_year": 2013,
+        "last_year": 2025,
+        "years_active_count": 5,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7810255,
+          40.663041500000006
+        ]
+      },
+      "properties": {
+        "association_name": "Springjam Block Association 1st Annual Block Party",
+        "all_event_names": [
+          "Spring Jam Annual Block Party",
+          "Spring Jam BA Annual Block Party",
+          "Spring Jam in Collaboration with the Gateway JFK IBID Annual Block Party and Community Outreach",
+          "Spring Jam/Gateway JFK Outreach/Back to School Event 2021",
+          "SpringJam Community Giveback and JFK IBID Intorduction",
+          "Springjam Block Association 1st Annual Block Party"
+        ],
+        "all_event_names_count": 6,
+        "event_borough": "Queens",
+        "event_location": "146 AVENUE between 157 STREET and 159 STREET",
+        "community_board": "13",
+        "police_precinct": "105",
+        "last_event_date": "10/30/2021 12:30:00 PM",
+        "total_block_parties": 6,
+        "years_active": [
+          2013,
+          2014,
+          2016,
+          2018,
+          2019,
+          2021
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2015,
+          2017,
+          2020,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2013,
+        "last_year": 2021,
+        "years_active_count": 6,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.115952,
+          40.628231
+        ]
+      },
+      "properties": {
+        "association_name": "Morrison Avenue Residents",
+        "all_event_names": [
+          "Morrison Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Morrison Avenue between Broadway and Bement Avenue",
+        "community_board": "N/A",
+        "police_precinct": "120",
+        "last_event_date": "06/21/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.878594,
+          40.659702
+        ]
+      },
+      "properties": {
+        "association_name": "900 Neighbors Block Association",
+        "all_event_names": [
+          "900 Neighbors Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Ashford Street between Wortman Avenue and Corine Avenue",
+        "community_board": "N/A",
+        "police_precinct": "75",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.8073955,
+          40.6769015
+        ]
+      },
+      "properties": {
+        "association_name": "132nd-lincoln street block association",
+        "all_event_names": [
+          "132nd-lincoln street block association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "132 STREET between LINCOLN STREET and FOCH BOULEVARD",
+        "community_board": "10",
+        "police_precinct": "106",
+        "last_event_date": "06/18/2011 11:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2011
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2011,
+        "last_year": 2011,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.766056,
+          40.758725
+        ]
+      },
+      "properties": {
+        "association_name": "215 Pl. Neighbors",
+        "all_event_names": [
+          "215 Pl. Neighbors"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "215 Place between 46th Avenue and North Blvd.",
+        "community_board": "N/A",
+        "police_precinct": "111",
+        "last_event_date": "10/18/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.878835,
+          40.661536
+        ]
+      },
+      "properties": {
+        "association_name": "Cleveland - Wortman Street Block Association",
+        "all_event_names": [
+          "Cleveland - Wortman Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Cleveland Street between Stanley and Wortman Street",
+        "community_board": "N/A",
+        "police_precinct": "75",
+        "last_event_date": "10/11/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.797331,
+          40.690629
+        ]
+      },
+      "properties": {
+        "association_name": "Glassboro Avenue Block Association",
+        "all_event_names": [
+          "Glassboro Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "Glassboro Avenue between Sutphin and Liverpool Streets",
+        "community_board": "N/A",
+        "police_precinct": "103",
+        "last_event_date": "08/23/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.934981,
+          40.613013
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of East 36th Street",
+        "all_event_names": [
+          "Residents of East 36th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "East 36th Street between Quentin Avenue and Avenue R",
+        "community_board": "N/A",
+        "police_precinct": "63",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1967,
+          40.54595
+        ]
+      },
+      "properties": {
+        "association_name": "Boulder Street Block Association",
+        "all_event_names": [
+          "Boulder Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Boulder Street between Castor Place and Sperry Avenue",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.941285,
+          40.706039
+        ]
+      },
+      "properties": {
+        "association_name": "Borinquen Plaza Tenants Association Inc.",
+        "all_event_names": [
+          "Borinquen Plaza Tenants Association Inc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Humboldt Street  between  Boerum Street and Siegel Street.",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/14/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.241639,
+          40.504832
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Yetman Avenue",
+        "all_event_names": [
+          "Residents of Yetman Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Yetman Avenue between Hylan Boulevard and Clearmont Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9758245,
+          40.757544499999995
+        ]
+      },
+      "properties": {
+        "association_name": "WORLD'S LARGEST BLOCK PARTY AMERICAN DIABETES ASSOC.  St Patrick's Cathedral Fair Co-sponsored",
+        "all_event_names": [
+          "AMERICAN DIABETES ASSOC. - ADA'S THE WORLD'S LARGEST BLOCK PARTY",
+          "WORLD'S LARGEST BLOCK PARTY AMERICAN DIABETES ASSOC.  St Patrick's Cathedral Fair Co-sponsored"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Manhattan",
+        "event_location": "MADISON AVENUE between EAST   42 STREET and EAST   57 STREET",
+        "community_board": "5",
+        "police_precinct": "14, 18",
+        "last_event_date": "11/05/2016 10:00:00 AM",
+        "total_block_parties": 6,
+        "years_active": [
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2016
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2012,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2010,
+        "last_year": 2016,
+        "years_active_count": 6,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.792165,
+          40.750466
+        ]
+      },
+      "properties": {
+        "association_name": "47th Avenue Block Association",
+        "all_event_names": [
+          "47th Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "47th Avenue between Pidgeon Meadow Road and Utopia Parkway",
+        "community_board": "N/A",
+        "police_precinct": "111",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.002869,
+          40.64882
+        ]
+      },
+      "properties": {
+        "association_name": "41st Street Residents",
+        "all_event_names": [
+          "41st Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "41st Street between 5th and 6th Avenues",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/03/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.890692,
+          40.666854
+        ]
+      },
+      "properties": {
+        "association_name": "Bradford Street Block Association",
+        "all_event_names": [
+          "Bradford Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Bradford Street between Livona Avenue and Dumont Avenue",
+        "community_board": "N/A",
+        "police_precinct": "75",
+        "last_event_date": "09/20/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.907061,
+          40.903581
+        ]
+      },
+      "properties": {
+        "association_name": "Riverdale Park Co-op Party",
+        "all_event_names": [
+          "Riverdale Park Co-op Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "5410 NETHERLAND AVENUE between W 254 STREET  and ARLINGTON AVENUE",
+        "community_board": "8",
+        "police_precinct": "50",
+        "last_event_date": "09/02/2019 01:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2019
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2019,
+        "last_year": 2019,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.017815,
+          40.641435
+        ]
+      },
+      "properties": {
+        "association_name": "59th Street Residents",
+        "all_event_names": [
+          "59th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "59th Street between  3rd and 4th Avenues",
+        "community_board": "N/A",
+        "police_precinct": "72",
+        "last_event_date": "09/13/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9364815,
+          40.817214
+        ]
+      },
+      "properties": {
+        "association_name": "Savoy Park Block Association for Children of Chisum Place",
+        "all_event_names": [
+          "Savoy Park Block Association for Children of Chisum Place"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Manhattan",
+        "event_location": "WEST 141ST STREET between 5 AVENUE and LENOX AVENUE",
+        "community_board": "10",
+        "police_precinct": "32",
+        "last_event_date": "08/07/2010 09:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2010
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2010,
+        "last_year": 2010,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.831036,
+          40.682172
+        ]
+      },
+      "properties": {
+        "association_name": "110th Street Residents",
+        "all_event_names": [
+          "110th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "110th Street between 107th Avenue and 109th Street",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.889694,
+          40.633803
+        ]
+      },
+      "properties": {
+        "association_name": "Bayview Houses Residents Assoc.",
+        "all_event_names": [
+          "Bayview Houses Residents Assoc.",
+          "Flea Market"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "Rockaway Parkway between Seaview Avenue and Shore Parkway (SIDEWALK ONLY)",
+        "community_board": "N/A",
+        "police_precinct": "63",
+        "last_event_date": "10/18/2008 12:00:00 AM",
+        "total_block_parties": 2,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.899593,
+          40.714042
+        ]
+      },
+      "properties": {
+        "association_name": "Block Residents",
+        "all_event_names": [
+          "Block Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "62nd Avenue between Freshpond Road and 62nd Street",
+        "community_board": "N/A",
+        "police_precinct": "104",
+        "last_event_date": "10/18/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.99335,
+          40.664954
+        ]
+      },
+      "properties": {
+        "association_name": "17th Street Residents",
+        "all_event_names": [
+          "17th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "17th Street between 3d Avenue and 4th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "72",
+        "last_event_date": "07/12/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.84529549999999,
+          40.8860045
+        ]
+      },
+      "properties": {
+        "association_name": "Edenwald Community Block Party",
+        "all_event_names": [
+          "Edenwald Community Block Party",
+          "Edenwald Family Day",
+          "Edenwald Houses Family Day",
+          "Edenwald community family day"
+        ],
+        "all_event_names_count": 4,
+        "event_borough": "Bronx",
+        "event_location": "EAST  229 STREET between LACONIA AVENUE and SCHIEFFELIN AVENUE",
+        "community_board": "12",
+        "police_precinct": "47",
+        "last_event_date": "08/14/2021 12:00:00 PM",
+        "total_block_parties": 9,
+        "years_active": [
+          2009,
+          2010,
+          2017,
+          2018,
+          2019,
+          2021,
+          2022,
+          2024,
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2020,
+          2023
+        ],
+        "first_year": 2009,
+        "last_year": 2025,
+        "years_active_count": 9,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.999154,
+          40.572811
+        ]
+      },
+      "properties": {
+        "association_name": "O'Dwyers Garden & Tenant Association",
+        "all_event_names": [
+          "O'Dwyers Garden & Tenant Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "West 33rd Street between Surf Avenue and Mermaids Avenue",
+        "community_board": "N/A",
+        "police_precinct": "60",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.754005,
+          40.6698235
+        ]
+      },
+      "properties": {
+        "association_name": "141rd 141 Avenue 222nd Street Block Association Party",
+        "all_event_names": [
+          "141rd 141 Avenue 222nd Street Block Association Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "141st Road between 224th Street and Springfield Boulevard",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/16/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.138997,
+          40.554894
+        ]
+      },
+      "properties": {
+        "association_name": "Redgrave Avenue Residents",
+        "all_event_names": [
+          "Redgrave Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Redgrave Avenue between O'Groman Avenue and South Railroad*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.217854,
+          40.546087
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Malvine Avenue",
+        "all_event_names": [
+          "Residents of Malvine Avenue"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Malvine Avenue between Bloomingdale and Dead End*",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.843217,
+          40.656964
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of 89th Street",
+        "all_event_names": [
+          "Residents of 89th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "89th Street between 160th Avenue and 161st Street*",
+        "community_board": "N/A",
+        "police_precinct": "106",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.771391,
+          40.679856
+        ]
+      },
+      "properties": {
+        "association_name": "Friendship Civic Block Association",
+        "all_event_names": [
+          "Friendship Civic Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "172nd Street between 128th Avenue and 174th Place",
+        "community_board": "N/A",
+        "police_precinct": "113",
+        "last_event_date": "09/06/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.844504,
+          40.86092
+        ]
+      },
+      "properties": {
+        "association_name": "Fenton Avenue Block Party Association",
+        "all_event_names": [
+          "Fenton Avenue Block Party Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Fenton Avenue between Asto and Waring",
+        "community_board": "N/A",
+        "police_precinct": "49",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9313965,
+          40.595927
+        ]
+      },
+      "properties": {
+        "association_name": "Allen Avenue Block Association Annual Block Party",
+        "all_event_names": [
+          "Allen Avenue Block Association Annual Block Party",
+          "Allen Avenue Block Party"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Brooklyn",
+        "event_location": "ALLEN AVENUE between KNAPP STREET and GERRITSEN AVENUE",
+        "community_board": "15",
+        "police_precinct": "61",
+        "last_event_date": "08/21/2010 09:00:00 AM",
+        "total_block_parties": 3,
+        "years_active": [
+          2009,
+          2010,
+          2011
+        ],
+        "years_inactive": [
+          2008,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2011,
+        "years_active_count": 3,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.886897,
+          40.753538
+        ]
+      },
+      "properties": {
+        "association_name": "Towers Co-Op Garden Committee",
+        "all_event_names": [
+          "Towers Co-Op Garden Committee"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "34th Avenue between 80th and 81st Street (SIDEWALK ONLY)",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "10/04/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.101437,
+          40.607451499999996
+        ]
+      },
+      "properties": {
+        "association_name": "Todt Hill Civic Assoc Block Party",
+        "all_event_names": [
+          "Todt Hill Civic Assoc Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "STATEN ISLAND BOULEVARD between ENDOR AVENUE and BEEBE STREET",
+        "community_board": "2",
+        "police_precinct": "122",
+        "last_event_date": "06/15/2013 11:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2013
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2013,
+        "last_year": 2013,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.849675,
+          40.853843
+        ]
+      },
+      "properties": {
+        "association_name": "Narragansett Avenue Residents",
+        "all_event_names": [
+          "Narragansett Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Narragansett Avenue between Rhinelander Avenue and Lakewood Avenue",
+        "community_board": "N/A",
+        "police_precinct": "49",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.82117,
+          40.790034
+        ]
+      },
+      "properties": {
+        "association_name": "11th Avenue Block Association",
+        "all_event_names": [
+          "11th Avenue Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "11TH AVE between MALBA DRIVE and WHITESTONE EXPRESSWAY",
+        "community_board": "7",
+        "police_precinct": "109",
+        "last_event_date": "05/24/2014 01:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2014
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2014,
+        "last_year": 2014,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.169785,
+          40.541379
+        ]
+      },
+      "properties": {
+        "association_name": "Mosely Avenue Residents",
+        "all_event_names": [
+          "Mosely Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Staten Island",
+        "event_location": "Mosely Avenue between Arden Avenue and Bovanizer Avenue*",
+        "community_board": "N/A",
+        "police_precinct": "123",
+        "last_event_date": "07/19/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.931347,
+          40.609747
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of E 36th Street",
+        "all_event_names": [
+          "Residents of E 36th Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "East 36th Street between Avenue S and Filmore Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/17/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.966934,
+          40.674433
+        ]
+      },
+      "properties": {
+        "association_name": "292 stjohns block association",
+        "all_event_names": [
+          "292 stjohns block association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "292 SAINT JOHNS PLACE between GRAND ARMY PLAZA and UNDERHILL AVE",
+        "community_board": "8",
+        "police_precinct": "77",
+        "last_event_date": "07/27/2024 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2024
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2025
+        ],
+        "first_year": 2024,
+        "last_year": 2024,
+        "years_active_count": 1,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.784794,
+          40.689363
+        ]
+      },
+      "properties": {
+        "association_name": "Allen Hall Estates Homeowners Association Annual Party",
+        "all_event_names": [
+          "Allen Hall Estates Homeowners Association Annual Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "O'Donnell Road between Linden Boulevard and Guy Brewer Boulevard",
+        "community_board": "N/A",
+        "police_precinct": "113",
+        "last_event_date": "08/30/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.869563,
+          40.681154
+        ]
+      },
+      "properties": {
+        "association_name": "Residents of Glen Street",
+        "all_event_names": [
+          "Residents of Glen Street"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Glen Street between Cresent Street and Autumn Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/12/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.899183,
+          40.713359499999996
+        ]
+      },
+      "properties": {
+        "association_name": "Block Residents of 62nd Road",
+        "all_event_names": [
+          "Block Residents of 62nd Road"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "62nd Road between 64 Street and Fresh Pond Road.*",
+        "community_board": "N/A",
+        "police_precinct": "104",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.960074,
+          40.674864
+        ]
+      },
+      "properties": {
+        "association_name": "Park Place Block Assoc.",
+        "all_event_names": [
+          "Park Place Block Assoc."
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Park Place between Washington and Classon",
+        "community_board": "N/A",
+        "police_precinct": "77",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.943243,
+          40.694559
+        ]
+      },
+      "properties": {
+        "association_name": "Willoughby Avenue Residents",
+        "all_event_names": [
+          "Willoughby Avenue Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Willoughby Avenue between Throop Avenue and Marcus Gravey Boulevard",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/09/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7333505,
+          40.715901
+        ]
+      },
+      "properties": {
+        "association_name": "99th Avenue Block Party Committee",
+        "all_event_names": [
+          "99th Avenue Block Party Committee"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "99th Avenue between Springfield Boulevard and 222nd Street",
+        "community_board": "N/A",
+        "police_precinct": "105",
+        "last_event_date": "08/02/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.987431,
+          40.683127
+        ]
+      },
+      "properties": {
+        "association_name": "Gawanus R. Council",
+        "all_event_names": [
+          "Gawanus R. Council"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Baltic Street between Hoyt Avenue and Bond Street*",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/07/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.911422,
+          40.75438
+        ]
+      },
+      "properties": {
+        "association_name": "Woodside Houses Family Resource Day",
+        "all_event_names": [
+          "Childrens Day",
+          "Woodside Houses Family Resource Day"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Queens",
+        "event_location": "NEWTOWN ROAD between BROADWAY and NORTHERN BOULEVARD",
+        "community_board": "1",
+        "police_precinct": "114",
+        "last_event_date": "08/21/2011 12:00:00 PM",
+        "total_block_parties": 2,
+        "years_active": [
+          2011,
+          2024
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2025
+        ],
+        "first_year": 2011,
+        "last_year": 2024,
+        "years_active_count": 2,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.949461,
+          40.830962
+        ]
+      },
+      "properties": {
+        "association_name": "600 Block Association Block Party",
+        "all_event_names": [
+          "600 Block Association Block Party"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Manhattan",
+        "event_location": "RIVERSIDE DRIVE between WEST  151 STREET and BROADWAY",
+        "community_board": "12, 9",
+        "police_precinct": "30, 34",
+        "last_event_date": "08/29/2009 09:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2009
+        ],
+        "years_inactive": [
+          2008,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2009,
+        "last_year": 2009,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.903577,
+          40.817577
+        ]
+      },
+      "properties": {
+        "association_name": "Liga la Union",
+        "all_event_names": [
+          "Liga la Union"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Bronx",
+        "event_location": "Union Avenue between 156th Street and Union Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/17/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.828957,
+          40.789681
+        ]
+      },
+      "properties": {
+        "association_name": "Malba Yacht Block Association",
+        "all_event_names": [
+          "Malba Residents Block Party",
+          "Malba Yacht Block Association"
+        ],
+        "all_event_names_count": 2,
+        "event_borough": "Queens",
+        "event_location": "BOULEVARD between MALBA DRIVE and 141 STREET",
+        "community_board": "7",
+        "police_precinct": "109",
+        "last_event_date": "09/18/2011 09:00:00 AM",
+        "total_block_parties": 2,
+        "years_active": [
+          2011
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2011,
+        "last_year": 2011,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.882911,
+          40.659781
+        ]
+      },
+      "properties": {
+        "association_name": "Boulevard Tenant Association",
+        "all_event_names": [
+          "Boulevard Tenant Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "Stanley Avenue between Schenk and Ashford Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.88129699999999,
+          40.660475000000005
+        ]
+      },
+      "properties": {
+        "association_name": "Boulevard Houses Family Day",
+        "all_event_names": [
+          "Block Party",
+          "Boulevard Family Day",
+          "Boulevard Houses Family Day",
+          "Family Day"
+        ],
+        "all_event_names_count": 4,
+        "event_borough": "Brooklyn",
+        "event_location": "STANLEY AVENUE between ASHFORD STREET and SCHENCK AVENUE",
+        "community_board": "5",
+        "police_precinct": "75",
+        "last_event_date": "07/30/2022 12:00:00 PM",
+        "total_block_parties": 11,
+        "years_active": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2014,
+          2018,
+          2019,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2013,
+          2015,
+          2016,
+          2017,
+          2020,
+          2021
+        ],
+        "first_year": 2009,
+        "last_year": 2025,
+        "years_active_count": 11,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.777195,
+          40.754396
+        ]
+      },
+      "properties": {
+        "association_name": "204st Neighbors",
+        "all_event_names": [
+          "204st Neighbors"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Queens",
+        "event_location": "204 STREET between 47 AVENUE and 47TH RD",
+        "community_board": "11",
+        "police_precinct": "111",
+        "last_event_date": "08/02/2025 12:00:00 PM",
+        "total_block_parties": 1,
+        "years_active": [
+          2025
+        ],
+        "years_inactive": [
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "first_year": 2025,
+        "last_year": 2025,
+        "years_active_count": 1,
+        "status": "active",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0188095,
+          40.6420195
+        ]
+      },
+      "properties": {
+        "association_name": "59th Street Residents",
+        "all_event_names": [
+          "59th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "59th Street between 3rd Avenue and 4th Avenue",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "06/28/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.0198135,
+          40.6444555
+        ]
+      },
+      "properties": {
+        "association_name": "57th Street Residents",
+        "all_event_names": [
+          "57th Street Residents"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "57th Street between 2nd Avenue and 3rd Avenue",
+        "community_board": "N/A",
+        "police_precinct": "72",
+        "last_event_date": "07/26/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.937739,
+          40.629914
+        ]
+      },
+      "properties": {
+        "association_name": "East 40th Street Block Association",
+        "all_event_names": [
+          "East 40th Street Block Association"
+        ],
+        "all_event_names_count": 1,
+        "event_borough": "Brooklyn",
+        "event_location": "East 40th Street between Avenue H and Avenue I",
+        "community_board": "N/A",
+        "police_precinct": "N/A",
+        "last_event_date": "08/16/2008 12:00:00 AM",
+        "total_block_parties": 1,
+        "years_active": [
+          2008
+        ],
+        "years_inactive": [
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "first_year": 2008,
+        "last_year": 2008,
+        "years_active_count": 1,
+        "status": "inactive",
+        "flag_reasons": [
+          "matched"
+        ]
+      }
     }
   ],
   "metadata": {
-    "generated": "2026-05-28T15:44:05.742042",
-    "total_locations": 1974,
+    "generated": "2026-05-28T15:57:56.480042",
+    "total_locations": 2132,
     "years_range": "2008-2025",
     "aggregation": "by_location",
     "source": "NYC Open Data - Permitted Event Information",
